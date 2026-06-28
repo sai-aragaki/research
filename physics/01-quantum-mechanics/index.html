@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量子力学概論 ── エネルギーは「飛び飛び」だった</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbfcfb;--paper-2:#f4f7f5;--panel:#f4f7f5;--ink:#2b3a3e;--ink-soft:#46585c;--ink-faint:#74827f;--teal-deep:#4f7c87;--teal:#62B8A0;--teal-wash:#eef6f3;--coral:#eb6584;--coral-wash:#fdeef1;--sand:#B98B2E;--sand-wash:#F5EBD3;--line:#e3e8e4;--line-soft:#eef1ef;--shadow:0 1px 2px rgba(39,53,54,.04),0 10px 34px -18px rgba(39,53,54,.22);--maxw:760px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Noto Sans JP",sans-serif;font-size:15.6px;line-height:1.95;letter-spacing:.01em;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav{position:sticky;top:0;z-index:50;background:rgba(251,252,251,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}
+.brand b{color:var(--coral)}
+.nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.nav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+.nav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+.hero{padding:80px 0 60px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral);display:block;margin-bottom:12px}
+h1.title{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(28px,5vw,42px);line-height:1.35;margin-bottom:18px;color:var(--ink)}
+h1.title .ac{color:var(--teal-deep)}
+.lede{font-size:17px;line-height:1.85;color:var(--ink-soft);margin-bottom:24px;max-width:640px}
+.src-tag{font-size:13.5px;color:var(--ink-faint);line-height:1.7;margin-bottom:32px}
+.src-tag b{color:var(--ink-soft);font-weight:600}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px}
+.stat{background:var(--panel);border-radius:10px;padding:18px 16px;text-align:center}
+.stat .n{font-family:"Noto Serif JP",serif;font-weight:700;font-size:28px;color:var(--teal-deep)}
+.stat .n small{font-size:14px;font-weight:400;color:var(--ink-faint);margin-left:2px}
+.stat .l{font-size:12px;color:var(--ink-faint);margin-top:4px;font-weight:500}
+section{padding:60px 0;border-top:1px solid var(--line-soft)}
+.sec-no{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral)}
+h2{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(24px,4.1vw,32px);line-height:1.42;margin:8px 0 8px}
+.sec-sub{font-size:14.5px;color:var(--ink-faint);font-weight:500;margin:0 0 28px}
+h3{font-family:"Noto Serif JP",serif;font-weight:700;font-size:19px;line-height:1.6;margin:36px 0 12px;color:var(--teal-deep)}
+p{margin-bottom:18px}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(217,84,107,.28) 58%)}
+ul.clean{list-style:none;margin:24px 0}
+ul.clean li{padding:12px 0 12px 22px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8}
+ul.clean li::before{content:'';position:absolute;left:0;top:20px;width:8px;height:8px;background:var(--teal);border-radius:50%}
+ul.clean li b{color:var(--teal-deep)}
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+.dom{background:var(--panel);border-radius:10px;padding:20px 18px}
+.dn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:2px}
+.de{font-size:11.5px;font-weight:500;color:var(--teal-deep);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.dq{font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+.chart-card{background:var(--panel);border-radius:12px;padding:28px 24px;margin:28px 0;box-shadow:var(--shadow)}
+.ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;margin-bottom:4px}
+.cs{font-size:12.5px;color:var(--ink-faint);margin-bottom:18px}
+.bar-row{display:grid;grid-template-columns:120px 1fr 50px;align-items:center;gap:10px;margin-bottom:8px}
+.bar-row.hi .bl{color:var(--coral);font-weight:700}
+.bar-row.hi .bar-fill{background:linear-gradient(90deg,var(--coral),#e8456a)!important}
+.bl{font-size:13px;font-weight:500;color:var(--ink-soft);text-align:right}
+.bar-track{height:22px;background:var(--line-soft);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-deep));border-radius:6px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.bv{font-size:13px;font-weight:600;color:var(--ink)}
+.leg{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
+.leg span{font-size:12px;color:var(--ink-faint);display:flex;align-items:center;gap:5px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.pull{border-left:4px solid var(--coral);background:var(--coral-wash);border-radius:0 10px 10px 0;padding:22px 26px;margin:28px 0}
+.pull p{font-family:"Noto Serif JP",serif;font-size:18px;line-height:1.8;color:var(--ink);margin-bottom:0}
+.pull .attr{font-size:13px;color:var(--ink-faint);margin-top:8px;font-family:"Noto Sans JP",sans-serif}
+.note{border-left:4px solid var(--teal);background:var(--teal-wash);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;font-size:14.5px;line-height:1.8}
+.note .h{font-weight:700;color:var(--teal-deep)}
+.note p{margin-bottom:8px}
+.note p:last-child{margin-bottom:0}
+.note.sand{border-left-color:var(--sand);background:var(--sand-wash)}
+.note.sand .h{color:var(--sand)}
+.insight{border-top:4px solid var(--teal);background:var(--panel);border-radius:0 0 10px 10px;padding:22px 24px;margin:28px 0}
+.ik{font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--teal);text-transform:uppercase}
+.insight h4{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;margin:6px 0 8px;color:var(--ink)}
+.insight p{font-size:14.5px;color:var(--ink-soft);margin-bottom:0;line-height:1.8}
+ul.limit{list-style:none;margin:24px 0}
+ul.limit li{padding:12px 0 12px 32px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8}
+ul.limit li::before{content:'!';position:absolute;left:0;top:14px;width:20px;height:20px;background:var(--sand-wash);color:var(--sand);border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+footer{padding:50px 0;background:var(--paper-2);border-top:1px solid var(--line);text-align:center;font-size:13.5px;color:var(--ink-faint);line-height:1.8}
+.timeline{margin:28px 0;position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:22px}
+.tl-item::before{content:'';position:absolute;left:-24px;top:8px;width:12px;height:12px;background:var(--teal);border-radius:50%;border:2px solid var(--paper)}
+.tl-item.accent::before{background:var(--coral)}
+.tl-year{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep)}
+.tl-text{font-size:14px;color:var(--ink-soft);line-height:1.7}
+
+/* === ANIMATION COMPONENTS === */
+.sim-box{background:var(--panel);border-radius:12px;padding:24px;margin:28px 0;box-shadow:var(--shadow);overflow:hidden}
+.sim-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;margin-bottom:4px}
+.sim-desc{font-size:12.5px;color:var(--ink-faint);margin-bottom:16px}
+.sim-canvas{display:block;margin:0 auto;border-radius:8px;background:#1a2a2e;max-width:100%}
+.sim-controls{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center;justify-content:center}
+.sim-btn{font-family:"Noto Sans JP",sans-serif;font-size:13px;font-weight:500;padding:8px 18px;border-radius:999px;border:1.5px solid var(--teal);color:var(--teal-deep);background:transparent;cursor:pointer;transition:.18s}
+.sim-btn:hover{background:var(--teal-wash)}
+.sim-btn.active{background:var(--teal);color:#fff}
+.sim-btn.coral{border-color:var(--coral);color:var(--coral)}
+.sim-btn.coral:hover{background:var(--coral-wash)}
+.sim-btn.coral.active{background:var(--coral);color:#fff}
+.sim-label{font-size:12px;color:var(--ink-faint);font-weight:500}
+.sim-slider{-webkit-appearance:none;appearance:none;width:200px;height:6px;border-radius:3px;background:var(--line);outline:none}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--teal);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+
+@media(max-width:680px){
+  section{padding:46px 0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{padding:11px 18px}
+  .brand{display:none}
+  .bar-row{grid-template-columns:80px 1fr 40px}
+  h1.title{font-size:26px}
+  .sim-slider{width:140px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">量子力学概論<b>・</b>Deep Research</span>
+    <div class="nav-links">
+      <a href="#crisis">古典の限界</a>
+      <a href="#quantum-hypothesis">量子仮説</a>
+      <a href="#duality">波と粒子</a>
+      <a href="#formalism">数学的定式化</a>
+      <a href="#interpretation">解釈問題</a>
+      <a href="#entanglement">量子もつれ</a>
+      <a href="#applications">応用</a>
+      <a href="#outlook">展望</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究</span>
+    <h1 class="title">エネルギーは<span class="ac">「飛び飛び」</span>だった。<br>量子力学、その誕生から未来まで。</h1>
+    <p class="lede">1900年12月14日、マックス・プランクがベルリン物理学会で発表した一つの数式が、物理学の常識を根底から覆した。エネルギーは連続的に流れるのではなく、ある最小単位の整数倍でしか存在しない──。この「量子仮説」から126年、量子力学は原子の構造から宇宙の起源まで、自然界のほぼすべての階層を記述する理論へと成長した。その道のりを辿る。</p>
+    <div class="src-tag">参照：学術論文・教科書・ノーベル財団公式資料等に基づく概念探究</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">1900<small>年</small></div><div class="l">プランクの量子仮説</div></div>
+      <div class="stat"><div class="n">6.626<small>×10⁻³⁴</small></div><div class="l">プランク定数 h（J·s）</div></div>
+      <div class="stat"><div class="n">29<small>人</small></div><div class="l">1927年ソルベー会議 参加者</div></div>
+      <div class="stat"><div class="n">2025<small>年</small></div><div class="l">巨視的トンネル効果にノーベル賞</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Section 01 ===== -->
+<section id="crisis">
+  <div class="wrap">
+    <span class="sec-no">01 ── 古典の限界</span>
+    <h2>なぜ古典物理学は「壊れた」のか</h2>
+    <p class="sec-sub">Ultraviolet Catastrophe — 紫外線破綻</p>
+    <p>19世紀末、物理学者たちは勝利を確信していた。ニュートン力学とマクスウェルの電磁気学、そしてボルツマンの統計力学が手を組めば、自然現象はすべて説明できるはずだ──。ケルヴィン卿が「物理学の空には小さな雲が二つ残っているだけだ」と述べたのは1900年のことだが、その「小さな雲」の一つが、古典物理学を根底から崩壊させることになる。</p>
+    <p>問題は<mark>黒体放射</mark>にあった。あらゆる波長の光を完全に吸収・放射する理想的な物体（黒体）が、温度に応じてどのようなスペクトルの電磁波を出すか。キルヒホフが1859年にこの問いを立てたとき、動機は意外なほど実用的だった。製鉄用の高炉の温度を、放射される光の色から推定したかったのだ。</p>
+
+    <!-- ★ Animation 1: Blackbody Radiation Spectrum -->
+    <div class="sim-box">
+      <div class="sim-title">黒体放射スペクトル：古典 vs 量子</div>
+      <div class="sim-desc">温度スライダーを動かして、レイリー＝ジーンズ（赤・発散する古典理論）とプランク（緑・正しい量子論）の違いを観察してください</div>
+      <canvas id="bbCanvas" class="sim-canvas" width="700" height="320"></canvas>
+      <div class="sim-controls">
+        <span class="sim-label">温度</span>
+        <input type="range" class="sim-slider" id="bbTemp" min="3000" max="8000" value="5500" step="100">
+        <span class="sim-label" id="bbTempVal">5500 K</span>
+      </div>
+    </div>
+
+    <p>古典的な電磁気学と熱力学から導かれるレイリー＝ジーンズの公式は、長波長の領域ではうまくいった。ところが短波長──紫外線の領域──に近づくと、エネルギーが無限大に発散するという不条理な結論を出す。のちに「紫外線破綻（ultraviolet catastrophe）」と名づけられたこの矛盾は、古典物理学がミクロの世界を記述する能力を持たないことを暴露していた。</p>
+    <p>ヴィルヘルム・ヴィーンは短波長側で実験とよく合う半経験的な公式を提案したが、長波長側が合わない。レイリー＝ジーンズは長波長側は合うが短波長側が破綻する。実験データはどちらの理論にも従わず、両者のあいだに静かに横たわっていた。</p>
+    <div class="note">
+      <p><span class="h">紫外線破綻の意味</span></p>
+      <p>レイリー＝ジーンズの公式では、周波数が高くなるほどエネルギー密度が増え続け、全エネルギーが無限大に発散する。これは物理的にあり得ない帰結であり、古典的な等配分定理（各自由度にエネルギーが等しく分配される）が高周波の電磁波に適用できないことを示している。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Section 02 ===== -->
+<section id="quantum-hypothesis">
+  <div class="wrap">
+    <span class="sec-no">02 ── 量子仮説</span>
+    <h2>プランク、アインシュタイン、ボーア──三つの飛躍</h2>
+    <p class="sec-sub">The Birth of Quantum Theory, 1900–1913</p>
+    <p>1900年10月、マックス・プランクは黒体放射のスペクトルを完全に再現する公式を見出した。だがその公式を理論的に基礎づけようとしたとき、彼は「絶望的な行為」と自ら呼んだ仮定を導入せざるを得なかった。エネルギーは連続的に変化するのではなく、ある最小単位 ε = hν（hは比例定数、νは振動数）の整数倍としてのみ存在するというものだ。</p>
+    <p>このhこそが、のちに「プランク定数」と呼ばれる物理学の根幹をなす定数となる。その値は6.626×10⁻³⁴ J·s。途方もなく小さい数だが、まさにこの小ささゆえに日常のスケールでは量子効果が見えず、古典物理学が成功してきたのだとも言える。</p>
+    <h3>アインシュタインの光量子仮説（1905年）</h3>
+    <p>プランク自身は、エネルギーの量子化を放射の「便宜的な仮定」と考え、物理的実在とは見なしていなかった。この仮定を文字どおりに受け取り、光そのものが粒子的な性質を持つと主張したのがアルベルト・アインシュタインだ。1905年、26歳のアインシュタインは光電効果の説明に「光量子（のちに光子と呼ばれる）」の概念を導入した。金属に光を当てると電子が飛び出す光電効果は、光の振動数がある閾値を超えないと起こらず、光の強度を上げても振動数が足りなければ何も起こらない。波としての光では説明がつかないが、光がhνのエネルギーを持つ粒子の流れだと考えれば、すべてが整合する。</p>
+    <p>この業績で、アインシュタインは1921年のノーベル物理学賞を受賞している。相対性理論ではなく光量子仮説で受賞した──この事実が、量子論の誕生にとってこの仕事がいかに決定的だったかを物語る。</p>
+    <h3>ボーアの原子模型（1913年）</h3>
+    <p>ラザフォードが原子核の存在を実験で確かめたとき、新たな困難が生じた。古典電磁気学によれば、原子核の周りを回る電子は連続的に電磁波を放射してエネルギーを失い、10⁻¹¹秒程度で原子核に落ち込むはずだ。だが現実の原子は安定している。</p>
+    <p>ニールス・ボーアは1913年、大胆な量子条件を課すことでこの問題に答えた。電子の軌道角運動量はプランク定数hを2πで割った値（ℏ）の整数倍しか許されない。整数nが大きいほどエネルギーは高く、電子は離散的なエネルギー準位のあいだを「飛び移る」ことしかできない──いわゆる量子跳躍（quantum jump）だ。最低準位の下には落ちようがないので、原子は安定する。</p>
+
+    <!-- ★ Animation 2: Bohr Model -->
+    <div class="sim-box">
+      <div class="sim-title">ボーアの水素原子模型</div>
+      <div class="sim-desc">電子は離散的な軌道（n=1,2,3...）のみ許される。軌道間を遷移するとき光子を放出・吸収する。ボタンで電子を励起させてみてください</div>
+      <canvas id="bohrCanvas" class="sim-canvas" width="700" height="380"></canvas>
+      <div class="sim-controls">
+        <button class="sim-btn" onclick="bohrExcite()">励起 ↑</button>
+        <button class="sim-btn coral" onclick="bohrDeexcite()">脱励起 ↓（光子放出）</button>
+        <span class="sim-label" id="bohrLevel">現在の軌道: n = 1（基底状態）</span>
+      </div>
+    </div>
+
+    <p>ボーアの模型は水素原子の輝線スペクトルを見事に再現した。バルマー系列の波長が、ボーアの公式からぴたりと導かれる。だがこの模型には根本的な弱点があった。「なぜ量子条件が成り立つのか」を説明する原理がどこにもない。それは後の世代──ド・ブロイ、ハイゼンベルク、シュレーディンガー──の仕事に委ねられた。</p>
+    <div class="chart-card">
+      <div class="ct">量子力学 前史の年表</div>
+      <div class="cs">1859年のキルヒホフから1927年のソルベー会議まで</div>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-year">1859</span><div class="tl-text">キルヒホフ、黒体放射問題を提起。高炉の温度推定が動機だった</div></div>
+        <div class="tl-item"><span class="tl-year">1887</span><div class="tl-text">ヘルツ、光電効果を発見。光の粒子性の最初の手がかり</div></div>
+        <div class="tl-item accent"><span class="tl-year">1900</span><div class="tl-text">プランク、エネルギー量子仮説を発表。量子論の幕開け</div></div>
+        <div class="tl-item accent"><span class="tl-year">1905</span><div class="tl-text">アインシュタイン、光量子仮説で光電効果を説明（奇跡の年）</div></div>
+        <div class="tl-item"><span class="tl-year">1911</span><div class="tl-text">ラザフォード、原子核の存在を実験で実証</div></div>
+        <div class="tl-item accent"><span class="tl-year">1913</span><div class="tl-text">ボーア、量子条件を用いた水素原子模型を発表</div></div>
+        <div class="tl-item"><span class="tl-year">1924</span><div class="tl-text">ド・ブロイ、物質波仮説を提唱。電子にも波長がある</div></div>
+        <div class="tl-item accent"><span class="tl-year">1925</span><div class="tl-text">ハイゼンベルク、行列力学を創始。量子力学の最初の定式化</div></div>
+        <div class="tl-item accent"><span class="tl-year">1926</span><div class="tl-text">シュレーディンガー、波動力学を発表。行列力学と等価であることが判明</div></div>
+        <div class="tl-item"><span class="tl-year">1927</span><div class="tl-text">第5回ソルベー会議。ボーアとアインシュタインの歴史的論争が始まる</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Section 03 ===== -->
+<section id="duality">
+  <div class="wrap">
+    <span class="sec-no">03 ── 波と粒子</span>
+    <h2>二重スリット実験が突きつけた「存在の奇妙さ」</h2>
+    <p class="sec-sub">Wave-Particle Duality</p>
+    <p>リチャード・ファインマンは二重スリット実験について、「量子力学の唯一の謎がすべて含まれている」と述べた。1803年にトマス・ヤングが光で行ったこの実験は、光が波であることを証明する決定的な証拠と見なされた。二つのスリットを通った光はスクリーン上に縞模様──干渉パターン──を作る。波の山と山が重なれば強め合い、山と谷が重なれば打ち消し合うからだ。</p>
+    <p>20世紀に入り、この実験が電子でも行えるようになった。1974年の単一電子版の実験が決定的だ。電子を一個ずつスリットに向けて発射する。一個の電子はスクリーン上の一点にぽつりと痕を残す──まるで粒子のように。ところが何千、何万と繰り返すと、痕跡は干渉パターンを形成する。あたかも一個の電子が同時に両方のスリットを通り、自分自身と干渉しているかのように。</p>
+
+    <!-- ★ Animation 3: Double-slit Experiment -->
+    <div class="sim-box">
+      <div class="sim-title">二重スリット実験シミュレーション</div>
+      <div class="sim-desc">電子が一つずつ到着し、干渉パターンを形成する様子。「観測あり」にすると干渉パターンが消えます</div>
+      <canvas id="dsCanvas" class="sim-canvas" width="700" height="360"></canvas>
+      <div class="sim-controls">
+        <button class="sim-btn active" id="dsNoObs" onclick="dsSetMode(false)">観測なし（量子的）</button>
+        <button class="sim-btn coral" id="dsObs" onclick="dsSetMode(true)">観測あり（古典的）</button>
+        <button class="sim-btn" onclick="dsReset()">リセット</button>
+        <span class="sim-label" id="dsCount">検出粒子: 0</span>
+      </div>
+    </div>
+
+    <p>話はここで終わらない。「どちらのスリットを通ったか」を検出する装置を置くと、干渉パターンは消える。電子は一方のスリットだけを通る「粒子」として振る舞い始める。観測の有無が結果を変えるのだ。</p>
+    <div class="pull">
+      <p>電子は波としてスリットを通過し、粒子としてスクリーンに到着する。そのあいだに「何であるか」を問うこと自体が、古典的な言語の限界を露呈している。</p>
+    </div>
+    <p>1924年、フランスの貴族出身の物理学者ルイ・ド・ブロイは博士論文で物質波仮説を提唱した。光に粒子性があるなら、電子のような粒子にも波動性があるはずだ。粒子の波長λは運動量pとプランク定数hを用いて λ = h/p で与えられる。この関係式は、ボーアの量子条件に明快な物理的意味を与えた。電子が安定した軌道を取れるのは、円軌道の周長がド・ブロイ波長の整数倍になるとき──つまり定在波として「きれいに収まる」ときだけだ。</p>
+    <p>ド・ブロイ波は1927年のデイヴィソン＝ガーマーの実験でニッケル結晶による電子線回折として確認された。その後、中性子、ヘリウム原子、さらにはC₆₀フラーレンのような巨大分子でも波動性が実証されている。2018年にはマルコ・ジャンマルキらのグループが反物質（陽電子）で単粒子干渉を実現し、波動性が物質・反物質を問わない普遍的な性質であることを示した。</p>
+    <div class="note sand">
+      <p><span class="h">日常で「波動性」が見えない理由</span></p>
+      <p>体重60kgの人が時速4kmで歩くとき、ド・ブロイ波長は約10⁻³⁶メートル。原子核の直径（約10⁻¹⁵メートル）の10²¹分の1よりも小さい。量子効果が日常スケールで無視できるのは、プランク定数の値が極めて小さいためだ。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Section 04 ===== -->
+<section id="formalism">
+  <div class="wrap">
+    <span class="sec-no">04 ── 数学的定式化</span>
+    <h2>シュレーディンガー方程式と不確定性原理</h2>
+    <p class="sec-sub">Mathematical Framework of Quantum Mechanics</p>
+    <p>1925年から1926年にかけて、量子力学は一気に成熟した。まずハイゼンベルクが行列力学を、次にシュレーディンガーが波動力学を構築し、二つのアプローチが数学的に等価であることがすぐに示された。物理学者たちが日常的に使うのはシュレーディンガーの定式化だ。偏微分方程式を扱い慣れた当時の研究者にとって、行列よりも馴染みやすかったからだ。</p>
+    <h3>波動関数 ψ とは何か</h3>
+    <p>シュレーディンガー方程式の中心にあるのが波動関数ψ(x, t)だ。これは複素数値を取る関数であり、その絶対値の2乗 |ψ|² が、その位置に粒子を見出す確率密度を与える。マックス・ボルンが1926年に提案したこの「確率解釈」は、波動関数を空間に実在する物理的な波と考えたシュレーディンガー自身の解釈を退けた。波の正体は確率振幅という抽象的な数学的対象であり、観測されるまで粒子は「どこにいる」とは言えない。</p>
+    <h3>不確定性原理</h3>
+    <p>1927年、ハイゼンベルクは量子力学から導かれる根本的な制限を定式化した。粒子の位置xの不確定さΔxと運動量pの不確定さΔpには、 Δx · Δp ≥ ℏ/2 という関係が成り立つ。位置を精密に測ろうとすればするほど運動量の情報が失われ、その逆もまた然りだ。</p>
+
+    <!-- ★ Animation 4: Uncertainty Principle -->
+    <div class="sim-box">
+      <div class="sim-title">不確定性原理の可視化</div>
+      <div class="sim-desc">スライダーで位置の確定度を変えてみてください。位置が確定するほど、運動量は不確定になります（Δx · Δp ≥ ℏ/2）</div>
+      <canvas id="hupCanvas" class="sim-canvas" width="700" height="280"></canvas>
+      <div class="sim-controls">
+        <span class="sim-label">位置の確定度</span>
+        <input type="range" class="sim-slider" id="hupSlider" min="5" max="95" value="50">
+        <span class="sim-label" id="hupInfo">Δx · Δp ≥ ℏ/2</span>
+      </div>
+    </div>
+
+    <p>ハイゼンベルクは当初、この制限を「測定による擾乱」──光子で電子の位置を測ると運動量が乱される──として説明した（ガンマ線顕微鏡の思考実験）。だが現代的な理解では、不確定性原理は測定装置の限界ではなく、量子力学的な状態そのものに内在する性質だ。位置が確定した状態は運動量について広がった分布を持ち、運動量が確定した状態は位置について広がった分布を持つ──これは波としての性質から数学的に必然的に導かれる。</p>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>不確定性原理の「破れ」と小澤の不等式</h4>
+      <p>2003年、名古屋大学の小澤正直が「小澤の不等式」を導出した。ハイゼンベルクの元の不等式は測定誤差と擾乱を厳密に定義していなかったが、小澤はこれを精密化し、位置の測定誤差と運動量の擾乱を同時にいくらでも小さくできる可能性を示した。2012年にはウィーン工科大学の長谷川祐司らの実験で小澤の不等式の成立が検証された。不確定性原理は揺るがなかったが、その正しい定式化は80年を経て更新されたのだ。</p>
+    </div>
+    <p>波動関数、確率解釈、不確定性原理──これらは量子力学の骨格であり、ミクロの世界に対する人類の最も精密な記述言語となっている。シュレーディンガー方程式から導かれる予測は、水素原子のスペクトルから素粒子の散乱確率に至るまで、小数点以下10桁を超える精度で実験と一致する。この驚異的な予測能力が、量子力学を物理学の中核に据え続けている。</p>
+  </div>
+</section>
+
+<!-- ===== Section 05 ===== -->
+<section id="interpretation">
+  <div class="wrap">
+    <span class="sec-no">05 ── 解釈問題</span>
+    <h2>シュレーディンガーの猫は生きているのか、死んでいるのか</h2>
+    <p class="sec-sub">Interpretations of Quantum Mechanics</p>
+    <p>量子力学の数学は完璧に機能する。だが「その数学が何を意味しているのか」を問うた瞬間、物理学者たちの意見は割れる。1935年にシュレーディンガーが提示した思考実験は、この混乱を最も鮮烈に表現したものだ。</p>
+    <p>箱の中に猫を1匹入れる。放射性元素の原子が1つあり、1時間以内に50%の確率で崩壊する。崩壊すればガイガー計数管がそれを検知し、装置が毒ガスを放出して猫は死ぬ。崩壊しなければ猫は生きている。量子力学によれば、原子は「崩壊した」と「崩壊していない」の重ね合わせ状態にある。するとその帰結として、猫も「生きている」と「死んでいる」の重ね合わせにあることになる──箱を開けて観測するまで。</p>
+    <p>シュレーディンガーの意図は、この結論の奇妙さを暴くことにあった。ミクロの世界の重ね合わせをマクロの世界にそのまま適用すれば不条理な帰結が生じる。ならば量子力学の解釈のどこかに問題があるのではないか。</p>
+    <div class="dom-grid">
+      <div class="dom"><div class="dn">コペンハーゲン解釈</div><div class="de">COPENHAGEN</div><div class="dq">観測するまで状態は確定しない。波動関数は実在ではなく、系についての知識を表す。観測によって波動関数が「収縮」する。</div></div>
+      <div class="dom"><div class="dn">多世界解釈</div><div class="de">MANY-WORLDS</div><div class="dq">波動関数は収縮しない。観測のたびに宇宙が分岐し、すべての結果が異なる「世界」で実現される。エベレットが1957年に提唱。</div></div>
+      <div class="dom"><div class="dn">ボームの軌跡解釈</div><div class="de">BOHMIAN MECHANICS</div><div class="dq">粒子は常に確定した位置を持つ。波動関数は粒子を導く「案内波」として実在する。決定論的だが非局所的。</div></div>
+    </div>
+    <p>コペンハーゲン解釈はボーアを中心に1920年代後半に形成され、現在も教科書で最も多く採用されている標準的な立場だ。だがこの解釈には、「観測とは何か」を定義していないという根本的な弱点がある。人間が見ることは観測だが、ガイガー計数管が検知することは観測なのか。猫が知覚することは観測に含まれるのか。この「測定問題」は、100年近くを経た今も完全には解決されていない。</p>
+    <h3>デコヒーレンスという転換点</h3>
+    <p>1970年代以降、ツェーが提起しデュレックが体系化した「環境誘起デコヒーレンス」の理論が、測定問題に新たな光を当てた。量子系が環境（空気の分子、光子、熱的な揺らぎ）と相互作用すると、重ね合わせ状態の干渉性が極めて短い時間で失われ、事実上、古典的な確率の混合と区別がつかなくなる。猫サイズの物体では、デコヒーレンスが起こるまでの時間は10⁻²⁰秒以下と推定される。重ね合わせは原理的には存在しうるが、マクロな世界では瞬時に「見えなくなる」のだ。</p>
+    <p>ただしデコヒーレンスは、なぜ多数の可能な結果のうちの一つだけが実際に観測されるのかという問いには答えない。「古典的に見える理由」は説明するが、「結果が一つに決まる理由」は説明しない。解釈問題は物理学と哲学の境界に横たわり続けている。</p>
+    <div class="pull">
+      <p>黙って計算せよ。──N・デイヴィッド・マーミン（量子力学の解釈論争に疲れた物理学者たちの態度を皮肉って）</p>
+      <div class="attr">"Shut up and calculate!" — しばしばファインマンに帰されるが、マーミンの造語</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Section 06 ===== -->
+<section id="entanglement">
+  <div class="wrap">
+    <span class="sec-no">06 ── 量子もつれ</span>
+    <h2>アインシュタインの「不気味な遠隔作用」が実在した</h2>
+    <p class="sec-sub">Quantum Entanglement and Bell's Theorem</p>
+    <p>1935年、アインシュタインはポドルスキー、ローゼンと共著で、のちに「EPR論文」と呼ばれる論文を発表した。二つの粒子が相互作用した後に離れていく場合、量子力学によれば一方の測定結果が他方の状態を瞬時に確定させる──たとえ二つの粒子が光年の彼方に離れていても。アインシュタインはこれを「不気味な遠隔作用（spooky action at a distance）」と呼び、量子力学は不完全であり、まだ発見されていない「隠れた変数」が存在するはずだと主張した。</p>
+
+    <!-- ★ Animation 5: Quantum Entanglement -->
+    <div class="sim-box">
+      <div class="sim-title">量子もつれ：相関する測定結果</div>
+      <div class="sim-desc">「測定」ボタンを押すと、もつれた2粒子のスピンを同時に測定します。離れた2地点で必ず逆の結果が得られます</div>
+      <canvas id="entCanvas" class="sim-canvas" width="700" height="300"></canvas>
+      <div class="sim-controls">
+        <button class="sim-btn" onclick="entMeasure()">測定する</button>
+        <button class="sim-btn coral" onclick="entReset()">リセット</button>
+        <span class="sim-label" id="entStats">測定回数: 0 ｜ 相関一致率: —</span>
+      </div>
+    </div>
+
+    <p>この論争に決着をつける糸口を見出したのが北アイルランドの物理学者ジョン・ベルだ。1964年、ベルは一つの不等式を導いた。もし隠れた変数が存在し、かつそれが局所的であるならば、二つの粒子の測定結果の相関に数学的な上限がある。量子力学の予測はその上限を超える──つまり「ベルの不等式」を破る。</p>
+    <p>自然がどちらに味方するかは実験で確かめるしかない。1972年のクラウザーの実験、1982年のアスペの実験は、いずれもベルの不等式の破れを支持した。だが初期の実験にはいくつかの抜け穴──測定器の効率、両側の測定設定が事前に相関している可能性など──が残っていた。2015年、デルフト工科大学のヘンセンらが、これらの主要な抜け穴をすべて塞いだ「ループホールフリー」のベルテスト実験を実現し、量子力学の非局所的な相関が本物であることが確定した。</p>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>2022年ノーベル物理学賞──量子もつれの実験的検証</h4>
+      <p>アラン・アスペ、ジョン・クラウザー、アントン・ツァイリンガーの3氏が「もつれた光子を用いた実験、ベルの不等式の破れの確立、および量子情報科学の開拓」でノーベル物理学賞を受賞した。彼らの数十年にわたる実験が、量子もつれを「哲学的議論の対象」から「技術的資源」へと転換させた。</p>
+    </div>
+    <p>量子もつれは情報を光速を超えて送ることには使えない──測定結果はランダムであり、それだけでは意味のある信号にならない。だがもつれた粒子を共有する二者が古典的な通信路を併用すれば、量子テレポーテーションや量子鍵配送といった、古典的には不可能だった情報処理が実現する。これが「第二の量子革命」と呼ばれる量子情報科学の出発点になった。</p>
+  </div>
+</section>
+
+<!-- ===== Section 07 ===== -->
+<section id="applications">
+  <div class="wrap">
+    <span class="sec-no">07 ── 応用</span>
+    <h2>量子力学なしにスマートフォンは存在しない</h2>
+    <p class="sec-sub">From Theory to Technology</p>
+    <p>量子力学の応用は「量子コンピュータ」のような先端技術だけではない。現代社会のインフラは、20世紀に実現した「第一の量子革命」の成果の上に成り立っている。半導体、レーザー、LED、MRI、原子時計──これらのすべてが、量子力学の理解なしには設計できなかった技術だ。</p>
+    <h3>第一の量子革命：日常に溶け込んだ量子力学</h3>
+    <p>トランジスタは量子力学の産物だ。半導体のバンド構造──電子が取りうるエネルギーが帯状（バンド）に分布し、バンドとバンドのあいだに禁止帯がある──は量子力学なしには理解できない。この理解に基づいて、1947年のトランジスタ発明から現代のプロセッサに至るまで、半導体技術は発展してきた。</p>
+    <p>レーザーもまた量子力学の直接的な帰結だ。アインシュタインが1917年に予言した誘導放出──光子が原子に入射すると、同じ周波数・同じ位相の光子がもう1つ放出される──がレーザーの原理だ。LEDは半導体のpn接合で電子と正孔が再結合する際の量子力学的な発光現象を利用している。MRI（磁気共鳴画像法）は水素原子核のスピン（量子力学的な角運動量）が磁場中で共鳴するという性質を使い、体内の画像を非侵襲的に得る。</p>
+    <h3>第二の量子革命：量子コンピュータの現在地</h3>
+    <p>第一の量子革命が量子力学的な現象を「利用する」技術だったのに対し、第二の量子革命は量子力学的な状態を「操作する」技術だ。量子コンピュータは量子ビット（キュービット）の重ね合わせともつれを計算資源として使い、特定の問題で古典コンピュータを圧倒的に凌駕しうる。</p>
+    <div class="chart-card">
+      <div class="ct">量子コンピュータ主要アプローチの比較（2026年時点）</div>
+      <div class="cs">各方式のキュービット数・ゲート忠実度は急速に変化しており、あくまで概況</div>
+      <div id="qcChart"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>到達キュービット数（スケール相対）</span>
+        <span><i style="background:var(--coral)"></i>注力企業・機関</span>
+      </div>
+    </div>
+    <p>2024年末にGoogleが発表したWillowチップ（105超伝導キュービット）は、量子誤り訂正の分野で画期的な成果を上げた。キュービット数を増やすほどエラー率が指数関数的に低下する「閾値以下」の動作を実証し、このチップはスーパーコンピュータで1万年以上かかるベンチマーク計算を約5分で完了した。</p>
+    <p>2025年にはノーベル物理学賞がジョン・クラーク、ミシェル・デボレ、ジョン・マルティニスの3氏に授与された。1984年から1985年にかけてUCバークレーで行った実験で、超伝導回路という巨視的なシステムにおいて量子トンネル効果とエネルギーの量子化を実証した業績だ。何十億もの粒子が単一の量子状態として振る舞うことを示したこの発見が、今日の超伝導量子コンピュータの技術的な出発点となった。</p>
+    <div class="note">
+      <p><span class="h">量子誤り訂正の最前線（2025–2026年）</span></p>
+      <p>2025年の最初の10か月だけで、量子誤り訂正に関する査読済み論文は120本を超えた。2024年の36本から3倍以上の急増だ。qLDPC符号の導入により、必要な物理キュービット数は従来の推定の20分の1にまで削減できる見通しが立ちつつある。マッキンゼーは量子技術が2035年までに最大2兆ドルの経済価値を生む可能性を試算しているが、その実現は大規模な誤り訂正の達成にかかっている。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Section 08 ===== -->
+<section id="outlook">
+  <div class="wrap">
+    <span class="sec-no">08 ── 展望</span>
+    <h2>100年経っても未決の問い</h2>
+    <p class="sec-sub">Open Questions in Quantum Mechanics</p>
+    <p>1925年のハイゼンベルクの行列力学から数えて、量子力学は100年を迎えた。2025年のノーベル物理学賞の発表に際して、ウプサラ大学のオッレ・エリクソンが述べた一言はそのまま量子力学の到達点を要約している。「量子力学に依存しない先端技術は、今日、一つもない。」</p>
+    <p>にもかかわらず、この理論にはいくつかの根本的な問いが未解決のまま残っている。</p>
+    <ul class="limit">
+      <li><b>測定問題</b>　なぜ、また正確にいつ、重ね合わせが一つの結果に「収縮」するのか。デコヒーレンスは古典性の出現を説明するが、一つの結果が選ばれるメカニズムは未解明。</li>
+      <li><b>量子重力</b>　量子力学と一般相対性理論を統合する理論がない。超弦理論やループ量子重力理論が候補だが、実験的検証には至っていない。</li>
+      <li><b>意識と観測</b>　フォン・ノイマンとウィグナーは観測に「意識」が必要だと主張した。大多数の物理学者はこの見解を採らないが、「観測とは何か」という問い自体は依然として開いている。</li>
+      <li><b>量子から古典へ</b>　量子力学の方程式は線形であり、原理的にはどんなスケールにも適用できる。では、なぜ我々の日常は量子的に見えないのか。デコヒーレンスは部分的な答えだが、全貌は見えていない。</li>
+    </ul>
+    <p>ボーアとアインシュタインが1927年のソルベー会議で始めた論争は、形を変えながら今も続いている。29人の物理学者のうち17人がノーベル賞受賞者（当時または後に）だったあの有名な集合写真──最前列にアインシュタイン、キュリー夫人、プランク、ボーア、後列にハイゼンベルク（25歳）、ディラック（25歳）、パウリ（27歳）が並ぶ──は、物理学が岐路に立っていた瞬間の記録だ。朝にアインシュタインが量子力学の不完全さを示す思考実験を提示し、夕方にはボーアが反論を見つける。その応酬は何日にもわたった。</p>
+    <p>アインシュタインは最後まで納得しなかった。だが2022年と2025年のノーベル賞が示すように、量子力学の予測はことごとく実験で裏付けられてきた。「神はサイコロを振らない」というアインシュタインの直観は──少なくとも現時点では──自然の側から否定されている。</p>
+    <div class="pull">
+      <p>理論は多くのことを教えてくれる。だが、「あの御方」の秘密にはほとんど近づけていない。</p>
+      <div class="attr">アルベルト・アインシュタイン（量子力学について）</div>
+    </div>
+    <p>それでも量子力学は「使える」。半導体からレーザー、MRIから量子暗号に至るまで、この理論に基づく技術が現代文明を支えている。量子コンピュータが誤り訂正を達成し、実用的な計算能力を獲得するまでにはまだ数年から10年程度の時間が必要だろう。だが2025年のqLDPC符号の急速な進展は、そのスケジュールが前倒しされる可能性を示唆している。</p>
+    <p>量子力学は、人間の直観が届かない世界を記述するために生まれた。そしてその「直観に反する性質」こそが、古典的には不可能な計算・通信・計測を可能にする資源だと判明しつつある。126年前にプランクが「絶望的な行為」として導入した不連続性が、21世紀の技術革新を駆動している──これ自体が、科学の営みの深い皮肉であり、同時にその最も美しい側面だろう。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    量子力学概論 ── エネルギーは「飛び飛び」だった<br>
+    Deep Research ／ 概念探究<br>
+    プランク（1900）、アインシュタイン（1905）、ボーア（1913）、ハイゼンベルク（1925）、シュレーディンガー（1926）、<br>
+    ベル（1964）、アスペ/クラウザー/ツァイリンガー（2022年ノーベル賞）、クラーク/デボレ/マルティニス（2025年ノーベル賞）<br>
+    ほか学術論文・教科書・公式資料に基づく
+  </div>
+</footer>
+
+<script>
+// === UTILITIES ===
+const bar=document.getElementById('progress');
+document.addEventListener('scroll',()=>{const h=document.documentElement;const m=h.scrollHeight-h.clientHeight;bar.style.width=(m>0?(h.scrollTop/m*100):0)+'%'},{passive:true});
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>{const on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':''})}})},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+// Chart data
+(function(){const data=[["超伝導",95,"Google, IBM, Rigetti"],["トラップドイオン",70,"Quantinuum, IonQ"],["中性原子",60,"QuEra, Atom Computing"],["トポロジカル",30,"Microsoft"],["猫キュービット",25,"Alice & Bob"]];const el=document.getElementById('qcChart');if(!el)return;el.innerHTML=data.map(([n,v,o])=>`<div class="bar-row${n==='超伝導'?' hi':''}"><div class="bl">${n}</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="${v}"></div></div><div class="bv" style="font-size:11px;color:var(--ink-faint)">${o}</div></div>`).join('')})();
+const animate=el=>{el.querySelectorAll('[data-w]').forEach(f=>{requestAnimationFrame(()=>{f.style.width=f.dataset.w+'%'})})};
+document.querySelectorAll('.chart-card').forEach(card=>{const ao=new IntersectionObserver((es,obs)=>{es.forEach(e=>{if(e.isIntersecting){animate(e.target);obs.unobserve(e.target)}})},{threshold:.25});ao.observe(card)});
+
+// === ANIMATION 1: BLACKBODY RADIATION ===
+(function(){
+  const cv=document.getElementById('bbCanvas'),ctx=cv.getContext('2d');
+  const sl=document.getElementById('bbTemp'),lbl=document.getElementById('bbTempVal');
+  const W=cv.width,H=cv.height,pad={l:70,r:30,t:30,b:50};
+  const pw=W-pad.l-pad.r,ph=H-pad.t-pad.b;
+  const h=6.626e-34,c=3e8,kB=1.381e-23;
+  function planck(lam,T){const l=lam*1e-9;return(2*h*c*c/Math.pow(l,5))/(Math.exp(h*c/(l*kB*T))-1)*1e-9*1e-12}
+  function rj(lam,T){const l=lam*1e-9;return 2*c*kB*T/Math.pow(l,4)*1e-9*1e-12}
+  function draw(){
+    const T=+sl.value;lbl.textContent=T+' K';
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#1a2a2e';ctx.fillRect(0,0,W,H);
+    // axes
+    ctx.strokeStyle='#3a5a5e';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,H-pad.b);ctx.lineTo(W-pad.r,H-pad.b);ctx.stroke();
+    // labels
+    ctx.fillStyle='#8aa';ctx.font='12px "Noto Sans JP"';ctx.textAlign='center';
+    ctx.fillText('波長 (nm)',W/2,H-8);
+    ctx.save();ctx.translate(16,H/2);ctx.rotate(-Math.PI/2);ctx.fillText('放射輝度',0,0);ctx.restore();
+    // tick labels
+    for(let lam=200;lam<=2400;lam+=400){const x=pad.l+(lam-100)/(2500-100)*pw;ctx.fillText(lam,x,H-pad.b+18)}
+    // compute max for scaling
+    let maxP=0;for(let lam=100;lam<=2500;lam+=5){const v=planck(lam,T);if(v>maxP)maxP=v}
+    const maxY=maxP*1.3||1;
+    function toX(lam){return pad.l+(lam-100)/(2500-100)*pw}
+    function toY(v){return H-pad.b-Math.min(v/maxY,1.2)*ph}
+    // Rayleigh-Jeans (clamped)
+    ctx.beginPath();ctx.strokeStyle='#eb6584';ctx.lineWidth=2.5;ctx.setLineDash([6,4]);
+    let started=false;
+    for(let lam=300;lam<=2500;lam+=3){const v=rj(lam,T);const y=toY(v);if(!started){ctx.moveTo(toX(lam),y);started=true}else{ctx.lineTo(toX(lam),y)}}
+    ctx.stroke();ctx.setLineDash([]);
+    // Planck
+    ctx.beginPath();ctx.strokeStyle='#62B8A0';ctx.lineWidth=2.5;
+    for(let lam=100;lam<=2500;lam+=3){const v=planck(lam,T);const y=toY(v);if(lam===100)ctx.moveTo(toX(lam),y);else ctx.lineTo(toX(lam),y)}
+    ctx.stroke();
+    // fill under Planck
+    ctx.beginPath();
+    for(let lam=100;lam<=2500;lam+=3){const v=planck(lam,T);if(lam===100)ctx.moveTo(toX(lam),toY(v));else ctx.lineTo(toX(lam),toY(v))}
+    ctx.lineTo(toX(2500),H-pad.b);ctx.lineTo(toX(100),H-pad.b);ctx.closePath();
+    ctx.fillStyle='rgba(98,184,160,.12)';ctx.fill();
+    // legend
+    ctx.font='13px "Noto Sans JP"';ctx.textAlign='left';
+    ctx.fillStyle='#eb6584';ctx.fillRect(W-pad.r-200,pad.t+5,20,3);ctx.fillText('レイリー＝ジーンズ（古典）',W-pad.r-175,pad.t+12);
+    ctx.fillStyle='#62B8A0';ctx.fillRect(W-pad.r-200,pad.t+25,20,3);ctx.fillText('プランク（量子論）',W-pad.r-175,pad.t+32);
+    // UV catastrophe annotation
+    if(T>4000){ctx.fillStyle='rgba(235,101,132,.7)';ctx.font='11px "Noto Sans JP"';ctx.textAlign='right';ctx.fillText('← 紫外線破綻（発散）',toX(380),toY(rj(380,T))-8)}
+  }
+  sl.addEventListener('input',draw);
+  draw();
+  new IntersectionObserver(([e])=>{if(e.isIntersecting)draw()},{threshold:.2}).observe(cv);
+})();
+
+// === ANIMATION 2: BOHR MODEL ===
+let bohrN=1,bohrAnim=null,bohrPhotons=[];
+const bohrCv=document.getElementById('bohrCanvas'),bohrCtx=bohrCv.getContext('2d');
+const bohrW=bohrCv.width,bohrH=bohrCv.height,bohrCx=bohrW*0.42,bohrCy=bohrH/2;
+const bohrColors=['#62B8A0','#4f7c87','#eb6584','#B98B2E','#8b5cf6'];
+const bohrRadii=[0,55,90,125,160];
+let bohrAngle=0;
+
+function drawBohr(){
+  bohrCtx.clearRect(0,0,bohrW,bohrH);
+  bohrCtx.fillStyle='#1a2a2e';bohrCtx.fillRect(0,0,bohrW,bohrH);
+  // orbits
+  for(let n=1;n<=4;n++){
+    bohrCtx.beginPath();bohrCtx.arc(bohrCx,bohrCy,bohrRadii[n],0,Math.PI*2);
+    bohrCtx.strokeStyle=n===bohrN?'rgba(98,184,160,.6)':'rgba(98,184,160,.15)';
+    bohrCtx.lineWidth=n===bohrN?2.5:1;bohrCtx.stroke();
+    bohrCtx.fillStyle='#8aa';bohrCtx.font='11px "Noto Sans JP"';bohrCtx.textAlign='left';
+    bohrCtx.fillText('n='+n,bohrCx+bohrRadii[n]+6,bohrCy-4);
+  }
+  // nucleus
+  bohrCtx.beginPath();bohrCtx.arc(bohrCx,bohrCy,8,0,Math.PI*2);
+  const ng=bohrCtx.createRadialGradient(bohrCx,bohrCy,0,bohrCx,bohrCy,8);
+  ng.addColorStop(0,'#eb6584');ng.addColorStop(1,'#c14a66');
+  bohrCtx.fillStyle=ng;bohrCtx.fill();
+  bohrCtx.fillStyle='#fff';bohrCtx.font='bold 9px sans-serif';bohrCtx.textAlign='center';bohrCtx.textBaseline='middle';bohrCtx.fillText('p⁺',bohrCx,bohrCy);bohrCtx.textBaseline='alphabetic';
+  // electron
+  const r=bohrRadii[bohrN];
+  const ex=bohrCx+r*Math.cos(bohrAngle),ey=bohrCy+r*Math.sin(bohrAngle);
+  bohrCtx.beginPath();bohrCtx.arc(ex,ey,6,0,Math.PI*2);
+  const eg=bohrCtx.createRadialGradient(ex,ey,0,ex,ey,6);
+  eg.addColorStop(0,'#88eedd');eg.addColorStop(1,'#62B8A0');
+  bohrCtx.fillStyle=eg;bohrCtx.fill();
+  bohrCtx.shadowColor='#62B8A0';bohrCtx.shadowBlur=12;bohrCtx.fill();bohrCtx.shadowBlur=0;
+  // de Broglie wave overlay on current orbit
+  bohrCtx.beginPath();bohrCtx.strokeStyle='rgba(98,184,160,.35)';bohrCtx.lineWidth=1.5;
+  for(let a=0;a<Math.PI*2;a+=0.02){
+    const wave=r+6*Math.sin(bohrN*a+bohrAngle*2);
+    const wx=bohrCx+wave*Math.cos(a),wy=bohrCy+wave*Math.sin(a);
+    if(a===0)bohrCtx.moveTo(wx,wy);else bohrCtx.lineTo(wx,wy);
+  }
+  bohrCtx.closePath();bohrCtx.stroke();
+  // photons
+  bohrPhotons=bohrPhotons.filter(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.life--;
+    if(p.life<=0)return false;
+    const alpha=p.life/60;
+    bohrCtx.beginPath();bohrCtx.arc(p.x,p.y,3,0,Math.PI*2);
+    bohrCtx.fillStyle=`rgba(235,101,132,${alpha})`;bohrCtx.fill();
+    // wavy trail
+    bohrCtx.beginPath();bohrCtx.strokeStyle=`rgba(235,101,132,${alpha*0.5})`;bohrCtx.lineWidth=1;
+    for(let i=0;i<20;i++){const tx=p.x-p.vx*i*0.5,ty=p.y-p.vy*i*0.5+3*Math.sin(i*0.8+p.life*0.3);if(i===0)bohrCtx.moveTo(tx,ty);else bohrCtx.lineTo(tx,ty)}
+    bohrCtx.stroke();
+    return true;
+  });
+  // energy level diagram on right
+  const elX=bohrW*0.75,elW=120;
+  bohrCtx.fillStyle='#8aa';bohrCtx.font='12px "Noto Sans JP"';bohrCtx.textAlign='center';
+  bohrCtx.fillText('エネルギー準位',elX+elW/2,40);
+  const eVals=[-13.6,-3.4,-1.51,-0.85];
+  for(let n=1;n<=4;n++){
+    const y=bohrH-50-(n-1)*(bohrH-100)/4;
+    bohrCtx.strokeStyle=n===bohrN?'#62B8A0':'#3a5a5e';bohrCtx.lineWidth=n===bohrN?2.5:1;
+    bohrCtx.beginPath();bohrCtx.moveTo(elX,y);bohrCtx.lineTo(elX+elW,y);bohrCtx.stroke();
+    bohrCtx.fillStyle=n===bohrN?'#62B8A0':'#8aa';bohrCtx.textAlign='right';bohrCtx.font='11px "Noto Sans JP"';
+    bohrCtx.fillText(`n=${n}  ${eVals[n-1]} eV`,elX-8,y+4);
+  }
+  bohrAngle+=0.03;
+  bohrAnim=requestAnimationFrame(drawBohr);
+}
+function bohrExcite(){if(bohrN<4){bohrN++;document.getElementById('bohrLevel').textContent=`現在の軌道: n = ${bohrN}${bohrN===1?' （基底状態）':''}`}}
+function bohrDeexcite(){if(bohrN>1){const r=bohrRadii[bohrN];const ex=bohrCx+r*Math.cos(bohrAngle),ey=bohrCy+r*Math.sin(bohrAngle);const angle=Math.random()*Math.PI*2;bohrPhotons.push({x:ex,y:ey,vx:Math.cos(angle)*3,vy:Math.sin(angle)*3,life:60});bohrN--;document.getElementById('bohrLevel').textContent=`現在の軌道: n = ${bohrN}${bohrN===1?' （基底状態）':''}`}}
+new IntersectionObserver(([e])=>{if(e.isIntersecting&&!bohrAnim)drawBohr();else if(!e.isIntersecting&&bohrAnim){cancelAnimationFrame(bohrAnim);bohrAnim=null}},{threshold:.1}).observe(bohrCv);
+
+// === ANIMATION 3: DOUBLE-SLIT ===
+let dsObserved=false,dsParticles=[],dsHits=[],dsAnimId=null;
+const dsCv=document.getElementById('dsCanvas'),dsCtx=dsCv.getContext('2d');
+const dsW=dsCv.width,dsH=dsCv.height;
+const dsSlitX=dsW*0.35,dsScreenX=dsW*0.82;
+const dsSlit1Y=dsH/2-25,dsSlit2Y=dsH/2+25,dsSlitW=10;
+
+function dsProb(y){
+  if(dsObserved){
+    // Not used in observed mode (sampling is per-slit)
+    return 0;
+  }
+  // Quantum: interference pattern from both slits
+  const dy=y-dsH/2;
+  const fringeSpacing=45;
+  const phase=Math.PI*dy/fringeSpacing;
+  const interference=Math.pow(Math.cos(phase),2);
+  const envelope=Math.exp(-dy*dy/(2*6000));
+  return interference*envelope;
+}
+function dsSampleQuantumY(){
+  // Rejection sampling from interference distribution
+  for(let i=0;i<500;i++){
+    const y=20+Math.random()*(dsH-40);
+    const dy=y-dsH/2;
+    const phase=Math.PI*dy/45;
+    const prob=Math.pow(Math.cos(phase),2)*Math.exp(-dy*dy/(2*6000));
+    if(Math.random()<prob)return y;
+  }
+  return dsH/2;
+}
+function dsSampleClassicalY(slitY){
+  // Sample from Gaussian centered on the chosen slit
+  // Box-Muller for proper Gaussian sampling
+  const sigma=25;
+  const u1=Math.random(),u2=Math.random();
+  const z=Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+  const y=slitY+z*sigma;
+  return Math.max(15,Math.min(dsH-15,y));
+}
+function dsAddParticle(){
+  if(dsObserved){
+    // Classical: choose slit FIRST (50/50), then sample target from THAT slit's Gaussian
+    const slit=Math.random()<0.5?dsSlit1Y:dsSlit2Y;
+    const targetY=dsSampleClassicalY(slit);
+    dsParticles.push({x:30,y:dsH/2,targetY,slitY:slit,speed:5,state:'toSlit',quantum:false});
+  }else{
+    // Quantum: target from interference distribution, no definite slit
+    const targetY=dsSampleQuantumY();
+    dsParticles.push({x:30,y:dsH/2,targetY,slitY:null,speed:5,state:'toSlit',quantum:true});
+  }
+}
+function dsDraw(){
+  dsCtx.clearRect(0,0,dsW,dsH);dsCtx.fillStyle='#1a2a2e';dsCtx.fillRect(0,0,dsW,dsH);
+  // barrier
+  dsCtx.fillStyle='#3a5a5e';
+  dsCtx.fillRect(dsSlitX,0,dsSlitW,dsSlit1Y-8);
+  dsCtx.fillRect(dsSlitX,dsSlit1Y+8,dsSlitW,dsSlit2Y-8-(dsSlit1Y+8));
+  dsCtx.fillRect(dsSlitX,dsSlit2Y+8,dsSlitW,dsH-(dsSlit2Y+8));
+  // screen
+  dsCtx.fillStyle='#2a4a4e';dsCtx.fillRect(dsScreenX,0,4,dsH);
+  // labels
+  dsCtx.fillStyle='#8aa';dsCtx.font='11px "Noto Sans JP"';dsCtx.textAlign='center';
+  dsCtx.fillText('電子源',30,dsH-10);dsCtx.fillText('スリット',dsSlitX+5,dsH-10);dsCtx.fillText('スクリーン',dsScreenX+2,dsH-10);
+  if(dsObserved){dsCtx.fillStyle='rgba(235,101,132,.5)';dsCtx.font='10px "Noto Sans JP"';dsCtx.fillText('👁 観測中',dsSlitX+5,18)}
+  // hits on screen
+  dsHits.forEach(h=>{
+    dsCtx.beginPath();dsCtx.arc(dsScreenX+8,h.y,1.5,0,Math.PI*2);
+    dsCtx.fillStyle='rgba(98,184,160,0.8)';dsCtx.fill();
+  });
+  // histogram of hit distribution (right side)
+  if(dsHits.length>20){
+    const bins=60,binH=dsH/bins,hist=new Array(bins).fill(0);
+    dsHits.forEach(h=>{const b=Math.floor(h.y/binH);if(b>=0&&b<bins)hist[b]++});
+    const maxBin=Math.max(...hist,1);
+    const histX=dsScreenX+16,histW=dsW-dsScreenX-24;
+    dsCtx.fillStyle='rgba(98,184,160,0.25)';
+    for(let i=0;i<bins;i++){
+      const w=hist[i]/maxBin*histW;
+      if(w>0.5)dsCtx.fillRect(histX,i*binH,w,binH-1);
+    }
+    dsCtx.strokeStyle='rgba(98,184,160,0.5)';dsCtx.lineWidth=1.5;dsCtx.beginPath();
+    for(let i=0;i<bins;i++){
+      const w=hist[i]/maxBin*histW;
+      const y=i*binH+binH/2;
+      if(i===0)dsCtx.moveTo(histX+w,y);else dsCtx.lineTo(histX+w,y);
+    }
+    dsCtx.stroke();
+  }
+  // particles
+  dsParticles=dsParticles.filter(p=>{
+    if(p.state==='toSlit'){
+      p.x+=p.speed;
+      if(p.x>=dsSlitX){
+        p.state='toScreen';p.x=dsSlitX+dsSlitW;
+      }
+    }else if(p.state==='toScreen'){
+      p.x+=p.speed;
+      const t=(p.x-(dsSlitX+dsSlitW))/(dsScreenX-(dsSlitX+dsSlitW));
+      if(p.quantum){
+        // Quantum: no definite position between slits and screen
+        // Show as two fading "probability clouds" from both slits converging
+        p.y=dsH/2+(p.targetY-dsH/2)*t;
+      }else{
+        // Classical: definite trajectory from one slit
+        p.y=p.slitY+(p.targetY-p.slitY)*t;
+      }
+      if(p.x>=dsScreenX){
+        dsHits.push({y:p.targetY,a:0.7});
+        document.getElementById('dsCount').textContent='検出粒子: '+dsHits.length;
+        return false;
+      }
+    }
+    if(p.quantum && p.state==='toScreen'){
+      // Quantum: draw TWO ghost particles (one from each slit) + wave overlay
+      const t=(p.x-(dsSlitX+dsSlitW))/(dsScreenX-(dsSlitX+dsSlitW));
+      const alpha=0.35;
+      // Ghost from slit 1
+      const y1=dsSlit1Y+(p.targetY-dsSlit1Y)*t;
+      dsCtx.beginPath();dsCtx.arc(p.x,y1,2.5,0,Math.PI*2);
+      dsCtx.fillStyle=`rgba(136,238,221,${alpha})`;dsCtx.fill();
+      // Ghost from slit 2
+      const y2=dsSlit2Y+(p.targetY-dsSlit2Y)*t;
+      dsCtx.beginPath();dsCtx.arc(p.x,y2,2.5,0,Math.PI*2);
+      dsCtx.fillStyle=`rgba(136,238,221,${alpha})`;dsCtx.fill();
+      // Wave connection between the two ghosts
+      dsCtx.strokeStyle=`rgba(98,184,160,${alpha*0.5})`;dsCtx.lineWidth=1;
+      dsCtx.beginPath();
+      const waveN=20;
+      for(let i=0;i<=waveN;i++){
+        const frac=i/waveN;
+        const wy=y1+(y2-y1)*frac;
+        const wx=p.x+3*Math.sin(frac*Math.PI*6+p.x*0.15);
+        if(i===0)dsCtx.moveTo(wx,wy);else dsCtx.lineTo(wx,wy);
+      }
+      dsCtx.stroke();
+    }else{
+      // Classical or pre-slit: draw single solid particle
+      dsCtx.beginPath();dsCtx.arc(p.x,p.y,3,0,Math.PI*2);
+      dsCtx.fillStyle='#88eedd';dsCtx.fill();
+      dsCtx.shadowColor='#62B8A0';dsCtx.shadowBlur=8;dsCtx.fill();dsCtx.shadowBlur=0;
+    }
+    return true;
+  });
+  if(Math.random()<0.3&&dsHits.length<3000)dsAddParticle();
+  dsAnimId=requestAnimationFrame(dsDraw);
+}
+function dsSetMode(obs){dsObserved=obs;dsHits=[];dsParticles=[];document.getElementById('dsCount').textContent='検出粒子: 0';
+  document.getElementById('dsNoObs').className='sim-btn'+(obs?'':' active');
+  document.getElementById('dsObs').className='sim-btn coral'+(obs?' active':'');
+  dsCtx.clearRect(0,0,dsW,dsH);dsCtx.fillStyle='#1a2a2e';dsCtx.fillRect(0,0,dsW,dsH);
+}
+function dsReset(){dsHits=[];dsParticles=[];document.getElementById('dsCount').textContent='検出粒子: 0';dsCtx.clearRect(0,0,dsW,dsH);dsCtx.fillStyle='#1a2a2e';dsCtx.fillRect(0,0,dsW,dsH)}
+new IntersectionObserver(([e])=>{if(e.isIntersecting&&!dsAnimId){dsCtx.fillStyle='#1a2a2e';dsCtx.fillRect(0,0,dsW,dsH);dsDraw()}else if(!e.isIntersecting&&dsAnimId){cancelAnimationFrame(dsAnimId);dsAnimId=null}},{threshold:.1}).observe(dsCv);
+
+// === ANIMATION 4: UNCERTAINTY PRINCIPLE ===
+(function(){
+  const cv=document.getElementById('hupCanvas'),ctx=cv.getContext('2d');
+  const sl=document.getElementById('hupSlider'),info=document.getElementById('hupInfo');
+  const W=cv.width,H=cv.height;
+  function draw(){
+    const v=+sl.value;
+    // Minimum uncertainty state: Δx · Δp = const (= ℏ/2)
+    // Use inverse relationship: as Δx shrinks, Δp grows proportionally
+    const K=4500; // constant product in pixel² units
+    const sigX=Math.max(8, 8 + (100-v)*1.5);
+    const sigP=Math.max(8, K/sigX);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#1a2a2e';ctx.fillRect(0,0,W,H);
+    const midX=W/4,midP=W*3/4,baseY=H-40,gh=H-80;
+    // position distribution
+    ctx.fillStyle='#8aa';ctx.font='13px "Noto Sans JP"';ctx.textAlign='center';
+    ctx.fillText('位置の確率分布 |ψ(x)|²',midX,24);
+    ctx.beginPath();ctx.strokeStyle='#62B8A0';ctx.lineWidth=2;
+    for(let x=-150;x<=150;x++){
+      const gv=Math.exp(-x*x/(2*sigX*sigX));
+      const px=midX+x,py=baseY-gv*gh;
+      if(x===-150)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.beginPath();for(let x=-150;x<=150;x++){const gv=Math.exp(-x*x/(2*sigX*sigX));if(x===-150)ctx.moveTo(midX+x,baseY-gv*gh);else ctx.lineTo(midX+x,baseY-gv*gh)}
+    ctx.lineTo(midX+150,baseY);ctx.lineTo(midX-150,baseY);ctx.closePath();ctx.fillStyle='rgba(98,184,160,.15)';ctx.fill();
+    // Δx arrow
+    ctx.strokeStyle='#62B8A0';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    const dxPx=sigX*2;
+    ctx.beginPath();ctx.moveTo(midX-dxPx,baseY+12);ctx.lineTo(midX+dxPx,baseY+12);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#62B8A0';ctx.font='12px "Noto Sans JP"';ctx.fillText('Δx',midX,baseY+26);
+    // momentum distribution
+    ctx.fillStyle='#8aa';ctx.font='13px "Noto Sans JP"';
+    ctx.fillText('運動量の確率分布 |φ(p)|²',midP,24);
+    ctx.beginPath();ctx.strokeStyle='#eb6584';ctx.lineWidth=2;
+    for(let x=-150;x<=150;x++){
+      const gv=Math.exp(-x*x/(2*sigP*sigP));
+      const px=midP+x,py=baseY-gv*gh;
+      if(x===-150)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.beginPath();for(let x=-150;x<=150;x++){const gv=Math.exp(-x*x/(2*sigP*sigP));if(x===-150)ctx.moveTo(midP+x,baseY-gv*gh);else ctx.lineTo(midP+x,baseY-gv*gh)}
+    ctx.lineTo(midP+150,baseY);ctx.lineTo(midP-150,baseY);ctx.closePath();ctx.fillStyle='rgba(235,101,132,.12)';ctx.fill();
+    // Δp arrow
+    ctx.strokeStyle='#eb6584';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    const dpPx=sigP*2;
+    ctx.beginPath();ctx.moveTo(midP-dpPx,baseY+12);ctx.lineTo(midP+dpPx,baseY+12);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#eb6584';ctx.font='12px "Noto Sans JP"';ctx.fillText('Δp',midP,baseY+26);
+    // product display
+    const product=(sigX*sigP).toFixed(0);
+    info.textContent=`Δx=${sigX.toFixed(0)}  Δp=${sigP.toFixed(0)}  積=${product}（常に ≥ ℏ/2）`;
+  }
+  sl.addEventListener('input',draw);
+  draw();
+})();
+
+// === ANIMATION 5: ENTANGLEMENT ===
+let entCount=0,entCorr=0,entState='idle',entAnimId=null;
+const entCv=document.getElementById('entCanvas'),entCtx=entCv.getContext('2d');
+const entW=entCv.width,entH=entCv.height;
+let entParticles=[],entResults=[];
+
+function entDraw(){
+  entCtx.clearRect(0,0,entW,entH);entCtx.fillStyle='#1a2a2e';entCtx.fillRect(0,0,entW,entH);
+  const cX=entW/2,cY=entH/2;
+  const aX=100,bX=entW-100;
+  // source
+  entCtx.beginPath();entCtx.arc(cX,cY,12,0,Math.PI*2);
+  entCtx.fillStyle='rgba(185,139,46,.6)';entCtx.fill();
+  entCtx.fillStyle='#8aa';entCtx.font='11px "Noto Sans JP"';entCtx.textAlign='center';
+  entCtx.fillText('もつれ光源',cX,cY+28);
+  // detectors
+  entCtx.fillStyle='#3a5a5e';entCtx.fillRect(aX-30,cY-30,60,60);entCtx.fillRect(bX-30,cY-30,60,60);
+  entCtx.fillStyle='#8aa';entCtx.font='12px "Noto Sans JP"';
+  entCtx.fillText('検出器 A',aX,cY-40);entCtx.fillText('検出器 B',bX,cY-40);
+  // connection line
+  entCtx.strokeStyle='rgba(98,184,160,.15)';entCtx.lineWidth=1;entCtx.setLineDash([4,6]);
+  entCtx.beginPath();entCtx.moveTo(aX+30,cY);entCtx.lineTo(bX-30,cY);entCtx.stroke();entCtx.setLineDash([]);
+  // particles in flight
+  entParticles=entParticles.filter(p=>{
+    p.x+=p.vx;p.life--;
+    if(p.life<=0)return false;
+    entCtx.beginPath();entCtx.arc(p.x,cY,4,0,Math.PI*2);
+    entCtx.fillStyle=p.color;entCtx.fill();
+    entCtx.shadowColor=p.color;entCtx.shadowBlur=10;entCtx.fill();entCtx.shadowBlur=0;
+    return true;
+  });
+  // results
+  const startY=cY+50;
+  entResults.slice(-8).forEach((r,i)=>{
+    const y=startY+i*18;
+    entCtx.font='12px "Noto Sans JP"';entCtx.textAlign='center';
+    entCtx.fillStyle=r.a==='↑'?'#62B8A0':'#eb6584';entCtx.fillText(r.a,aX,y);
+    entCtx.fillStyle=r.b==='↑'?'#62B8A0':'#eb6584';entCtx.fillText(r.b,bX,y);
+    entCtx.fillStyle='#5a7a7e';entCtx.fillText(r.a!==r.b?'✓ 反相関':'',cX,y);
+  });
+  entAnimId=requestAnimationFrame(entDraw);
+}
+function entMeasure(){
+  const spinA=Math.random()<0.5?'↑':'↓';
+  const spinB=spinA==='↑'?'↓':'↑';
+  entParticles.push({x:entW/2,vx:-5,life:35,color:'#62B8A0'});
+  entParticles.push({x:entW/2,vx:5,life:35,color:'#eb6584'});
+  setTimeout(()=>{
+    entResults.push({a:spinA,b:spinB});
+    entCount++;if(spinA!==spinB)entCorr++;
+    document.getElementById('entStats').textContent=`測定回数: ${entCount} ｜ 反相関率: ${(entCorr/entCount*100).toFixed(0)}%`;
+  },500);
+}
+function entReset(){entCount=0;entCorr=0;entResults=[];entParticles=[];document.getElementById('entStats').textContent='測定回数: 0 ｜ 相関一致率: —'}
+new IntersectionObserver(([e])=>{if(e.isIntersecting&&!entAnimId)entDraw();else if(!e.isIntersecting&&entAnimId){cancelAnimationFrame(entAnimId);entAnimId=null}},{threshold:.1}).observe(entCv);
+</script>
+</body>
+</html>

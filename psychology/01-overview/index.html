@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心理学の全体地図 ─ 7つの学派、30の分野、そしてあなたの好奇心の行き先</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #fbfcfb;
+  --paper-2: #f4f7f5;
+  --panel: #f4f7f5;
+  --ink: #2b3a3e;
+  --ink-soft: #46585c;
+  --ink-faint: #74827f;
+  --teal-deep: #4f7c87;
+  --teal: #62B8A0;
+  --teal-wash: #eef6f3;
+  --coral: #eb6584;
+  --coral-wash: #fdeef1;
+  --sand: #B98B2E;
+  --sand-wash: #F5EBD3;
+  --line: #e3e8e4;
+  --line-soft: #eef1ef;
+  --shadow: 0 1px 2px rgba(39,53,54,.04), 0 10px 34px -18px rgba(39,53,54,.22);
+  --maxw: 760px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Noto Sans JP", sans-serif; font-size: 15.6px; line-height: 1.95; letter-spacing: .01em; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+a { color: var(--teal-deep); }
+
+#progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--teal), var(--teal-deep)); z-index: 60; transition: width .12s ease-out; }
+
+nav { position: sticky; top: 0; z-index: 50; background: rgba(251,252,251,.86); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-soft); }
+.nav-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; gap: 18px; padding: 13px 26px; }
+.brand { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 15px; color: var(--teal-deep); white-space: nowrap; }
+.brand b { color: var(--coral); }
+.nav-links { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; }
+.nav-links a { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); text-decoration: none; padding: 6px 11px; border-radius: 999px; white-space: nowrap; transition: .18s; }
+.nav-links a:hover { color: var(--teal-deep); background: var(--teal-wash); }
+
+.hero { padding: 72px 0 54px; border-bottom: 1px solid var(--line); }
+.eyebrow { font-family: "Noto Serif JP", serif; font-weight: 600; font-size: 13px; letter-spacing: .18em; color: var(--coral); display: block; margin-bottom: 14px; }
+h1.title { font-family: "Noto Serif JP", serif; font-weight: 800; font-size: clamp(28px, 5vw, 42px); line-height: 1.35; margin-bottom: 18px; }
+h1 .ac { color: var(--teal-deep); }
+.lede { font-size: 16.5px; line-height: 2; color: var(--ink-soft); margin-bottom: 22px; }
+.src-tag { font-size: 13px; color: var(--ink-faint); border-left: 3px solid var(--teal); padding-left: 14px; margin-bottom: 28px; line-height: 1.75; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 18px; }
+.stat { background: var(--panel); border-radius: 10px; padding: 18px 16px; text-align: center; }
+.stat .n { font-family: "Noto Serif JP", serif; font-weight: 800; font-size: 28px; color: var(--teal-deep); }
+.stat .n small { font-size: 14px; font-weight: 600; }
+.stat .l { font-size: 12.5px; color: var(--ink-faint); margin-top: 4px; }
+
+section { padding: 60px 0; border-top: 1px solid var(--line-soft); }
+.sec-no { font-family: "Noto Serif JP", serif; font-weight: 600; font-size: 13px; letter-spacing: .16em; color: var(--coral); }
+h2 { font-family: "Noto Serif JP", serif; font-weight: 800; font-size: clamp(24px, 4.1vw, 32px); line-height: 1.42; margin: 8px 0 8px; }
+.sec-sub { font-size: 14.5px; color: var(--ink-faint); font-weight: 500; margin: 0 0 28px; }
+h3 { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 19px; line-height: 1.6; margin: 36px 0 12px; color: var(--teal-deep); }
+p { margin-bottom: 18px; }
+
+mark { background: linear-gradient(transparent 58%, rgba(98,184,160,.34) 58%); padding: 0 1px; }
+mark.c { background: linear-gradient(transparent 58%, rgba(217,84,107,.28) 58%); }
+
+ul.clean { list-style: none; margin: 20px 0; }
+ul.clean li { padding: 12px 0 12px 22px; border-bottom: 1px dashed var(--line); position: relative; font-size: 15px; line-height: 1.85; }
+ul.clean li::before { content: ""; position: absolute; left: 0; top: 20px; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+
+.dom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0; }
+.dom { background: var(--panel); border-radius: 10px; padding: 20px 18px; border-top: 3px solid var(--teal); }
+.dom .dn { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 16px; margin-bottom: 2px; }
+.dom .de { font-size: 12px; font-weight: 500; color: var(--teal-deep); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
+.dom .dq { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+
+.chart-card { background: var(--panel); border-radius: 12px; padding: 28px 24px; margin: 28px 0; box-shadow: var(--shadow); }
+.ct { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+.cs { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 18px; }
+.bar-row { display: grid; grid-template-columns: 140px 1fr 52px; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13.5px; }
+.bar-row.hi .bl { font-weight: 700; color: var(--coral); }
+.bar-row.hi .bar-fill { background: var(--coral) !important; }
+.bar-row.hi .bv { color: var(--coral); font-weight: 700; }
+.bl { text-align: right; color: var(--ink-soft); white-space: nowrap; }
+.bar-track { height: 18px; background: var(--line-soft); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--teal); border-radius: 4px; transition: width .8s cubic-bezier(.22,1,.36,1); }
+.bv { font-family: "Noto Serif JP", serif; font-weight: 600; font-size: 13.5px; color: var(--teal-deep); }
+.leg { display: flex; gap: 18px; margin-top: 14px; font-size: 12.5px; color: var(--ink-faint); flex-wrap: wrap; }
+.leg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+
+.pull { border-left: 4px solid var(--coral); background: var(--coral-wash); border-radius: 0 10px 10px 0; padding: 22px 26px; margin: 28px 0; }
+.pull p { font-family: "Noto Serif JP", serif; font-size: 17px; line-height: 1.85; color: var(--ink); margin: 0; }
+
+.note { border-left: 4px solid var(--teal); background: var(--teal-wash); border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 24px 0; font-size: 14.5px; line-height: 1.8; }
+.note .h { font-weight: 700; color: var(--teal-deep); }
+.note p { margin-bottom: 6px; }
+.note.sand { border-left-color: var(--sand); background: var(--sand-wash); }
+.note.sand .h { color: var(--sand); }
+
+.insight { border-top: 4px solid var(--teal); background: var(--panel); border-radius: 10px; padding: 24px; margin: 28px 0; box-shadow: var(--shadow); }
+.ik { font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--teal); text-transform: uppercase; }
+.insight h4 { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 17px; margin: 6px 0 10px; }
+.insight p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.8; margin: 0; }
+
+.pc-link { display: inline-block; font-size: 13.5px; font-weight: 500; color: var(--teal-deep); background: var(--teal-wash); padding: 8px 18px; border-radius: 999px; text-decoration: none; margin: 6px 4px 6px 0; transition: .2s; }
+.pc-link:hover { background: var(--teal-deep); color: #fff; }
+
+footer { padding: 48px 0; border-top: 1px solid var(--line); text-align: center; font-size: 13px; color: var(--ink-faint); line-height: 1.8; }
+
+/* ===== VISUAL ADDITIONS ===== */
+
+/* School flow diagram */
+.school-flow { display: flex; flex-wrap: wrap; gap: 0; margin: 28px 0; justify-content: center; align-items: stretch; }
+.sf-card { flex: 1 1 140px; max-width: 180px; min-width: 120px; background: var(--panel); border-radius: 10px; padding: 16px 14px; text-align: center; position: relative; border-top: 3px solid var(--teal); }
+.sf-card.active { border-top-color: var(--coral); background: var(--coral-wash); }
+.sf-year { font-family: "Noto Serif JP", serif; font-weight: 800; font-size: 20px; color: var(--coral); }
+.sf-name { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 14px; margin: 4px 0 2px; }
+.sf-en { font-size: 10px; color: var(--teal-deep); letter-spacing: .06em; text-transform: uppercase; font-weight: 500; }
+.sf-person { font-size: 11.5px; color: var(--ink-faint); margin-top: 6px; }
+.sf-arrow { display: flex; align-items: center; justify-content: center; width: 24px; flex-shrink: 0; color: var(--teal); font-size: 18px; font-weight: 700; }
+
+/* Experiment cards */
+.exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.exp-card { background: var(--panel); border-radius: 12px; padding: 22px 20px; border-left: 4px solid var(--teal); transition: transform .15s; }
+.exp-card:hover { transform: translateY(-2px); }
+.exp-card .exp-year { font-family: "Noto Serif JP", serif; font-weight: 800; font-size: 22px; color: var(--coral); }
+.exp-card .exp-title { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 16px; margin: 4px 0 6px; }
+.exp-card .exp-who { font-size: 12.5px; color: var(--teal-deep); font-weight: 500; margin-bottom: 8px; }
+.exp-card .exp-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 8px; }
+.exp-card .exp-tag { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 999px; font-weight: 500; }
+.tag-replicated { background: var(--teal-wash); color: var(--teal-deep); }
+.tag-debated { background: var(--sand-wash); color: var(--sand); }
+.tag-failed { background: var(--coral-wash); color: var(--coral); }
+
+/* Theory comparison table */
+.theory-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+.theory-table th { background: var(--teal-deep); color: #fff; font-weight: 600; padding: 12px 14px; text-align: left; font-size: 13px; }
+.theory-table th:first-child { border-radius: 8px 0 0 0; }
+.theory-table th:last-child { border-radius: 0 8px 0 0; }
+.theory-table td { padding: 12px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; line-height: 1.65; }
+.theory-table tr:nth-child(even) td { background: var(--paper-2); }
+.theory-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+.theory-table tr:last-child td:last-child { border-radius: 0 0 8px 0; }
+
+/* Field map - visual sunburst style */
+.field-map { display: flex; gap: 24px; margin: 28px 0; align-items: flex-start; flex-wrap: wrap; }
+.fm-col { flex: 1; min-width: 280px; }
+.fm-header { font-family: "Noto Serif JP", serif; font-weight: 700; font-size: 17px; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; text-align: center; }
+.fm-header.basic { background: var(--teal-wash); color: var(--teal-deep); }
+.fm-header.applied { background: var(--coral-wash); color: var(--coral); }
+.fm-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; margin-bottom: 4px; font-size: 13.5px; transition: background .15s; cursor: default; }
+.fm-item:hover { background: var(--panel); }
+.fm-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.fm-dot.b { background: var(--teal); }
+.fm-dot.a { background: var(--coral); }
+.fm-en { font-size: 11px; color: var(--ink-faint); margin-left: auto; font-weight: 500; }
+
+/* Keyword pills */
+.kw-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 20px; }
+.kw { display: inline-block; font-size: 12.5px; padding: 5px 14px; border-radius: 999px; background: var(--panel); color: var(--ink-soft); font-weight: 500; border: 1px solid var(--line); }
+
+@media (max-width: 680px) {
+  section { padding: 46px 0; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .dom-grid { grid-template-columns: 1fr 1fr; }
+  .nav-inner { padding: 11px 18px; }
+  .brand { display: none; }
+  .bar-row { grid-template-columns: 100px 1fr 44px; }
+  h1.title { font-size: 26px; }
+  .exp-grid { grid-template-columns: 1fr; }
+  .sf-arrow { transform: rotate(90deg); width: 100%; height: 24px; }
+  .school-flow { flex-direction: column; align-items: center; }
+  .sf-card { max-width: 100%; }
+  .theory-table { font-size: 12.5px; }
+  .theory-table th, .theory-table td { padding: 8px 10px; }
+}
+@media (max-width: 420px) {
+  .dom-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="brand">心理学概論<b>・</b>全体地図</span>
+    <div class="nav-links">
+      <a href="#history">歴史</a>
+      <a href="#schools">学派</a>
+      <a href="#map">分野</a>
+      <a href="#experiments">実験</a>
+      <a href="#theories">理論</a>
+      <a href="#credibility">信頼性</a>
+      <a href="#learn">学び方</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究</span>
+    <h1 class="title">心理学の<span class="ac">全体地図</span>。<br>7つの学派、30の分野、<br>そしてあなたの好奇心の行き先。</h1>
+    <p class="lede">1879年、ライプツィヒ大学の一室で世界初の心理学実験室が生まれた。それから約150年。心理学は哲学から独立し、行動主義と認知革命を経て、54の学会分科を擁する巨大な知の体系に育った。</p>
+    <div class="src-tag">
+      主要参考：APA Divisions / OpenStax <em>Psychology 2e</em> / Open Science Collaboration (2015) ほか
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">54<small>部門</small></div><div class="l">APA 学会分科</div></div>
+      <div class="stat"><div class="n">1879</div><div class="l">心理学実験室 誕生</div></div>
+      <div class="stat"><div class="n">7</div><div class="l">主要学派の数</div></div>
+      <div class="stat"><div class="n">36<small>%</small></div><div class="l">2015年 再現成功率</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 01 HISTORY ===== -->
+<section id="history">
+  <div class="wrap">
+    <span class="sec-no">01 ── 歴史</span>
+    <h2>哲学から科学へ ─ 149年の地殻変動</h2>
+    <p class="sec-sub">From Philosophy to Science</p>
+
+    <p>心の探究はプラトンやアリストテレスにまで遡る。しかし「心を科学的に測る」という発想が実験室を持ったのは19世紀後半だ。ここでは心理学の大きな転換点を視覚的に辿る。</p>
+
+    <ul class="clean">
+      <li><b>1879</b>　ヴント、ライプツィヒ大学に世界初の心理学実験室を開設</li>
+      <li><b>1890</b>　ジェイムズ『心理学原理』刊行。機能主義の誕生</li>
+      <li><b>1900</b>　フロイト『夢判断』。精神分析の幕開け</li>
+      <li><b>1913</b>　ワトソン「行動主義宣言」──内観法を追放し、観察可能な行動だけを扱うと宣言</li>
+      <li><b>1943</b>　マズロー「人間の動機づけ理論」。欲求階層説を提唱</li>
+      <li><b>1956</b>　ミラー「マジカルナンバー7±2」。認知革命の端緒</li>
+      <li><b>1998</b>　セリグマン、APA会長としてポジティブ心理学を正式に提唱</li>
+      <li><b>2011</b>　カーネマン『ファスト&amp;スロー』。二重過程理論が社会に広く浸透</li>
+      <li><b>2015</b>　Open Science Collaboration、再現性プロジェクトの結果を発表。追試成功率36%</li>
+    </ul>
+
+    <p>この年表は、心理学が一度も「完成」していないことを物語っている。哲学から実験科学へ、意識から行動へ、行動から認知へ、病理からウェルビーイングへ。振り子は止まることなく揺れてきた。</p>
+  </div>
+</section>
+
+<!-- ===== 02 SCHOOLS ===== -->
+<section id="schools">
+  <div class="wrap">
+    <span class="sec-no">02 ── 学派</span>
+    <h2>7つの学派 ─ 思想の系譜図</h2>
+    <p class="sec-sub">Seven Schools of Thought</p>
+
+    <p>心理学の歴史は、学派の興亡史でもある。現代の心理学者は特定の学派に属さず折衷的なアプローチをとるが、各学派が残した「問いの立て方」は今もなお生きている。</p>
+
+    <!-- School flow cards -->
+    <div class="school-flow">
+      <div class="sf-card"><div class="sf-year">1879</div><div class="sf-name">構造主義</div><div class="sf-en">Structuralism</div><div class="sf-person">Wundt・Titchener</div></div>
+      <div class="sf-arrow">→</div>
+      <div class="sf-card"><div class="sf-year">1890</div><div class="sf-name">機能主義</div><div class="sf-en">Functionalism</div><div class="sf-person">James・Dewey</div></div>
+      <div class="sf-arrow">→</div>
+      <div class="sf-card"><div class="sf-year">1900</div><div class="sf-name">精神分析</div><div class="sf-en">Psychoanalysis</div><div class="sf-person">Freud・Jung</div></div>
+      <div class="sf-arrow">→</div>
+      <div class="sf-card"><div class="sf-year">1913</div><div class="sf-name">行動主義</div><div class="sf-en">Behaviorism</div><div class="sf-person">Watson・Skinner</div></div>
+      <div class="sf-arrow">→</div>
+      <div class="sf-card"><div class="sf-year">1912</div><div class="sf-name">ゲシュタルト</div><div class="sf-en">Gestalt</div><div class="sf-person">Wertheimer・Köhler</div></div>
+      <div class="sf-arrow">→</div>
+      <div class="sf-card"><div class="sf-year">1950s</div><div class="sf-name">人間性心理学</div><div class="sf-en">Humanistic</div><div class="sf-person">Maslow・Rogers</div></div>
+      <div class="sf-arrow">→</div>
+      <div class="sf-card active"><div class="sf-year">1960s</div><div class="sf-name">認知心理学</div><div class="sf-en">Cognitive</div><div class="sf-person">Neisser・Kahneman</div></div>
+    </div>
+
+    <!-- Comparison table -->
+    <table class="theory-table">
+      <tr>
+        <th>学派</th>
+        <th>中心的な問い</th>
+        <th>方法</th>
+        <th>限界・批判</th>
+      </tr>
+      <tr>
+        <td><strong>構造主義</strong></td>
+        <td>意識は何でできているか</td>
+        <td>内観法（introspection）</td>
+        <td>再現性がなく主観的すぎる</td>
+      </tr>
+      <tr>
+        <td><strong>機能主義</strong></td>
+        <td>心は環境適応にどう役立つか</td>
+        <td>観察・実験・比較</td>
+        <td>「機能」の定義が曖昧</td>
+      </tr>
+      <tr>
+        <td><strong>精神分析</strong></td>
+        <td>無意識はどう行動を支配するか</td>
+        <td>自由連想・夢分析</td>
+        <td>反証可能性に乏しい</td>
+      </tr>
+      <tr>
+        <td><strong>行動主義</strong></td>
+        <td>行動はどう学習されるか</td>
+        <td>統制実験（動物・人間）</td>
+        <td>内的過程を無視しすぎ</td>
+      </tr>
+      <tr>
+        <td><strong>ゲシュタルト</strong></td>
+        <td>知覚はどう組織化されるか</td>
+        <td>現象学的観察・実験</td>
+        <td>知覚以外の説明力が弱い</td>
+      </tr>
+      <tr>
+        <td><strong>人間性心理学</strong></td>
+        <td>人間はどう成長するか</td>
+        <td>質的研究・事例研究</td>
+        <td>実証的エビデンスが少ない</td>
+      </tr>
+      <tr>
+        <td><strong>認知心理学</strong></td>
+        <td>人間はどう情報を処理するか</td>
+        <td>実験・fMRI・計算モデル</td>
+        <td>情動・文化を軽視しがち</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <p><span class="h">今の心理学者は「学派」に所属しない</span></p>
+      <p>7学派は「歴史」であって「陣営」ではない。現代の心理学者の大半は、認知心理学的な方法論を基盤に、テーマに応じて社会・発達・神経科学などのフレームを組み合わせる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 MAP ===== -->
+<section id="map">
+  <div class="wrap">
+    <span class="sec-no">03 ── 分野マップ</span>
+    <h2>基礎と応用 ─ 心理学の全体地図</h2>
+    <p class="sec-sub">Fundamental & Applied Domains</p>
+
+    <p>心理学は「基礎心理学」と「応用心理学」に大別される。基礎が「心はどう動くか」を問い、応用が「その知見をどの現場で使うか」を問う。</p>
+
+    <div class="field-map">
+      <div class="fm-col">
+        <div class="fm-header basic">基礎心理学</div>
+        <div class="fm-item"><span class="fm-dot b"></span>認知心理学<span class="fm-en">Cognitive</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>発達心理学<span class="fm-en">Developmental</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>社会心理学<span class="fm-en">Social</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>生理心理学<span class="fm-en">Biopsychology</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>人格心理学<span class="fm-en">Personality</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>学習心理学<span class="fm-en">Learning</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>知覚心理学<span class="fm-en">Perception</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>感情心理学<span class="fm-en">Emotion</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>進化心理学<span class="fm-en">Evolutionary</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>言語心理学<span class="fm-en">Psycholinguistics</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>神経心理学<span class="fm-en">Neuropsychology</span></div>
+        <div class="fm-item"><span class="fm-dot b"></span>比較心理学<span class="fm-en">Comparative</span></div>
+      </div>
+      <div class="fm-col">
+        <div class="fm-header applied">応用心理学</div>
+        <div class="fm-item"><span class="fm-dot a"></span>臨床心理学<span class="fm-en">Clinical</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>産業・組織心理学<span class="fm-en">I/O Psychology</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>教育心理学<span class="fm-en">Educational</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>犯罪心理学<span class="fm-en">Forensic</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>健康心理学<span class="fm-en">Health</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>スポーツ心理学<span class="fm-en">Sport</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>カウンセリング心理学<span class="fm-en">Counseling</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>災害心理学<span class="fm-en">Disaster</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>交通心理学<span class="fm-en">Traffic</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>環境心理学<span class="fm-en">Environmental</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>消費者心理学<span class="fm-en">Consumer</span></div>
+        <div class="fm-item"><span class="fm-dot a"></span>ポジティブ心理学<span class="fm-en">Positive</span></div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>ポジティブ心理学 ─ 「病気の治療」から「良い人生の科学」へ</h4>
+      <p>1998年にセリグマンが提唱。臨床が精神疾患の治療に偏りすぎているという問題意識から、幸福感・フロー・強み・レジリエンスなど「何が人を繁栄させるか」を科学的に測る。マズローやロジャーズの人間性心理学と問いは同じだが、方法論が定量的・実証的な点で異なる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 EXPERIMENTS ===== -->
+<section id="experiments">
+  <div class="wrap">
+    <span class="sec-no">04 ── 伝説の実験</span>
+    <h2>心理学を変えた6つの実験</h2>
+    <p class="sec-sub">Landmark Experiments</p>
+
+    <p>心理学史上の「伝説」と呼ばれる実験。ただし多くは倫理的に問題があり、再現性にも疑問が呈されている。各カードのタグで現在の評価を示した。</p>
+
+    <div class="exp-grid">
+      <div class="exp-card">
+        <div class="exp-year">1901</div>
+        <div class="exp-title">パブロフの犬</div>
+        <div class="exp-who">Ivan Pavlov</div>
+        <div class="exp-desc">ベル→エサの反復で、ベルだけで唾液が出るようになった。古典的条件づけの発見。行動主義の基盤を築いた。</div>
+        <span class="exp-tag tag-replicated">✓ 再現確認済</span>
+      </div>
+      <div class="exp-card">
+        <div class="exp-year">1951</div>
+        <div class="exp-title">アッシュの同調実験</div>
+        <div class="exp-who">Solomon Asch</div>
+        <div class="exp-desc">明らかに異なる線分の長さを、サクラの多数意見に合わせて75%が誤答。集団圧力の力を可視化した。</div>
+        <span class="exp-tag tag-replicated">✓ 部分的に再現</span>
+      </div>
+      <div class="exp-card">
+        <div class="exp-year">1961</div>
+        <div class="exp-title">ミルグラムの服従実験</div>
+        <div class="exp-who">Stanley Milgram</div>
+        <div class="exp-desc">権威者の指示で致死レベル450Vまでスイッチを上げた参加者が約65%。「悪の凡庸さ」を鮮烈に示した。</div>
+        <span class="exp-tag tag-debated">▲ 解釈に論争</span>
+      </div>
+      <div class="exp-card">
+        <div class="exp-year">1961</div>
+        <div class="exp-title">ボボ人形実験</div>
+        <div class="exp-who">Albert Bandura</div>
+        <div class="exp-desc">大人が人形を叩く映像を見た子どもが暴力を模倣。観察学習の実証であり、メディア暴力論争の出発点。</div>
+        <span class="exp-tag tag-replicated">✓ 概念は確認</span>
+      </div>
+      <div class="exp-card">
+        <div class="exp-year">1971</div>
+        <div class="exp-title">スタンフォード監獄実験</div>
+        <div class="exp-who">Philip Zimbardo</div>
+        <div class="exp-desc">看守役が暴力的になり6日で中止。「状況の力」と長年解釈されたが、近年、研究者の誘導やバイアスが判明。</div>
+        <span class="exp-tag tag-failed">✕ 深刻な疑義</span>
+      </div>
+      <div class="exp-card">
+        <div class="exp-year">1920</div>
+        <div class="exp-title">リトル・アルバート実験</div>
+        <div class="exp-who">John B. Watson</div>
+        <div class="exp-desc">乳児に白ネズミと大きな音を同時提示し、恐怖を条件づけた。古典的条件づけのヒトへの適用例。倫理的に深刻な問題がある。</div>
+        <span class="exp-tag tag-debated">▲ 倫理的問題</span>
+      </div>
+    </div>
+
+    <div class="note sand">
+      <p><span class="h">古典的実験の読み方</span></p>
+      <p>サンプルサイズが小さく、参加者の多様性が限られ（大半が米国の白人男子大学生）、統制条件が不十分な実験が多い。歴史的価値は認めつつ、結果をそのまま「人間の本性」として一般化するのは控えたい。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 THEORIES ===== -->
+<section id="theories">
+  <div class="wrap">
+    <span class="sec-no">05 ── 主要理論</span>
+    <h2>現代心理学を形づくる理論たち</h2>
+    <p class="sec-sub">Key Theories at a Glance</p>
+
+    <table class="theory-table">
+      <tr>
+        <th>理論名</th>
+        <th>提唱者</th>
+        <th>核心アイデア</th>
+        <th>主な応用</th>
+      </tr>
+      <tr>
+        <td><strong>認知発達段階説</strong></td>
+        <td>Piaget</td>
+        <td>子どもの思考は4段階（感覚運動→前操作→具体的操作→形式的操作）を経て質的に変化する</td>
+        <td>教育カリキュラム設計</td>
+      </tr>
+      <tr>
+        <td><strong>心理社会的発達段階</strong></td>
+        <td>Erikson</td>
+        <td>人生を8段階に分け、各段階に「危機」がある（信頼vs不信〜統合vs絶望）</td>
+        <td>臨床・カウンセリング</td>
+      </tr>
+      <tr>
+        <td><strong>二重過程理論</strong></td>
+        <td>Kahneman & Tversky</td>
+        <td>速い直感的思考（System 1）と遅い分析的思考（System 2）の二重構造</td>
+        <td>行動経済学・UXデザイン</td>
+      </tr>
+      <tr>
+        <td><strong>認知行動療法 (CBT)</strong></td>
+        <td>Aaron Beck</td>
+        <td>認知の歪みが感情と行動を規定する。歪みの修正で症状を改善</td>
+        <td>うつ・不安・PTSD治療</td>
+      </tr>
+      <tr>
+        <td><strong>自己決定理論 (SDT)</strong></td>
+        <td>Deci & Ryan</td>
+        <td>自律性・有能感・関係性の3欲求充足が内発的動機づけを高める</td>
+        <td>教育・マネジメント・コーチング</td>
+      </tr>
+      <tr>
+        <td><strong>欲求階層説</strong></td>
+        <td>Maslow</td>
+        <td>生理→安全→所属→承認→自己実現の5段階で欲求が階層化</td>
+        <td>マーケティング・組織設計</td>
+      </tr>
+      <tr>
+        <td><strong>愛着理論</strong></td>
+        <td>Bowlby & Ainsworth</td>
+        <td>乳児期の養育者との絆（安全基地）が生涯の対人関係に影響する</td>
+        <td>育児支援・対人関係療法</td>
+      </tr>
+      <tr>
+        <td><strong>Big Five性格特性</strong></td>
+        <td>Goldberg, Costa & McCrae</td>
+        <td>外向性・協調性・誠実性・神経症傾向・開放性の5因子でパーソナリティを記述</td>
+        <td>採用・自己理解・研究</td>
+      </tr>
+    </table>
+
+    <div class="pull">
+      <p>学派が「世界観」だとすれば、理論は「地図上のルート」。同じ風景を見ていても、どのルートを選ぶかで見えるものが変わる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 CREDIBILITY ===== -->
+<section id="credibility">
+  <div class="wrap">
+    <span class="sec-no">06 ── 信頼性</span>
+    <h2>再現性の危機と信頼性革命</h2>
+    <p class="sec-sub">Replication Crisis & Credibility Revolution</p>
+
+    <p>2015年、Open Science Collaborationが心理学の主要3誌に掲載された97実験を追試し、再現できたのは<mark class="c">36%</mark>だけだった。p値のハッキング、出版バイアス、サンプルサイズの小ささ──疑わしい研究慣行（QRPs）が浮き彫りになった。</p>
+
+    <p>ただし全分野が等しく「危機」にあるわけではない。認知心理学（知覚・記憶・注意）は刺激の統制がしやすく比較的再現率が高い。CBTの有効性も大規模メタ分析で安定したエビデンスがある。一方、社会心理学のプライミング効果系の知見──「高齢者に関する単語を見ると歩行が遅くなる」など──はいくつもの追試で再現に失敗している。進化心理学は仮説検証の難しさから科学哲学者に根本的な批判を受けてきた。</p>
+
+    <p>しかし「危機」は同時に<mark>信頼性革命（credibility revolution）</mark>の起点にもなった。</p>
+
+    <div class="dom-grid">
+      <div class="dom" style="border-top-color: var(--teal);">
+        <div class="dn">プレレジストレーション</div>
+        <div class="de">PRE-REGISTRATION</div>
+        <div class="dq">研究開始前に仮説と分析方法を公開登録。後出しジャンケンを防ぐ。</div>
+      </div>
+      <div class="dom" style="border-top-color: var(--teal);">
+        <div class="dn">レジスタードレポート</div>
+        <div class="de">REGISTERED REPORT</div>
+        <div class="dq">結果が出る前に査読・採択を決める出版形式。出版バイアスを排除。</div>
+      </div>
+      <div class="dom" style="border-top-color: var(--teal);">
+        <div class="dn">オープンデータ</div>
+        <div class="de">OPEN DATA & MATERIALS</div>
+        <div class="dq">データと分析コードを公開し、誰でも追試可能にする透明性の確保。</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>再現されなかった知見は「嘘」なのか</h4>
+      <p>再現に失敗しても元の発見がすべて虚偽とは限らない。効果量が当初より小さかった、特定条件でしか生じなかった──そうした「程度の問題」が大半だ。心理学を学ぶときは「白か黒か」ではなく「どの条件でどの程度か」という解像度を持つことが大切だ。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 LEARN ===== -->
+<section id="learn">
+  <div class="wrap">
+    <span class="sec-no">07 ── 学びの道標</span>
+    <h2>どこから始めるか</h2>
+    <p class="sec-sub">Books, Courses, Journals & Podcasts</p>
+
+    <h3>入門書</h3>
+    <ul class="clean">
+      <li><b>Paul Bloom『Psych: The Story of the Human Mind』（2023）</b>　イェール大学教授による最新入門書。偏りが少なく、読み物として優秀。</li>
+      <li><b>Daniel Kahneman『ファスト&amp;スロー』（2011）</b>　認知バイアスと二重過程理論。行動経済学の入口にもなる一冊。</li>
+      <li><b>Robert Sapolsky『Behave』（2018）</b>　行動の生物学的基盤を神経科学×内分泌学×進化で解説。分厚いが読ませる。</li>
+      <li><b>Roger Hock『Forty Studies that Changed Psychology』</b>　心理学を変えた40の研究を、背景・方法・影響・批判つきで紹介する名著。</li>
+    </ul>
+
+    <h3>無料オンライン講義</h3>
+    <ul class="clean">
+      <li><b>Yale / Introduction to Psychology（Coursera）</b>　Paul Bloom教授。知覚・記憶・発達・精神疾患まで幅広くカバー。無料聴講可能。</li>
+      <li><b>Yale / The Science of Well-Being（Coursera）</b>　Laurie Santos教授。幸福の科学を実践課題つきで学べるポジティブ心理学コース。</li>
+      <li><b>MIT OpenCourseWare</b>　MITの実際の講義資料（シラバス・ノート・試験問題と解答）を無料公開。自習派向け。</li>
+      <li><b>OpenStax『Psychology 2e』</b>　無料のオープンアクセス教科書。大学の心理学入門コース水準。Webで全文読める。</li>
+    </ul>
+
+    <h3>主要学術誌（JIF順）</h3>
+    <div class="chart-card">
+      <div class="ct">心理学の主要ジャーナル</div>
+      <div class="cs">Journal Impact Factor (JIF) 2024年版</div>
+      <div id="chart2"></div>
+    </div>
+
+    <h3>ポッドキャスト</h3>
+    <ul class="clean">
+      <li><b>Hidden Brain（NPR）</b>　Shankar Vedantamがホスト。無意識のバイアスや行動科学を毎週わかりやすく。</li>
+      <li><b>The Psychology Podcast</b>　Scott Barry Kaufmanがホスト。研究者をゲストに人間の可能性を探求。</li>
+    </ul>
+
+    <h3>主要キーワード</h3>
+
+    <p style="font-size:13.5px;color:var(--ink-faint);margin-bottom:6px;font-weight:500;">方法論</p>
+    <div class="kw-pills">
+      <span class="kw">RCT</span>
+      <span class="kw">メタ分析</span>
+      <span class="kw">効果量</span>
+      <span class="kw">p値</span>
+      <span class="kw">信頼区間</span>
+      <span class="kw">プレレジストレーション</span>
+      <span class="kw">再現性（replicability）</span>
+      <span class="kw">QRPs</span>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--ink-faint);margin-bottom:6px;font-weight:500;">認知・思考</p>
+    <div class="kw-pills">
+      <span class="kw">ヒューリスティクス</span>
+      <span class="kw">認知バイアス</span>
+      <span class="kw">ワーキングメモリ</span>
+      <span class="kw">二重過程理論</span>
+      <span class="kw">プライミング</span>
+      <span class="kw">メタ認知</span>
+      <span class="kw">スキーマ</span>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--ink-faint);margin-bottom:6px;font-weight:500;">臨床・治療</p>
+    <div class="kw-pills">
+      <span class="kw">CBT</span>
+      <span class="kw">DSM-5-TR</span>
+      <span class="kw">エビデンスベースド</span>
+      <span class="kw">マインドフルネス</span>
+      <span class="kw">ACT</span>
+      <span class="kw">レジリエンス</span>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--ink-faint);margin-bottom:6px;font-weight:500;">発達・教育</p>
+    <div class="kw-pills">
+      <span class="kw">愛着理論</span>
+      <span class="kw">足場かけ（scaffolding）</span>
+      <span class="kw">最近接発達領域（ZPD）</span>
+      <span class="kw">対象の永続性</span>
+      <span class="kw">マインドセット</span>
+      <span class="kw">実行機能</span>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--ink-faint);margin-bottom:6px;font-weight:500;">社会・集団</p>
+    <div class="kw-pills">
+      <span class="kw">同調</span>
+      <span class="kw">服従</span>
+      <span class="kw">ステレオタイプ</span>
+      <span class="kw">認知的不協和</span>
+      <span class="kw">内集団バイアス</span>
+      <span class="kw">傍観者効果</span>
+    </div>
+
+    <p style="font-size:13.5px;color:var(--ink-faint);margin-bottom:6px;font-weight:500;">人格・動機づけ・ウェルビーイング</p>
+    <div class="kw-pills">
+      <span class="kw">Big Five</span>
+      <span class="kw">SDT（自己決定理論）</span>
+      <span class="kw">フロー</span>
+      <span class="kw">PERMA</span>
+      <span class="kw">ユーダイモニア</span>
+      <span class="kw">VIA強み</span>
+    </div>
+
+    <div class="note">
+      <p><span class="h">学びのヒント：「広く浅く」→「狭く深く」</span></p>
+      <p>まず入門書や講義で全体像を掴む。次に興味を引かれた分野のレビュー論文（Psychological BulletinやAnnual Review of Psychology）を1本読む。その引用文献をたどれば「地図」が頭にできあがる。Google ScholarやPubMedで被引用数の多い論文から読み始めるのも効率的。</p>
+    </div>
+
+    <h3>リンク集</h3>
+    <a class="pc-link" href="https://www.apa.org/about/division" target="_blank" rel="noopener">APA Divisions 一覧</a>
+    <a class="pc-link" href="https://openstax.org/books/psychology-2e/pages/1-introduction" target="_blank" rel="noopener">OpenStax Psychology 2e</a>
+    <a class="pc-link" href="https://www.coursera.org/learn/introduction-psychology" target="_blank" rel="noopener">Yale / Intro to Psychology</a>
+    <a class="pc-link" href="https://www.coursera.org/learn/the-science-of-well-being" target="_blank" rel="noopener">Yale / Science of Well-Being</a>
+    <a class="pc-link" href="https://ocw.mit.edu/" target="_blank" rel="noopener">MIT OpenCourseWare</a>
+    <a class="pc-link" href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>
+    <a class="pc-link" href="https://www.nature.com/articles/s44271-023-00003-2" target="_blank" rel="noopener">信頼性革命（Nature, 2023）</a>
+    <a class="pc-link" href="https://plato.stanford.edu/entries/evolutionary-psychology/" target="_blank" rel="noopener">Stanford Encyclopedia: 進化心理学</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    心理学の全体地図 ─ 7つの学派、30の分野、そしてあなたの好奇心の行き先<br>
+    Deep Research ／ 概念探究　2026
+  </div>
+</footer>
+
+<script>
+// progress bar
+const bar = document.getElementById('progress');
+document.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  bar.style.width = (max > 0 ? (h.scrollTop / max * 100) : 0) + '%';
+}, { passive: true });
+
+// active nav
+const links = [...document.querySelectorAll('.nav-links a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      const id = '#' + e.target.id;
+      links.forEach(l => {
+        const on = l.getAttribute('href') === id;
+        l.style.color = on ? 'var(--teal-deep)' : '';
+        l.style.background = on ? 'var(--teal-wash)' : '';
+      });
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+secs.forEach(s => io.observe(s));
+
+// chart 2: journal impact factors
+(function(){
+  const data = [
+    ["Psychological Bulletin", 19.8],
+    ["Nature Human Behaviour", 15.9],
+    ["Qualitative Psychology", 14.3],
+    ["JEP: General", 8.7],
+    ["J. Applied Psychology", 6.1],
+    ["J. Consulting & Clinical", 5.4],
+  ];
+  const el = document.getElementById('chart2');
+  if(!el) return;
+  const max = 22;
+  el.innerHTML = data.map(([name, val]) => {
+    const w = (val / max) * 100;
+    return `<div class="bar-row"><div class="bl">${name}</div><div class="bar-track"><div class="bar-fill" data-w="${w}" style="width:0"></div></div><div class="bv">${val.toFixed(1)}</div></div>`;
+  }).join('');
+})();
+
+// animate charts on scroll
+const ao = new IntersectionObserver((es, obs) => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-w]').forEach(f => {
+        requestAnimationFrame(() => { f.style.width = f.dataset.w + '%'; });
+      });
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: .25 });
+document.querySelectorAll('.chart-card').forEach(c => ao.observe(c));
+</script>
+</body>
+</html>
