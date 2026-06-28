@@ -29,23 +29,21 @@
   a{text-decoration:none;color:inherit}
   ::selection{background:var(--coral);color:#fff}
 
-  /* ---- top ---- */
   .top{padding:54px 0 0}
   .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 26px;display:flex;align-items:center}
   .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);margin-right:12px}
 
-  /* ---- toolbar ---- */
   .toolbar{position:sticky;top:0;z-index:20;background:var(--paper);padding:14px 0 16px;border-bottom:1px solid var(--line)}
   .search{position:relative;margin:0 0 16px}
   .search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted);pointer-events:none}
-  .search input{
-    width:100%;font-family:"Noto Sans JP",sans-serif;font-size:15px;color:var(--ink);
+  .search input{width:100%;font-family:"Noto Sans JP",sans-serif;font-size:15px;color:var(--ink);
     padding:13px 16px 13px 42px;border:1px solid var(--line-strong);border-radius:11px;
-    background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;
-  }
+    background:#fff;outline:none;transition:border-color .2s,box-shadow .2s}
   .search input::placeholder{color:var(--muted)}
   .search input:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-wash)}
-  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+  .controls{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;flex:1 1 auto}
   .chip{font-family:"Noto Sans JP",sans-serif;font-size:13px;font-weight:500;letter-spacing:.02em;
     padding:7px 15px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);
     cursor:pointer;white-space:nowrap;transition:all .2s ease}
@@ -53,24 +51,34 @@
   .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
   .chip .c{font-size:11px;opacity:.6;margin-left:6px;font-feature-settings:"tnum"}
 
-  /* ---- count ---- */
+  .sort{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  .sort label{font-size:11.5px;letter-spacing:.06em;color:var(--muted);font-weight:500;white-space:nowrap}
+  .sort select{font-family:"Noto Sans JP",sans-serif;font-size:13px;color:var(--ink);
+    padding:7px 30px 7px 13px;border:1px solid var(--line-strong);border-radius:999px;background:#fff;
+    cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2374827f' stroke-width='2.5' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat:no-repeat;background-position:right 11px center;transition:border-color .2s}
+  .sort select:focus{border-color:var(--teal)}
+
   .count{font-size:12.5px;letter-spacing:.04em;color:var(--muted);padding:18px 2px 4px}
 
-  /* ---- list ---- */
   .list{padding-bottom:70px}
-  .entry{display:grid;grid-template-columns:1fr 20px;align-items:center;gap:16px;
+  .entry{display:grid;grid-template-columns:44px 1fr 20px;align-items:center;gap:16px;
     padding:21px 8px;border-bottom:1px solid var(--line);position:relative;
     transition:background .25s ease,padding .25s ease}
   .entry::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;
     background:linear-gradient(180deg,var(--teal),var(--teal-deep));transition:width .25s ease}
   .entry:hover{background:var(--panel);padding-left:18px}
   .entry:hover::before{width:3px}
-  .entry.hide{display:none}
-  .cat{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin:0 0 6px;display:flex;align-items:center}
-  .cat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;margin-right:8px}
+  .num{font-family:"Noto Serif JP",serif;font-weight:700;font-size:20px;color:var(--teal-deep);
+    line-height:1;text-align:center;font-feature-settings:"tnum";letter-spacing:.02em}
+  .body .cat{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin:0 0 6px;display:flex;align-items:center}
+  .body .cat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;margin-right:8px}
   .t{font-family:"Noto Serif JP",serif;font-weight:700;font-size:18px;line-height:1.5;margin:0 0 4px;transition:color .25s ease}
   .entry:hover .t{color:var(--teal-deep)}
-  .s{font-size:13.5px;color:var(--muted);line-height:1.7;margin:0}
+  .s{font-size:13.5px;color:var(--muted);line-height:1.7;margin:0 0 7px}
+  .date{font-size:11px;letter-spacing:.04em;color:var(--ink-soft);font-feature-settings:"tnum";display:inline-flex;align-items:center;gap:6px}
+  .date svg{width:12px;height:12px;color:var(--muted)}
   .arrow{color:var(--line-strong);transition:color .25s ease,transform .25s ease}
   .entry:hover .arrow{color:var(--coral);transform:translateX(3px)}
   .arrow svg{width:17px;height:17px;display:block}
@@ -83,8 +91,10 @@
   @media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;animation:none}html{scroll-behavior:auto}.entry,.arrow,.t,.chip{transition:none}}
   @media(max-width:560px){
     body{font-size:16px}.wrap{padding:0 19px}.top{padding:40px 0 0}
-    .entry{padding:18px 4px}.entry:hover{padding-left:8px}.arrow{display:none}
-    .t{font-size:16.5px}
+    .controls{flex-direction:column;gap:12px}
+    .entry{grid-template-columns:32px 1fr;gap:13px;padding:18px 4px}
+    .entry:hover{padding-left:8px}.arrow{display:none}
+    .num{font-size:16px}.t{font-size:16.5px}
   }
 </style>
 </head>
@@ -100,7 +110,16 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
       <input id="q" type="search" placeholder="タイトル・キーワードで検索" autocomplete="off" aria-label="記事を検索">
     </div>
-    <div class="filters" id="filters"></div>
+    <div class="controls">
+      <div class="filters" id="filters"></div>
+      <div class="sort">
+        <label for="sort">並び替え</label>
+        <select id="sort" aria-label="並び替え">
+          <option value="date-desc">新着順</option>
+          <option value="num-asc">番号順</option>
+        </select>
+      </div>
+    </div>
   </div>
 
   <div class="count" id="count"></div>
@@ -112,18 +131,20 @@
 <script>
 /* ============================================================
    記事データ。新しいリサーチを足すときは、この配列に1行追加するだけ。
-   cat を新しくすると、上のフィルタも自動で増える。
+   - cat   : カテゴリ名（新しくすると上のフィルタも自動で増える）
+   - num   : 表示する番号（フォルダのプレフィックスに合わせる）
+   - date  : アップロード日 "YYYY-MM-DD"（新着順ソートに使う／後で正しい値に直せる）
    ============================================================ */
 const ARTICLES = [
-  { cat:"ウェルビーイング", title:"ウェルビーイングの全体地図", sub:"概念・構造・主要理論、そしてなぜ5つに絞ったか", url:"./wellbeing/00-map/" },
-  { cat:"ウェルビーイング", title:"再現性で選ぶウェルビーイング研究", sub:"看板ではなく構成概念にアンカーを打つ", url:"./wellbeing/01-reproducibility/" },
-  { cat:"ウェルビーイング", title:"自己決定理論（SDT）深掘り", sub:"量ではなく質の動機づけ、その岩盤と争点", url:"./wellbeing/02-sdt/" },
-  { cat:"ウェルビーイング", title:"心理的ウェルビーイング（Ryff PWB）深掘り", sub:"気分ではなく、よく機能して生きる", url:"./wellbeing/03-pwb/" },
-  { cat:"ウェルビーイング", title:"主観的ウェルビーイング（Diener SWB）深掘り", sub:"自分の基準で、自分の人生を採点する", url:"./wellbeing/04-swb/" },
-  { cat:"ウェルビーイング", title:"ウェルビーイングの哲学 深掘り", sub:"尺度の下にある「良い人生とは何か」", url:"./wellbeing/05-philosophy/" },
-  { cat:"ウェルビーイング", title:"ウェルビーイングの経済学 深掘り", sub:"結局、お金は幸せを買うのか", url:"./wellbeing/06-economics/" },
-  { cat:"ポジティブ心理学", title:"ポジティブ心理学を読み解く", sub:"光と影の科学", url:"./positive-psychology/01-overview/" },
-  { cat:"ポジティブ心理学", title:"繁栄の世界地図", sub:"Global Flourishing Study を読む", url:"./positive-psychology/02-international-happiness/" },
+  { cat:"ウェルビーイング", num:"00", date:"2026-06-28", title:"ウェルビーイングの全体地図", sub:"概念・構造・主要理論、そしてなぜ5つに絞ったか", url:"./wellbeing/00-map/" },
+  { cat:"ウェルビーイング", num:"01", date:"2026-06-28", title:"再現性で選ぶウェルビーイング研究", sub:"看板ではなく構成概念にアンカーを打つ", url:"./wellbeing/01-reproducibility/" },
+  { cat:"ウェルビーイング", num:"02", date:"2026-06-28", title:"自己決定理論（SDT）深掘り", sub:"量ではなく質の動機づけ、その岩盤と争点", url:"./wellbeing/02-sdt/" },
+  { cat:"ウェルビーイング", num:"03", date:"2026-06-28", title:"心理的ウェルビーイング（Ryff PWB）深掘り", sub:"気分ではなく、よく機能して生きる", url:"./wellbeing/03-pwb/" },
+  { cat:"ウェルビーイング", num:"04", date:"2026-06-28", title:"主観的ウェルビーイング（Diener SWB）深掘り", sub:"自分の基準で、自分の人生を採点する", url:"./wellbeing/04-swb/" },
+  { cat:"ウェルビーイング", num:"05", date:"2026-06-28", title:"ウェルビーイングの哲学 深掘り", sub:"尺度の下にある「良い人生とは何か」", url:"./wellbeing/05-philosophy/" },
+  { cat:"ウェルビーイング", num:"06", date:"2026-06-28", title:"ウェルビーイングの経済学 深掘り", sub:"結局、お金は幸せを買うのか", url:"./wellbeing/06-economics/" },
+  { cat:"ポジティブ心理学", num:"01", date:"2026-06-28", title:"ポジティブ心理学を読み解く", sub:"光と影の科学", url:"./positive-psychology/01-overview/" },
+  { cat:"ポジティブ心理学", num:"02", date:"2026-06-28", title:"繁栄の世界地図", sub:"Global Flourishing Study を読む", url:"./positive-psychology/02-international-happiness/" },
 ];
 
 const listEl=document.getElementById('list');
@@ -131,11 +152,15 @@ const filtersEl=document.getElementById('filters');
 const countEl=document.getElementById('count');
 const emptyEl=document.getElementById('empty');
 const qEl=document.getElementById('q');
+const sortEl=document.getElementById('sort');
 
 const cats=[...new Set(ARTICLES.map(a=>a.cat))];
+const catOrder=Object.fromEntries(cats.map((c,i)=>[c,i]));
 const catCount=c=>ARTICLES.filter(a=>a.cat===c).length;
+
 let active="all";
 let keyword="";
+let sortMode="date-desc";
 
 function esc(s){return s.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function hl(text){
@@ -143,6 +168,10 @@ function hl(text){
   const i=text.toLowerCase().indexOf(keyword.toLowerCase());
   if(i<0) return esc(text);
   return esc(text.slice(0,i))+'<mark>'+esc(text.slice(i,i+keyword.length))+'</mark>'+esc(text.slice(i+keyword.length));
+}
+function fmtDate(d){
+  // "2026-06-28" -> "2026.06.28"
+  return d.replace(/-/g,'.');
 }
 
 function renderChips(){
@@ -155,22 +184,34 @@ function renderChips(){
 }
 
 function matches(a){
-  const inCat=(active==='all'||a.cat===active);
-  if(!inCat) return false;
+  if(!(active==='all'||a.cat===active)) return false;
   if(!keyword) return true;
-  const k=keyword.toLowerCase();
-  return (a.title+a.sub+a.cat).toLowerCase().includes(k);
+  return (a.title+a.sub+a.cat).toLowerCase().includes(keyword.toLowerCase());
+}
+
+function sortFn(a,b){
+  if(sortMode==='num-asc'){
+    // B-1: カテゴリ順 → 番号昇順
+    if(catOrder[a.cat]!==catOrder[b.cat]) return catOrder[a.cat]-catOrder[b.cat];
+    return a.num.localeCompare(b.num);
+  }
+  // date-desc: 日付の新しい順。同日はカテゴリ順→番号昇順で安定させる。
+  if(a.date!==b.date) return a.date<b.date?1:-1;
+  if(catOrder[a.cat]!==catOrder[b.cat]) return catOrder[a.cat]-catOrder[b.cat];
+  return a.num.localeCompare(b.num);
 }
 
 function render(){
   renderChips();
-  const shown=ARTICLES.filter(matches);
+  const shown=ARTICLES.filter(matches).slice().sort(sortFn);
   listEl.innerHTML=shown.map((a,i)=>`
     <a class="entry fade" style="animation-delay:${Math.min(i*40,300)}ms" href="${a.url}">
-      <div>
+      <span class="num">${esc(a.num)}</span>
+      <div class="body">
         <div class="cat">${esc(a.cat)}</div>
         <div class="t">${hl(a.title)}</div>
         <div class="s">${hl(a.sub)}</div>
+        <span class="date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>${fmtDate(a.date)}</span>
       </div>
       <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>`).join('');
@@ -181,6 +222,7 @@ function render(){
 }
 
 qEl.addEventListener('input',()=>{keyword=qEl.value.trim();render();});
+sortEl.addEventListener('change',()=>{sortMode=sortEl.value;render();});
 render();
 </script>
 </body>
