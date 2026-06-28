@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>繁栄の世界地図 ── Global Flourishing Study を読む</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfcfb;
+    --paper-2:#f4f7f5;
+    --panel:#f4f7f5;
+    --ink:#2b3a3e;
+    --ink-soft:#46585c;
+    --ink-faint:#74827f;
+    --teal-deep:#4f7c87;
+    --teal:#62B8A0;
+    --teal-wash:#eef6f3;
+    --coral:#eb6584;
+    --coral-wash:#fdeef1;
+    --sand:#B98B2E;
+    --sand-wash:#F5EBD3;
+    --line:#e3e8e4;
+    --line-soft:#eef1ef;
+    --shadow:0 1px 2px rgba(39,53,54,.04),0 10px 34px -18px rgba(39,53,54,.22);
+    --maxw:760px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;
+    line-height:1.95;letter-spacing:.01em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  .mincho{font-family:"Noto Serif JP",serif;}
+
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+  nav{position:sticky;top:0;z-index:50;background:rgba(251,250,246,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+  .brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;letter-spacing:.04em;color:var(--teal-deep);white-space:nowrap}
+  .brand b{color:var(--coral)}
+  .nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+  .nav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+  section{padding:60px 0;border-top:1px solid var(--line-soft)}
+  section:first-of-type{border-top:none}
+
+  header.hero{padding:74px 0 56px;position:relative;overflow:hidden}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--teal-deep);text-transform:uppercase;margin-bottom:24px}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--teal)}
+  h1.title{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(33px,6.2vw,52px);line-height:1.3;margin:0 0 20px;color:var(--ink)}
+  h1.title .ac{color:var(--teal-deep)}
+  .lede{font-size:clamp(16px,2.3vw,18px);color:var(--ink-soft);line-height:2.05;max-width:62ch;margin:0 0 30px;font-weight:500}
+  .src-tag{display:inline-block;font-size:12.5px;color:var(--ink-faint);background:var(--paper-2);border:1px solid var(--line);border-radius:10px;padding:10px 15px;line-height:1.7;margin-bottom:6px}
+  .src-tag b{color:var(--teal-deep)}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:36px 0 6px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;box-shadow:var(--shadow)}
+  .stat .n{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(22px,4vw,30px);color:var(--teal-deep);line-height:1.1}
+  .stat .n small{font-size:14px;font-weight:700}
+  .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:6px;font-weight:500;line-height:1.4}
+
+  .sec-no{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral)}
+  h2{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(24px,4.1vw,32px);line-height:1.42;margin:8px 0 8px;color:var(--ink)}
+  .sec-sub{font-size:14.5px;color:var(--ink-faint);font-weight:500;margin:0 0 28px}
+  h3{font-family:"Noto Serif JP",serif;font-weight:700;font-size:19px;line-height:1.6;margin:36px 0 12px;color:var(--teal-deep)}
+  p{margin:0 0 19px;font-size:15.6px}
+  strong{font-weight:700;color:var(--ink)}
+  mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);padding:0 1px}
+  mark.c{background:linear-gradient(transparent 58%,rgba(217,84,107,.28) 58%)}
+  a.ref{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.ref:hover{background:var(--teal-wash)}
+
+  ul.clean{list-style:none;padding:0;margin:8px 0 22px}
+  ul.clean li{position:relative;padding:9px 0 9px 26px;font-size:15.2px;border-bottom:1px dashed var(--line-soft)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:18px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+  ul.clean li b{color:var(--teal-deep)}
+
+  /* domain grid */
+  .dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 10px}
+  .dom{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 16px;box-shadow:var(--shadow)}
+  .dom .dn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin-bottom:3px}
+  .dom .de{font-size:11.5px;color:var(--ink-faint);letter-spacing:.04em;margin-bottom:8px}
+  .dom .dq{font-size:12.6px;color:var(--ink-soft);line-height:1.6}
+
+  /* chart cards */
+  .chart-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px 22px 20px;margin:22px 0;box-shadow:var(--shadow)}
+  .chart-card .ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--ink)}
+  .chart-card .cs{font-size:12px;color:var(--ink-faint);margin:2px 0 18px}
+
+  /* horizontal bar chart */
+  .bar-row{display:grid;grid-template-columns:84px 1fr 38px;align-items:center;gap:10px;margin:3px 0;font-size:12.5px}
+  .bar-row .bl{text-align:right;color:var(--ink-soft);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar-track{height:15px;background:var(--paper-2);border-radius:6px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--teal-deep));transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar-row.hi .bl{color:var(--coral);font-weight:700}
+  .bar-row.hi .bar-fill{background:linear-gradient(90deg,#E97A8C,var(--coral))}
+  .bar-row .bv{font-family:"Noto Serif JP",serif;font-weight:700;color:var(--ink);text-align:left;font-size:12.5px}
+  .bar-row.hi .bv{color:var(--coral)}
+
+  /* diverging chart */
+  .div-row{display:grid;grid-template-columns:1fr 150px 44px;align-items:center;gap:10px;margin:5px 0;font-size:12.3px}
+  .div-row .dl{text-align:right;color:var(--ink);font-weight:500;line-height:1.35}
+  .div-area{position:relative;height:18px;background:var(--paper-2);border-radius:5px}
+  .div-area .zero{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--ink-faint);opacity:.5}
+  .div-fill{position:absolute;top:0;height:100%;border-radius:4px}
+  .div-fill.pos{left:50%;background:var(--teal)}
+  .div-fill.neg{right:50%;background:var(--coral)}
+  .div-row .dv{font-family:"Noto Serif JP",serif;font-weight:700;font-size:12.5px}
+  .div-row .dv.p{color:var(--teal-deep)}.div-row .dv.n{color:var(--coral)}
+  .leg{display:flex;gap:18px;font-size:11.5px;color:var(--ink-soft);margin-top:12px}
+  .leg span{display:inline-flex;align-items:center;gap:6px}
+  .leg i{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  /* age svg */
+  .age-svg{width:100%;height:auto;display:block}
+
+  .pull{margin:34px 0;padding:26px 30px;border-left:3px solid var(--coral);background:var(--coral-wash);border-radius:0 14px 14px 0}
+  .pull p{margin:0;font-family:"Noto Serif JP",serif;font-weight:600;font-size:18px;line-height:1.85;color:#7C2E40}
+  .note{margin:28px 0;padding:22px 26px;border-left:3px solid var(--teal);background:var(--teal-wash);border-radius:0 14px 14px 0}
+  .note p{margin:0;font-size:14.3px;color:#2D5860}
+  .note p+p{margin-top:10px}
+  .note .h{font-weight:700;color:var(--teal-deep);font-family:"Noto Serif JP",serif;font-size:15px;display:block;margin-bottom:6px}
+  .note.sand{border-left-color:var(--sand);background:var(--sand-wash)}
+  .note.sand p{color:#6E521A}.note.sand .h{color:#7A5A14}
+
+  /* insight cards */
+  .insight{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin:16px 0;box-shadow:var(--shadow);border-top:4px solid var(--teal)}
+  .insight .ik{font-size:11.5px;letter-spacing:.1em;font-weight:700;color:var(--coral);text-transform:uppercase}
+  .insight h4{font-family:"Noto Serif JP",serif;font-size:18px;color:var(--ink);margin:4px 0 8px}
+  .insight p{font-size:14.4px;margin:0}
+
+  .limit{list-style:none;padding:0;margin:14px 0}
+  .limit li{position:relative;padding:11px 0 11px 30px;font-size:14.3px;border-bottom:1px solid var(--line-soft);line-height:1.7}
+  .limit li:last-child{border-bottom:none}
+  .limit li::before{content:"!";position:absolute;left:0;top:11px;width:19px;height:19px;border-radius:50%;background:var(--sand-wash);color:#7A5A14;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}
+  .limit li b{color:var(--ink)}
+
+  .refs{font-size:13px;color:var(--ink-soft);line-height:1.8}
+  .refs a{color:var(--teal-deep);word-break:break-all}
+  .pc-link{display:inline-flex;align-items:center;gap:7px;font-size:12.8px;font-weight:700;color:var(--teal-deep);text-decoration:none;border:1px solid var(--line);padding:8px 15px;border-radius:999px;transition:.18s;margin-top:6px}
+  .pc-link:hover{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+
+  footer{padding:48px 0 70px;border-top:1px solid var(--line);text-align:center;color:var(--ink-faint);font-size:12.5px}
+  footer .mincho{color:var(--teal-deep);font-size:15px;display:block;margin-bottom:10px;letter-spacing:.05em}
+
+  @media (max-width:680px){
+    section{padding:46px 0}
+    .stat-grid{grid-template-columns:repeat(2,1fr)}
+    .dom-grid{grid-template-columns:1fr 1fr}
+    .div-row{grid-template-columns:1fr 110px 40px}
+    .nav-inner{padding:11px 18px}.brand{display:none}
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="brand">繁栄の世界地図<b>・</b>GFS を読む</span>
+    <div class="nav-links">
+      <a href="#what">研究の概要</a>
+      <a href="#define">繁栄とは</a>
+      <a href="#rank">世界ランキング</a>
+      <a href="#age">若者の危機</a>
+      <a href="#corr">何が効くか</a>
+      <a href="#child">子ども時代</a>
+      <a href="#insight">3つの洞察</a>
+      <a href="#limit">限界</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Paper Deep Dive ／ 論文精読</span>
+    <h1 class="title">繁栄の<span class="ac">世界地図</span>。<br>20万人が描いた、<br>幸福のいま。</h1>
+    <p class="lede">「人はどこで、どんなふうに栄えているのか」──22か国・20万人を5年間追う、過去最大級の国際幸福研究 Global Flourishing Study。その第1波が描き出したのは、いくつもの意外な事実だった。豊かな国ほど「意味」が乏しく、若者ほど栄えておらず、そして日本は22か国の最下位にいた。</p>
+    <div class="src-tag">
+      論文：<b>The Global Flourishing Study: Study Profile and Initial Results on Flourishing</b><br>
+      VanderWeele, T. J. ら（2025）Nature Mental Health, 3, 636–653 ／ オープンアクセス（CC&nbsp;BY&nbsp;4.0）
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat"><div class="n">20<small>万人超</small></div><div class="l">参加者（正確に202,898人）</div></div>
+      <div class="stat"><div class="n">22<small>か国</small></div><div class="l">6大陸・全国代表サンプル</div></div>
+      <div class="stat"><div class="n">5<small>年</small></div><div class="l">毎年追跡する縦断研究</div></div>
+      <div class="stat"><div class="n">12<small>項目</small></div><div class="l">6領域×2問の繁栄指標</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT -->
+<section id="what">
+  <div class="wrap">
+    <span class="sec-no">01 ── 概要</span>
+    <h2>この研究は何をしたのか</h2>
+    <p class="sec-sub">設計・規模・ねらい</p>
+    <p>Global Flourishing Study（GFS）は、ハーバード大学の<strong>タイラー・ヴァンダーウィール</strong>とベイラー大学の<strong>バイロン・ジョンソン</strong>が主導し、調査会社ギャラップが各国でデータを収集した、大規模な縦断パネル研究だ。ジョン・テンプルトン財団などの助成を受け、データは Center for Open Science を通じて<strong>誰でも利用できる形（オープンアクセス）</strong>で公開されている。</p>
+    <p>第1波（主に2023年）は<strong>22か国・202,898人</strong>を対象とし、各国で全国代表サンプルを確保した。2024年から2027年まで、同じ参加者を毎年追跡する。中国本土は実施の遅れで第1波には含まれず、後の波で追加された。</p>
+    <p>既存の国際調査（世界価値観調査やギャラップ世界世論調査＝World Happiness Report の基盤）と比べて、GFS の新しさは二つ。第一に、<mark>同一個人を時間を追って観察する縦断データ</mark>であること。第二に、幸福を「人生満足度」だけでなく、健康・意味・人格・関係・経済までを含む<mark>多面的な指標</mark>で測ること。とりわけ、これまで西洋中心だった幸福研究を<strong>非西洋圏へ広げ、「普遍的なパターン」と「文化に固有のパターン」を切り分ける</strong>ことを大きな目的に掲げた。</p>
+  </div>
+</section>
+
+<!-- DEFINE -->
+<section id="define">
+  <div class="wrap">
+    <span class="sec-no">02 ── 定義</span>
+    <h2>「繁栄（flourishing）」をどう測るか</h2>
+    <p class="sec-sub">6つの領域と12の質問</p>
+    <p>GFS が用いる繁栄の定義は、<strong>「その人の生活のあらゆる側面が良好な状態に、相対的に到達していること。その人が生きる環境・文脈も含めて」</strong>というものだ。ポイントは、繁栄が<em>多面的</em>であること、完全な達成ではなく<em>相対的</em>な到達であること、そして個人だけでなく<em>環境やコミュニティ</em>まで含むこと。</p>
+    <p>中核となる「複合繁栄指標」は、次の6領域それぞれに2問ずつ、計12問を0〜10で尋ね、その平均を取る。WHO の健康定義（身体・精神・社会的に良好な状態）を、心の側面まで細かく分けた構成になっている。</p>
+
+    <div class="dom-grid">
+      <div class="dom"><div class="dn">幸福</div><div class="de">EMOTIONAL</div><div class="dq">人生への満足度／ふだんの幸福感</div></div>
+      <div class="dom"><div class="dn">健康</div><div class="de">PHYSICAL</div><div class="dq">身体の健康／メンタルの健康</div></div>
+      <div class="dom"><div class="dn">意味</div><div class="de">COGNITIVE</div><div class="dq">することの価値／人生の目的の理解</div></div>
+      <div class="dom"><div class="dn">人格</div><div class="de">VOLITIONAL</div><div class="dq">善を促す行動／将来のための自制</div></div>
+      <div class="dom"><div class="dn">関係</div><div class="de">SOCIAL</div><div class="dq">交友への満足／満たされた関係</div></div>
+      <div class="dom"><div class="dn">経済的安定</div><div class="de">MATERIAL</div><div class="dq">生活費の不安／安全・食・住の不安</div></div>
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:8px">※ これに加えて「スピリチュアルな良好さ」も別途扱われる。経済的安定は「繁栄の構成要素」か「繁栄の決定要因」かで議論があるため、論文では経済を<strong>含めた場合と含めない場合の両方</strong>が分析されている。</p>
+  </div>
+</section>
+
+<!-- RANK -->
+<section id="rank">
+  <div class="wrap">
+    <span class="sec-no">03 ── 世界地図</span>
+    <h2>どの国が、どれだけ栄えているか</h2>
+    <p class="sec-sub">22か国の複合繁栄スコア</p>
+    <p>まず目を引くのが、国ごとの繁栄スコアの並びだ。経済的安定を含めた複合指標（0〜10）では、上位に<strong>インドネシア・イスラエル・フィリピン・メキシコ</strong>といった中所得国が並び、多くの豊かな国はむしろ中位に沈む。そして最下位は<mark class="c">日本（5.89）</mark>だった。</p>
+
+    <div class="chart-card">
+      <div class="ct">複合繁栄指標（経済的安定を含む・0〜10）</div>
+      <div class="cs">22か国の加重平均。日本を強調。出典：Table 4</div>
+      <div id="countryChart"></div>
+    </div>
+
+    <div class="note sand">
+      <p><span class="h">「順位」と読まないための注意</span></p>
+      <p>著者らは、この並びを<strong>単純なランキングとして解釈しないよう繰り返し警告</strong>している。翻訳、項目や回答尺度の文化差、調査時期の季節性などが国際比較を歪めうるからだ。スコアは「文化的に少しずつ意味の異なる項目の、順序づけられた平均値」にすぎず、国内での相対比較のほうが意味を持ちやすい。</p>
+      <p>ただし日本の低さについては、「0〜10の真ん中に答えがちな回答傾向のせいではないか」という疑いも検討されたうえで、<strong>二択（はい/いいえ）の指標でも同じ傾向が出る</strong>として、単なる尺度のクセでは説明しきれない、と述べられている。</p>
+    </div>
+
+    <p>もう一つ重要なのは、この22か国は<strong>世界全体を代表する無作為抽出ではない</strong>こと。低所得国は含まれておらず、結果は「この22か国の中での話」として読む必要がある。実際、GFS22か国の平均人生評価（5.91）は、ギャラップ世界世論調査142か国の平均（5.60）より高い。</p>
+  </div>
+</section>
+
+<!-- AGE -->
+<section id="age">
+  <div class="wrap">
+    <span class="sec-no">04 ── 衝撃の発見</span>
+    <h2>若者ほど、栄えていない</h2>
+    <p class="sec-sub">年齢と繁栄の関係が変わった</p>
+    <p>この論文で著者ら自身が<strong>「最も懸念される」</strong>と呼ぶ結果が、年齢との関係だ。22か国をプールすると、繁栄は<mark class="c">18〜49歳までほぼ横ばい</mark>で、その後ようやく年齢とともに上昇する。</p>
+
+    <div class="chart-card">
+      <div class="ct">年齢グループ別の複合繁栄スコア</div>
+      <div class="cs">22か国のメタ分析による平均。出典：Table 6</div>
+      <svg class="age-svg" viewBox="0 0 480 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="年齢別の繁栄スコアの折れ線グラフ">
+        <line x1="34" y1="180" x2="456" y2="180" stroke="#e3e8e4" stroke-width="1"/>
+        <line x1="34" y1="30" x2="34" y2="180" stroke="#e3e8e4" stroke-width="1"/>
+        <text x="28" y="138" text-anchor="end" font-size="9" fill="#74827f" font-family="Noto Sans JP">7.0</text>
+        <text x="28" y="66" text-anchor="end" font-size="9" fill="#74827f" font-family="Noto Sans JP">7.4</text>
+        <polyline points="40,135 97,137 154,140 211,135 269,114 326,88 383,70 440,63"
+          fill="none" stroke="#4f7c87" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <g>
+          <circle cx="40" cy="135" r="3.5" fill="#eb6584"/>
+          <circle cx="97" cy="137" r="3.5" fill="#eb6584"/>
+          <circle cx="154" cy="140" r="3.5" fill="#eb6584"/>
+          <circle cx="211" cy="135" r="3.5" fill="#eb6584"/>
+          <circle cx="269" cy="114" r="3.5" fill="#4f7c87"/>
+          <circle cx="326" cy="88" r="3.5" fill="#4f7c87"/>
+          <circle cx="383" cy="70" r="3.5" fill="#4f7c87"/>
+          <circle cx="440" cy="63" r="3.5" fill="#62B8A0"/>
+        </g>
+        <g font-size="9" fill="#74827f" text-anchor="middle" font-family="Noto Sans JP">
+          <text x="40" y="197">18–24</text><text x="97" y="197">25–29</text><text x="154" y="197">30–39</text>
+          <text x="211" y="197">40–49</text><text x="269" y="197">50–59</text><text x="326" y="197">60–69</text>
+          <text x="383" y="197">70–79</text><text x="440" y="197">80+</text>
+        </g>
+        <text x="40" y="126" text-anchor="middle" font-size="9.5" fill="#eb6584" font-weight="700" font-family="Noto Serif JP">7.05</text>
+        <text x="440" y="53" text-anchor="middle" font-size="9.5" fill="#4f7c87" font-weight="700" font-family="Noto Serif JP">7.36</text>
+      </svg>
+    </div>
+
+    <p>これは、人生満足度を中心とした<strong>従来研究の「U字カーブ」（中年で底を打ち回復する）とは対照的</strong>だ。GFS では全体として、U字というより<strong>J字</strong>に近い。意味・目的・楽観・内なる平和・感謝・関係の質など、多くの個別側面でも「年齢とともに上昇」のパターンが見られた。</p>
+    <div class="pull">
+      <p>「若い人たちは、かつてほどうまくいっていない」──若年層のメンタルヘルスの悪化は、もはや一国の現象ではない。</p>
+    </div>
+    <p>ただし著者らは慎重だ。これが<strong>「年齢効果」（年を取れば回復する）なのか「コホート効果」（今の若者世代が将来も低いまま）なのか</strong>は、今のデータでは判別できず、今後の波を待つ必要がある。そして「答えは決まっておらず、若者の幸福を支える政策をどれだけ打つかに左右される」と付け加えている。このパターンも普遍ではなく、インド・エジプト・ケニア・日本ではより U字的、ポーランド・タンザニアでは年齢とともに低下していた。</p>
+  </div>
+</section>
+
+<!-- CORR -->
+<section id="corr">
+  <div class="wrap">
+    <span class="sec-no">05 ── 相関</span>
+    <h2>何が繁栄と結びついていたか</h2>
+    <p class="sec-sub">人口統計的な要因</p>
+    <p>22か国を通じて、繁栄と比較的安定して結びついていた要因がいくつかある（いずれも<strong>記述的な相関であり、因果を示すものではない</strong>点に注意）。</p>
+    <ul class="clean">
+      <li><b>結婚</b>　既婚（7.34）は、離婚（6.85）や別居（6.77）より高い。ただしインドやタンザニアでは、既婚より独身のほうが高いという逆転もあった。</li>
+      <li><b>就業</b>　就業者（7.20）・自営業（7.28）は失業者（6.51）より高い。差の大きさは国でばらつき、アメリカで特に大きかった。</li>
+      <li><b>教育</b>　学歴が上がるほどやや高い傾向。ただし香港やオーストラリアでは逆だった。</li>
+      <li><b>礼拝への参加</b>　最も明瞭な勾配のひとつ。まったく参加しない人（6.86）から週1回超の人（7.67）まで、段階的に上昇した。</li>
+    </ul>
+    <p>このうち<strong>礼拝（宗教サービス）への参加</strong>は、国・指標を問わず最も一貫して繁栄と結びついた要因の一つだった。痛みや苦しみとはやや正の相関（＝高く出る）を示したものの、大半の指標では用量反応的な関係が見られた。本研究はテンプルトン財団の助成を受けており、宗教・スピリチュアリティを重視する設計でもある点は、解釈の際に念頭に置いておきたい。あくまで<strong>観察された相関</strong>であって、因果の証明ではない。</p>
+  </div>
+</section>
+
+<!-- CHILD -->
+<section id="child">
+  <div class="wrap">
+    <span class="sec-no">06 ── 子ども時代</span>
+    <h2>幼少期が、大人の繁栄を予測する</h2>
+    <p class="sec-sub">回顧的に尋ねた childhood predictors</p>
+    <p>GFS は、参加者に<strong>子ども時代の経験</strong>を回顧的に尋ね、それが現在の繁栄とどう結びつくかを分析した。これは「合成的な縦断研究」として、ある程度の因果的示唆を与えうる設計だが、回顧バイアスの可能性は残る。複数の予測因子を同時に投入した回帰の結果（係数＝繁栄スコアへの寄与）が下図だ。</p>
+
+    <div class="chart-card">
+      <div class="ct">子ども時代の経験と大人の繁栄の関連</div>
+      <div class="cs">複数予測因子を同時投入した回帰係数。出典：Table 7</div>
+      <div id="childChart"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>繁栄を高める方向</span>
+        <span><i style="background:var(--coral)"></i>繁栄を下げる方向</span>
+      </div>
+    </div>
+
+    <p>「子ども時代の健康がとても良い」「家庭が経済的に快適」「母・父との良い関係」「12歳頃の毎週の礼拝出席」は<strong>大人の繁栄を高める方向</strong>に、「虐待」「疎外感」「家計の困窮」「子ども時代の健康が悪い」は<strong>下げる方向</strong>に働いていた。これらの関連はおおむね22か国で共通だが、大きさには差があった。</p>
+    <div class="note">
+      <p><span class="h">どれくらい頑健か（E値）</span></p>
+      <p>著者らは「未測定の交絡要因がどれだけ強ければ、この関連を説明し去れるか」を示す <strong>E値</strong>で頑健性を検討した。たとえば「虐待と低い繁栄」の関連を打ち消すには、未測定の交絡要因が虐待の有無と繁栄の両方に<strong>1.74倍ずつ</strong>関連している必要がある──いくつかの関連は、それなりに頑健だった。</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHT -->
+<section id="insight">
+  <div class="wrap">
+    <span class="sec-no">07 ── 解釈</span>
+    <h2>著者が挙げる、3つの大きな洞察</h2>
+    <p class="sec-sub">Discussion より</p>
+
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>繁栄は多面的で、国によって「栄え方」が違う</h4>
+      <p>多くの先進国は経済的安定や人生評価では高いが、<strong>意味・向社会性・関係の質ではむしろ低い</strong>。とりわけ「意味」と一人あたりGDPの間には負の関係が見られた（過去研究でも確認）。物質的な豊かさと、より人間的な豊かさは、ときに乖離する。経済発展を、意味や関係や人格を損なわずに進めるには？という問いが残る。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>逆境と繁栄の関係は、単純ではない</h4>
+      <p>逆境は多くの場合、有害だ。だが時に成長の入り口にもなる。たとえば子ども時代の虐待や疎外感は、大人のボランティアや寄付・人助けを<em>高める</em>方向に働く一方、他者への愛情・ケアは<em>下げる</em>──近い指標でも逆方向に出た。苦しみは人間の条件にほぼ不可避であり、減らす努力に加えて「どう向き合い変換するか」を理解する必要がある、と著者は説く。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>宗教的実践が、一貫して繁栄と結びついていた</h4>
+      <p>人口統計でも子ども時代の分析でも、礼拝への参加は最も一貫した相関要因の一つだった。豊かな国で物質的・人間的な豊かさが乖離する背景には、<strong>経済発展に伴う世俗化（宗教性の低下）</strong>があるのかもしれない、と著者は推測する。ただしこれも相関であり、慎重な解釈が求められる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIMIT -->
+<section id="limit">
+  <div class="wrap">
+    <span class="sec-no">08 ── 限界</span>
+    <h2>この研究の限界と、読み方の注意</h2>
+    <p class="sec-sub">著者自身が挙げる留保</p>
+    <p>大規模で野心的な研究だが、著者らは限界も率直に列挙している。鵜呑みにせず、ここを押さえて読みたい。</p>
+    <ul class="limit">
+      <li><b>多くの構成概念が1項目で測定</b>　大標本で統計的な弱さは補えるが、各概念の妥当性・概念的な幅への懸念は残る。</li>
+      <li><b>自己報告が中心</b>　主観的な側面が主で、客観的な側面は限定的。自己報告バイアスやモード効果を受けうる。</li>
+      <li><b>22か国は世界の無作為標本ではない</b>　低所得国は含まれず、他国への一般化（外挿）は保証されない。結論は「この22か国の中での話」。</li>
+      <li><b>国際比較は歪みやすい</b>　翻訳・項目解釈・回答尺度・季節性の差。スコアは「順位」ではなく「順序づけられた平均」と読むべき。</li>
+      <li><b>人口統計の分析は記述的</b>　因果ではない。子ども時代の分析は回顧的で、回顧バイアスの可能性がある（ただしE値で一部頑健性を確認）。</li>
+    </ul>
+    <p style="margin-top:8px">なお、データとコードは Center for Open Science で公開され、解析は事前登録されている。再現性に配慮した、開かれた設計である点は大きな強みだ。</p>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="wrap">
+    <span class="sec-no">09 ── 含意</span>
+    <h2>なぜ、この研究が重要か</h2>
+    <p class="sec-sub">measure が discuss を形づくる</p>
+    <p>GFS の価値は、「誰が・どんなふうに支援を必要としているか」を、世界規模かつ多面的に描き出した点にある。若者ほど繁栄が低いという勾配、豊かさと意味の乖離、宗教的実践の一貫した関連──これらは、社会が何に投資すべきかという問いに直結する。</p>
+    <p>著者らはこう締めくくる。<strong>「私たちが何を測るかが、何を語り、何を知り、何を目指し、どんな政策を打つかを形づくる」</strong>。幸福を「人生満足度」という一本の物差しから、健康・意味・人格・関係・経済・スピリチュアリティへと広げて測ることそのものが、議論と政策を「繁栄の促進」へと動かしていく、という主張だ。前回の論考で見たように、ポジティブ心理学は西洋中心・小標本という弱点を抱えてきた。GFS は、その弱点に<strong>規模と多文化性で正面から応えようとする現在地</strong>だと言える。</p>
+
+    <a class="pc-link" href="https://doi.org/10.1038/s44220-025-00423-5" target="_blank" rel="noopener">論文を読む（Nature Mental Health・オープンアクセス）</a>
+
+    <h3 style="margin-top:40px">出典</h3>
+    <div class="refs">
+      VanderWeele, T. J., Johnson, B. R. ら (2025). The Global Flourishing Study: Study Profile and Initial Results on Flourishing. <em>Nature Mental Health, 3</em>(6), 636–653.<br>
+      DOI：<a href="https://doi.org/10.1038/s44220-025-00423-5" target="_blank" rel="noopener">https://doi.org/10.1038/s44220-025-00423-5</a><br>
+      データ：Center for Open Science（GFS, OSF）<br>
+      <p style="font-size:12px;color:var(--ink-faint);margin-top:14px">※ 本稿は論文（CC BY 4.0）の内容を日本語で要約・可視化した読み物です。数値は本文の Table 4・6・7 等に基づきます。詳細・正確な定義は原典をご確認ください。記述的相関は因果を意味しません。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    繁栄の世界地図 ── Global Flourishing Study を読む<br>
+    Nature Mental Health (2025) を基に構成
+  </div>
+</footer>
+
+<script>
+  // progress bar
+  const bar=document.getElementById('progress');
+  const onScroll=()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';};
+  document.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // active nav
+  const links=[...document.querySelectorAll('.nav-links a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>{const on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>io.observe(s));
+
+  // country bar chart
+  const countries=[["インドネシア",8.10],["イスラエル",7.87],["フィリピン",7.71],["メキシコ",7.64],["ポーランド",7.55],["ナイジェリア",7.37],["エジプト",7.32],["ケニア",7.28],["タンザニア",7.19],["アルゼンチン",7.14],["香港",7.12],["アメリカ",7.11],["スウェーデン",7.10],["南アフリカ",7.07],["ブラジル",7.02],["オーストラリア",7.01],["ドイツ",7.01],["スペイン",6.90],["インド",6.87],["イギリス",6.79],["トルコ",6.32],["日本",5.89]];
+  const cmin=5.5,cmax=8.2;
+  const cc=document.getElementById('countryChart');
+  cc.innerHTML=countries.map(([n,v])=>{
+    const w=Math.max(2,((v-cmin)/(cmax-cmin))*100);
+    const hi=n==="日本"?" hi":"";
+    return `<div class="bar-row${hi}"><div class="bl">${n}</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="${w}"></div></div><div class="bv">${v.toFixed(2)}</div></div>`;
+  }).join('');
+
+  // childhood diverging chart
+  const child=[["子ども時代の健康：とても良い",0.46],["12歳頃の毎週の礼拝出席",0.27],["家庭が経済的に快適だった",0.20],["母との良い関係",0.18],["父との良い関係",0.12],["疎外感を感じて育った",-0.26],["家計がとても苦しかった",-0.27],["子ども時代の健康：悪い",-0.34],["虐待を受けた",-0.34]];
+  const maxAbs=0.5;
+  const ch=document.getElementById('childChart');
+  ch.innerHTML=child.map(([n,v])=>{
+    const pct=Math.abs(v)/maxAbs*50;
+    const fill=v>=0?`<div class="div-fill pos" style="width:0" data-w="${pct}"></div>`:`<div class="div-fill neg" style="width:0" data-w="${pct}"></div>`;
+    const dv=v>=0?`<div class="dv p">+${v.toFixed(2)}</div>`:`<div class="dv n">${v.toFixed(2)}</div>`;
+    return `<div class="div-row"><div class="dl">${n}</div><div class="div-area"><span class="zero"></span>${fill}</div>${dv}</div>`;
+  }).join('');
+
+  // animate on view
+  const animate=(el)=>{el.querySelectorAll('[data-w]').forEach(f=>{requestAnimationFrame(()=>{f.style.width=f.dataset.w+'%';});});};
+  const ao=new IntersectionObserver((es,obs)=>{es.forEach(e=>{if(e.isIntersecting){animate(e.target);obs.unobserve(e.target);}});},{threshold:.25});
+  ao.observe(cc);ao.observe(ch);
+</script>
+</body>
+</html>

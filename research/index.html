@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Archive</title>
+<meta name="description" content="深掘りリサーチの読み物アーカイブ。">
+<meta property="og:title" content="Research Archive">
+<meta property="og:description" content="深掘りリサーチの読み物アーカイブ。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b3a3e; --ink-soft:#46585c;
+    --teal:#62b8a0; --teal-deep:#4f7c87; --teal-wash:#eef6f3;
+    --coral:#eb6584; --coral-wash:#fdeef1;
+    --paper:#fbfcfb; --panel:#f4f7f5;
+    --line:#e3e8e4; --line-strong:#cdd6d1; --muted:#74827f;
+    --maxw:768px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{text-decoration:none;color:inherit}
+  ::selection{background:var(--coral);color:#fff}
+
+  /* ---- top ---- */
+  .top{padding:54px 0 0}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 26px;display:flex;align-items:center}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);margin-right:12px}
+
+  /* ---- toolbar ---- */
+  .toolbar{position:sticky;top:0;z-index:20;background:var(--paper);padding:14px 0 16px;border-bottom:1px solid var(--line)}
+  .search{position:relative;margin:0 0 16px}
+  .search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted);pointer-events:none}
+  .search input{
+    width:100%;font-family:"Noto Sans JP",sans-serif;font-size:15px;color:var(--ink);
+    padding:13px 16px 13px 42px;border:1px solid var(--line-strong);border-radius:11px;
+    background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;
+  }
+  .search input::placeholder{color:var(--muted)}
+  .search input:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-wash)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{font-family:"Noto Sans JP",sans-serif;font-size:13px;font-weight:500;letter-spacing:.02em;
+    padding:7px 15px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);
+    cursor:pointer;white-space:nowrap;transition:all .2s ease}
+  .chip:hover{border-color:var(--teal);color:var(--teal-deep)}
+  .chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip .c{font-size:11px;opacity:.6;margin-left:6px;font-feature-settings:"tnum"}
+
+  /* ---- count ---- */
+  .count{font-size:12.5px;letter-spacing:.04em;color:var(--muted);padding:18px 2px 4px}
+
+  /* ---- list ---- */
+  .list{padding-bottom:70px}
+  .entry{display:grid;grid-template-columns:1fr 20px;align-items:center;gap:16px;
+    padding:21px 8px;border-bottom:1px solid var(--line);position:relative;
+    transition:background .25s ease,padding .25s ease}
+  .entry::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;
+    background:linear-gradient(180deg,var(--teal),var(--teal-deep));transition:width .25s ease}
+  .entry:hover{background:var(--panel);padding-left:18px}
+  .entry:hover::before{width:3px}
+  .entry.hide{display:none}
+  .cat{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin:0 0 6px;display:flex;align-items:center}
+  .cat::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;margin-right:8px}
+  .t{font-family:"Noto Serif JP",serif;font-weight:700;font-size:18px;line-height:1.5;margin:0 0 4px;transition:color .25s ease}
+  .entry:hover .t{color:var(--teal-deep)}
+  .s{font-size:13.5px;color:var(--muted);line-height:1.7;margin:0}
+  .arrow{color:var(--line-strong);transition:color .25s ease,transform .25s ease}
+  .entry:hover .arrow{color:var(--coral);transform:translateX(3px)}
+  .arrow svg{width:17px;height:17px;display:block}
+  mark{background:var(--teal-wash);color:var(--teal-deep);font-weight:700;border-radius:2px;padding:0 1px}
+
+  .empty{display:none;padding:54px 8px;text-align:center;color:var(--muted);font-size:14px}
+
+  .fade{opacity:0;transform:translateY(12px);animation:fin .6s ease forwards}
+  @keyframes fin{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;animation:none}html{scroll-behavior:auto}.entry,.arrow,.t,.chip{transition:none}}
+  @media(max-width:560px){
+    body{font-size:16px}.wrap{padding:0 19px}.top{padding:40px 0 0}
+    .entry{padding:18px 4px}.entry:hover{padding-left:8px}.arrow{display:none}
+    .t{font-size:16.5px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="eyebrow">Research Archive</div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="タイトル・キーワードで検索" autocomplete="off" aria-label="記事を検索">
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <div class="count" id="count"></div>
+  <main class="list" id="list"></main>
+  <div class="empty" id="empty">該当する記事はありません。</div>
+
+</div>
+
+<script>
+/* ============================================================
+   記事データ。新しいリサーチを足すときは、この配列に1行追加するだけ。
+   cat を新しくすると、上のフィルタも自動で増える。
+   ============================================================ */
+const ARTICLES = [
+  { cat:"ウェルビーイング", title:"ウェルビーイングの全体地図", sub:"概念・構造・主要理論、そしてなぜ5つに絞ったか", url:"./wellbeing/00-map/" },
+  { cat:"ウェルビーイング", title:"再現性で選ぶウェルビーイング研究", sub:"看板ではなく構成概念にアンカーを打つ", url:"./wellbeing/01-reproducibility/" },
+  { cat:"ウェルビーイング", title:"自己決定理論（SDT）深掘り", sub:"量ではなく質の動機づけ、その岩盤と争点", url:"./wellbeing/02-sdt/" },
+  { cat:"ウェルビーイング", title:"心理的ウェルビーイング（Ryff PWB）深掘り", sub:"気分ではなく、よく機能して生きる", url:"./wellbeing/03-pwb/" },
+  { cat:"ウェルビーイング", title:"主観的ウェルビーイング（Diener SWB）深掘り", sub:"自分の基準で、自分の人生を採点する", url:"./wellbeing/04-swb/" },
+  { cat:"ウェルビーイング", title:"ウェルビーイングの哲学 深掘り", sub:"尺度の下にある「良い人生とは何か」", url:"./wellbeing/05-philosophy/" },
+  { cat:"ウェルビーイング", title:"ウェルビーイングの経済学 深掘り", sub:"結局、お金は幸せを買うのか", url:"./wellbeing/06-economics/" },
+  { cat:"ポジティブ心理学", title:"ポジティブ心理学を読み解く", sub:"光と影の科学", url:"./positive-psychology/01-overview/" },
+  { cat:"ポジティブ心理学", title:"繁栄の世界地図", sub:"Global Flourishing Study を読む", url:"./positive-psychology/02-international-happiness/" },
+];
+
+const listEl=document.getElementById('list');
+const filtersEl=document.getElementById('filters');
+const countEl=document.getElementById('count');
+const emptyEl=document.getElementById('empty');
+const qEl=document.getElementById('q');
+
+const cats=[...new Set(ARTICLES.map(a=>a.cat))];
+const catCount=c=>ARTICLES.filter(a=>a.cat===c).length;
+let active="all";
+let keyword="";
+
+function esc(s){return s.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+function hl(text){
+  if(!keyword) return esc(text);
+  const i=text.toLowerCase().indexOf(keyword.toLowerCase());
+  if(i<0) return esc(text);
+  return esc(text.slice(0,i))+'<mark>'+esc(text.slice(i,i+keyword.length))+'</mark>'+esc(text.slice(i+keyword.length));
+}
+
+function renderChips(){
+  const all=`<button class="chip ${active==='all'?'active':''}" data-cat="all">すべて<span class="c">${ARTICLES.length}</span></button>`;
+  const rest=cats.map(c=>`<button class="chip ${active===c?'active':''}" data-cat="${c}">${c}<span class="c">${catCount(c)}</span></button>`).join('');
+  filtersEl.innerHTML=all+rest;
+  filtersEl.querySelectorAll('.chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{active=btn.dataset.cat;render();});
+  });
+}
+
+function matches(a){
+  const inCat=(active==='all'||a.cat===active);
+  if(!inCat) return false;
+  if(!keyword) return true;
+  const k=keyword.toLowerCase();
+  return (a.title+a.sub+a.cat).toLowerCase().includes(k);
+}
+
+function render(){
+  renderChips();
+  const shown=ARTICLES.filter(matches);
+  listEl.innerHTML=shown.map((a,i)=>`
+    <a class="entry fade" style="animation-delay:${Math.min(i*40,300)}ms" href="${a.url}">
+      <div>
+        <div class="cat">${esc(a.cat)}</div>
+        <div class="t">${hl(a.title)}</div>
+        <div class="s">${hl(a.sub)}</div>
+      </div>
+      <span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>`).join('');
+  countEl.textContent = keyword
+    ? `「${keyword}」 — ${shown.length} 件`
+    : (active==='all' ? `全 ${shown.length} 篇` : `${active} — ${shown.length} 篇`);
+  emptyEl.style.display = shown.length===0 ? 'block' : 'none';
+}
+
+qEl.addEventListener('input',()=>{keyword=qEl.value.trim();render();});
+render();
+</script>
+</body>
+</html>

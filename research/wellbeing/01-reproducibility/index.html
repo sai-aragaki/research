@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>再現性で選ぶウェルビーイング研究 — 看板ではなく構成概念にアンカーを打つ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b3a3e;
+    --ink-soft:#46585c;
+    --teal:#62b8a0;
+    --teal-deep:#4f7c87;
+    --teal-wash:#eef6f3;
+    --coral:#eb6584;
+    --coral-wash:#fdeef1;
+    --paper:#fbfcfb;
+    --panel:#f4f7f5;
+    --line:#e3e8e4;
+    --line-strong:#cdd6d1;
+    --muted:#74827f;
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans JP","Zen Kaku Gothic New",sans-serif;
+    font-weight:400;
+    line-height:1.95;
+    font-size:16.5px;
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:.01em;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  /* ── HERO ── */
+  .hero{padding:84px 0 56px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:12.5px;font-weight:700;letter-spacing:.22em;
+    color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;
+  }
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{
+    font-family:"Noto Serif JP",serif;
+    font-weight:700;font-size:clamp(28px,5.4vw,42px);
+    line-height:1.4;letter-spacing:.01em;margin:0 0 26px;color:var(--ink);
+  }
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:34px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* ── SECTIONS ── */
+  section{padding:54px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 14px;font-family:"Noto Sans JP",sans-serif;}
+  h2{
+    font-family:"Noto Serif JP",serif;font-weight:700;
+    font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;color:var(--ink);
+  }
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;}
+  p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* pillar card */
+  .pillar{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px 30px 26px;margin:0 0 24px;}
+  .pillar-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:6px;}
+  .pillar h3{font-family:"Noto Serif JP",serif;font-size:19.5px;font-weight:700;margin:0;line-height:1.4;color:var(--ink);}
+  .pillar h3 .en{display:block;font-family:"Noto Sans JP",sans-serif;font-size:11.5px;font-weight:500;letter-spacing:.1em;color:var(--muted);margin-top:5px;text-transform:uppercase;}
+  .tag{font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 11px;border-radius:20px;white-space:nowrap;}
+  .tag.hedonic{background:var(--coral-wash);color:#c84e6c;}
+  .tag.eudaimonic{background:var(--teal-wash);color:var(--teal-deep);}
+  .tag.concept{background:#eef1f5;color:#5a6b86;}
+  .pillar p{font-size:15.5px;line-height:1.9;}
+  .field{margin:18px 0 0;}
+  .field-label{font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--teal-deep);margin:0 0 4px;}
+  .field p{margin:0;font-size:15px;color:var(--ink-soft);}
+
+  /* robustness meter — signature element */
+  .meter{margin:22px 0 4px;padding:16px 18px;background:var(--panel);border-radius:10px;}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);font-feature-settings:"tnum";}
+  .bar{height:7px;border-radius:6px;background:#dde5e1;overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:9px 0 0;line-height:1.7;}
+
+  /* caution callout — coral = contested */
+  .caution{margin:18px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#c84e6c;margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+
+  /* note panel */
+  .note{background:var(--teal-wash);border-radius:12px;padding:24px 26px;margin:8px 0 0;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);}
+  .note p:last-child{margin:0;}
+  .note .n-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+
+  /* axes diagram */
+  .axes{display:grid;gap:14px;margin:24px 0 0;}
+  .axis{border:1px solid var(--line);border-radius:11px;padding:18px 20px;}
+  .axis-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;}
+  .axis-pole{font-weight:700;font-size:14px;}
+  .axis-pole.l{color:var(--coral);}
+  .axis-pole.r{color:var(--teal-deep);}
+  .axis-track{flex:1;height:2px;background:linear-gradient(90deg,var(--coral),var(--teal-deep));border-radius:2px;position:relative;}
+  .axis-desc{font-size:13.5px;color:var(--muted);line-height:1.75;margin:0;}
+
+  /* application list */
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 18px 40px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:"Noto Sans JP",sans-serif;}
+  .app li strong{display:block;margin-bottom:2px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);}
+
+  /* learning route table */
+  .route{margin:26px 0 0;}
+  .route-stage{margin:0 0 26px;}
+  .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Serif JP",serif;font-weight:700;font-size:13px;color:#fff;background:var(--teal-deep);padding:5px 14px;border-radius:20px;letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);}
+  .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:5px;white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);}
+  .lang.en{background:#eef1f5;color:#5a6b86;}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  /* sources */
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+
+  .closing{font-family:"Noto Serif JP",serif;font-size:17px;line-height:2;color:var(--teal-deep);font-weight:600;text-align:center;padding:8px 0 0;}
+
+  /* load anim */
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;}
+    .bar > i{transition:none;}
+    html{scroll-behavior:auto;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;}
+    .wrap{padding:0 19px;}
+    .hero{padding:60px 0 44px;}
+    .pillar{padding:24px 20px;}
+    section{padding:44px 0;}
+    th,td{padding:9px 8px;font-size:13px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="series fade">深掘りシリーズ ①／再現性で選ぶウェルビーイング</p>
+    <p class="eyebrow fade">Well-being, filtered for rigor</p>
+    <h1 class="fade">「怪しさ」を看板で判定しない。<br><span class="accent">構成概念のレベル</span>で再現性を見る。</h1>
+    <p class="lede fade">ウェルビーイング研究には、自己啓発と地続きに消費されてきた“盛られた”部分がある。一方で、心理学のなかでも最も再現されてきた理論や、半世紀かけて自己修正してきた実証もある。ここでは後者だけを5本に絞り、何がどこまで言えて、どこが争点なのかを正直に並べた。意思決定パートナーとして経営者と話すときに、足場にできる強度のものだけを。</p>
+    <div class="meta fade">
+      <span><i class="dot"></i>選定基準：再現性・理論的厳密さ</span>
+      <span><i class="dot"></i>読了 約12分</span>
+      <span><i class="dot"></i>末尾に日本語の学習ルート</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">なぜこの5本なのか</p>
+    <h2 class="fade">看板を乗り換えるのではなく、土台にアンカーを打つ</h2>
+    <p class="sub fade">SELECTION LOGIC</p>
+    <p class="fade">「ポジティブ心理学はやめてウェルビーイングを」という乗り換えは、実は同じ山を別の登山口から登る話になる。ウェルビーイングはポジティブ心理学が研究対象にしている中心概念そのものだからだ。筋がいいのは、<strong>ブランド化された運動に閉じず、土台の固い構成概念に直接アンカーを打つ</strong>こと。</p>
+    <p class="fade">そこで、明確に外したものがある。数学的に破綻していることが指摘され撤回騒ぎになった「ポジティビティ比 3:1」、効果量が小さく再現が安定しない介入研究の一部、そして大衆向け心理学（ポップサイコロジー）として批判されてきたPERMA——これらは「怪しさ」のセンサーが正しく反応する対象だ。残したのは、概念と実証の両面で耐えてきた次の5本。心理3理論（自律性の動機づけ・卓越論的・快楽論的）に、その下を支える<strong>哲学</strong>と、社会レベルで検証する<strong>経済学</strong>を足している。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">堅牢度の高い5本</p>
+    <h2 class="fade">構成概念で読むウェルビーイング</h2>
+    <p class="sub fade">FIVE PILLARS · 各カードの「堅牢度」は筆者の編集判断であり、測定値ではない</p>
+
+    <!-- SDT -->
+    <article class="pillar fade">
+      <div class="pillar-head">
+        <h3>自己決定理論（SDT）<span class="en">Self-Determination Theory · Deci &amp; Ryan</span></h3>
+        <span class="tag eudaimonic">卓越論寄り</span>
+      </div>
+      <p>人間には3つの基本的心理欲求——<em>自律性</em>（自分で選んでいる感覚）、<em>有能感</em>（うまくやれている感覚）、<em>関係性</em>（つながっている感覚）——があり、これらが満たされるとウェルビーイングと内発的動機づけが高まる、とする理論。動機づけは「量」より「質」が決定的で、自律的動機づけは統制的動機づけより一貫して良い結果（持続・パフォーマンス・心理的健康）につながる。</p>
+      <div class="field">
+        <p class="field-label">エビデンス</p>
+        <p>教育・職場・医療・スポーツと領域を横断して、メタ分析が繰り返し同じ向きの関連を確認している。心理学で最も再現されてきた動機づけ理論のひとつ。</p>
+      </div>
+      <div class="meter">
+        <div class="meter-top"><span class="meter-label">再現性・実証の堅牢度</span><span class="meter-val">非常に高い</span></div>
+        <div class="bar"><i data-w="95"></i></div>
+        <p class="meter-note">概念枠組みと実証データの両方が強い。意思決定や組織の文脈に最も移しやすい。</p>
+      </div>
+      <div class="caution">
+        <p class="c-label">⚠ 争点</p>
+        <p>3欲求の「普遍性」、とくに集団主義文化で自律性が同じ重みを持つかは議論がある（SDT側は「自律性≠独立」と反論）。とはいえ枠組み自体の頑健さは高い。</p>
+      </div>
+    </article>
+
+    <!-- Ryff -->
+    <article class="pillar fade">
+      <div class="pillar-head">
+        <h3>心理的ウェルビーイング（PWB）<span class="en">Psychological Well-Being · Carol Ryff (1989)</span></h3>
+        <span class="tag eudaimonic">卓越論（eudaimonic）</span>
+      </div>
+      <p>「気分よく感じる」ことではなく、アリストテレスの<em>よく機能して生きる</em>を起点に、マズロー・ロジャーズ・エリクソンらの発達理論を統合して導いた6次元モデル。<strong>自己受容／良好な人間関係／自律性／環境制御力／人生の目的／人格的成長</strong>。「幸福＝快」ではなく「徳をもって生きる」側の伝統に立つ。</p>
+      <div class="field">
+        <p class="field-label">エビデンス</p>
+        <p>多言語で尺度化され、長形式は内部一貫性が良好（原著で α≈.86–.93）。卓越論的ウェルビーイングは介入で改善しうることもメタ分析で確認されている。</p>
+      </div>
+      <div class="meter">
+        <div class="meter-top"><span class="meter-label">理論の堅牢度（測定構造に留保）</span><span class="meter-val">高い</span></div>
+        <div class="bar"><i data-w="78"></i></div>
+        <p class="meter-note">理論は強い。ただし6因子がきれいに再現されないことがあり、ここは割り引いて読む。</p>
+      </div>
+      <div class="caution">
+        <p class="c-label">⚠ 争点</p>
+        <p>因子間相関が高く（とくに環境制御力・人生の目的・人格的成長）、「6因子か、より少ない一般因子か」が長年の論点。自律性下位尺度は文化によって弱い。短縮版は因子妥当性と一貫性がトレードオフ。</p>
+      </div>
+    </article>
+
+    <!-- Diener SWB -->
+    <article class="pillar fade">
+      <div class="pillar-head">
+        <h3>主観的ウェルビーイング（SWB）<span class="en">Subjective Well-Being · Ed Diener (1984)</span></h3>
+        <span class="tag hedonic">快楽論（hedonic）</span>
+      </div>
+      <p>「人が自分の人生をどう評価し体験しているか」を3要素で捉える枠組み。<strong>人生満足度（認知的評価）＋ポジティブ感情＋ネガティブ感情（感情的側面）</strong>。各国の政府統計や社会指標で最も使われている測定基盤で、人生満足尺度（SWLS）が代表的なツール。</p>
+      <div class="field">
+        <p class="field-label">エビデンス</p>
+        <p>40標本・約3.4万人のメタ分析で、3要素が潜在SWB因子に十分な負荷を示し、関連の一般化可能性が確認された。測定の蓄積は厚い。</p>
+      </div>
+      <div class="meter">
+        <div class="meter-top"><span class="meter-label">測定の堅牢度（構造は議論あり）</span><span class="meter-val">高い</span></div>
+        <div class="bar"><i data-w="86"></i></div>
+        <p class="meter-note">「測る」基盤としては最強格。ただし3要素をどう束ねるかには複数のモデルが並立する。</p>
+      </div>
+      <div class="caution">
+        <p class="c-label">⚠ 争点</p>
+        <p>「階層モデル（潜在SWB因子）」か「因果システム（感情→満足）」か未決着。カーネマンは人生満足の判断はバイアスを受け不安定だとし、感情指標を重視した。<strong>評価的（満足）か体験的（感情）か</strong>の緊張は次節の経済学にも直結する。</p>
+      </div>
+    </article>
+
+    <!-- Philosophy -->
+    <article class="pillar fade">
+      <div class="pillar-head">
+        <h3>ウェルビーイングの哲学<span class="en">Philosophy of Well-Being · 3 families (Parfit 1984)</span></h3>
+        <span class="tag concept">概念的backbone</span>
+      </div>
+      <p>そもそも「善い人生」とは何を指すのか。現代倫理学はこれを3系統に整理する。<strong>快楽説</strong>（ウェルビーイング＝快）／<strong>欲求充足説</strong>（＝自分の望みが叶うこと）／<strong>客観的リスト説</strong>（知識・友情など、本人の態度と独立に善いものがある）。心理学の尺度が「何を測っているのか」を問い直すのは、結局この層だ。</p>
+      <div class="field">
+        <p class="field-label">代表的な反論</p>
+        <p>快楽説には「経験機械」（偽の快より本物の達成を望むのでは？）。欲求充足説には「欲求が誤情報に基づくと？」。客観的リスト説には「エリート主義・パターナリズムでは？」。どれも決定打はなく、緊張のまま並立している。</p>
+      </div>
+      <div class="meter">
+        <div class="meter-top"><span class="meter-label">概念的厳密さ（※実証再現とは別軸）</span><span class="meter-val">非常に高い</span></div>
+        <div class="bar"><i data-w="92"></i></div>
+        <p class="meter-note">「再現性」ではなく論証の厳密さで評価。測定の意味を保証する土台で、ここを踏むと解像度が一段上がる。</p>
+      </div>
+      <div class="caution">
+        <p class="c-label">⚠ 注意</p>
+        <p>これは実証科学ではないので「再現される/されない」の軸では測れない。欲求充足説が現代で優勢なのは厚生経済学（測れる選好）と相性が良かったため、という歴史的事情も含めて読む。</p>
+      </div>
+    </article>
+
+    <!-- Economics -->
+    <article class="pillar fade">
+      <div class="pillar-head">
+        <h3>ウェルビーイングの経済学<span class="en">Economics of Well-Being · Easterlin → Kahneman × Killingsworth</span></h3>
+        <span class="tag hedonic">社会・実証</span>
+      </div>
+      <p>個人を超えて、社会・所得とウェルビーイングの関係を扱う領域。出発点は<strong>イースタリンのパラドックス（1974）</strong>——ある時点では「金持ちほど幸福」だが、国全体の所得が伸び続けても時系列の幸福度は上がらない。相対所得や適応で説明される。</p>
+      <div class="field">
+        <p class="field-label">自己修正の好例</p>
+        <p>カーネマン&amp;ディートン（2010）は感情的幸福が年収約7.5万ドルで頭打ちと報告。一方キリングスワース（2021）は経験サンプリングで「頭打ちなし・対数線形」を示し矛盾。両者は<strong>敵対的協同（adversarial collaboration）</strong>で2023年に決着させた——平均では対数線形に上がり続けるが、<strong>最も不幸な約20%だけ</strong>がしきい値（物価調整後の約10万ドル）で頭打ちになる。天井効果と不均一分散が見かけの矛盾を生んでいた。</p>
+      </div>
+      <div class="meter">
+        <div class="meter-top"><span class="meter-label">実証の堅牢度・自己修正力</span><span class="meter-val">高い</span></div>
+        <div class="bar"><i data-w="84"></i></div>
+        <p class="meter-note">対立する結果を方法論で和解させたプロセスそのものが、この分野の信頼性の証拠になっている。</p>
+      </div>
+      <div class="caution">
+        <p class="c-label">⚠ 争点</p>
+        <p>イースタリンのパラドックスは今も論争中（スティーブンソン&amp;ウォルファーズ派は「所得は満足を上げ続ける」と主張）。ここでも<strong>評価的（人生評価）か体験的（感情）か</strong>でどちらの指標を見るかが結論を分ける。</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">全体を貫く対立軸</p>
+    <h2 class="fade">5本は、3つの軸の上に置ける</h2>
+    <p class="sub fade">THE AXES THAT ORGANIZE EVERYTHING</p>
+    <p class="fade">個別の理論を覚えるより、この3軸を持っておくほうが効く。どの尺度・どの主張も、必ずどこかの極に寄っている。</p>
+    <div class="axes fade">
+      <div class="axis">
+        <div class="axis-row"><span class="axis-pole l">快楽論 hedonic</span><span class="axis-track"></span><span class="axis-pole r">卓越論 eudaimonic</span></div>
+        <p class="axis-desc">「気分よく感じる」（SWB）か、「よく機能し意味をもって生きる」（PWB・SDT）か。多くの議論はこの綱引き。</p>
+      </div>
+      <div class="axis">
+        <div class="axis-row"><span class="axis-pole l">評価的 evaluative</span><span class="axis-track"></span><span class="axis-pole r">体験的 experienced</span></div>
+        <p class="axis-desc">人生全体への満足（記憶・判断）か、いま感じている感情（瞬間）か。所得と幸福の論争はここで割れる。</p>
+      </div>
+      <div class="axis">
+        <div class="axis-row"><span class="axis-pole l">主観的 subjective</span><span class="axis-track"></span><span class="axis-pole r">客観的 objective</span></div>
+        <p class="axis-desc">本人の感じ方・望み（快楽説・欲求充足説）か、態度と独立の善（客観的リスト説）か。哲学の層の軸。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">意思決定パートナーとしての使い方</p>
+    <h2 class="fade">経営者との対話に、どこを差し込むか</h2>
+    <p class="sub fade">FOR THE DECISION PARTNER</p>
+    <p class="fade">理論を持つこと自体が目的ではない。固い構成概念は、対話で「いま何を最適化しようとしているのか」を可視化する道具になる。</p>
+    <ul class="app fade">
+      <li><strong>自律性支援 vs 統制（SDT）</strong><span>決断を「どう枠づけるか」で部下や自分の欲求充足が変わる。指示型に寄った意思決定は短期に動いても持続しない、を構造で説明できる。</span></li>
+      <li><strong>評価的と体験的のズレ</strong><span>経営者は地位・所得（評価的幸福）を最適化しがちだが、日々の体験的幸福が置き去りになっていることが多い。この乖離を本人に映し返すのが介入点。</span></li>
+      <li><strong>「善い決定」の定義を問い直す（哲学）</strong><span>良い決定＝欲求の充足だけなのか。客観的リスト説の視点を一つ持つだけで、「望んでいるが本人のためにならない選択」を扱えるようになる。</span></li>
+      <li><strong>相対所得の罠（経済学）</strong><span>地位競争・他者比較が意思決定を歪める構図を、適応とイースタリンの知見で言語化できる。「上げ続けても満たされない」を一般論ではなく研究で語れる。</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">日本語で読める学習ルート</p>
+    <h2 class="fade">入口 → 中核 → 応用</h2>
+    <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
+
+    <div class="route fade">
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge">入口</span><span class="stage-desc">全体を一望し、地図を持つ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>なぜここから</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">幸せを科学する：心理学からわかったこと</div><div class="by">大石繁宏／新曜社（2009）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">SWBの第一人者による日本語の決定版。測定・西洋／東洋哲学・経済まで一冊で俯瞰でき、5本の地図をいきなり手に入れられる。</td>
+            </tr>
+            <tr>
+              <td><div class="title">ポジティブ心理学入門</div><div class="by">島井哲志／星和書店</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本語の標準的入門。ただし“看板”は批判込みで読むのが前提。強み研究など堅い部分の足がかりに。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge core">中核</span><span class="stage-desc">各構成概念を一次に近い深さで</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>カバーする柱</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">人を伸ばす力：内発と自律のすすめ</div><div class="by">E.デシ &amp; R.フラスト（桜井茂男 監訳）／新曜社</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">SDTの古典的入口（一般向け）。自律性・有能感・関係性の核を提唱者本人の言葉で。</td>
+            </tr>
+            <tr>
+              <td><div class="title">selfdeterminationtheory.org</div><div class="by">Center for SDT 公式</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">SDTの一次ハブ。論文DB・尺度・理論解説が無料。中核は結局ここに戻る。</td>
+            </tr>
+            <tr>
+              <td><div class="title">「心理的ウェルビーイング 尺度」でJ-STAGE検索</div><div class="by">Ryff PWB 日本語版の検証研究群</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">6次元の日本語版と妥当性議論を一次で。因子構造の留保もここで自分の目で確認できる。</td>
+            </tr>
+            <tr>
+              <td><div class="title">人生満足尺度（SWLS）日本語版／関連レビュー</div><div class="by">J-STAGE で「主観的幸福感 尺度」検索</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">SWBの測定を実物で。評価的指標の作り方と限界が体感できる。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Well-Being（哲学）</div><div class="by">Stanford Encyclopedia of Philosophy</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">3系統（快楽・欲求充足・客観的リスト）の厳密な一次解説。無料で、概念のbackboneはここが最良。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge app">応用</span><span class="stage-desc">社会・組織・実務に接続する</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>使いどころ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">日本の幸福度（格差・労働・家族）</div><div class="by">大竹文雄ほか 編／日本評論社 ※書誌は要確認</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">幸福の経済学を日本データで。相対所得・労働と幸福の実証を、対話の素材として。</td>
+            </tr>
+            <tr>
+              <td><div class="title">World Happiness Report（毎年）</div><div class="by">国際比較の定点観測</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">評価的幸福の国際ランキングと要因分解。最新号をRSS/定期チェックに。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Income and emotional well-being: A conflict resolved（2023, PNAS）</div><div class="by">Killingsworth, Kahneman &amp; Mellers</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">敵対的協同による自己修正の実例。「再現性で選ぶ」という本稿の姿勢そのものが学べる。</td>
+            </tr>
+            <tr>
+              <td><div class="title">組織・人材開発への接続</div><div class="by">中原淳 NAKAHARA-LAB ／ リクルートワークス研究所</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">ウェルビーイングを職場文脈へ。先に整理したRSS群と地続きで運用できる。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note fade" style="margin-top:30px;">
+      <p class="n-title">読む順番のコツ</p>
+      <p>入口の大石本で「全体の地図」を先に持ってから、中核で気になった柱だけ一次に潜るのが効率的。哲学（SEP）は途中で一度寄ると、心理尺度が「何を測っているのか」が腑に落ちて、以降の読みが速くなる。応用は対話で実際に使う場面が来てから引けばいい。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sources">
+  <div class="wrap">
+    <p class="kicker fade">主な出典</p>
+    <h2 class="fade">この読み物の根拠</h2>
+    <p class="sub fade">SOURCES · すべて要旨は筆者が日本語に要約（原文の複製ではない）</p>
+    <ol class="fade">
+      <li>SDT 理論概説：<a href="https://selfdeterminationtheory.org/theory/">selfdeterminationtheory.org</a>／職場メタ分析（PMC12887546）、学生母集団のメタ分析（PMC12276404）。</li>
+      <li>Ryff PWB：6次元の定義と妥当性（PMC6228361, Springer 2007）、卓越論的介入のメタ分析（Wiley aphw.12398）、文化横断での因子構造の留保（PMC5910620）。</li>
+      <li>Diener SWB：三部構造のメタ分析 k=40, N≈34,298（ScienceDirect S0191886917306025）、構造論争のレビュー（Busseri &amp; Sadava 2011）。</li>
+      <li>哲学：<a href="https://plato.stanford.edu/entries/well-being/">Stanford Encyclopedia of Philosophy “Well-Being”</a>（3系統＝Parfit 1984／経験機械ほか）。</li>
+      <li>経済学：<a href="https://www.pnas.org/doi/abs/10.1073/pnas.2208661120">Killingsworth, Kahneman &amp; Mellers (2023) PNAS</a>、Kahneman &amp; Deaton (2010)、Killingsworth (2021)、イースタリンのパラドックス（IZA DP13923）。</li>
+      <li>日本語書籍：大石繁宏『幸せを科学する』新曜社（<a href="https://www.shin-yo-sha.co.jp/book/b455844.html">版元ページ</a>）、島井哲志『ポジティブ心理学入門』星和書店。</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // gentle scroll reveal + meter fill (reduced-motion respected via CSS)
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    // ensure hero shows immediately
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+</body>
+</html>
