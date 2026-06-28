@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>モンテッソーリ教育を「根拠の強さ」で仕分ける — 概要・歴史と、自宅に効かせる実践ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbfcfb;
+    --paper-2:#f4f7f5;
+    --panel:#f4f7f5;
+    --ink:#2b3a3e;
+    --ink-soft:#46585c;
+    --ink-faint:#74827f;
+    --teal-deep:#4f7c87;
+    --teal:#62B8A0;
+    --teal-wash:#eef6f3;
+    --coral:#eb6584;
+    --coral-wash:#fdeef1;
+    --sand:#B98B2E;
+    --sand-wash:#F5EBD3;
+    --line:#e3e8e4;
+    --line-soft:#eef1ef;
+    --shadow:0 1px 2px rgba(39,53,54,.04),0 10px 34px -18px rgba(39,53,54,.22);
+    --maxw:760px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;
+    font-weight:400;
+    line-height:1.95;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* progress + nav */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+  nav{position:sticky;top:0;z-index:50;background:rgba(251,250,246,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+  .brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;letter-spacing:.04em;color:var(--teal-deep);white-space:nowrap}
+  .brand b{color:var(--coral);font-weight:700}
+  .nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+  .nav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+
+  /* layout */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+  section{padding:62px 0;border-top:1px solid var(--line-soft)}
+  section:first-of-type{border-top:none}
+
+  /* hero */
+  header.hero{padding:74px 0 60px;text-align:left;position:relative;overflow:hidden}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal-deep);text-transform:uppercase;margin-bottom:26px}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--teal)}
+  h1.title{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(34px,6.4vw,54px);line-height:1.28;letter-spacing:.01em;margin:0 0 22px;color:var(--ink)}
+  h1.title .ac{color:var(--teal-deep)}
+  .lede{font-size:clamp(16px,2.3vw,18.5px);color:var(--ink-soft);line-height:2.05;max-width:62ch;margin:0 0 34px;font-weight:500}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px 26px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-faint);font-weight:500}
+  .meta-row b{color:var(--teal-deep);font-weight:700}
+
+  /* headings */
+  .sec-no{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral)}
+  h2{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(25px,4.2vw,33px);line-height:1.42;margin:8px 0 8px;color:var(--ink);letter-spacing:.01em}
+  .sec-sub{font-size:14.5px;color:var(--ink-faint);font-weight:500;margin:0 0 30px}
+  h3{font-family:"Noto Serif JP",serif;font-weight:700;font-size:19.5px;line-height:1.6;margin:38px 0 12px;color:var(--teal-deep)}
+  p{margin:0 0 19px;font-size:15.7px}
+  strong{font-weight:700;color:var(--ink)}
+  a.ref{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--teal);transition:.15s}
+  a.ref:hover{background:var(--teal-wash)}
+  mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+
+  ul.clean{list-style:none;padding:0;margin:8px 0 22px}
+  ul.clean li{position:relative;padding:9px 0 9px 26px;font-size:15.2px;color:var(--ink);border-bottom:1px dashed var(--line-soft)}
+  ul.clean li:last-child{border-bottom:none}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:18px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+  ul.clean li b{color:var(--teal-deep)}
+
+  /* evidence tag */
+  .etag{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;letter-spacing:.04em;padding:3px 10px;border-radius:999px;white-space:nowrap;vertical-align:middle}
+  .etag::before{content:"";width:7px;height:7px;border-radius:50%}
+  .e-strong{background:var(--teal-wash);color:#2D5860}.e-strong::before{background:var(--teal-deep)}
+  .e-mixed{background:var(--sand-wash);color:#7A5A14}.e-mixed::before{background:var(--sand)}
+  .e-weak{background:var(--coral-wash);color:#A53049}.e-weak::before{background:var(--coral)}
+
+  /* legend */
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin:6px 0 8px;padding:18px 20px;background:var(--paper-2);border-radius:14px;border:1px solid var(--line)}
+  .legend .li{display:flex;gap:9px;align-items:flex-start;font-size:12.8px;color:var(--ink-soft);flex:1 1 200px;line-height:1.55}
+  .legend .li b{display:block;color:var(--ink);font-weight:700;margin-bottom:1px}
+
+  /* note / pull */
+  .pull{margin:34px 0;padding:26px 30px;border-left:3px solid var(--coral);background:var(--coral-wash);border-radius:0 14px 14px 0}
+  .pull p{margin:0;font-family:"Noto Serif JP",serif;font-weight:600;font-size:18.5px;line-height:1.85;color:#7C2E40}
+  .note{margin:30px 0;padding:22px 26px;border-left:3px solid var(--teal);background:var(--teal-wash);border-radius:0 14px 14px 0}
+  .note p{margin:0;font-size:14.5px;color:#2D5860}
+  .note p+p{margin-top:10px}
+  .note .h{font-weight:700;color:var(--teal-deep);font-family:"Noto Serif JP",serif;font-size:15px;display:block;margin-bottom:6px}
+  .note.warn{border-left-color:var(--coral);background:var(--coral-wash)}
+  .note.warn p{color:#7C2E40}
+  .note.warn .h{color:#A53049}
+
+  /* timeline */
+  .tl{position:relative;margin:24px 0 8px;padding-left:24px}
+  .tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--teal),var(--coral))}
+  .tl .item{position:relative;padding:0 0 22px 18px}
+  .tl .item::before{content:"";position:absolute;left:-23px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2.5px solid var(--teal-deep)}
+  .tl .yr{font-family:"Noto Serif JP",serif;font-weight:700;color:var(--coral);font-size:15px}
+  .tl .tx{font-size:14.3px;color:var(--ink);line-height:1.7;margin-top:2px}
+  .tl .tx b{color:var(--teal-deep)}
+
+  /* SDT domain cards */
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin:26px 0}
+  .dcard{border-radius:18px;padding:22px 22px 18px;border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow)}
+  .dcard .jp{font-family:"Noto Serif JP",serif;font-size:18px;font-weight:700;color:var(--teal-deep)}
+  .dcard .en{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--ink-faint);text-transform:uppercase;margin:3px 0 10px}
+  .dcard p{font-size:13.8px;line-height:1.75;margin:0;color:var(--ink-soft)}
+
+  /* effect-size bars */
+  .es{margin:12px 0 4px}
+  .es-row{display:grid;grid-template-columns:118px 1fr 46px;align-items:center;gap:12px;margin:9px 0}
+  .es-label{font-size:13.5px;font-weight:500;text-align:right;color:var(--ink)}
+  .es-track{height:12px;background:var(--line-soft);border-radius:6px;overflow:hidden}
+  .es-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-deep));border-radius:6px}
+  .es-val{font-size:13px;font-weight:700;color:var(--teal-deep)}
+
+  /* practice cards */
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px 24px 20px;margin:18px 0;box-shadow:var(--shadow)}
+  .pcard.g{border-top:4px solid var(--teal)}
+  .pcard.y{border-top:4px solid var(--sand)}
+  .pcard.r{border-top:4px solid var(--coral)}
+  .pcard h4{margin:0 0 6px;font-family:"Noto Serif JP",serif;font-size:17.5px;line-height:1.55;color:var(--ink)}
+  .pcard p{font-size:14.3px;line-height:1.82;color:var(--ink);margin:0 0 6px}
+  .pcard .lbl{font-size:11.5px;letter-spacing:.1em;font-weight:700;text-transform:uppercase;display:block;margin:14px 0 4px}
+  .pcard .lbl.why{color:var(--teal-deep)}
+  .pcard .lbl.do{color:var(--ink-faint)}
+  .pcard ul{list-style:none;margin:0;padding:0}
+  .pcard li{font-size:14px;line-height:1.7;padding:8px 0;border-bottom:1px solid var(--line-soft);color:var(--ink)}
+  .pcard li:last-child{border-bottom:none}
+  .pcard li b{color:var(--teal-deep)}
+
+  /* insight cards (paper-card style) */
+  .insight{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px 24px 20px;margin:18px 0;box-shadow:var(--shadow)}
+  .insight .pc-kind{font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:6px;background:var(--teal-wash);color:#2D5860;display:inline-block;margin-bottom:12px}
+  .insight h4{font-family:"Noto Serif JP",serif;font-weight:700;font-size:18px;line-height:1.55;color:var(--ink);margin:0 0 6px}
+  .insight p{font-size:14.3px;line-height:1.82;color:var(--ink);margin:0}
+
+  /* steps */
+  .steps{list-style:none;padding:0;margin:16px 0;counter-reset:step}
+  .steps li{position:relative;padding:14px 18px 14px 52px;margin:10px 0;background:var(--panel);border:1px solid var(--line);border-radius:14px;font-size:14.5px;line-height:1.75;color:var(--ink)}
+  .steps li::before{counter-increment:step;content:counter(step);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .steps li b{color:var(--teal-deep)}
+
+  /* references */
+  .refs{font-size:13px;color:var(--ink-soft);line-height:1.8}
+  .refs ol{padding-left:22px;margin:8px 0}
+  .refs li{margin-bottom:11px;padding-left:4px}
+  .refs a{color:var(--teal-deep);word-break:break-all}
+
+  footer{padding:50px 0 70px;border-top:1px solid var(--line);text-align:center;color:var(--ink-faint);font-size:12.5px}
+  footer .ft{font-family:"Noto Serif JP",serif;color:var(--teal-deep);font-size:15px;display:block;margin-bottom:10px;letter-spacing:.05em}
+
+  @media (max-width:680px){
+    .grid3{grid-template-columns:1fr}
+    section{padding:48px 0}
+    .nav-inner{padding:11px 18px}
+    .brand{display:none}
+    .es-row{grid-template-columns:90px 1fr 40px}
+  }
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="brand">根拠で仕分ける<b>・</b>モンテッソーリ</span>
+    <div class="nav-links">
+      <a href="#overview">概要</a>
+      <a href="#history">歴史</a>
+      <a href="#evidence">エビデンス</a>
+      <a href="#sdt">効く軸</a>
+      <a href="#practice">実践</a>
+      <a href="#insights">洞察</a>
+      <a href="#start">始め方</a>
+      <a href="#refs">出典</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Evidence Deep Dive ／ 教育法を根拠で読む</span>
+    <h1 class="title">モンテッソーリを<br><span class="ac">仕分ける</span>。<br>100年の知恵と証拠。</h1>
+    <p class="lede">「子どもをよく観る」ことから生まれ、世界へ広がり、いま実証研究で再評価されつつある教育法。その概要と歴史をおさえ、自宅に持ち込める要素を<strong>「取り入れたい／好みで／必須でない」の3段階</strong>に整理する。根拠がしっかりして、応用が効くものだけを選んで使うための読み物。</p>
+    <div class="meta-row">
+      <span>読了目安 <b>約15分</b></span>
+      <span>最終更新 <b>2026年6月</b></span>
+      <span>参照文献 <b>メタ分析・RCT・レビュー論文</b></span>
+      <span>立場 <b>根拠の強弱を併記</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 01 概要 ===== -->
+<section id="overview">
+  <div class="wrap">
+    <span class="sec-no">01 ── 概要</span>
+    <h2>モンテッソーリ教育とは</h2>
+    <p class="sec-sub">子ども・大人・環境の三つ組</p>
+
+    <p>モンテッソーリ教育は、イタリアの医師マリア・モンテッソーリ（1870–1952）が、観察と実験にもとづいて100年以上前に組み立てた教育法だ。中心にあるのは<strong>「子ども・大人（教師）・環境」の三つ組</strong>。大人が前に立って教え込むのではなく、<mark>注意深く整えられた環境</mark>のなかで、子どもが自分で活動を選び、自分のペースで取り組むことを通じて育つ、と考える。</p>
+
+    <p>具体的には、子どもは<strong>3時間ほどの「作業サイクル」</strong>のなかで、何を・どこで・誰と・どれだけの時間やるかを、教室のルールという枠の中で自由に選ぶ。競争や、ごほうび・罰といった外からの動機づけは基本的に使わない。教材は手で扱える具体物が中心で、<strong>「一度に一つの概念だけ」</strong>を切り出すよう設計され（大きさだけが変わる10個の積み木「ピンクタワー」など）、間違いに自分で気づける仕掛け（誤りの自己訂正）が組み込まれている。</p>
+
+    <h3>覚えておきたい要素</h3>
+    <ul class="clean">
+      <li><b>日常生活の練習</b>　注ぐ・切る・拭く・たたむ・配膳する。手先と集中力、自立の土台。</li>
+      <li><b>感覚教育</b>　大きさ・色・形・手触り・音──一度に一概念だけを扱う教具。</li>
+      <li><b>言語</b>　書きが先、読みが後。フォニックス（音と文字の対応）＋砂文字でのなぞり書き。</li>
+      <li><b>数学</b>　量と記号を別々に導入→統合。具体物→抽象への移行を子ども自身に委ねる。</li>
+      <li><b>自己訂正</b>　教具に「誤りの制御」が組み込まれ、大人に直されなくても自分で気づける。</li>
+    </ul>
+
+    <div class="note">
+      <p><span class="h">解釈の前提として大事なこと</span></p>
+      <p>モンテッソーリ自身が掲げたゴールは「テストの点」ではなく、知的・身体的・情緒的・社会的な<strong>全人的な発達</strong>だった。「学力で測って効果があるか」を問うとき、その指標はモンテッソーリが大切にしたものを必ずしも捉えていない、という点は頭の片隅に。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 歴史 ===== -->
+<section id="history">
+  <div class="wrap">
+    <span class="sec-no">02 ── 歴史</span>
+    <h2>一人の医師の観察から、世界へ</h2>
+    <p class="sec-sub">1870–1952、そして現在</p>
+
+    <p>モンテッソーリ教育の歩みは、それ自体がこの教育法の性格を映している。「子どもをよく観る」ことから始まり、政治に翻弄され、いったん忘れられ、そして実証研究とともに再評価される──という流れだ。</p>
+
+    <div class="tl">
+      <div class="item"><span class="yr">1870 / 1896</span><div class="tx">マリア・モンテッソーリ誕生。当時まれな<b>女性医師の一人</b>としてローマ大学医学部を卒業。精神医学・小児科を専門に。</div></div>
+      <div class="item"><span class="yr">1900</span><div class="tx">障害のある子どもの学校で「必要なのは医療ではなく、<b>その子に合った教育</b>だ」と気づく。この洞察が出発点。</div></div>
+      <div class="item"><span class="yr">1907</span><div class="tx">ローマの貧困地区サン・ロレンツォに、最初の<b>「子どもの家（Casa dei Bambini）」</b>を開設。3–7歳の子どもを観察しながら独自の方法を組み立てていく。</div></div>
+      <div class="item"><span class="yr">1909</span><div class="tx">主著『科学的教育学の方法』刊行。各国へ急速に広まり、世界的な関心を集める。</div></div>
+      <div class="item"><span class="yr">1911–1915</span><div class="tx">米国で一大ブーム。だが1914年、教育学者キルパトリックの批判書や、教材・養成の厳格な管理への反発で、熱が急速に冷める。</div></div>
+      <div class="item"><span class="yr">1929</span><div class="tx">息子マリオと<b>国際モンテッソーリ協会（AMI）</b>をデンマークで設立。賛同者にフロイト・ピアジェ・タゴール。本部はのちにアムステルダムへ。</div></div>
+      <div class="item"><span class="yr">1933–1936</span><div class="tx">ファシズム下で受難。ナチスがドイツの学校を閉鎖し著書を焼き、イタリアでも忠誠の誓いを拒んだことで閉鎖。スペイン→オランダへ亡命。</div></div>
+      <div class="item"><span class="yr">1939–1946</span><div class="tx">講演で訪れたインドで、第二次大戦により7年間滞在（抑留・軟禁）。この間に<b>「コスミック教育」</b>を発展。ガンディーらとも交流。</div></div>
+      <div class="item"><span class="yr">1949–1952</span><div class="tx">「教育と平和」を訴え、ノーベル平和賞に3度ノミネート。1952年、オランダで死去。</div></div>
+      <div class="item"><span class="yr">1958–現在</span><div class="tx">米国で復活。ランバッシュが<b>アメリカ・モンテッソーリ協会（AMS）</b>を設立（1960）。近年はRCT・メタ分析が進み、公立校への導入も拡大。</div></div>
+    </div>
+
+    <div class="note">
+      <p><span class="h">名前は商標登録されていない</span></p>
+      <p>歴史的経緯から「モンテッソーリ」は商標で守られていない。看板に掲げていても、内容や忠実度は園・学校で大きくばらつく。これは後述する「研究の読み方」にも、「家庭でつまみ食いしてよい根拠」にも直結する事実。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 エビデンス ===== -->
+<section id="evidence">
+  <div class="wrap">
+    <span class="sec-no">03 ── エビデンス</span>
+    <h2>科学的根拠は、いま実際どうなっているか</h2>
+    <p class="sec-sub">2つのメタ分析／縦断研究／最新RCT</p>
+
+    <p>結論を先に言うと、<strong>近年の質の高いレビューは「モンテッソーリ教育には、控えめだが一貫したプラスの効果がある」と評価している。</strong>ただし「万能薬」ではなく、注意点もはっきりしている。</p>
+
+    <p>本稿では各要素に<strong>エビデンスの強さ</strong>のタグを添える。3段階の意味を確認してほしい。</p>
+    <div class="legend">
+      <div class="li"><span class="etag e-strong">取り入れたい</span><span><b>比較的頑健</b>　独立した研究の裏づけがあり、家でも再現しやすい。</span></div>
+      <div class="li"><span class="etag e-mixed">好みで</span><span><b>部分的に支持・低リスク</b>　害は小さく「やって損はない」程度。必須ではない。</span></div>
+      <div class="li"><span class="etag e-weak">必須でない</span><span><b>根拠が弱い・食い違い</b>　思想が先行し裏づけが乏しい、または現代の知見と不一致。</span></div>
+    </div>
+
+    <h3>メタ分析 ──「控えめだが一貫してプラス」　<span class="etag e-strong">確立</span></h3>
+    <p>2023年、キャンベル共同計画（社会・教育介入の系統的レビューで知られる国際的な研究ネットワーク）が2,000本超の研究をふるいにかけ、品質基準を満たした32本を統合した。結果は、<strong>学力面でも非学力面（実行機能・創造性・社会情緒面）でも、モンテッソーリが従来教育を上回る</strong>というもの。</p>
+
+    <div class="es">
+      <div class="es-row"><div class="es-label">一般的な学力</div><div class="es-track"><div class="es-fill" style="width:87%"></div></div><div class="es-val">0.26</div></div>
+      <div class="es-row"><div class="es-label">算数</div><div class="es-track"><div class="es-fill" style="width:73%"></div></div><div class="es-val">0.22</div></div>
+      <div class="es-row"><div class="es-label">言語（読み書き）</div><div class="es-track"><div class="es-fill" style="width:57%"></div></div><div class="es-val">0.17</div></div>
+      <div class="es-row"><div class="es-label">社会</div><div class="es-track"><div class="es-fill" style="width:20%"></div></div><div class="es-val">0.06</div></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-faint);margin-top:4px">Hedges' g（プラスがモンテッソーリ有利）。Randolph et al.（2023, Campbell Systematic Reviews）。一般的な学力・言語・算数は「質の高い証拠」。0.2前後は慣例的に「小さめ」の効果。</p>
+
+    <p>同2023年の別チームのメタ分析（Demangeon ほか, <em>Contemporary Educational Psychology</em>）も、<strong>認知発達・社会的スキル・創造性・運動スキル・学業成績</strong>でプラスを報告。方法が違っても結論の向きはおおむね揃っている。</p>
+
+    <h3>「底上げ」と「格差の縮小」── 縦断研究　<span class="etag e-strong">確立</span></h3>
+    <p>米国の公立モンテッソーリ就学前教育を追った縦断研究（Lillard ほか, 2017）は、タイトルが要約──<strong>「子どもの成果を引き上げ、そして平準化する」</strong>。読み・算数・実行機能・社会的理解で伸びが見られ、しかも<strong>所得による差を縮める</strong>方向に働いた。</p>
+
+    <h3>効果は「遅れて」現れた ── 最新RCT（2025）　<span class="etag e-mixed">限定的</span></h3>
+    <p>この分野は<strong>無作為化比較試験（RCT＝くじ引きで割り付ける最も厳密な設計）が乏しい</strong>のが長年の弱点だった。そこに2025年12月、フランスでのRCT（Courtier ほか, 2021）の5年後追跡が発表される（Le Diagon ほか, <em>Scientific Reports</em>）。</p>
+    <ul class="clean">
+      <li>就学前に出ていた<b>読みの優位は、5年後（10–11歳）には消えていた</b>（d≈−0.07）。早期教育でよくある"フェードアウト"。</li>
+      <li>いっぽうで当時はなかった<b>「算数の問題解決力」の優位が、後から現れた</b>（d≈0.58＝中〜大）。いわば<b>"遅れて効く（スリーパー）"効果</b>。</li>
+    </ul>
+    <p>最も厳密な証拠は「すべて永続」でも「すべて無駄」でもなく、<mark>消える効果と、後から立ち上がる効果が混在する</mark>という、現実的で込み入った絵を描いている。</p>
+
+    <div class="note warn">
+      <p><span class="h">研究を読むときの注意（鵜呑みにしない）</span></p>
+      <p>プラスの結果が多いのは事実だが留保がある。<strong>(1) RCTがまだ少なく</strong>多くは「条件をそろえた比較」止まり。<strong>(2) 園を選ぶ家庭の傾向（自己選択バイアス）</strong>を完全には除けない。<strong>(3)「モンテッソーリ」は商標がなく忠実度がバラバラ。</strong> <strong>(4) 効果のフェードアウト</strong>が起こりうる。<strong>(5) 証拠の多くは欧米</strong>由来で文化差の検討はこれから。──要するに「確実な万能薬」ではなく「分のいい賭け、ただし中身次第」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 効く軸 ===== -->
+<section id="sdt">
+  <div class="wrap">
+    <span class="sec-no">04 ── 効く軸</span>
+    <h2>なぜ効くのか ── 自己決定理論という補助線</h2>
+    <p class="sec-sub">家庭で「効く部品」を選ぶときの判断基準</p>
+
+    <p>近年は「なぜ効くか」の説明として、<strong>自己決定理論（SDT）</strong>との接続が明確に論じられている（Lillard ほか, 2019）。モンテッソーリ環境は、人間の3つの心理的欲求を満たす構造になっている、という見立てだ。この3つは、家庭で「どの部品を取り入れるか」を選ぶときの<strong>そのままの判断基準</strong>になる。</p>
+
+    <div class="grid3">
+      <div class="dcard"><div class="jp">自律性</div><div class="en">AUTONOMY</div><p>自分で選び、自分のペースで進める。「枠の中の選択」。</p></div>
+      <div class="dcard"><div class="jp">有能感</div><div class="en">COMPETENCE</div><p>ちょうど良い手応えで「できた」を自分で積む。誤りは自分で気づける。</p></div>
+      <div class="dcard"><div class="jp">関係性</div><div class="en">RELATEDNESS</div><p>異年齢の中で、教え合い・見せ合いながら関わる。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 実践 ===== -->
+<section id="practice">
+  <div class="wrap">
+    <span class="sec-no">05 ── 実践</span>
+    <h2>自宅に取り入れる ── 根拠で仕分けた実践</h2>
+    <p class="sec-sub">家庭は教室ではない。効く部品を選ぶ</p>
+
+    <p><strong>家庭は教室ではない</strong>ので、システムを丸ごと再現する必要はない。「独立した裏づけがあり、再現しやすい部品」を選んで使うのが合理的だ。各項目に<strong>なぜ効くか</strong>と<strong>家での具体例</strong>を付けた。</p>
+
+    <!-- 🟢 -->
+    <h3><span class="etag e-strong">取り入れたい</span> 裏づけが比較的しっかり</h3>
+
+    <div class="pcard g">
+      <h4>自律性と「枠の中の選択」</h4>
+      <p>すべて自由でも、すべて指示でもなく、<strong>大人が用意した選択肢の中から子どもが選ぶ</strong>。モンテッソーリの核で、最も根拠の厚い部分。</p>
+      <span class="lbl why">なぜ効く</span><p>SDTの「自律性」に直結。選択は内発的動機づけと粘り強さを高めることが、教育心理の幅広い研究で支持される。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li>「やる/やらない」でなく「<b>赤い服と青い服どっち？</b>」「歯みがきとパジャマどっちが先？」。</li>
+      <li>おもちゃ棚は全部出さず、<b>少数を見える形で並べ</b>選べるように。</li></ul>
+    </div>
+
+    <div class="pcard g">
+      <h4>ごほうびで釣らない（外的報酬を減らす）</h4>
+      <p>楽しめていた活動にシールや「できたらお金」を持ち込みすぎると、かえって<strong>内発的な意欲が下がりうる</strong>。</p>
+      <span class="lbl why">なぜ効く</span><p>いわゆる「過正当化効果」。コントロール的な外的報酬が内発的動機を損なう傾向は、報酬研究の大規模メタ分析でも示されている（SDTの中核知見）。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li>結果（点数・完成度）より<b>過程や工夫を具体的に言葉にする</b>。「最後まで自分で片づけたね」。</li>
+      <li>ごほうびの常用は避け、できた瞬間の<b>達成感そのもの</b>を一緒に味わう。</li></ul>
+    </div>
+
+    <div class="pcard g">
+      <h4>集中を切らさない（中断しない・長めの作業ブロック）</h4>
+      <p>没頭していたら<strong>声をかけて中断させない</strong>。短く区切るよりまとまった時間を確保する。</p>
+      <span class="lbl why">なぜ効く</span><p>没頭（フロー）の質に関わる。モンテッソーリ環境の中学生は、従来環境より「経験の質」や内発的動機が高いと報告（Rathunde & Csikszentmihalyi, 2005）。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li>集中中の「ごはんだよ」「すごいね！」の割り込みを意識して減らす。</li>
+      <li>1つの遊びを<b>気が済むまでくり返す</b>のを止めない。反復は学びのサイン。</li></ul>
+    </div>
+
+    <div class="pcard g">
+      <h4>実生活の仕事を、自分でやらせる</h4>
+      <p>注ぐ・運ぶ・拭く・たたむ・配膳する・身支度する。合言葉は<strong>「自分でできるように、手伝って」</strong>。</p>
+      <span class="lbl why">なぜ効く</span><p>「有能感」（SDT）と、手先・目と手の協応、実行機能の土台づくりに関わる。Marshall（2017）も発達にプラスでありうると整理。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li><b>子どもサイズの本物の道具</b>（小さな水差し、ほうき、踏み台）を用意し、こぼれても拭ける前提で任せる。</li>
+      <li>先回りして全部やらず、<b>待つ・見守る</b>を増やす。</li></ul>
+    </div>
+
+    <div class="pcard g">
+      <h4>具体物から抽象へ（数・概念は「手で触れるもの」から）</h4>
+      <span class="lbl why">なぜ効く</span><p>具体物（マニピュレイティブ）を介した数概念の学習は、とくに早期で一定の支持あり。メタ分析でも算数はプラス（g≈0.22）。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li>おはじき・ブロックで「3はこれだけ」を体で実感→数字へ。足し算も物を寄せて数える。</li>
+      <li><b>不要になったら子どもが具体物を手放す</b>のに任せる。</li></ul>
+    </div>
+
+    <div class="pcard g">
+      <h4>文字は「音」と「なぞる」から、豊かな言葉の中で</h4>
+      <span class="lbl why">なぜ効く</span><p>音と文字の体系的な対応づけ（フォニックス）は、読みの科学で最も裏づけの厚い指導法の一つ。Marshallのレビューも支持される要素として挙げる。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li>毎日の<b>読み聞かせ</b>と会話で言葉のシャワー（語彙だけでなく言い回しごと吸収）。</li>
+      <li>ひらがなは書き順を<b>指でなぞる</b>＋「あ・い・う」の<b>音遊び</b>から。</li></ul>
+    </div>
+
+    <div class="pcard g">
+      <h4>整えられた・手の届く・秩序ある環境</h4>
+      <span class="lbl why">なぜ効く</span><p>秩序・ルーティンの安定は自己制御を支え、「自分でできる」環境は自律性・有能感を底上げ。決定的なRCTはないが<b>低リスクで理にかなう</b>定番。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li>遊び道具・着替え・食器を<b>低い棚・手の届く位置</b>に、少数だけ定位置で。</li>
+      <li>使ったら戻す、を動線に組み込む（片づけまでで1セット）。</li></ul>
+    </div>
+
+    <div class="pcard g">
+      <h4>口を出す前に「観察する」／異年齢で関わる</h4>
+      <span class="lbl why">なぜ効く</span><p>年上が年下に教える<b>ピア・チュータリング</b>には現代研究の支持あり。観察起点だと子の興味（内発的動機）に沿いやすい。</p>
+      <span class="lbl do">家での具体例</span>
+      <ul><li>「次はこれ」と被せる前に数十秒<b>黙って見る</b>。今日のその子の興味に合わせる。</li>
+      <li>きょうだいや友達と、<b>年上が年下に「やって見せる」</b>役割を自然につくる。</li></ul>
+    </div>
+
+    <!-- 🟡 -->
+    <h3><span class="etag e-mixed">好みで</span> 害は小さいが必須ではない</h3>
+
+    <div class="pcard y">
+      <h4>モンテッソーリ「教材」そのものを買い揃える</h4>
+      <p>ピンクタワー等の専用教材は魅力的だが、<strong>効くのは"物"でなく"関わり方"</strong>というのが研究者の見立て（Lillard, 2008）。高価な正規セットがなくても、原理（一度に一概念・自己訂正・具体から抽象）を満たせば家庭の物で代用できる。気に入った教材を<b>一部だけ</b>取り入れるのは良し。</p>
+    </div>
+
+    <div class="pcard y">
+      <h4>実物中心・刺激控えめのおもちゃ環境</h4>
+      <p>派手すぎず本物に近いシンプルな道具を選ぶ方針は、集中や選びやすさの面で<strong>悪くない</strong>。ただし「木のおもちゃでなければダメ」式の強い決まりに科学的根拠はない。<b>数を絞って見やすく</b>並べる発想は採用しつつ、素材の"正解探し"に縛られない。</p>
+    </div>
+
+    <div class="pcard y">
+      <h4>「敏感期」を"手がかり"として使う</h4>
+      <p>ある時期の子が特定のこと（順序・小さな物・言葉など）に強く惹かれる、という観察は関わりの<strong>ヒント</strong>として有用。「今この子は文字に興味→なぞり書きを置く」のように<b>観察の補助線</b>として。次の"締め切り"的な使い方はしない。</p>
+    </div>
+
+    <!-- 🔴 -->
+    <h3><span class="etag e-weak">必須でない</span> 根拠が弱い／現代の知見と食い違う</h3>
+
+    <div class="pcard r">
+      <h4>「敏感期」を"逃したら終わり"の締め切りにする</h4>
+      <p>「○歳までにやらないと一生身につかない」式の不安は<strong>持たなくて大丈夫</strong>。言語や視覚など一部に臨界期はあるが、モンテッソーリの敏感期一覧は観察ベースで、脳は基本的にその後も可塑性を保つ。窓が硬く閉じるという強い主張は誇張気味。</p>
+    </div>
+
+    <div class="pcard r">
+      <h4>ごっこ遊び・空想を抑える方針</h4>
+      <p>モンテッソーリは幼児期に空想より「現実」を重視し、ごっこ遊びを控えめに見た。しかし<strong>想像・ごっこ遊びを制限する強い根拠はない</strong>。実生活の仕事<strong>と</strong>ごっこ遊びは両立させてよい。「禁止する理由はない」が穏当な結論。</p>
+    </div>
+
+    <div class="pcard r">
+      <h4>「吸収する精神」「発達の段階」を科学的事実として鵜呑みにする</h4>
+      <p>子ども理解の<strong>魅力的な"地図"</strong>だが、現代的に検証された理論ではない。枠組み（比喩）として使うのは良いが、<b>確立した事実のように扱わない</b>のが安全。</p>
+    </div>
+
+    <div class="pcard r">
+      <h4>SNS映えの"ミニマル・モンテッソーリ"にお金をかける</h4>
+      <p>整然とした木製インテリアは<strong>マーケティングと美意識</strong>の面が大きい。出費の優先度は低い。効くのは見た目でなく<b>関わり方</b>。</p>
+    </div>
+
+    <div class="pcard r">
+      <h4>家庭での"純粋主義"（完全再現へのこだわり）</h4>
+      <p>「正式なやり方でないと意味がない」は、家庭ではむしろ逆効果になりがち。Marshall（2017）も<strong>部分的な採用は妥当</strong>と述べる。効く部品を<b>つまみ食い</b>するのは正当なやり方。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 洞察 ===== -->
+<section id="insights">
+  <div class="wrap">
+    <span class="sec-no">06 ── 洞察</span>
+    <h2>持ち帰る、3つのポイント</h2>
+    <p class="sec-sub">この記事の要点</p>
+
+    <div class="insight">
+      <span class="pc-kind">Insight 01</span>
+      <h4>効くのは"システム"より"部品"</h4>
+      <p>家庭ではまるごと再現する必要はない。裏づけのある部品──自律性・有能感・関係性（＝自己決定理論）と、具体物・フォニックス・反復・観察──を選んで使うのが合理的。純粋主義は不要。</p>
+    </div>
+
+    <div class="insight">
+      <span class="pc-kind">Insight 02</span>
+      <h4>「敏感期」は"締め切り"ではない</h4>
+      <p>観察のヒントとしては使えるが、「○歳までにやらないと手遅れ」という不安は持たなくていい。脳は可塑性を保つ。空想・ごっこ遊びを抑える方針も科学的に必須ではない。</p>
+    </div>
+
+    <div class="insight">
+      <span class="pc-kind">Insight 03</span>
+      <h4>効果は"遅れて"出ることがある</h4>
+      <p>最新RCT（2025）では、就学前の読みの優位は消えたが、算数の問題解決力が後から伸びた。すぐ目に見える成果だけで判断しないこと。モンテッソーリは「分のいい賭け、ただし中身次第」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 始め方 ===== -->
+<section id="start">
+  <div class="wrap">
+    <span class="sec-no">07 ── 始め方</span>
+    <h2>最小の始め方 ── まずこの5つ</h2>
+    <p class="sec-sub">1つずつ、生活の動線に溶かす</p>
+
+    <p>全部を一度にやろうとしないのがコツ。迷ったら🟢の中から負荷の低いものを選ぶ。</p>
+
+    <ol class="steps">
+      <li><b>選択肢を2つに絞って選ばせる。</b>「どっちの服？」「どっちが先？」を1日数回。自律性のいちばん簡単な入口。</li>
+      <li><b>子ども用の本物の道具を1つ置く。</b>小さな水差しか、踏み台か、ほうき。こぼれ・失敗込みで任せる。</li>
+      <li><b>没頭中は割り込まない。</b>「すごい！」も「ごはん！」も、ひと呼吸待つ。反復を止めない。</li>
+      <li><b>ごほうびより"過程の実況"。</b>点数や完成度でなく、工夫や粘りを具体的な言葉にする。</li>
+      <li><b>棚を低く・少なく・定位置に。</b>自分で出して戻せる量に整える。片づけまでで1セット。</li>
+    </ol>
+
+    <div class="note">
+      <p><span class="h">この記事を一言でまとめると</span></p>
+      <p>モンテッソーリは「分のいい賭け、ただし中身次第」。家庭では<strong>システムでなく"効く部品"を選ぶ</strong>のが正解で、その軸は<strong>自律性・有能感・関係性</strong>と<strong>具体物・フォニックス・反復・観察</strong>。逆に、敏感期の締め切り化／空想の制限／理論の事実化／映えへの出費は、無理に追わなくて大丈夫。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 出典 ===== -->
+<section id="refs">
+  <div class="wrap">
+    <span class="sec-no">出典</span>
+    <h2>主な参考文献</h2>
+    <p class="sec-sub">References</p>
+    <div class="refs">
+      <ol>
+        <li>Marshall, C. (2017). Montessori education: a review of the evidence base. <em>npj Science of Learning, 2</em>, 11. <a href="https://www.nature.com/articles/s41539-017-0012-7" target="_blank" rel="noopener">全文</a></li>
+        <li>Randolph, J. J. ら (2023). Montessori education's impact on academic and nonacademic outcomes: A systematic review. <em>Campbell Systematic Reviews, 19</em>, e1330. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/cl2.1330" target="_blank" rel="noopener">全文</a></li>
+        <li>Demangeon, A. ら (2023). A meta-analysis of the effects of Montessori education on five fields of development and learning… <em>Contemporary Educational Psychology, 73</em>, 102182.</li>
+        <li>Lillard, A. S. ら (2017). Montessori preschool elevates and equalizes child outcomes: A longitudinal study. <em>Frontiers in Psychology, 8</em>, 1783.</li>
+        <li>Le Diagon, S. ら (2025). Early Montessori education shows delayed benefits for mathematical problem-solving in a 5-year longitudinal randomized controlled trial. <em>Scientific Reports, 15</em>, 43961. <a href="https://www.nature.com/articles/s41598-025-27687-2" target="_blank" rel="noopener">全文</a></li>
+        <li>Lillard, A. S. ら (2019). Shunned and admired: Montessori, self-determination, and a case for radical school reform. <em>Educational Psychology Review, 31</em>, 939–965.</li>
+        <li>Lillard, A. S. (2012). Preschool children's development in classic Montessori, supplemented Montessori, and conventional programs. <em>Journal of School Psychology, 50</em>, 379–401.</li>
+        <li>Lillard, A. S. & Else-Quest, N. (2006). Evaluating Montessori education. <em>Science, 313</em>, 1893–1894.</li>
+        <li>Rathunde, K. & Csikszentmihalyi, M. (2005). Middle school students' motivation and quality of experience… <em>American Journal of Education, 111</em>, 341–371.</li>
+      </ol>
+      <p style="font-size:12px;color:var(--ink-faint);margin-top:14px">※ 本稿は一般向けの解説であり、医療・専門的助言ではありません。効果量や結論は研究の更新により変わりうるため、重要な判断には一次資料の確認をおすすめします。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="ft">根拠で仕分ける ── モンテッソーリ教育を読み解く</span>
+    メタ分析・RCT・レビュー論文を基に構成／最終更新 2026年6月
+  </div>
+</footer>
+
+<script>
+  const bar=document.getElementById('progress');
+  const onScroll=()=>{
+    const h=document.documentElement;
+    const max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  };
+  document.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+
+  const links=[...document.querySelectorAll('.nav-links a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id='#'+e.target.id;
+        links.forEach(l=>l.style.color=l.getAttribute('href')===id?'var(--teal-deep)':'');
+        links.forEach(l=>l.style.background=l.getAttribute('href')===id?'var(--teal-wash)':'');
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>s&&io.observe(s));
+</script>
+</body>
+</html>
