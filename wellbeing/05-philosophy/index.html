@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ウェルビーイングの哲学 深掘り — 尺度の下にある「良い人生とは何か」</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b3a3e; --ink-soft:#46585c;
+    --teal:#62b8a0; --teal-deep:#4f7c87; --teal-wash:#eef6f3;
+    --coral:#eb6584; --coral-wash:#fdeef1;
+    --paper:#fbfcfb; --panel:#f4f7f5;
+    --line:#e3e8e4; --line-strong:#cdd6d1; --muted:#74827f;
+    --maxw:768px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  .hero{padding:78px 0 50px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(27px,5.2vw,40px);line-height:1.42;margin:0 0 24px;}
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:32px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* signature: subjective-objective axis */
+  .sig{margin:42px 0 6px;}
+  .sig svg{width:100%;height:auto;display:block;}
+  .sig-cap{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.7;text-align:center;}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 13px;}
+  h2{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;}
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;} p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* theory blocks */
+  .theory{border:1px solid var(--line);border-radius:14px;padding:0;margin:24px 0 0;overflow:hidden;}
+  .theory .th-head{padding:18px 22px;display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);}
+  .theory .th-jp{font-family:"Noto Serif JP",serif;font-weight:700;font-size:18px;}
+  .theory .th-en{font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+  .theory .th-tag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:20px;}
+  .theory .th-tag.subj{background:var(--coral-wash);color:#c84e6c;}
+  .theory .th-tag.obj{background:var(--teal-wash);color:var(--teal-deep);}
+  .theory .th-body{padding:18px 22px;}
+  .theory .th-body p{font-size:14.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.85;}
+  .theory .th-body p:last-child{margin:0;}
+  .obj-line{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--coral);margin:0 0 6px;}
+  .obj-line.up{color:var(--teal-deep);}
+
+  .meter{margin:24px 0 4px;padding:18px 20px;background:var(--panel);border-radius:11px;}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);}
+  .bar{height:7px;border-radius:6px;background:#dde5e1;overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7;}
+
+  .caution{margin:20px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#c84e6c;margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+  .caution.muted{background:var(--panel);border-left-color:var(--line-strong);}
+  .caution.muted .c-label{color:var(--ink-soft);}
+
+  .note{background:var(--teal-wash);border-radius:12px;padding:24px 26px;margin:20px 0 0;}
+  .note .n-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);} .note p:last-child{margin:0;}
+
+  /* mapping table (the payoff) */
+  .map{display:grid;gap:11px;margin:24px 0 0;}
+  .mrow{border:1px solid var(--line);border-radius:12px;padding:17px 19px;}
+  .mrow .mh{display:flex;align-items:baseline;gap:10px;margin:0 0 6px;}
+  .mrow .ms{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15.5px;}
+  .mrow .mt{font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 9px;border-radius:14px;background:var(--panel);color:var(--ink-soft);}
+  .mrow p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.75;}
+  .mrow p .hl{color:var(--coral);font-weight:700;}
+
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 20px 42px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:27px;height:27px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .app li strong{display:block;margin-bottom:3px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);line-height:1.85;}
+
+  .route-stage{margin:0 0 26px;} .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Serif JP",serif;font-weight:700;font-size:13px;color:#fff;background:var(--teal-deep);padding:5px 14px;border-radius:20px;letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);} .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);} .lang.en{background:#eef1f5;color:#5a6b86;}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;} .bar>i{transition:none;} html{scroll-behavior:auto;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
+    th,td{padding:9px 8px;font-size:13px;} .theory .th-head{flex-wrap:wrap;gap:6px;} .theory .th-tag{margin-left:0;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="series fade">深掘りシリーズ ⑤／再現性で選ぶウェルビーイング</p>
+    <p class="eyebrow fade">Philosophy of Well-Being</p>
+    <h1 class="fade">尺度は、必ず<span class="accent">「良い人生とは何か」</span>を<br>こっそり前提している。</h1>
+    <p class="lede fade">ここまでの4本は「測る」話だった。だが測定は、その前に<strong>「ウェルビーイングとは何か」という定義</strong>を必ず仮定している。哲学はその<em>下の階</em>だ。実験はしない。代わりに問う——「ある人生が<strong>その人にとって</strong>良い」とは、何が成り立っていることなのか。答えは大きく3つの立場に割れる。そしてこの地図を持つと、<strong>SWBやPWBが密かに何に賭けているか</strong>が見えてくる。</p>
+
+    <div class="sig fade">
+      <svg viewBox="0 0 640 320" role="img" aria-label="ウェルビーイングの3理論を主観-客観軸に配置した図">
+        <defs><style>
+          .axline{stroke:#cdd6d1;stroke-width:2;}
+          .pole{font-family:'Noto Sans JP';font-weight:700;font-size:12.5px;}
+          .pjp{font-family:'Noto Serif JP';font-weight:700;font-size:15px;fill:#2b3a3e;text-anchor:middle;}
+          .pen{font-family:'Noto Sans JP';font-weight:500;font-size:9.5px;fill:#74827f;text-anchor:middle;letter-spacing:.04em;}
+          .sci{font-family:'Noto Sans JP';font-weight:700;font-size:11px;text-anchor:middle;}
+          .conn{stroke-width:1.3;fill:none;stroke-dasharray:3 3;}
+        </style></defs>
+
+        <!-- axis -->
+        <line class="axline" x1="40" y1="120" x2="600" y2="120"/>
+        <path d="M40 120 l10 -5 M40 120 l10 5" stroke="#eb6584" stroke-width="2" fill="none"/>
+        <path d="M600 120 l-10 -5 M600 120 l-10 5" stroke="#4f7c87" stroke-width="2" fill="none"/>
+        <text class="pole" x="38" y="103" fill="#c84e6c">◀ 主観的</text>
+        <text class="pole" x="602" y="103" fill="#4f7c87" text-anchor="end">客観的 ▶</text>
+
+        <!-- nodes -->
+        <g>
+          <circle cx="120" cy="120" r="8" fill="#eb6584"/>
+          <text class="pjp" x="120" y="62">快楽説</text>
+          <text class="pen" x="120" y="80">HEDONISM</text>
+          <text class="pen" x="120" y="96" fill="#46585c">快楽の総量</text>
+          <line x1="120" y1="103" x2="120" y2="112" stroke="#cdd6d1" stroke-width="1.3"/>
+        </g>
+        <g>
+          <circle cx="290" cy="120" r="8" fill="#eb6584"/>
+          <text class="pjp" x="290" y="62">欲求充足説</text>
+          <text class="pen" x="290" y="80">DESIRE</text>
+          <text class="pen" x="290" y="96" fill="#46585c">望みが叶う</text>
+          <line x1="290" y1="103" x2="290" y2="112" stroke="#cdd6d1" stroke-width="1.3"/>
+        </g>
+        <g>
+          <circle cx="510" cy="120" r="8" fill="#4f7c87"/>
+          <text class="pjp" x="510" y="62">客観的リスト説</text>
+          <text class="pen" x="510" y="80">OBJECTIVE LIST</text>
+          <text class="pen" x="510" y="96" fill="#46585c">客観的に善い物事</text>
+          <line x1="510" y1="103" x2="510" y2="112" stroke="#cdd6d1" stroke-width="1.3"/>
+        </g>
+
+        <!-- science mapping -->
+        <path class="conn" d="M205 120 C205 175 205 175 205 190" stroke="#eb6584"/>
+        <rect x="135" y="192" width="140" height="34" rx="9" fill="#fdeef1"/>
+        <text class="sci" x="205" y="213" fill="#c84e6c">Diener SWB</text>
+
+        <path class="conn" d="M510 120 L510 190" stroke="#4f7c87"/>
+        <rect x="440" y="192" width="140" height="34" rx="9" fill="#eef6f3"/>
+        <text class="sci" x="510" y="213" fill="#4f7c87">Ryff PWB</text>
+
+        <path class="conn" d="M360 130 C360 250 360 250 360 264" stroke="#62b8a0"/>
+        <rect x="270" y="266" width="180" height="34" rx="9" fill="#eef6f3" stroke="#62b8a0" stroke-width="1.2"/>
+        <text class="sci" x="360" y="287" fill="#4f7c87">SDT（ハイブリッド寄り）</text>
+      </svg>
+      <p class="sig-cap">3つの理論は<strong>主観⇄客観</strong>の軸に並ぶ。前回までの科学はこの上に乗る——<strong>SWBは主観側、PWBは客観側</strong>、SDTはその中間（ハイブリッド）に位置する。</p>
+    </div>
+
+    <div class="meta fade">
+      <span><i class="dot"></i>読了 約17分</span>
+      <span><i class="dot"></i>3理論 → 反論 → 科学への接続 → 応用</span>
+      <span><i class="dot"></i>末尾に日本語の学習ルート</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">なぜ哲学を入れるのか</p>
+    <h2 class="fade"><span class="num">01</span>「その人にとって良い」という特殊な善さ</h2>
+    <p class="sub fade">PRUDENTIAL VALUE</p>
+    <p class="fade">哲学が扱うのは<strong>「その人にとって（good <em>for</em> a person）」</strong>という独特の善さ——<em>福利的価値（prudential value）</em>だ。これは「道徳的に善い」「美しい」「社会にとって有益」とは別物。聖人の自己犠牲は道徳的に立派でも、本人の福利は下げるかもしれない。哲学は問う——人生が<strong>本人にとって</strong>良いとき、そこで成り立っているのは何か。</p>
+    <p class="fade">これは尺度づくりの<em>前提</em>にあたる。Dienerが「本人の評価を測る」と決めたのも、Ryffが「6次元が良い機能だ」と決めたのも、すでにこの問いへの<strong>立場の選択</strong>だ。哲学はその選択を明るみに出す。だから科学シリーズの土台として、ここに置く。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">標準の地図</p>
+    <h2 class="fade"><span class="num">02</span>3つの家系（Parfit 1984）</h2>
+    <p class="sub fade">THREE FAMILIES OF THEORY</p>
+    <p class="fade">デレク・パーフィット『理由と人格』付録I「何が人の人生を最善にするか」が、現代の標準的な3分類を定着させた。快楽説と欲求充足説は<strong>主観主義</strong>（あなたの心の状態・態度に基づく）、客観的リスト説は<strong>客観主義</strong>（態度と無関係に善いものがある）。順に見ていく。</p>
+
+    <div class="theory fade">
+      <div class="th-head"><span class="th-jp">快楽説</span><span class="th-en">Hedonism</span><span class="th-tag subj">主観主義</span></div>
+      <div class="th-body">
+        <p>福利とは<strong>快から苦を差し引いた正味の総量</strong>（広い意味での快・苦）。エピクロス（心の平静＝アタラクシア）、ベンサム（量で測る）、ミル（質の差——「満足した愚者より、不満足なソクラテス」）。現代では<em>態度的快楽説</em>（Feldman、快を“感覚”でなく“肯定的態度”とみる）も。</p>
+        <p class="obj-line">⚡ 決定的反論：ノージックの「経験機械」（後述）</p>
+      </div>
+    </div>
+
+    <div class="theory fade">
+      <div class="th-head"><span class="th-jp">欲求充足説</span><span class="th-en">Desire-Satisfaction</span><span class="th-tag subj">主観主義</span></div>
+      <div class="th-body">
+        <p>福利とは<strong>望みが叶うこと</strong>。あなたの人生は、あなたの欲求が満たされるほど良い。経済学の選好充足と相性がよく、反パターナリズム的（何が善いかを本人に委ねる）。最大の強みは<em>共鳴制約（resonance constraint）</em>を満たすこと——<strong>本人が惹かれもしないものは、その人にとって善くなりえない</strong>（Railton 1986）。</p>
+        <p class="obj-line">⚡ 反論：欠陥のある欲求／遠い欲求／適応的選好（後述）</p>
+      </div>
+    </div>
+
+    <div class="theory fade">
+      <div class="th-head"><span class="th-jp">客観的リスト説</span><span class="th-en">Objective List</span><span class="th-tag obj">客観主義</span></div>
+      <div class="th-body">
+        <p>福利とは<strong>客観的に善いものを得ていること</strong>——知識、深い人間関係、達成、徳、自律、美的経験、健康…。<em>望むかどうか・快いかどうかと無関係に</em>善い。Ryffの卓越論やアリストテレスのeudaimonia（人間の本性の開花＝完成主義）はここに属す。</p>
+        <p class="obj-line up">⚡ 反論：リストの恣意性／パターナリズム／疎外（後述）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">快楽説への反論</p>
+    <h2 class="fade"><span class="num">03</span>経験機械——そして、その思考実験も検証された</h2>
+    <p class="sub fade">THE EXPERIENCE MACHINE</p>
+    <p class="fade">ノージック（1974『アナーキー・国家・ユートピア』）の思考実験。<strong>どんな快い経験でも与えてくれる機械があり、現実と区別がつかない。ただしすべては仮想だ。あなたは一生つながれることを選ぶか？</strong> ほとんどの人が「No」と答える。ここから——<strong>人は快い心の状態以上のものを求めている</strong>。私たちは「名作を書いた<em>と感じる</em>」のでなく「実際に名作を書く」ことを望む。現実との接触を求める。これが快楽説（および全ての心の状態説）への決定的反論とされてきた。</p>
+    <div class="caution fade">
+      <p class="c-label">⚠ ところが——前回までと同じ展開</p>
+      <p>この思考実験すら、実験哲学に検証された。デ・ブリガード（2010「気に入っているなら、それが本物かどうか重要か？」）は、<strong>「つなぎたくない」の正体は“現実を重んじる心”ではなく“現状維持バイアス”かもしれない</strong>と示した。「あなたはすでに機械の中にいる」と枠づけると、多くの人は<em>とどまる</em>方を選ぶ。馴染みのある状態が、現実かどうかより効く。SWBの構成効果（前回）と同じく、有名な反論も<strong>額面どおりではない</strong>。とはいえ「人は感じの良さ以上を気にする」という芯は、なお生き残っている。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">欲求充足説への反論</p>
+    <h2 class="fade"><span class="num">04</span>望みが叶えば良い、とは限らない</h2>
+    <p class="sub fade">DEFECTIVE, REMOTE, AND ADAPTIVE DESIRES</p>
+    <p class="fade">「望みが叶う＝良い」には穴がある。哲学は3種類を指摘する。</p>
+    <div class="theory fade" style="margin-top:6px;">
+      <div class="th-body" style="padding-top:20px;">
+        <p class="obj-line" style="color:var(--ink-soft);">① 欠陥のある欲求</p>
+        <p style="margin-bottom:18px;">無知・非合理な欲求。毒入りと知らずにグラスの中身を飲みたいと望む——叶っても福利は上がらない。</p>
+        <p class="obj-line" style="color:var(--ink-soft);">② 遠い欲求（スコープ問題）</p>
+        <p style="margin-bottom:18px;">パーフィットの例。列車で会った見知らぬ人の病が治るよう望む。実際に治るが、あなたは一生それを知らない。あなたの福利は本当に上がったのか？ 直観は「いいえ」。</p>
+        <p class="obj-line" style="color:var(--ink-soft);">③ 適応的選好（Sen／Nussbaum）</p>
+        <p>抑圧された人・剥奪された人は、状況に合わせて望みを<em>下方修正</em>する。小さくなった欲求が満たされても、それは本当の福利だろうか。「足るを知る」が、抑圧の産物であることもある。</p>
+      </div>
+    </div>
+    <div class="note fade">
+      <p class="n-title">逃げ道と、その代償</p>
+      <p>標準的な応答は<strong>情報に基づく欲求（informed desire）</strong>説——「<em>十分な情報を得て合理的なら</em>望むであろうこと」が善い（Griffin、Railton）。だがこれを突き詰めると、結局「理想化された自己が望む客観的な善のリスト」に近づき、<strong>客観的リスト説へ吸い込まれていく</strong>。主観主義を守ろうとして、客観主義に半分足を踏み入れる構図だ。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">客観的リスト説への反論</p>
+    <h2 class="fade"><span class="num">05</span>リストは誰のもの？ 冷めていても善いのか？</h2>
+    <p class="sub fade">ARBITRARINESS, PATERNALISM, ALIENATION</p>
+    <p class="fade">客観的リスト説は、経験機械や適応的選好の直観をうまく説明する（だから人は機械を選ばない／剥奪された満足は福利でない）。だが弱点も鋭い。</p>
+    <div class="theory fade" style="margin-top:6px;">
+      <div class="th-body" style="padding-top:20px;">
+        <p class="obj-line up">① 恣意性</p>
+        <p style="margin-bottom:18px;">リストの項目はどこから来るのか。なぜ知識・友情・達成で、別のものでないのか。根拠を欠けば「専門家の趣味」になりかねない。</p>
+        <p class="obj-line up">② パターナリズム／エリート主義</p>
+        <p style="margin-bottom:18px;">「あなたにとって何が善いか」を本人より外部が決める。ミル『自由論』以来の反パターナリズムと衝突する。</p>
+        <p class="obj-line up">③ 疎外（共鳴の欠如）</p>
+        <p>最も手強い。<strong>本人がまったく心を動かされないものが、その人にとって善いと言えるのか</strong>。知識に何の関心もない人に、知識は福利をもたらすのか。「あなたのためだ」と渡されたものが、当人を<em>置き去り</em>にする。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">合流点</p>
+    <h2 class="fade"><span class="num">06</span>ハイブリッド説——客観 × 共鳴</h2>
+    <p class="sub fade">HYBRID THEORIES</p>
+    <p class="fade">3つの弱点を見比べると、解は中間に見えてくる。<strong>ハイブリッド説</strong>（Parfit 1984、Raz 1986、Wolf 1997ほか）はこう言う——<em>客観的に善いもの</em>は確かにある。だがそれが<strong>あなたに快をもたらす／あなたの欲求を満たすときに限って</strong>、あなたの福利になる。客観性を保ちつつ、共鳴制約も満たす。パーフィット自身もこの方向に傾いた。</p>
+    <p class="fade">「良いものに、本人が<em>結びつく</em>とき、初めて善くなる」。抽象的に聞こえるが——これは前回までの科学が向かっている先でもある。SDTが「客観的な3欲求を、本人の自発性を通じて満たす」と言うとき、構造的にこのハイブリッドを実装している。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">シリーズの結節点</p>
+    <h2 class="fade"><span class="num">07</span>尺度は、どの立場に賭けているか</h2>
+    <p class="sub fade">WHAT THE SCALES ARE COMMITTED TO</p>
+    <p class="fade">ここがこの一本の核心だ。哲学の地図を当てると、<strong>各尺度が密かに選んでいる立場と、その盲点</strong>が見える。</p>
+    <div class="map fade">
+      <div class="mrow">
+        <div class="mh"><span class="ms">Diener SWB</span><span class="mt">≒ 快楽説＋欲求充足説</span></div>
+        <p>人生満足は「自分の基準での評価」（欲求・判断寄り）、感情は快楽寄り。つまり<strong>主観主義</strong>。<span class="hl">盲点：</span>経験機械と適応的選好の問題を相続する——<em>幻想の中の満足</em>や<em>抑圧下で下方修正された満足</em>も高く出てしまう。</p>
+      </div>
+      <div class="mrow">
+        <div class="mh"><span class="ms">Ryff PWB</span><span class="mt">≒ 客観的リスト説</span></div>
+        <p>6次元は「客観的に善い機能」のリストそのもの。<span class="hl">盲点：</span>恣意性と疎外を相続する——「なぜこの6つか」「成長に関心のない人に成長は福利か」。前回の<em>因子がきれいに分離しない</em>問題は、この哲学的恣意性の実証的な影だ。</p>
+      </div>
+      <div class="mrow">
+        <div class="mh"><span class="ms">SDT</span><span class="mt">≒ ハイブリッド／本性充足</span></div>
+        <p>客観的な3欲求を、本人の自律（共鳴）を通じて満たす。<strong>構造的にハイブリッド</strong>。だからこそ主観・客観どちらの直観も拾え、シリーズ中で最も堅牢に見えた——偶然ではない。</p>
+      </div>
+    </div>
+    <p class="fade" style="margin-top:24px;">つまり「SWBは信頼できるか」「Ryffの6因子は分かれるか」という実証の論争は、<strong>その下の哲学的選択の<em>下流</em></strong>にある。哲学を知ると、<strong>どの問いにどの尺度を使うべきか</strong>が見えてくる。これがシリーズ全体の最も深い含意だ。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">意思決定パートナーとしての使い方</p>
+    <h2 class="fade"><span class="num">08</span>対話に、どこを差し込むか</h2>
+    <p class="sub fade">FOR THE DECISION PARTNER</p>
+    <p class="fade">この3分類は、経営者が<strong>暗黙に何を最適化しているか</strong>の診断レンズになる。</p>
+    <ul class="app fade">
+      <li><strong>何を追っているかを3つで仕分ける</strong><span>快（心地よさ・安心）か、いまの欲求（だがそれは情報に基づくか、適応的に歪んでいないか）か、「あるべき達成・地位」という客観リスト（だが誰のリストで、本人に響くか）か。立ち位置が見えると、ズレも見える。</span></li>
+      <li><strong>経験機械の問いを決断に使う</strong><span>「<em>成功した気分</em>が欲しいのか、<em>本物の成功</em>が欲しいのか」。多くの経営者は後者を望む。これを分けると、虚栄の指標と本物の目標が切り分けられる。</span></li>
+      <li><strong>適応的選好を疑う</strong><span>「満足しています」——それは状況が良いからか、それとも<em>望むのをやめた</em>からか。すり減らされた人は欲求を下方修正している。哲学的に正確な、踏み込んだ問い。</span></li>
+      <li><strong>“情報に基づく欲求”こそコーチングの理想</strong><span>「十分な情報を得て、頭が澄んでいたら、本当は何を望むか」。これを一緒に掘るのは、Railtonの理想化欲求の、コーチング版にほかならない。意思決定パートナーの定義に近い。</span></li>
+    </ul>
+    <div class="caution muted fade">
+      <p class="c-label">共鳴のチェック</p>
+      <p>戦略的に「正しい」目標でも、当人が<em>冷めている</em>なら、その人にとって善くなく、続きもしない（前回SDTの“取り入れ”と地続き）。客観的な正しさと、本人の共鳴。<strong>両方そろって初めて、決断は本人の福利になる</strong>。ハイブリッド説は、そのまま実務の指針になる。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">総合評価</p>
+    <h2 class="fade"><span class="num">09</span>堅牢度</h2>
+    <p class="sub fade">VERDICT · 堅牢度は筆者の編集判断であり測定値ではない</p>
+    <div class="meter fade">
+      <div class="meter-top"><span class="meter-label">枠組み（地図）としての堅牢度</span><span class="meter-val">高い</span></div>
+      <div class="bar"><i data-w="90"></i></div>
+      <p class="meter-note">注意：これは<strong>「3分類という地図の有用性・定着度」</strong>の評価であって、「どれが正解か」ではない。3分類は分析の標準ツールとして極めて堅牢（必ず学ぶべき語彙）。一方で<em>どの理論が真か</em>は<strong>原理的に未決</strong>——実験で決まらず、直観と原理のすり合わせ（反照的均衡）で進む。ここが実証4本と質的に違う。3分類自体への批判（Kagan、Woodard、Hurka）もある。</p>
+    </div>
+    <div class="caution muted fade">
+      <p class="c-label">割り引くべき点</p>
+      <p>哲学は再現性ではなく整合性で進む。直観は文化や枠づけで動く（経験機械のとおり）。また<strong>「福利」≠「人生の意味」≠「道徳的善」</strong>——近年はこれらを分けて論じる。良い人生と意味ある人生は、ずれることがある。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">日本語で読める学習ルート</p>
+    <h2 class="fade">入口 → 中核 → 応用（哲学編）</h2>
+    <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
+
+    <div class="route fade">
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge">入口</span><span class="stage-desc">3分類を思考実験で</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>なぜここから</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">幸福とは何か：思考実験で学ぶ倫理学入門</div><div class="by">成田和信／ちくまプリマー新書</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">快楽説・欲求充足説・客観的リスト説を、経験機械などの思考実験で平易に。この一本の最良の入口。</td>
+            </tr>
+            <tr>
+              <td><div class="title">功利主義入門</div><div class="by">児玉聡／ちくま新書</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">快楽説とその背景（ベンサム・ミル）を日本語で。「快とは何か」の解像度が上がる。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge core">中核</span><span class="stage-desc">標準の地図と原典へ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>カバー範囲</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">Well-Being（Stanford Encyclopedia of Philosophy）</div><div class="by">Roger Crisp／無料・オンライン</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">3分類・反論・ハイブリッド・共鳴制約の決定版マップ。本稿の骨格。まず§4を。</td>
+            </tr>
+            <tr>
+              <td><div class="title">幸福はなぜ哲学の問題になるのか</div><div class="by">青山拓央／太田出版</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本語で一段深く。時間・人称といった切り口から幸福の哲学を掘る。</td>
+            </tr>
+            <tr>
+              <td><div class="title">理由と人格（付録I「何が人の人生を最善にするか」）</div><div class="by">デレク・パーフィット／勁草書房</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">3分類の出どころ。短い付録だが、現代の議論の起点。原典にあたる価値大。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge app">応用</span><span class="stage-desc">原典の思考実験・各家系の深掘り</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>使いどころ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">アナーキー・国家・ユートピア（pp.42–45）</div><div class="by">ロバート・ノージック／木鐸社</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">経験機械の原典。意思決定の対話で「本物か、気分か」を使う土台に。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Hedonism / Happiness（SEP）</div><div class="by">A. Moore ほか／無料</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">各家系をもう一段深く。快楽説・幸福概念の細部へ。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Women and Human Development（適応的選好）</div><div class="by">Martha Nussbaum</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">適応的選好とケイパビリティ。剥奪・抑圧下の「満足」を問い直す応用の核。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note fade" style="margin-top:30px;">
+      <p class="n-title">読む順番のコツ</p>
+      <p>成田『幸福とは何か』で3分類と思考実験を体に入れたら、SEPの「Well-Being」§4で地図を精密化する。実務に効くのは応用の2つ——<strong>経験機械（本物か気分か）</strong>と<strong>適応的選好（望むのをやめていないか）</strong>。この2問を持つだけで、経営者の「満足」を一段深く扱えるようになる。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sources">
+  <div class="wrap">
+    <p class="kicker fade">主な出典</p>
+    <h2 class="fade">この読み物の根拠</h2>
+    <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
+    <ol class="fade">
+      <li>3分類の標準化：Parfit (1984) <em>Reasons and Persons</em>, 付録I、および<a href="https://plato.stanford.edu/entries/well-being/">SEP “Well-Being”（Crisp）</a>。分類への批判：Kagan (1992)、Woodard (2013)、Hurka (2019)。</li>
+      <li>快楽説と経験機械：Nozick (1974) <em>Anarchy, State, and Utopia</em> pp.42–45、<a href="https://people.duke.edu/~fd13/2010/De_Brigard_2010_PhilPsych.pdf">De Brigard (2010)「If You Like It, Does It Matter If It's Real?」</a>、Weijers の実証研究、<a href="https://iep.utm.edu/experience-machine/">IEP “The Experience Machine”</a>。</li>
+      <li>欲求充足説：共鳴制約＝Railton (1986)、情報に基づく欲求＝Griffin (1986)・Railton・Sobel、欠陥/遠い欲求＝Parfit、適応的選好＝Sen / Nussbaum。</li>
+      <li>客観的リスト・ハイブリッド：Griffin (1986)、Finnis (2011)、Hurka（完成主義）、ハイブリッド＝Parfit (1984)・Raz (1986)・Wolf (1997)・Adams (2002)。アリストテレス『ニコマコス倫理学』。</li>
+      <li>日本語：成田和信『幸福とは何か』ちくまプリマー新書、青山拓央『幸福はなぜ哲学の問題になるのか』太田出版、児玉聡『功利主義入門』ちくま新書。</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心理的ウェルビーイング（Ryff PWB）深掘り — 気分ではなく、よく機能して生きる</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b3a3e; --ink-soft:#46585c;
+    --teal:#62b8a0; --teal-deep:#4f7c87; --teal-wash:#eef6f3;
+    --coral:#eb6584; --coral-wash:#fdeef1;
+    --paper:#fbfcfb; --panel:#f4f7f5;
+    --line:#e3e8e4; --line-strong:#cdd6d1; --muted:#74827f;
+    --maxw:768px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  .hero{padding:78px 0 50px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(27px,5.2vw,40px);line-height:1.42;margin:0 0 24px;}
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:32px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* signature hub-and-spoke */
+  .wheel{margin:42px 0 6px;}
+  .wheel svg{width:100%;height:auto;display:block;}
+  .wheel-cap{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.7;text-align:center;}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 13px;}
+  h2{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;}
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;} p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* lineage */
+  .lineage{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 0;}
+  .lin{border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:var(--paper);}
+  .lin .who{font-family:"Noto Serif JP",serif;font-weight:700;font-size:14px;margin:0;}
+  .lin .what{font-size:12.5px;color:var(--ink-soft);margin:4px 0 0;line-height:1.65;}
+
+  /* dimensions */
+  .dims{display:grid;gap:11px;margin:24px 0 0;}
+  .dim{display:flex;gap:16px;border:1px solid var(--line);border-radius:12px;padding:17px 19px;align-items:flex-start;}
+  .dim .di{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:var(--teal-wash);color:var(--teal-deep);font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;}
+  .dim .dbody{flex:1;}
+  .dim .dn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;margin:0;line-height:1.4;}
+  .dim .dn small{font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:11px;letter-spacing:.06em;color:var(--muted);margin-left:8px;text-transform:uppercase;}
+  .dim p{font-size:14px;color:var(--ink-soft);margin:5px 0 0;line-height:1.75;}
+
+  /* biomarker stats */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 0;}
+  .stat{border:1px solid var(--line);border-radius:12px;padding:18px 18px 16px;background:var(--paper);}
+  .stat .big{font-family:"Noto Serif JP",serif;font-weight:700;font-size:30px;color:var(--teal-deep);line-height:1.1;font-feature-settings:"tnum";}
+  .stat .lab{font-size:13px;color:var(--ink-soft);margin:7px 0 0;line-height:1.6;}
+  .stat .src{font-size:11px;color:var(--muted);margin:6px 0 0;}
+
+  .meter{margin:24px 0 4px;padding:18px 20px;background:var(--panel);border-radius:11px;}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);}
+  .bar{height:7px;border-radius:6px;background:#dde5e1;overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7;}
+
+  .caution{margin:20px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#c84e6c;margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+  .caution.muted{background:var(--panel);border-left-color:var(--line-strong);}
+  .caution.muted .c-label{color:var(--ink-soft);}
+
+  .note{background:var(--teal-wash);border-radius:12px;padding:24px 26px;margin:20px 0 0;}
+  .note .n-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);} .note p:last-child{margin:0;}
+
+  /* hedonic vs eudaimonic split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 0;}
+  .col{border-radius:12px;padding:20px;}
+  .col.h{background:var(--coral-wash);} .col.e{background:var(--teal-wash);}
+  .col .ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;margin:0 0 4px;}
+  .col.h .ct{color:#c84e6c;} .col.e .ct{color:var(--teal-deep);}
+  .col .cs{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+  .col p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.75;}
+
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 20px 42px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:27px;height:27px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .app li strong{display:block;margin-bottom:3px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);line-height:1.85;}
+
+  .route-stage{margin:0 0 26px;} .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Serif JP",serif;font-weight:700;font-size:13px;color:#fff;background:var(--teal-deep);padding:5px 14px;border-radius:20px;letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);} .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);} .lang.en{background:#eef1f5;color:#5a6b86;}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;} .bar>i{transition:none;} html{scroll-behavior:auto;}
+  }
+  @media(max-width:620px){
+    .lineage,.stats,.split{grid-template-columns:1fr;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
+    th,td{padding:9px 8px;font-size:13px;} .dim{flex-direction:column;gap:10px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="series fade">深掘りシリーズ ③／再現性で選ぶウェルビーイング</p>
+    <p class="eyebrow fade">Psychological Well-Being · Carol Ryff</p>
+    <h1 class="fade">「気分よく感じる」ことではなく、<br><span class="accent">よく機能して生きる</span>こと。</h1>
+    <p class="lede fade">Ryffの心理的ウェルビーイング（PWB）は、卓越論（eudaimonic）の旗艦モデルだ。1980年代、幸福研究が「幸福感・人生満足」という快楽論一辺倒だったことに、Ryffは<strong>「それは健康な人の<em>良い機能</em>を見落としている」</strong>と異を唱えた。アリストテレスから現代の発達・人間性心理学までを束ね、6次元の理論を立てた。強みは<strong>生物学的健康との結びつき</strong>、最大の弱点は<strong>その6次元がきれいに分かれないこと</strong>——両方を正直に。</p>
+
+    <div class="wheel fade">
+      <svg viewBox="0 0 600 420" role="img" aria-label="心理的ウェルビーイングの6次元">
+        <defs>
+          <style>
+            .spoke{stroke:#cdd6d1;stroke-width:1.4;}
+            .node{fill:#fbfcfb;stroke:#62b8a0;stroke-width:1.6;}
+            .nlabel{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:15px;fill:#2b3a3e;text-anchor:middle;}
+            .hub{fill:#4f7c87;}
+            .hlabel{font-family:'Noto Serif JP',serif;font-weight:700;fill:#fff;text-anchor:middle;}
+            .hsub{font-family:'Noto Sans JP',sans-serif;font-weight:500;fill:#dff0ea;text-anchor:middle;}
+          </style>
+        </defs>
+        <!-- spokes -->
+        <line class="spoke" x1="300" y1="210" x2="300" y2="55"/>
+        <line class="spoke" x1="300" y1="210" x2="434" y2="132"/>
+        <line class="spoke" x1="300" y1="210" x2="434" y2="288"/>
+        <line class="spoke" x1="300" y1="210" x2="300" y2="365"/>
+        <line class="spoke" x1="300" y1="210" x2="166" y2="288"/>
+        <line class="spoke" x1="300" y1="210" x2="166" y2="132"/>
+        <!-- nodes -->
+        <g><rect class="node" x="232" y="34" width="136" height="42" rx="10"/><text class="nlabel" x="300" y="61">人生の目的</text></g>
+        <g><rect class="node" x="366" y="111" width="136" height="42" rx="10"/><text class="nlabel" x="434" y="138">人格的成長</text></g>
+        <g><rect class="node" x="366" y="267" width="136" height="42" rx="10"/><text class="nlabel" x="434" y="294">自己受容</text></g>
+        <g><rect class="node" x="232" y="344" width="136" height="42" rx="10"/><text class="nlabel" x="300" y="371">環境制御力</text></g>
+        <g><rect class="node" x="98" y="267" width="136" height="42" rx="10"/><text class="nlabel" x="166" y="294">良好な人間関係</text></g>
+        <g><rect class="node" x="98" y="111" width="136" height="42" rx="10"/><text class="nlabel" x="166" y="138">自律性</text></g>
+        <!-- hub -->
+        <circle class="hub" cx="300" cy="210" r="62"/>
+        <text class="hlabel" x="300" y="203" font-size="16">よく機能して</text>
+        <text class="hlabel" x="300" y="224" font-size="16">生きる</text>
+        <text class="hsub" x="300" y="244" font-size="10.5" letter-spacing="1">eudaimonia</text>
+      </svg>
+      <p class="wheel-cap">6つの次元が一点——卓越論的な「良い機能」——に収束する。Ryffのモデルは「幸福＝快」ではなく、多次元的な<strong>機能の充実</strong>として well-being を捉える。</p>
+    </div>
+
+    <div class="meta fade">
+      <span><i class="dot"></i>読了 約15分</span>
+      <span><i class="dot"></i>系譜 → 6次元 → 生物学 → 争点 → 応用</span>
+      <span><i class="dot"></i>末尾に日本語の学習ルート</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">出発点</p>
+    <h2 class="fade"><span class="num">01</span>「幸福感」では足りない、という反逆</h2>
+    <p class="sub fade">A REVOLT AGAINST HEDONIC MEASURES</p>
+    <p class="fade">1980年代まで、ウェルビーイング研究は事実上「どれだけ幸福を感じ、人生に満足しているか」を測ることだった（前回のDiener SWBがその本流）。Ryff（1989）はここに<strong>理論的な不満</strong>を持った。快楽指標は、心理的に健康な人が示す<em>良い機能</em>——目的をもって人生に関与する、自分の才能を実現する、自己を深く理解する——をまるごと見落としている、と。</p>
+    <p class="fade">そこで彼女は、当時バラバラだった「望ましい人間の在り方」の理論を<strong>横断的に読み、収束点を探す</strong>という方法をとった。出てきた共通項が、6つの次元だ。Ryan &amp; Deci（2001）はこのRyff（1989）を、卓越論的ウェルビーイング研究の<strong>礎</strong>として位置づけている。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">知的系譜</p>
+    <h2 class="fade"><span class="num">02</span>アリストテレスから現代心理学まで</h2>
+    <p class="sub fade">THE CONVERGENCE METHOD</p>
+    <p class="fade">深い哲学的ルーツは、アリストテレスの『ニコマコス倫理学』にある。最高善は快や満足ではなく、<em>徳に即した魂の活動</em>——「汝自身を知れ」、そして「あなたが何者であるかになれ」。自分に宿る固有の才能（ダイモン）を見定め、現実にしていく営みだ。これが人間性・発達心理学の自己実現論へ自然に流れ込む。Ryffが束ねた主な源泉はこれら。</p>
+    <div class="lineage fade">
+      <div class="lin"><p class="who">アリストテレス</p><p class="what">eudaimonia＝徳に即した活動。モデル全体の哲学的背骨。</p></div>
+      <div class="lin"><p class="who">マズロー</p><p class="what">自己実現。人格的成長・目的の源流。</p></div>
+      <div class="lin"><p class="who">ロジャーズ</p><p class="what">十分に機能する人間（fully functioning person）。</p></div>
+      <div class="lin"><p class="who">ユング</p><p class="what">個性化（individuation）。自律性と成長の概念に。</p></div>
+      <div class="lin"><p class="who">エリクソン</p><p class="what">心理社会的発達段階。生涯にわたる成長の軌跡。</p></div>
+      <div class="lin"><p class="who">ヤホダ</p><p class="what">積極的精神保健（positive mental health）の基準。</p></div>
+    </div>
+    <p class="fade" style="margin-top:20px;">オルポートの成熟、ビューラーの基本的生命傾向、ニューガルテンの発達観も加わる。<strong>多くの一流理論が同じ方向を指している点</strong>——それがRyffの主張の説得力の源だった。理論駆動でつくられた稀有なモデルである。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">中核</p>
+    <h2 class="fade"><span class="num">03</span>6つの次元</h2>
+    <p class="sub fade">THE SIX DIMENSIONS · 日本語版（西田 2000）の訳語を併記</p>
+    <div class="dims fade">
+      <div class="dim"><div class="di">自</div><div class="dbody"><p class="dn">自己受容<small>Self-Acceptance</small></p><p>自分の長所も短所も含めて、自己に肯定的な態度をもてている感覚。過去の人生も受け入れている。</p></div></div>
+      <div class="dim"><div class="di">関</div><div class="dbody"><p class="dn">良好な人間関係<small>Positive Relations</small></p><p>温かく、信頼でき、満たされた関係を他者と築いている感覚。共感と親密さ。</p></div></div>
+      <div class="dim"><div class="di">律</div><div class="dbody"><p class="dn">自律性<small>Autonomy</small></p><p>自己決定的で、社会的圧力に流されず、自分の基準で行動を律せる感覚。（SDTの自律性と通じる）</p></div></div>
+      <div class="dim"><div class="di">環</div><div class="dbody"><p class="dn">環境制御力<small>Environmental Mastery</small></p><p>複雑な周囲の状況を統制し、機会を活かせるという有能さの感覚。</p></div></div>
+      <div class="dim"><div class="di">目</div><div class="dbody"><p class="dn">人生の目的<small>Purpose in Life</small></p><p>人生に目的と方向性があるという感覚。生きることに意味を見いだしている。<strong>※後述、健康との関連が際立つ次元。</strong></p></div></div>
+      <div class="dim"><div class="di">成</div><div class="dbody"><p class="dn">人格的成長<small>Personal Growth</small></p><p>発達と可能性の連続線上にいて、新しい経験に開かれている感覚。成長し続けている実感。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">位置づけ</p>
+    <h2 class="fade"><span class="num">04</span>快楽論（SWB）と並ぶ、もう一方の柱</h2>
+    <p class="sub fade">HEDONIC vs EUDAIMONIC</p>
+    <p class="fade">前回のDiener SWBと、このRyff PWBは、ウェルビーイング研究の<strong>2大伝統</strong>を代表する。両者は相関するが、概念としては別物だ。</p>
+    <div class="split fade">
+      <div class="col h">
+        <p class="ct">快楽論 / SWB</p><p class="cs">Diener (1984)</p>
+        <p>「気分よく感じているか」。人生満足＋ポジティブ感情＋ネガティブ感情。<em>感じ方</em>を測る。</p>
+      </div>
+      <div class="col e">
+        <p class="ct">卓越論 / PWB</p><p class="cs">Ryff (1989)</p>
+        <p>「よく機能して生きているか」。目的・成長・自律など6次元。<em>在り方・機能</em>を測る。</p>
+      </div>
+    </div>
+    <p class="fade" style="margin-top:22px;">この区別を決定的にしたのが、後述する<strong>生物学的データの非対称性</strong>だ。両者は重なりつつも、身体への効き方がまるで違う——ここがRyffモデルの最大の見どころになる。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">最大の強み</p>
+    <h2 class="fade"><span class="num">05</span>ウェルビーイングが「身体」に刻まれる</h2>
+    <p class="sub fade">THE BIOLOGICAL SIGNATURE · ここがRyffの真骨頂</p>
+    <p class="fade">Ryffは全米中年調査<strong>MIDUS</strong>（および日本版<strong>MIDJA</strong>）を率い、卓越論的ウェルビーイングと生体指標の関連を大規模に追ってきた。とりわけ<strong>「人生の目的」</strong>は、前向き・縦断的な研究で頑健な予測力を示している。</p>
+    <div class="stats fade">
+      <div class="stat"><p class="big">2.4<span style="font-size:18px;">倍</span></p><p class="lab">目的が高い人は、7年間でアルツハイマー病を発症しにくい（最低群との比較）</p><p class="src">Boyle et al. 2010</p></div>
+      <div class="stat"><p class="big">57<span style="font-size:18px;">%</span></p><p class="lab">目的が高い群の5年死亡リスクは、低い群の約57%にとどまった</p><p class="src">Boyle et al. 2009</p></div>
+      <div class="stat"><p class="big">IL-6 ↓</p><p class="lab">目的と良好な関係は、併存疾患が多い人の炎症（IL-6・CRP）の上昇を緩衝</p><p class="src">Friedman &amp; Ryff, MIDUS</p></div>
+      <div class="stat"><p class="big">cortisol ↓</p><p class="lab">卓越論的WBが高い女性は、唾液コルチゾールや炎症性サイトカインが低く、REM睡眠が長い</p><p class="src">Ryff et al. 2004</p></div>
+    </div>
+    <div class="note fade">
+      <p class="n-title">非対称性こそが核心</p>
+      <p>同じ研究で、<strong>快楽論的ウェルビーイング（ポジティブ感情など）は生体指標とほとんど結びつかなかった</strong>。「気分の良さ」より「目的をもってよく機能していること」のほうが、身体に効く。さらに、脳に病理（アルツハイマー型変化）があっても、目的が高い人は認知機能が比較的保たれていた。これは「ただの気分」ではない、というRyffモデルの最も強い実証的根拠だ。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">最大の争点</p>
+    <h2 class="fade"><span class="num">06</span>その6次元、本当に分かれているのか</h2>
+    <p class="sub fade">THE FACTOR-STRUCTURE WAR</p>
+    <p class="fade">理論は美しいが、測定でつまずく。2006年、シュプリンガー＆ハウザーは論文タイトルそのままに<strong>「Ryffの6因子モデルにとって、まさに悪い知らせ」</strong>を突きつけた。複数の大規模・多様なサンプルで、6次元のうち<strong>とくに人格的成長・人生の目的・自己受容・環境制御力の4つが、極めて高く相関</strong>してしまう。つまり「6つの別々の次元」という理論的主張が、標準的な尺度ではデータ上の明確な区別を生まない。</p>
+    <p class="fade">Ryff＆シンガー（2006）は同じ号で「これはむしろ6因子モデルにとって最良の知らせだ」と反論。シュプリンガーらはこれを<em>希望的観測</em>と切り捨てた。この応酬（『Social Science Research』誌上）以降、議論は<strong>今も続いている</strong>。サンプル・項目数・方法効果（肯定/否定の項目表現）・分析手法（CFAかESEMか）で結論が割れ、6次元を支持する研究（ファンディーレンドンクら）もあれば、2〜3因子に潰れるとする研究もある。</p>
+    <div class="caution fade">
+      <p class="c-label">⚠ 実務上の含意</p>
+      <p>「人生の目的が高く、自己受容が低い」のような<em>次元ごとのプロフィール</em>を読むときは慎重に。短縮版（とくに各次元3項目の版）は心理測定特性が弱く、次元を分離する力が乏しい。<strong>6つを独立した指標として過信しない</strong>のが安全だ。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">もうひとつの争点</p>
+    <h2 class="fade"><span class="num">07</span>「卓越論」という区別そのものへの疑義</h2>
+    <p class="sub fade">IS THE EUDAIMONIC LABEL EVEN VALID?</p>
+    <p class="fade">より深い批判もある。カシュダン・ビスワス＝ディーナー・キング（2008）は、<strong>快楽論／卓越論という二分法そのものが理論的に一貫しておらず、両者の測定は実際には大きく重なる</strong>と論じた。実際、Ryffの6次元を統計的に分けると、4つが快楽論側、2つ（人格的成長・人生の目的）が卓越論側に割れる、というモデルも提案されている。つまり「Ryffのスケール＝純粋に卓越論的」とは言い切れない。</p>
+    <p class="fade">加えて、6次元の選定自体が<strong>西洋の発達理論に偏っている</strong>のではないか、という文化的批判もある。徳目のリストは、誰がどの理論を束ねるかで変わりうる。理論駆動という強みは、裏返せば<em>恣意性</em>のリスクでもある。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">介入できるのか</p>
+    <h2 class="fade"><span class="num">08</span>育てられる——ただし条件つき</h2>
+    <p class="sub fade">CAN IT BE IMPROVED?</p>
+    <p class="fade">朗報として、卓越論的ウェルビーイングは<strong>介入で改善しうる</strong>。Ryffの6次元を直接ターゲットにした統合的プログラムが最も効果的で、ファンディーレンドンク（2023）のメタ分析がこれを支持している。Ryffのモデルから派生した臨床手法が、ファヴァらの<strong>ウェルビーイング・セラピー（Well-Being Therapy）</strong>だ。</p>
+    <p class="fade">重要なのは効き方の偏りで、<strong>もともと卓越論的ウェルビーイングが低い人ほど、介入の効果が大きい</strong>傾向がある。底上げ型の介入、という性格だ。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">意思決定パートナーとしての使い方</p>
+    <h2 class="fade"><span class="num">09</span>対話に、どこを差し込むか</h2>
+    <p class="sub fade">FOR THE DECISION PARTNER</p>
+    <p class="fade">PWBは、経営者の「幸福度」を一次元で測るより、はるかに豊かな<strong>地図</strong>になる。6次元はそのまま、エグゼクティブの発達テーマに対応する。</p>
+    <ul class="app fade">
+      <li><strong>「目的」を最優先の問いに置く</strong><span>6次元のなかで人生の目的は、健康・寿命・認知まで予測する例外的な次元。経営者の意思決定の質を上げたいなら、まずここを耕す——これは精神論でなく、生物学的データに支えられた賭けどころだ。</span></li>
+      <li><strong>一次元の「幸福度」で測らない</strong><span>「満足しているか（快楽論）」だけ見ると、よく機能しているかを見落とす。満足は高いのに成長が止まっている経営者は珍しくない。多次元の地図で死角を照らす。</span></li>
+      <li><strong>次元プロフィールは“傾向”として扱う</strong><span>因子構造の争点ゆえ、「環境制御力85点・人格的成長40点」のような厳密な分解は過信しない。あくまで<em>対話のきっかけ</em>として、強み・課題の見取り図に使う。</span></li>
+      <li><strong>自律性はSDTと地続き</strong><span>Ryffの自律性＝「社会的圧力に流されず自分の基準で律する」。前回のSDTの自律性（自己決定）と響き合う。日本の文脈では、独立ではなく<em>腑に落ちて選び直す</em>こと、と接続できる。</span></li>
+    </ul>
+    <div class="caution muted fade">
+      <p class="c-label">日本データの補足</p>
+      <p>キタヤマ・ライアン・マーカスら（2010）は、<strong>独立性と相互依存性が健康・幸福を予測する仕方が、米国と日本で異なる</strong>ことを示した（MIDUS/MIDJA）。米国流の「自律＝独立」をそのまま当てはめない。環境制御力や人間関係の重みも、文化文脈で読み替える。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">総合評価</p>
+    <h2 class="fade"><span class="num">10</span>堅牢度</h2>
+    <p class="sub fade">VERDICT · 堅牢度は筆者の編集判断であり測定値ではない</p>
+    <div class="meter fade">
+      <div class="meter-top"><span class="meter-label">理論の堅牢度（測定構造に留保）</span><span class="meter-val">高い</span></div>
+      <div class="bar"><i data-w="78"></i></div>
+      <p class="meter-note">理論駆動の設計と、生物学的健康との結びつき（とくに「人生の目的」）は際立って強い。一方、6因子がきれいに分離しない／「卓越論」区別の曖昧さ／短縮版の弱さは割り引く。<strong>全体像は信頼でき、次元ごとの厳密な点数は慎重に。</strong></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">日本語で読める学習ルート</p>
+    <h2 class="fade">入口 → 中核 → 応用（Ryff PWB編）</h2>
+    <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
+
+    <div class="route fade">
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge">入口</span><span class="stage-desc">6次元と背景をつかむ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>なぜここから</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">幸せを科学する：心理学からわかったこと</div><div class="by">大石繁宏／新曜社（2009）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">前回の入口本。快楽論（SWB）と卓越論（PWB）の関係を俯瞰でき、Ryffの位置づけが掴める。</td>
+            </tr>
+            <tr>
+              <td><div class="title">心理学におけるウェルビーイング（基礎知識）</div><div class="by">NECソリューションイノベータ note（無料）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">DienerとRyffの成り立ちを日本語で簡潔に。西田(2000)など一次文献への入口にも。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge core">中核</span><span class="stage-desc">一次資料・日本語版尺度へ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>カバー範囲</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">成人女性の多様なライフスタイルと心理的well-beingに関する研究</div><div class="by">西田裕紀子／教育心理学研究 48(4), 2000・J-STAGE</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本語版PWB尺度（6次元）の定番。訳語と6次元の信頼性・妥当性を一次で確認できる。無料全文。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Psychological well-being 尺度 42項目版 日本語版（PWBS-42）</div><div class="by">東京大学 精神保健学分野</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">実際の尺度項目にあたれる。自分や対話相手の見取り図づくりに。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Psychological Well-Being Revisited（2014）</div><div class="by">Carol Ryff／Psychotherapy and Psychosomatics</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">提唱者本人による25年後の総説。理論・生物学・介入・争点まで一望できる決定版。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge app">応用</span><span class="stage-desc">健康・文化・意思決定に接続</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>使いどころ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">Know Thyself and Become What You Are（2008）</div><div class="by">Ryff &amp; Singer／Journal of Happiness Studies</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">生物学的相関とeudaimoniaの哲学をつなぐ核心論文。「目的→身体」の根拠に。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Bad news indeed for Ryff's six-factor model（2006）</div><div class="by">Springer &amp; Hauser／Social Science Research</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">最大の批判の一次資料。次元プロフィールを過信しないための“予防接種”。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Independence and interdependence predict health and well-being（2010）</div><div class="by">Kitayama, Karasawa, Curhan, Ryff &amp; Markus／Frontiers in Psychology</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">米国と日本で自律/関係の効き方が異なることを示す。日本の経営者と話すときの土台。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note fade" style="margin-top:30px;">
+      <p class="n-title">読む順番のコツ</p>
+      <p>大石本で快楽論／卓越論の地図を持ち、西田(2000)で日本語版6次元の訳語と中身を固める。実務で使うなら、まず<strong>「人生の目的」と生物学の結びつき</strong>（Ryff &amp; Singer 2008）を押さえると、説得力が一段増す。次元プロフィールを使う前に、Springer &amp; Hauser を一度通すと過信を防げる。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sources">
+  <div class="wrap">
+    <p class="kicker fade">主な出典</p>
+    <h2 class="fade">この読み物の根拠</h2>
+    <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
+    <ol class="fade">
+      <li>モデルの起源・知的系譜：Ryff (1989) JPSP、<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4241300/">Ryff (2014) “Psychological Well-Being Revisited”</a>（Aristotle/Maslow/Rogers/Jung/Erikson/Jahoda の統合）。</li>
+      <li>6次元の定義・信頼性：原著 α≈.86–.93、再検査 .81–.88、多言語での妥当性検証（van Dierendonck 2007 ほか）。</li>
+      <li>生物学的相関：Boyle et al. (2009 死亡率／2010 アルツハイマー)、Friedman &amp; Ryff（IL-6・CRP 緩衝, MIDUS）、Ryff et al. (2004) コルチゾール・REM睡眠（快楽論は無相関）、<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4241300/">Ryff (2014) レビュー</a>。</li>
+      <li>因子構造論争：<a href="https://www.sciencedirect.com/science/article/abs/pii/S0049089X06000056">Springer &amp; Hauser (2006) “Bad news indeed…”</a> 対 Ryff &amp; Singer (2006)、Social Science Research 誌上の応酬。</li>
+      <li>卓越論区別への批判：Kashdan, Biswas-Diener &amp; King (2008)「快楽論と卓越論を区別するコスト」。</li>
+      <li>日本：西田裕紀子 (2000) 教育心理学研究 48(4)（<a href="https://www.jstage.jst.go.jp/article/jjep1953/48/4/48_433/_article/-char/ja/">J-STAGE</a>）、Kitamura et al. (2003) Psychological Reports、Kitayama et al. (2010) Frontiers in Psychology（MIDUS/MIDJA）。</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+</body>
+</html>

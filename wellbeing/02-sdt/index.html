@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自己決定理論（SDT）深掘り — 量ではなく質の動機づけ、その岩盤と争点</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b3a3e; --ink-soft:#46585c;
+    --teal:#62b8a0; --teal-deep:#4f7c87; --teal-wash:#eef6f3;
+    --coral:#eb6584; --coral-wash:#fdeef1;
+    --paper:#fbfcfb; --panel:#f4f7f5;
+    --line:#e3e8e4; --line-strong:#cdd6d1; --muted:#74827f;
+    --maxw:768px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  /* HERO */
+  .hero{padding:78px 0 50px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(27px,5.2vw,40px);line-height:1.42;margin:0 0 24px;}
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:32px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* CONTINUUM — signature */
+  .continuum{margin:40px 0 6px;}
+  .cont-cap{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);margin:0 0 14px;display:flex;justify-content:space-between;}
+  .cont-cap .l{color:var(--coral);}
+  .cont-cap .r{color:var(--teal-deep);}
+  .cont-track{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;}
+  .stop{padding:13px 8px 12px;border-radius:9px;text-align:center;color:#fff;position:relative;min-height:96px;display:flex;flex-direction:column;justify-content:center;}
+  .stop .jp{font-weight:700;font-size:12.5px;line-height:1.45;font-family:"Noto Sans JP",sans-serif;}
+  .stop .en{font-size:9.5px;letter-spacing:.04em;opacity:.85;margin-top:5px;line-height:1.3;}
+  .s0{background:#c95a72;} .s1{background:#d4707f;} .s2{background:#c98f86;}
+  .s3{background:#7fa79a;} .s4{background:#62b8a0;} .s5{background:#4f7c87;}
+  .cont-axis{margin-top:10px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--coral),var(--teal-deep));}
+  .cont-band{display:flex;justify-content:space-between;margin-top:9px;font-size:11px;font-weight:700;letter-spacing:.06em;}
+  .cont-band .cc{color:var(--coral);} .cont-band .ca{color:var(--teal-deep);}
+  .cont-note{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.7;}
+
+  /* SECTIONS */
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 13px;}
+  h2{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;}
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;} p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* mini-theory grid */
+  .minis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 0;}
+  .mini{border:1px solid var(--line);border-radius:11px;padding:17px 18px;background:var(--paper);}
+  .mini .mt{font-family:"Noto Serif JP",serif;font-weight:700;font-size:14.5px;margin:0 0 3px;line-height:1.4;}
+  .mini .mt small{display:block;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:10.5px;letter-spacing:.06em;color:var(--muted);margin-top:3px;}
+  .mini p{font-size:13px;color:var(--ink-soft);margin:7px 0 0;line-height:1.7;}
+  .mini .tagn{position:absolute;}
+  .mini.key{border-color:var(--teal);background:var(--teal-wash);}
+
+  /* needs */
+  .needs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 0;}
+  .need{border:1px solid var(--line);border-radius:12px;padding:20px 18px;text-align:center;}
+  .need .nn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 2px;}
+  .need .ne{font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin:0 0 10px;}
+  .need p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.7;}
+
+  /* effect-size chips */
+  .effects{display:grid;gap:9px;margin:22px 0 0;}
+  .ef{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .ef .efbar{flex:1;height:8px;background:#eef1ef;border-radius:6px;position:relative;overflow:hidden;}
+  .ef .efbar > i{position:absolute;top:0;bottom:0;border-radius:6px;}
+  .ef .efbar > i.neg{right:50%;background:var(--coral);}
+  .ef .efbar > i.pos{left:50%;background:var(--teal);}
+  .ef .efmid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1.5px;background:var(--line-strong);}
+  .ef .eflabel{font-size:13px;flex:0 0 auto;width:42%;line-height:1.4;}
+  .ef .efval{font-size:12.5px;font-weight:700;font-feature-settings:"tnum";flex:0 0 auto;width:54px;text-align:right;}
+  .ef .efval.n{color:var(--coral);} .ef .efval.p{color:var(--teal-deep);}
+  .ef-cap{font-size:12px;color:var(--muted);margin:11px 0 0;}
+
+  /* meter */
+  .meter{margin:24px 0 4px;padding:18px 20px;background:var(--panel);border-radius:11px;}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);}
+  .bar{height:7px;border-radius:6px;background:#dde5e1;overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7;}
+
+  /* caution */
+  .caution{margin:20px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#c84e6c;margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+
+  /* note */
+  .note{background:var(--teal-wash);border-radius:12px;padding:24px 26px;margin:20px 0 0;}
+  .note .n-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);} .note p:last-child{margin:0;}
+
+  /* application list */
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 20px 42px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:27px;height:27px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .app li strong{display:block;margin-bottom:3px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);line-height:1.85;}
+
+  /* learning route */
+  .route-stage{margin:0 0 26px;} .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Serif JP",serif;font-weight:700;font-size:13px;color:#fff;background:var(--teal-deep);padding:5px 14px;border-radius:20px;letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);} .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);} .lang.en{background:#eef1f5;color:#5a6b86;}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+  .closing{font-family:"Noto Serif JP",serif;font-size:17px;line-height:2;color:var(--teal-deep);font-weight:600;text-align:center;padding:8px 0 0;}
+
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;} .bar>i{transition:none;} html{scroll-behavior:auto;}
+  }
+  @media(max-width:620px){
+    .minis,.needs{grid-template-columns:1fr;}
+    .cont-track{grid-template-columns:repeat(3,1fr);}
+    .stop{min-height:88px;}
+    .ef .eflabel{width:38%;font-size:12px;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
+    th,td{padding:9px 8px;font-size:13px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="series fade">深掘りシリーズ ②／再現性で選ぶウェルビーイング</p>
+    <p class="eyebrow fade">Self-Determination Theory</p>
+    <h1 class="fade">動機づけは<span class="accent">「量」ではなく「質」</span>で決まる。<br>SDTが半世紀かけて積み上げた岩盤。</h1>
+    <p class="lede fade">自己決定理論（SDT）は、5本のなかでも概念と実証の両面が最も強い。だが「自律性・有能感・関係性の3欲求」という要約だけでは半分も見えていない。実体は<strong>6つのミニ理論の集合体</strong>で、報酬が意欲を壊す現象をめぐる<strong>メタ分析どうしの殴り合い</strong>を生き延びた理論だ。何がどこまで言えて、どこが争点なのか——意思決定パートナーとして使える解像度で。</p>
+
+    <div class="continuum fade">
+      <div class="cont-cap"><span class="l">統制的 ◀</span><span>動機づけの連続体（有機的統合理論）</span><span class="r">▶ 自律的</span></div>
+      <div class="cont-track">
+        <div class="stop s0"><span class="jp">無動機</span><span class="en">Amotivation</span></div>
+        <div class="stop s1"><span class="jp">外的調整</span><span class="en">External · 報酬と罰</span></div>
+        <div class="stop s2"><span class="jp">取り入れ的調整</span><span class="en">Introjected · 罪悪感・自尊心</span></div>
+        <div class="stop s3"><span class="jp">同一化的調整</span><span class="en">Identified · 価値の承認</span></div>
+        <div class="stop s4"><span class="jp">統合的調整</span><span class="en">Integrated · 自己と一致</span></div>
+        <div class="stop s5"><span class="jp">内発的動機づけ</span><span class="en">Intrinsic · 純粋な面白さ</span></div>
+      </div>
+      <div class="cont-axis"></div>
+      <div class="cont-band"><span class="cc">統制的動機づけ（外的＋取り入れ）</span><span class="ca">自律的動機づけ（同一化＋統合＋内発）</span></div>
+      <p class="cont-note">SDTの中核命題はここに凝縮される。「やる気の多少」ではなく、<strong>その動機がどれだけ自分由来か</strong>が、持続・パフォーマンス・心理的健康を分ける。右に寄るほど良い結果につながる。</p>
+    </div>
+
+    <div class="meta fade">
+      <span><i class="dot"></i>読了 約15分</span>
+      <span><i class="dot"></i>6ミニ理論 → 実証 → 争点 → 応用</span>
+      <span><i class="dot"></i>末尾に日本語の学習ルート</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">なぜSDTを最初に置くのか</p>
+    <h2 class="fade">「最も再現される動機づけ理論」の中身</h2>
+    <p class="sub fade">WHY START HERE</p>
+    <p class="fade">前回の5本のうち、SDTだけ堅牢度を95%に振った。理由は2つある。ひとつは<strong>概念枠組みが半世紀かけて鍛えられ、6つのミニ理論として体系化されている</strong>こと。もうひとつは、教育・職場・医療・スポーツと領域を横断して、メタ分析が繰り返し同じ向きの関連を確認していること。心理学の再現性が問われた時代を、SDTは比較的よく生き延びた。</p>
+    <p class="fade">そしてSDTは、意思決定パートナーの仕事に最も移しやすい。動機づけの「質」を見る目は、経営者が<em>なぜその決断をしているのか</em>を解像度高く扱う道具になる。だからシリーズの最初に置く。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">構造</p>
+    <h2 class="fade"><span class="num">01</span>SDTは「ひとつの理論」ではない</h2>
+    <p class="sub fade">SIX MINI-THEORIES UNDER ONE ROOF</p>
+    <p class="fade">SDTの土台にあるのは<strong>有機体的弁証法</strong>という見方だ。人間はもともと好奇心をもち、成長しようとする能動的な存在で、社会的文脈がその傾向を<em>育てる</em>か<em>妨げる</em>かする——この対話（dialectic）が予測の起点になる。その上に、別々の時期に別々の現象を説明するために生まれた6つのミニ理論が乗っている。</p>
+    <div class="minis fade">
+      <div class="mini">
+        <p class="mt">① 認知的評価理論<small>Cognitive Evaluation Theory（1980〜）</small></p>
+        <p>報酬・締切・フィードバックなど外的要因が、自律性と有能感の知覚を通じて内発的動機づけをどう上下させるか。</p>
+      </div>
+      <div class="mini">
+        <p class="mt">② 有機的統合理論<small>Organismic Integration Theory（1985〜）</small></p>
+        <p>外発的動機づけがどう「内面化」されるか。冒頭の連続体（外的→取り入れ→同一化→統合）はこれ。</p>
+      </div>
+      <div class="mini">
+        <p class="mt">③ 因果志向性理論<small>Causality Orientations Theory</small></p>
+        <p>個人差。人が環境にどう向き合うか——自律志向／統制志向／非自己的（無力）志向の3タイプ。</p>
+      </div>
+      <div class="mini key">
+        <p class="mt">④ 基本的心理欲求理論<small>Basic Psychological Needs Theory（2000〜）</small></p>
+        <p>自律性・有能感・関係性の3欲求。①〜③を束ねる中核で、ウェルビーイングを直接扱う。</p>
+      </div>
+      <div class="mini">
+        <p class="mt">⑤ 目標内容理論<small>Goal Contents Theory</small></p>
+        <p>「何を」追うか。内発的目標（成長・つながり）と外発的目標（富・名声）が幸福に与える違い。</p>
+      </div>
+      <div class="mini">
+        <p class="mt">⑥ 関係性動機づけ理論<small>Relationships Motivation Theory（最新）</small></p>
+        <p>良い関係とは、その関係の中で3欲求すべてが満たされる関係。統制的な相手は関係性をくれても自律性を奪う。</p>
+      </div>
+    </div>
+    <p class="fade" style="margin-top:22px;">要するに「自律性・有能感・関係性」は<strong>④の話</strong>であって、SDT全体ではない。報酬の扱い（①）、動機の内面化（②）、人生で何を追うか（⑤）まで含めて初めて、この理論の射程が見える。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">中核</p>
+    <h2 class="fade"><span class="num">02</span>3つの基本的心理欲求</h2>
+    <p class="sub fade">THE THREE NEEDS · すべて必須で、ひとつ欠けても固有のコストが出る</p>
+    <div class="needs fade">
+      <div class="need">
+        <p class="nn">自律性</p><p class="ne">Autonomy</p>
+        <p>自分の行動を自分で承認している感覚。「選んでいる／腑に落ちている」状態。</p>
+      </div>
+      <div class="need">
+        <p class="nn">有能感</p><p class="ne">Competence</p>
+        <p>うまくやれている・効果を出せているという手応え。最適な挑戦で育つ。</p>
+      </div>
+      <div class="need">
+        <p class="nn">関係性</p><p class="ne">Relatedness</p>
+        <p>つながり、受け入れられ、配慮されているという感覚。所属の実感。</p>
+      </div>
+    </div>
+    <p class="fade" style="margin-top:24px;">ここで決定的に重要な誤解がひとつある。<strong>自律性（autonomy）は「独立（independence）」ではない</strong>。自律性とは「自分の価値観に沿って行動している」という意味で、家族の期待や集団の調和を<em>自ら選んで</em>尊重することも、立派に自律的だ。この区別は次の文化論争で効いてくる。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">実証の岩盤</p>
+    <h2 class="fade"><span class="num">03</span>報酬が意欲を壊す——そして起きた殴り合い</h2>
+    <p class="sub fade">THE UNDERMINING EFFECT &amp; THE META-ANALYSIS WAR</p>
+    <p class="fade">SDTの原点は1971年、デシのソマキューブ実験だ。面白いパズルに取り組ませ、途中で一方の群にだけ「1問解くごとに1ドル」を出し、翌日それを止めた。すると<strong>報酬を止めた群は、自由時間にパズルで遊ぶ時間が有意に減った</strong>。外的報酬が「楽しいからやる」を「報酬のためにやる」へすり替え、内発的動機づけを下げる——<em>アンダーマイニング効果</em>（過正当化効果）である。</p>
+    <p class="fade">これは長く論争の的だった。1994年、キャメロン＆ピアスのメタ分析が「アンダーマイニング効果は小さく、教育政策上ほぼ無意味」と結論し、認知的評価理論を<em>捨てるべき</em>とまで主張した。これに対しデシ・ケストナー・ライアン（1999）が<strong>128の統制実験のメタ分析</strong>で反撃。結果はこうだ。</p>
+    <div class="effects fade">
+      <div class="ef">
+        <span class="eflabel">従事連動の報酬 → 内発的動機</span>
+        <span class="efbar"><i class="neg" style="width:40%"></i><span class="efmid"></span></span>
+        <span class="efval n">d −.40</span>
+      </div>
+      <div class="ef">
+        <span class="eflabel">完了連動の報酬 → 内発的動機</span>
+        <span class="efbar"><i class="neg" style="width:36%"></i><span class="efmid"></span></span>
+        <span class="efval n">d −.36</span>
+      </div>
+      <div class="ef">
+        <span class="eflabel">成果連動の報酬 → 内発的動機</span>
+        <span class="efbar"><i class="neg" style="width:28%"></i><span class="efmid"></span></span>
+        <span class="efval n">d −.28</span>
+      </div>
+      <div class="ef">
+        <span class="eflabel">肯定的フィードバック → 自由選択行動</span>
+        <span class="efbar"><span class="efmid"></span><i class="pos" style="width:33%"></i></span>
+        <span class="efval p">d +.33</span>
+      </div>
+    </div>
+    <p class="ef-cap fade">※ d は効果量。マイナスは内発的動機づけの低下、プラスは上昇。中央線が「効果ゼロ」。</p>
+    <p class="fade" style="margin-top:22px;"><strong>有形・期待された・行動連動の報酬は、確かに、そして実質的に内発的動機づけを損なう</strong>。一方で<strong>言語的な肯定フィードバックはむしろ高める</strong>。さらに重要な但し書きとして、<em>予期しない</em>報酬、<em>統制的でなく情報的</em>な称賛、<em>もともと面白くない課題</em>への報酬は、この害を生まない。</p>
+    <div class="caution fade">
+      <p class="c-label">⚠ 争点（だからこそ強い）</p>
+      <p>反論も続いた（アイゼンバーガー・ピアス・キャメロン 1999）。だが論争を経てなお効果は残り、デシらは2001年に再確認している。<strong>敵対的な精査を生き延びた</strong>ことが、この知見の信頼性をむしろ高めている——前回の「カーネマン×キリングスワース」と同じ構図だ。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">最大の論点</p>
+    <h2 class="fade"><span class="num">04</span>「自律性は西洋の価値観では？」への応答</h2>
+    <p class="sub fade">THE CROSS-CULTURAL DEBATE · 日本の文脈で最も効く</p>
+    <p class="fade">SDTへの最も根強い批判は文化普遍性だ。マーカス＆キタヤマ（1991）以来、「自律性の重視は西洋の個人主義の反映で、東アジアのような集団主義文化には当てはまらない」とされてきた。アイエンガー＆レッパー（1999）は、集団主義文化の子どもには個人の選択がさほど重要でない、というデータを示した。</p>
+    <p class="fade">SDT側の応答が、先ほどの区別だ。チルコフ・ライアン・キム・カプラン（2003）は<strong>「自律性≠独立・個人主義」</strong>を実証的に切り分けた。自律性は「自ら意志して承認している」状態であり、信頼する他者の選択を<em>進んで受け入れる</em>ことも自律的でありうる。実際、ロシア・韓国・トルコ・米国の4文化で、<strong>相対的自律性が高いほど主観的ウェルビーイングも高い</strong>という関連が共通して確認された。サブサハラ・アフリカでも3欲求は幸福を予測している。</p>
+    <div class="note fade">
+      <p class="n-title">なぜTakumiさんの実務に効くのか</p>
+      <p>日本の経営者と話すとき、「自律性を高めましょう」は「もっと個人主義的に」と誤読されやすい。だが正しくは<strong>「集団の目標を、本人が腑に落ちて選び直している状態」</strong>を指す。和を重んじることと自律性は両立する——この一文を持っているだけで、対話の地雷を避けられる。</p>
+    </div>
+    <div class="caution fade">
+      <p class="c-label">⚠ それでも残る争点</p>
+      <p>普遍性が完全決着したわけではない。3欲求の「優先順位」には文化差がある、とする証拠もある（チャーチら 2013）。「3欲求すべてが普遍的に必要」という強い主張は、もう一段の検証下にある。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">見落とされがちな柱</p>
+    <h2 class="fade"><span class="num">05</span>「何を」追うかも、幸福を分ける</h2>
+    <p class="sub fade">GOAL CONTENTS THEORY</p>
+    <p class="fade">⑤目標内容理論は、動機の<em>質</em>だけでなく目標の<em>中身</em>を扱う。人生目標は大きく2つに分かれる——<strong>内発的目標</strong>（成長・親密な関係・社会貢献・健康）と<strong>外発的目標</strong>（富・名声・イメージ）。</p>
+    <p class="fade">ファンステーンキステら（2007）は数百人規模の従業員調査で、<strong>外発的目標を内発的目標より強く持つ人ほど、仕事満足・人生満足が低く、情緒的消耗・離職意図・ワークファミリー葛藤が高い</strong>ことを示した。しかも、外発的目標は<em>達成しても</em>幸福を安定的には上げない。「富と地位を手に入れれば幸せになれる」という消費文化の前提に、SDTは正面から反証している。これは自律的／統制的動機づけとは独立に効く（シェルドンら 2004）。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">正直な限界</p>
+    <h2 class="fade"><span class="num">06</span>割り引いて読むべきところ</h2>
+    <p class="sub fade">LIMITATIONS</p>
+    <p class="fade">堅牢とはいえ、無謬ではない。フェアに3点。</p>
+    <div class="caution fade" style="background:var(--panel);border-left-color:var(--line-strong);">
+      <p class="c-label" style="color:var(--ink-soft);">測定の難しさ</p>
+      <p>連続体の調整タイプ（外的／取り入れ／同一化／内発）をきれいに区別するのは難しく、相対的自律性指標（RAI）の心理測定的妥当性には批判がある（ケモリ＆ガニェ 2014）。基本的心理欲求尺度も社会的望ましさバイアスを受けやすい。</p>
+    </div>
+    <div class="caution fade" style="background:var(--panel);border-left-color:var(--line-strong);">
+      <p class="c-label" style="color:var(--ink-soft);">自己報告への依存</p>
+      <p>多くの知見が自己報告に基づく。実験室の古典（ソマキューブ等）は強いが、現実の報酬制度はもっと複雑で、単純に「報酬＝悪」とは読めない。</p>
+    </div>
+    <div class="caution fade" style="background:var(--panel);border-left-color:var(--line-strong);">
+      <p class="c-label" style="color:var(--ink-soft);">需要の普遍性・網羅性</p>
+      <p>3欲求がすべての文化で同じ重みか、また3つで十分か（新奇性・美などを足す提案もある）は、なお開かれた問いだ。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">意思決定パートナーとしての使い方</p>
+    <h2 class="fade"><span class="num">07</span>対話に、どこを差し込むか</h2>
+    <p class="sub fade">FOR THE DECISION PARTNER</p>
+    <p class="fade">職場応用の実証は厚い。スレンプら（2018）のメタ分析（72研究・83標本・N≈32,870）は、<strong>リーダーの自律性支援が自律的動機づけ・欲求充足・ウェルビーイング・エンゲージメントと強く正に関連し、統制的動機づけとは無関係</strong>であることを示した。国による調整効果も出ていない。具体的な自律性支援の振る舞いはこうだ。</p>
+    <ul class="app fade">
+      <li><strong>選べないときこそ「理由」を渡す</strong><span>自律性支援の核は、相手の視点を認め、選択肢を与えること。だが選択を与えられない決定でも、<em>納得できる理由（rationale）を添える</em>だけで内面化が進む。決断を下す立場の経営者に最も効く一手。</span></li>
+      <li><strong>本人の動機が「取り入れ」になっていないか</strong><span>経営者の「やらねば」の多くは取り入れ的調整（罪悪感・自尊心・べき論）に支えられている。これは持続せず燃え尽きを招く。それを同一化・統合へ翻訳する問いが、コーチングの介入点。</span></li>
+      <li><strong>目標の中身を点検する</strong><span>いま追っているのは内発的目標か、外発的目標（地位・富・イメージ）か。後者は達成しても満たされにくい——目標内容理論を使えば、これを一般論でなく研究で語れる。</span></li>
+      <li><strong>統制的マネジメントの代償を可視化する</strong><span>随伴報酬・罰・罪悪感による圧力は、短期に動かしても統制的動機づけしか生まない。「動いているのに枯れていく組織」を構造で説明できる。</span></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">総合評価</p>
+    <h2 class="fade"><span class="num">08</span>堅牢度</h2>
+    <p class="sub fade">VERDICT · 堅牢度は筆者の編集判断であり測定値ではない</p>
+    <div class="meter fade">
+      <div class="meter-top"><span class="meter-label">概念 × 実証の総合堅牢度</span><span class="meter-val">非常に高い</span></div>
+      <div class="bar"><i data-w="95"></i></div>
+      <p class="meter-note">原点の実験は敵対的メタ分析を生き延び、需要充足→ウェルビーイングの関連は領域・文化を超えて再現される。割り引くのは「連続体の測定」と「需要優先順位の文化差」。5本のなかで実務移植性も最高。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">日本語で読める学習ルート</p>
+    <h2 class="fade">入口 → 中核 → 応用（SDT編）</h2>
+    <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
+
+    <div class="route fade">
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge">入口</span><span class="stage-desc">提唱者の言葉で全体像を</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>なぜここから</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">人を伸ばす力：内発と自律のすすめ</div><div class="by">E.デシ &amp; R.フラスト（桜井茂男 監訳）／新曜社</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">提唱者デシ本人による一般向け解説。前半で自律性・有能感、後半で関係性。理論の核を平易に。</td>
+            </tr>
+            <tr>
+              <td><div class="title">用語集「内発的動機づけ・自己決定理論」</div><div class="by">溝上慎一の教育論（Web・無料PDF）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">5つのミニ理論を簡潔に図解。無料で、構造を最短で頭に入れたいときに。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge core">中核</span><span class="stage-desc">一次に近い深さへ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>カバー範囲</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">「自己決定理論」章（『モチベーションをまなぶ12の理論』所収）</div><div class="by">櫻井茂男／鹿毛雅治 編・金剛出版</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本の動機づけ研究者による章解説。連続体と3欲求を学術的かつ読みやすく。</td>
+            </tr>
+            <tr>
+              <td><div class="title">自己決定理論における動機づけ概念間の関連性</div><div class="by">パーソナリティ研究（2010）／J-STAGE で全文</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本語のメタ分析論文。連続体の概念がデータ上どう関連するかを一次で確認できる。</td>
+            </tr>
+            <tr>
+              <td><div class="title">selfdeterminationtheory.org</div><div class="by">Center for SDT 公式（論文DB・尺度）</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">6ミニ理論の一次ハブ。1999メタ分析や2017職場総説のPDFも無料で読める。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge app">応用</span><span class="stage-desc">組織・意思決定に接続</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>使いどころ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">Self-Determination Theory in Work Organizations: The State of a Science（2017）</div><div class="by">Deci, Olafsen &amp; Ryan／Annual Review</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">職場応用の決定版レビュー。自律性支援・需要充足・成果の関係を体系的に。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Leader autonomy support in the workplace: A meta-analytic review（2018）</div><div class="by">Slemp et al.／Motivation and Emotion</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">リーダーの自律性支援のメタ分析（N≈32,870）。本稿の応用節の根拠。</td>
+            </tr>
+            <tr>
+              <td><div class="title">自己決定理論とは（用語・事例）</div><div class="by">『日本の人事部』</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本企業の運用文脈で。経営者との対話の前に温度感をつかむ用。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note fade" style="margin-top:30px;">
+      <p class="n-title">読む順番のコツ</p>
+      <p>『人を伸ばす力』で全体像を入れたら、溝上の用語集で6ミニ理論の地図を固定する。実務で使うなら応用節の2本（Annual Review と Slemp メタ分析）を先取りしてよい。連続体（外的→取り入れ→同一化→統合→内発）の<strong>用語だけは正確に</strong>覚えると、対話での解像度が一段上がる。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sources">
+  <div class="wrap">
+    <p class="kicker fade">主な出典</p>
+    <h2 class="fade">この読み物の根拠</h2>
+    <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
+    <ol class="fade">
+      <li>6ミニ理論・有機体的弁証法：<a href="https://selfdeterminationtheory.org/the-theory/">selfdeterminationtheory.org “The Theory”</a>、Ryan &amp; Deci (2022) SDT Encyclopedia（公式PDF）。</li>
+      <li>アンダーマイニング効果：Deci, Koestner &amp; Ryan (1999) 128実験メタ分析（Psychological Bulletin, d=−.40/−.36/−.28、肯定FB +.33）、同 (2001) 教育再考、対立はCameron &amp; Pierce (1994)／Eisenberger, Pierce &amp; Cameron (1999)。</li>
+      <li>文化普遍性：Chirkov, Ryan, Kim &amp; Kaplan (2003) JPSP「自律性と個人主義・独立の区別」、批判側 Markus &amp; Kitayama (1991)／Iyengar &amp; Lepper (1999)／Church et al. (2013)。</li>
+      <li>目標内容理論：Vansteenkiste et al. (2007)、Sheldon et al. (2004)、Kasser &amp; Ryan。</li>
+      <li>職場応用：<a href="https://selfdeterminationtheory.org/wp-content/uploads/2017/03/2017_DeciOlafsenRyan_annurev-orgpsych.pdf">Deci, Olafsen &amp; Ryan (2017) Annual Review</a>、Slemp et al. (2018) Motivation and Emotion（72研究・N≈32,870）。</li>
+      <li>日本語：エドワード・デシ『人を伸ばす力』新曜社、櫻井茂男「自己決定理論」（鹿毛雅治 編・金剛出版）、<a href="https://www.jstage.jst.go.jp/article/personality/18/2/18_2_152/_article/-char/ja/">パーソナリティ研究 18(2), 2010</a>。</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+</body>
+</html>

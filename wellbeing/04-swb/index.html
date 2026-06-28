@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>主観的ウェルビーイング（Diener SWB）深掘り — 自分の基準で、自分の人生を採点する</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b3a3e; --ink-soft:#46585c;
+    --teal:#62b8a0; --teal-deep:#4f7c87; --teal-wash:#eef6f3;
+    --coral:#eb6584; --coral-wash:#fdeef1;
+    --paper:#fbfcfb; --panel:#f4f7f5;
+    --line:#e3e8e4; --line-strong:#cdd6d1; --muted:#74827f;
+    --maxw:768px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  .hero{padding:78px 0 50px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(27px,5.2vw,40px);line-height:1.42;margin:0 0 24px;}
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:32px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* signature: affect-plane */
+  .sig{margin:42px 0 6px;}
+  .sig svg{width:100%;height:auto;display:block;}
+  .sig-cap{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.7;text-align:center;}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 13px;}
+  h2{font-family:"Noto Serif JP",serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;}
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;} p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* three components */
+  .tri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin:24px 0 0;}
+  .tc{border:1px solid var(--line);border-radius:12px;padding:18px 16px;text-align:center;}
+  .tc .tn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);margin:0 0 2px;}
+  .tc .te{font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin:0 0 9px;}
+  .tc p{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.65;}
+  .tc.cog{border-color:var(--teal);background:var(--teal-wash);}
+
+  /* rigor episodes */
+  .epi{border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:22px 0 0;background:var(--paper);}
+  .epi .et{display:flex;align-items:baseline;gap:10px;margin:0 0 8px;}
+  .epi .ec{font-family:"Noto Serif JP",serif;font-weight:700;font-size:13px;color:#fff;background:var(--coral);border-radius:7px;padding:2px 10px;flex:0 0 auto;}
+  .epi .eh{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;line-height:1.4;margin:0;}
+  .epi p{font-size:14.5px;color:var(--ink-soft);margin:12px 0 0;line-height:1.85;}
+  .epi .flip{margin:14px 0 0;padding:13px 16px;background:var(--teal-wash);border-radius:9px;font-size:14px;color:var(--ink-soft);line-height:1.8;}
+  .epi .flip b{color:var(--teal-deep);}
+
+  .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin:6px 0 0;}
+  .stat{border:1px solid var(--line);border-radius:11px;padding:15px 14px;background:var(--paper);text-align:center;}
+  .stat .big{font-family:"Noto Serif JP",serif;font-weight:700;font-size:25px;color:var(--teal-deep);line-height:1.1;font-feature-settings:"tnum";}
+  .stat .lab{font-size:12px;color:var(--ink-soft);margin:6px 0 0;line-height:1.6;}
+
+  .meter{margin:24px 0 4px;padding:18px 20px;background:var(--panel);border-radius:11px;}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);}
+  .bar{height:7px;border-radius:6px;background:#dde5e1;overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7;}
+
+  .caution{margin:20px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#c84e6c;margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+  .caution.muted{background:var(--panel);border-left-color:var(--line-strong);}
+  .caution.muted .c-label{color:var(--ink-soft);}
+
+  .note{background:var(--teal-wash);border-radius:12px;padding:24px 26px;margin:20px 0 0;}
+  .note .n-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);} .note p:last-child{margin:0;}
+
+  /* contrast with Ryff */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 0;}
+  .col{border-radius:12px;padding:20px;}
+  .col.r{background:var(--teal-wash);} .col.d{background:var(--coral-wash);}
+  .col .ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;margin:0 0 4px;}
+  .col.r .ct{color:var(--teal-deep);} .col.d .ct{color:#c84e6c;}
+  .col .cs{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+  .col p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.75;}
+
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 20px 42px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:27px;height:27px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .app li strong{display:block;margin-bottom:3px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);line-height:1.85;}
+
+  .route-stage{margin:0 0 26px;} .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Serif JP",serif;font-weight:700;font-size:13px;color:#fff;background:var(--teal-deep);padding:5px 14px;border-radius:20px;letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);} .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);} .lang.en{background:#eef1f5;color:#5a6b86;}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;} .bar>i{transition:none;} html{scroll-behavior:auto;}
+  }
+  @media(max-width:620px){
+    .tri,.stats,.split{grid-template-columns:1fr;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
+    th,td{padding:9px 8px;font-size:13px;} .epi{padding:20px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="series fade">深掘りシリーズ ④／再現性で選ぶウェルビーイング</p>
+    <p class="eyebrow fade">Subjective Well-Being · Ed Diener</p>
+    <h1 class="fade">「良い人生」を定義しない。<br><span class="accent">本人に採点させる</span>。</h1>
+    <p class="lede fade">前回のRyffが「望ましい人間の在り方」を理論から決めたのに対し、Diener（1984）は正反対の手を打った——<strong>哲学的な枠を押しつけず、人それぞれが自分の基準で自分の人生を評価すればいい</strong>。これが主観的ウェルビーイング（SWB）だ。快楽論の旗艦であり、各国の幸福度統計の基盤でもある。見どころは、<strong>「順応」「判断のいい加減さ」「感情予測の誤り」という3つの自己修正</strong>を、研究分野が自分で起こしてきたこと。</p>
+
+    <div class="sig fade">
+      <svg viewBox="0 0 620 360" role="img" aria-label="SWBの構造：認知的評価と、独立した2つの感情軸">
+        <defs><style>
+          .ax{stroke:#cdd6d1;stroke-width:1.4;}
+          .qfill1{fill:#eef6f3;} .qfill2{fill:#fdeef1;} .qfill3{fill:#f4f7f5;}
+          .qlab{font-family:'Noto Sans JP';font-weight:700;font-size:12px;fill:#46585c;text-anchor:middle;}
+          .axlab{font-family:'Noto Sans JP';font-weight:700;font-size:12.5px;fill:#4f7c87;}
+          .arrow{stroke:#4f7c87;stroke-width:1.6;fill:none;}
+          .ctitle{font-family:'Noto Serif JP';font-weight:700;font-size:14px;fill:#fff;text-anchor:middle;}
+          .csub{font-family:'Noto Sans JP';font-weight:500;font-size:10px;fill:#dff0ea;text-anchor:middle;}
+          .ccog{fill:#4f7c87;}
+        </style></defs>
+
+        <!-- affect plane -->
+        <rect class="qfill1" x="60" y="50" width="120" height="120" rx="4"/>
+        <rect class="qfill3" x="180" y="50" width="120" height="120" rx="4"/>
+        <rect class="qfill3" x="60" y="170" width="120" height="120" rx="4"/>
+        <rect class="qfill2" x="180" y="170" width="120" height="120" rx="4"/>
+        <line class="ax" x1="60" y1="170" x2="320" y2="170"/>
+        <line class="ax" x1="180" y1="40" x2="180" y2="300"/>
+        <path class="arrow" d="M180 44 l-5 9 M180 44 l5 9"/>
+        <path class="arrow" d="M324 170 l-9 -5 M324 170 l-9 5"/>
+        <text class="axlab" x="120" y="34" text-anchor="middle">ポジティブ感情 ↑</text>
+        <text class="axlab" x="335" y="174">ネガティブ感情 →</text>
+        <text class="qlab" x="120" y="115">充実</text>
+        <text class="qlab" x="240" y="115">葛藤</text>
+        <text class="qlab" x="120" y="235">平板</text>
+        <text class="qlab" x="240" y="235">消耗</text>
+
+        <!-- cognitive component -->
+        <rect class="ccog" x="400" y="120" width="170" height="100" rx="14"/>
+        <text class="ctitle" x="485" y="158">人生満足</text>
+        <text class="ctitle" x="485" y="178">（認知的評価）</text>
+        <text class="csub" x="485" y="200">自分の基準で人生を判断</text>
+        <line class="ax" x1="320" y1="170" x2="400" y2="170"/>
+      </svg>
+      <p class="sig-cap">SWB＝<strong>認知（人生満足）＋感情（ポジ・ネガ）</strong>。核心は、<strong>ポジティブ感情とネガティブ感情が「正反対」ではなく独立した2軸</strong>だということ。両方高い（葛藤）も、両方低い（平板）もありうる。</p>
+    </div>
+
+    <div class="meta fade">
+      <span><i class="dot"></i>読了 約16分</span>
+      <span><i class="dot"></i>構造 → 順応 → 判断 → 予測 → 応用</span>
+      <span><i class="dot"></i>末尾に日本語の学習ルート</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">出発点</p>
+    <h2 class="fade"><span class="num">01</span>Ryffの正反対——本人に委ねる</h2>
+    <p class="sub fade">LET PEOPLE JUDGE THEIR OWN LIVES</p>
+    <p class="fade">Ryffは「目的・成長・自律…が良い人生だ」と<strong>理論から</strong>決めた。Diener（1984、通称“幸福学の父”、1946–2021）はそれを避けた。良い人生の中身を専門家が規定するのではなく、<strong>当人が自分の価値基準で「自分の人生は良いか」を評価する</strong>——その主観的な評価こそが測るべきものだ、と。だからこそ国の調査に乗せやすく、文化や価値観の違いを横断して使える。</p>
+    <div class="split fade">
+      <div class="col r">
+        <p class="ct">Ryff PWB</p><p class="cs">理論駆動・卓越論</p>
+        <p>「何が良い人生か」を理論で定義し、6次元で測る。<em>規範を与える</em>。</p>
+      </div>
+      <div class="col d">
+        <p class="ct">Diener SWB</p><p class="cs">本人駆動・快楽論</p>
+        <p>定義は本人に委ね、その評価を測る。<em>規範を与えない</em>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">構造</p>
+    <h2 class="fade"><span class="num">02</span>三部構造と、独立した感情</h2>
+    <p class="sub fade">THE TRIPARTITE MODEL</p>
+    <p class="fade">SWBは3つの相対的に独立した要素からなる。認知が1つ、感情が2つ。</p>
+    <div class="tri fade">
+      <div class="tc cog"><p class="tn">人生満足</p><p class="te">Life Satisfaction</p><p>認知的・判断的。「自分の基準で人生は良いか」の総合評価。</p></div>
+      <div class="tc"><p class="tn">ポジティブ感情</p><p class="te">Positive Affect</p><p>喜び・楽しさなど快の感情を<em>どれだけ頻繁に</em>経験するか。</p></div>
+      <div class="tc"><p class="tn">ネガティブ感情</p><p class="te">Negative Affect</p><p>悲しみ・不安など不快の感情をどれだけ頻繁に経験するか。</p></div>
+    </div>
+    <p class="fade" style="margin-top:22px;">反直観的だが重要なのは、<strong>ポジ感情とネガ感情は「同じものさしの両端」ではなく、独立した2軸</strong>だという発見（Diener &amp; Emmons 1985）。だから両方が高い人も、両方が低い人もいる。測定は<strong>SWLS（人生満足尺度／Diener 1985、5項目）</strong>と感情尺度（PANAS等）で別々に測るのが定石だ。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">自己修正①</p>
+    <h2 class="fade"><span class="num">03</span>順応——でも「ゼロに戻る」は言い過ぎだった</h2>
+    <p class="sub fade">HEDONIC ADAPTATION, REVISED</p>
+    <div class="epi fade">
+      <div class="et"><span class="ec">通説</span><p class="eh">幸福の「セットポイント」説</p></div>
+      <p>ブリックマン＆キャンベル（1971）の<em>快楽の踏み車（hedonic treadmill）</em>。良いことも悪いことも、人はやがて元の水準に戻る。象徴は1978年の研究——<strong>宝くじ高額当選者22人</strong>と<strong>事故で下半身麻痺になった29人</strong>を比較すると、1年後、当選者は隣人より有意に幸福ではなく、麻痺の人々も予想よりずっと基準値に近く、しかも<strong>日常のささいな喜びは当選者より大きかった</strong>。双子研究（リュッケン＆テレゲン1996）も、幸福の約50%は遺伝、と踏み車説を後押しした。</p>
+      <div class="flip"><b>修正：</b>だが縦断データが通説を覆した。Diener・ルーカス・スコロン（2006『Beyond the Hedonic Treadmill』）はこう書き直した——人の基準値は<strong>中立（ゼロ）ではなく、ほとんどの人で正の側</strong>にある。基準点は<strong>1つではなく</strong>（ポジ・ネガ・満足で順応の仕方が違う）、性格に根ざしつつ<strong>人生の出来事で実際に動く</strong>。失業・配偶者との死別・障害は、長期的にSWBを変える。順応は「不完全」で、人によって差が大きい。</div>
+    </div>
+    <p class="fade" style="margin-top:22px;">通説を立てた本人たち（DienerとLucas）が、自分でその通説を更新した。これは弱さではなく、<strong>分野が自己修正できている証拠</strong>だ。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">自己修正②</p>
+    <h2 class="fade"><span class="num">04</span>判断はその場で構成される——けれど</h2>
+    <p class="sub fade">THE CONSTRUCTION PROBLEM, AND ITS OWN LIMITS</p>
+    <div class="epi fade">
+      <div class="et"><span class="ec">批判</span><p class="eh">「人生満足はいい加減だ」</p></div>
+      <p>シュワルツ＆ストラック（1999）は、人生満足の回答が<em>その場の文脈で構成される</em>と主張した。天気（晴れだと高く出る）、ひいきのサッカーチームの勝敗、直前の質問順——「最近デートは何回？」と先に聞くと満足度の答えが動く。カーネマンのフォーカシング錯覚もここに重なる。<strong>「カリフォルニアに住むと幸せになるか？」（シュケイド＆カーネマン1998）</strong>——中西部とカリフォルニアの学生は実は同程度に満足しているのに、両者とも「カリフォルニアの方が幸せだろう」と誤予測した。気候という一側面に注意が向くと、その重みが膨らむ。カーネマンの一言が刺さる——<strong>「何かについて考えている間は、それが人生で一番重要に思える」</strong>。</p>
+      <div class="flip"><b>反転：</b>ところが、この<b>批判そのものが再現性の危機を生き延びられなかった</b>。シンマック＆オオイシ（2005）のメタ分析は文脈効果がずっと小さいことを示し、ManyLabs2（N&gt;7,000）は質問順効果の<strong>再現に失敗</strong>。有名な天気効果も大規模研究で再現されなかった（Lucas &amp; Lawless 2013ほか）。つまり「人生満足は信用できない」という強い主張は<strong>過剰だった</strong>。構成効果は実在し概念的に重要だが、SWB測定は批判者が言うほど脆くない。</div>
+    </div>
+    <div class="caution fade">
+      <p class="c-label">⚠ ただし残るもの</p>
+      <p>フォーカシング錯覚と、<strong>経験する自己 vs 記憶する自己</strong>（カーネマン）は依然強い。出来事の総合評価は<em>ピークと終わり</em>に偏り、持続時間は無視されがち（ピーク・エンドの法則／持続時間の無視）。「一点に注意を固定すると重みが歪む」は、意思決定で効いてくる。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">自己修正③ ／ 意思決定に直結</p>
+    <h2 class="fade"><span class="num">05</span>未来の感情を、人はだいたい外す</h2>
+    <p class="sub fade">AFFECTIVE FORECASTING</p>
+    <p class="fade">SWB研究が生んだ最も実務的な知見が、<strong>感情予測（affective forecasting）の誤り</strong>だ。人は、ある出来事が自分の感情に「どの向きに効くか」はだいたい当てる。だが<strong>「どれだけ強く・どれだけ長く」効くかを大きく外す</strong>。</p>
+    <div class="stats fade">
+      <div class="stat"><p class="big">影響バイアス</p><p class="lab">将来の感情の強さ・持続を過大評価する（Wilson et al. 2000）</p></div>
+      <div class="stat"><p class="big">免疫の無視</p><p class="lab">立ち直らせる“心理的免疫系”の存在に気づかない（Gilbert et al. 1998）</p></div>
+      <div class="stat"><p class="big">持続バイアス</p><p class="lab">とくに悪い出来事の影響を、長く引きずると誤算する</p></div>
+    </div>
+    <p class="fade" style="margin-top:22px;">ギルバートらの6つの実験は、失恋・テニュア（終身在職権）獲得失敗・選挙での敗北・人格否定のフィードバック・就職拒否などで、人々が<strong>「実際よりずっと長く落ち込み続ける」と予測する</strong>ことを示した。研究者ギルバートの要約が鋭い——<strong>「重要なことも、そうでないことも、どちらもあなたが思うほどには効かない」</strong>。</p>
+    <div class="note fade">
+      <p class="n-title">なぜ意思決定の核心なのか</p>
+      <p>人は「これを手に入れれば<em>ずっと</em>幸せになれる」と信じて、そこへ向かって動く。だが影響バイアスと順応がそれを否定する。つまり——<strong>人は、間違った目標に向かって働いているかもしれない</strong>。次の買収、次の昇進、次のEXIT。意思決定パートナーの最大のレバレッジは、この予測と現実のギャップを当人に見せることだ。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">それでも頑健</p>
+    <h2 class="fade"><span class="num">06</span>批判を踏まえても、測定基盤は強い</h2>
+    <p class="sub fade">WHY SWB STILL HOLDS</p>
+    <p class="fade">構成効果や予測の誤りがあっても、SWBの測定そのものは<strong>分野で最も厚い基盤</strong>を持つ。長期的な安定性、約50%の遺伝率、性格との強い相関（外向性・神経症傾向）——<strong>単一の人口統計学的要因がたいてい相関.20未満</strong>なのに対し、性格は格段に強い。情報提供者（家族・友人）の評定や、表情・神経指標とも収束する。SWLSの妥当性は繰り返し確認されている。</p>
+    <p class="fade">政策面では、Dienerは<strong>「ウェルビーイングの国民会計（national accounts of well-being）」</strong>を提唱した。GDPの先を測る発想だ。その実装が毎年の<strong>World Happiness Report</strong>で、キャントリルの梯子（0–10の人生評価）を主指標に、ポジ・ネガ感情も併記する。</p>
+    <div class="caution muted fade">
+      <p class="c-label">構造の留保</p>
+      <p>3要素を「単一の潜在SWB因子」に束ねるか、別々に扱うかは未決着（前回概観どおり）。メタ分析（k=40, N≈34,298）は潜在因子を支持するが、3要素は別の変数と別の振る舞いをする。<strong>満足だけ・感情だけで全体を語らない</strong>のが安全。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">意思決定パートナーとしての使い方</p>
+    <h2 class="fade"><span class="num">07</span>対話に、どこを差し込むか</h2>
+    <p class="sub fade">FOR THE DECISION PARTNER</p>
+    <ul class="app fade">
+      <li><strong>感情予測の誤りを“親指の法則”にする</strong><span>「これが叶えば長く幸せになれる」という確信は、ほぼ確実に強さと持続を過大評価している。順応がそれを吸収する。経営者の大きな決断の前に、この一点を必ず映し返す。最大のレバレッジ。</span></li>
+      <li><strong>フォーカシング錯覚に名前をつける</strong><span>「何かを考えている間は、それが一番重要に思える」。買収・肩書き・特定の競合に注意が固定しているとき、その変数の重みは膨らんでいる。固定を外す問いを置く。</span></li>
+      <li><strong>記憶する自己と経験する自己を分ける</strong><span>経営者は「語れる人生（達成・地位）」を最適化し、「日々の手触り（経験）」を後回しにしがち。両方が大事で、放っておくと記憶側が勝つ。経験側を可視化する。</span></li>
+      <li><strong>一個の幸福度スコアで断じない</strong><span>人生満足は構成されやすい。単独の数字を“判定”にせず、<em>対話の入口</em>として扱い、必ず感情（ポジ・ネガ）と併せて読む。</span></li>
+    </ul>
+    <div class="caution muted fade">
+      <p class="c-label">日本の文脈</p>
+      <p>内田由紀子らの<strong>協調的幸福（interdependent happiness）</strong>が示すように、日本人の幸福は「ポジを最大化する」より<em>関係の中でほどほどに整っている</em>形をとりやすい。米国流の「ポジ感情マキシマイズ」をそのまま当てはめない。前回のキタヤマ（独立/相互依存の米日差）とも地続きだ。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">総合評価</p>
+    <h2 class="fade"><span class="num">08</span>堅牢度</h2>
+    <p class="sub fade">VERDICT · 堅牢度は筆者の編集判断であり測定値ではない</p>
+    <div class="meter fade">
+      <div class="meter-top"><span class="meter-label">測定の堅牢度（構造は議論あり）</span><span class="meter-val">高い</span></div>
+      <div class="bar"><i data-w="86"></i></div>
+      <p class="meter-note">「測る」基盤としては最強格で、各国統計・World Happiness Reportを支える。順応・構成・予測の論点は、いずれも<strong>分野が自分で検証・修正してきた</strong>——それ自体が信頼性の証拠。割り引くのは3要素の束ね方と、認知的判断の文脈依存。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker fade">日本語で読める学習ルート</p>
+    <h2 class="fade">入口 → 中核 → 応用（Diener SWB編）</h2>
+    <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
+
+    <div class="route fade">
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge">入口</span><span class="stage-desc">測定と判断過程をつかむ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>なぜここから</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">幸せを科学する：心理学からわかったこと</div><div class="by">大石繁宏／新曜社（2009）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">著者の大石（Oishi）はDienerの直接の共同研究者。SWBの測定・自己評価過程・経済を日本語で深く。SWB編の本命入口。</td>
+            </tr>
+            <tr>
+              <td><div class="title">日本人の幸福感の測り方（SWLS/SHS/協調的幸福）</div><div class="by">NECソリューションイノベータ note（無料）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">主要尺度とWorld Happiness Reportの日本順位を概観。文化差（協調的幸福）への入口にも。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge core">中核</span><span class="stage-desc">一次資料・日本語版尺度へ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>カバー範囲</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">人生に対する満足尺度（SWLS）日本版作成の試み</div><div class="by">角野善司／日本教育心理学会総会発表論文集（1994）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本語版SWLSの定番一次資料。5項目の実物にあたれる。CiNii/J-STAGE。</td>
+            </tr>
+            <tr>
+              <td><div class="title">日本人の主観的幸福感（IFI Working Paper 024）</div><div class="by">長崎貴裕／東京大学未来ビジョン研究センター（無料PDF）</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">SWLSを使った日本の大規模データ分析。実装と限界を具体で。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Beyond the Hedonic Treadmill（2006）</div><div class="by">Diener, Lucas &amp; Scollon／American Psychologist</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">セットポイント説の修正の一次資料。提唱者が自説を更新する好例。無料公開あり。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="route-stage">
+        <div class="stage-head"><span class="stage-badge app">応用</span><span class="stage-desc">意思決定・政策・文化へ</span></div>
+        <table>
+          <thead><tr><th>タイトル</th><th>言語</th><th>使いどころ</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div class="title">Immune Neglect: A Source of Durability Bias（1998）</div><div class="by">Gilbert, Pinel, Wilson, Blumberg &amp; Wheatley／JPSP</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">感情予測の誤りの核心。意思決定コーチングで最も使える一次資料。</td>
+            </tr>
+            <tr>
+              <td><div class="title">Does Living in California Make People Happy?（1998）</div><div class="by">Schkade &amp; Kahneman／Psychological Science</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">フォーカシング錯覚の原典。「一点固定で重みが歪む」を対話で使う土台。</td>
+            </tr>
+            <tr>
+              <td><div class="title">World Happiness Report（毎年）</div><div class="by">キャントリルの梯子による国際比較</div></td>
+              <td><span class="lang en">EN</span></td>
+              <td class="why">国民会計としてのSWB。日本順位と要因分解。前回RSS群に足せる定点観測。</td>
+            </tr>
+            <tr>
+              <td><div class="title">協調的幸福（interdependent happiness）</div><div class="by">内田由紀子ほか</div></td>
+              <td><span class="lang jp">JP</span></td>
+              <td class="why">日本人の幸福の“形”。西洋型のポジ最大化を当てはめないための文化的土台。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note fade" style="margin-top:30px;">
+      <p class="n-title">読む順番のコツ</p>
+      <p>大石本でSWBの測定と判断過程を押さえたら、角野(1994)で日本語版SWLSの実物に触れる。実務で本当に効くのは応用の2本（免疫の無視・フォーカシング錯覚）——<strong>「未来の感情を人は外す」</strong>を腹落ちさせると、経営者の大きな決断の前に差し込む一手が手に入る。</p>
+    </div>
+  </div>
+</section>
+
+<section class="sources">
+  <div class="wrap">
+    <p class="kicker fade">主な出典</p>
+    <h2 class="fade">この読み物の根拠</h2>
+    <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
+    <ol class="fade">
+      <li>三部構造・尺度：Diener (1984)、Diener &amp; Emmons (1985)「ポジ・ネガ感情の独立」、SWLS＝Diener, Emmons, Larsen &amp; Griffin (1985)、構造メタ分析（k=40, N≈34,298）。</li>
+      <li>順応とセットポイント：Brickman, Coates &amp; Janoff-Bulman (1978)、Lykken &amp; Tellegen (1996)、<a href="https://ink.library.smu.edu.sg/cgi/viewcontent.cgi?article=1920&context=soss_research">Diener, Lucas &amp; Scollon (2006) “Beyond the Hedonic Treadmill”</a>、Lucas et al. の縦断研究。</li>
+      <li>判断の構成と反証：Schwarz &amp; Strack (1999)、Schwarz &amp; Clore (1983)、<a href="https://web.mit.edu/curhan/www/docs/Articles/biases/9_Psychological_Science_340_(Schkade).pdf">Schkade &amp; Kahneman (1998) フォーカシング錯覚</a>、Schimmack &amp; Oishi (2005)、ManyLabs2、Lucas &amp; Lawless (2013)。</li>
+      <li>感情予測：<a href="https://www.semanticscholar.org/paper/Immune-neglect:-a-source-of-durability-bias-in-Gilbert-Pinel/1d2c030007365014d8f0c1cc775cab557803e4b9">Gilbert et al. (1998) 免疫の無視</a>、Wilson et al. (2000) 影響バイアス、Wilson &amp; Gilbert (2005)。</li>
+      <li>政策・文化：World Happiness Report（キャントリルの梯子）、内田由紀子ほか 協調的幸福。</li>
+      <li>日本語：<a href="https://www.jstage.jst.go.jp/article/pamjaep/36/0/36_192/_article/-char/ja/">角野善司 (1994) SWLS日本版</a>、大石繁宏『幸せを科学する』新曜社、東京大学IFI WP024。</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+</body>
+</html>
