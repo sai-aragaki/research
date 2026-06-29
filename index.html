@@ -111,12 +111,12 @@
     .left-head{padding:16px 16px 0}
     .toolbar{padding:0 16px 12px}
     .count{padding:8px 16px 4px}
-    .list{overflow:visible;padding-bottom:60px}
+    .list{overflow:visible;padding-bottom:140px}
     .entry{padding:12px 16px}
     .bm{right:12px;top:10px}
 
-    /* Reader: full-screen overlay */
-    .right{position:fixed;inset:0;z-index:100;height:100vh;
+    /* Reader: full-screen overlay, below the back bar */
+    .right{position:fixed;top:50px;left:0;right:0;bottom:0;z-index:100;height:auto;
       transform:translateX(100%);transition:transform .3s ease}
     .right.open{transform:translateX(0)}
     .reader-bar{display:none}
@@ -137,9 +137,6 @@
     .mob-back-link{font-size:11px;font-weight:500;color:var(--teal-deep);padding:5px 10px;
       border:1px solid var(--teal);border-radius:7px;white-space:nowrap;flex-shrink:0}
 
-    /* Push reader content below the back bar */
-    .right.open .reader-empty{padding-top:50px}
-    .right.open .reader-frame{margin-top:0}
   }
 
   @media(prefers-reduced-motion:reduce){
