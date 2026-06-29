@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>個人コーチ生存戦略──AI・プラットフォーム・12万人の競合を前に、一人でどう勝つか</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbfcfb;--paper-2:#f4f7f5;--panel:#f4f7f5;--ink:#2b3a3e;--ink-soft:#46585c;--ink-faint:#74827f;--teal-deep:#4f7c87;--teal:#62B8A0;--teal-wash:#eef6f3;--coral:#eb6584;--coral-wash:#fdeef1;--sand:#B98B2E;--sand-wash:#F5EBD3;--line:#e3e8e4;--line-soft:#eef1ef;--shadow:0 1px 2px rgba(39,53,54,.04),0 10px 34px -18px rgba(39,53,54,.22);--maxw:760px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans JP",sans-serif;font-size:15.6px;line-height:1.95;letter-spacing:.01em;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+a{color:var(--teal-deep);text-decoration:none}a:hover{color:var(--coral)}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav{position:sticky;top:0;z-index:50;background:rgba(251,252,251,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}.brand b{color:var(--coral)}
+.nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.nav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+.nav-links a:hover,.nav-links a.on{color:var(--teal-deep);background:var(--teal-wash)}
+.hero{padding:80px 0 56px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral);display:block;margin-bottom:16px}
+h1.title{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(26px,4.8vw,38px);line-height:1.35;margin-bottom:20px}
+h1.title .ac{color:var(--teal-deep)}
+.lede{font-size:16.5px;line-height:2;color:var(--ink-soft);margin-bottom:24px;max-width:640px}
+.src-tag{font-size:13px;color:var(--ink-faint);line-height:1.7;border-left:3px solid var(--teal);padding-left:14px;margin-bottom:32px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.stat{background:var(--panel);border-radius:10px;padding:18px 16px;text-align:center}
+.stat .n{font-family:"Noto Serif JP",serif;font-weight:800;font-size:26px;color:var(--teal-deep);line-height:1.2}
+.stat .n small{font-size:13px;font-weight:600}
+.stat .l{font-size:12px;color:var(--ink-faint);margin-top:6px;line-height:1.5}
+section{padding:60px 0;border-top:1px solid var(--line-soft)}
+.sec-no{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral)}
+h2{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(24px,4.1vw,32px);line-height:1.42;margin:8px 0 8px}
+.sec-sub{font-size:14.5px;color:var(--ink-faint);font-weight:500;margin:0 0 28px}
+h3{font-family:"Noto Serif JP",serif;font-weight:700;font-size:19px;line-height:1.6;margin:36px 0 12px;color:var(--teal-deep)}
+p{margin-bottom:18px}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(217,84,107,.28) 58%)}
+ul.clean{list-style:none;margin:24px 0}
+ul.clean li{padding:12px 0 12px 22px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8}
+ul.clean li::before{content:"";position:absolute;left:0;top:20px;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+ul.clean li b{color:var(--teal-deep)}
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+.dom{background:var(--panel);border-radius:10px;padding:20px 18px}
+.dom .dn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:2px}
+.dom .de{font-size:11.5px;font-weight:500;color:var(--teal-deep);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.dom .dq{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+.chart-card{background:var(--panel);border-radius:12px;padding:28px 24px;margin:28px 0;box-shadow:var(--shadow)}
+.ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;margin-bottom:4px}
+.cs{font-size:12.5px;color:var(--ink-faint);margin-bottom:18px}
+.bar-row{display:grid;grid-template-columns:160px 1fr 60px;align-items:center;gap:10px;padding:7px 0}
+.bar-row.hi .bl{color:var(--teal-deep);font-weight:700}
+.bar-row.hi .bar-fill{background:var(--teal-deep)!important}
+.bl{font-size:13px;color:var(--ink-soft);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{height:22px;background:var(--line-soft);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:var(--teal);border-radius:6px;transition:width .8s ease}
+.bv{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:700;color:var(--ink)}
+.leg{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--ink-faint)}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.pull{border-left:4px solid var(--coral);background:var(--coral-wash);border-radius:0 10px 10px 0;padding:22px 26px;margin:28px 0}
+.pull p{font-family:"Noto Serif JP",serif;font-size:17.5px;line-height:1.85;color:var(--ink);margin:0}
+.note{background:var(--teal-wash);border-radius:10px;padding:20px 24px;margin:28px 0;font-size:14.5px;line-height:1.85}
+.note .h{font-weight:700;color:var(--teal-deep);display:block;margin-bottom:4px}
+.note.sand{background:var(--sand-wash)}.note.sand .h{color:var(--sand)}
+.note p{margin-bottom:8px}.note p:last-child{margin-bottom:0}
+.insight{border-top:4px solid var(--teal);background:var(--panel);border-radius:0 0 10px 10px;padding:24px 26px;margin:28px 0}
+.ik{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--teal);text-transform:uppercase}
+.insight h4{font-family:"Noto Serif JP",serif;font-weight:700;font-size:18px;margin:6px 0 10px;color:var(--ink)}
+.insight p{font-size:14.5px;color:var(--ink-soft);margin:0;line-height:1.85}
+ul.limit{list-style:none;margin:24px 0}
+ul.limit li{padding:12px 0 12px 34px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8;font-size:14.5px;color:var(--ink-soft)}
+ul.limit li::before{content:"!";position:absolute;left:0;top:14px;width:22px;height:22px;border-radius:50%;background:var(--sand-wash);color:var(--sand);font-weight:700;font-size:13px;text-align:center;line-height:22px}
+ul.limit li b{color:var(--ink)}
+.pc-link{display:inline-block;padding:10px 22px;border:1.5px solid var(--teal);border-radius:999px;font-size:13.5px;font-weight:500;color:var(--teal-deep);transition:.18s;margin:6px 6px 6px 0}
+.pc-link:hover{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+footer{padding:48px 0;background:var(--paper-2);border-top:1px solid var(--line);text-align:center;font-size:13px;color:var(--ink-faint);line-height:1.8}
+/* Step cards */
+.step-card{background:var(--panel);border-radius:10px;padding:20px 22px;margin:14px 0;border-left:4px solid var(--teal)}
+.step-card .sn{font-family:"Noto Serif JP",serif;font-weight:800;font-size:14px;color:var(--teal);margin-bottom:4px}
+.step-card h4{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;margin-bottom:6px}
+.step-card p{font-size:14px;color:var(--ink-soft);margin:0;line-height:1.8}
+@media(max-width:680px){
+section{padding:46px 0}
+.stat-grid{grid-template-columns:repeat(2,1fr)}
+.dom-grid{grid-template-columns:1fr 1fr}
+.nav-inner{padding:11px 18px}.brand{display:none}
+.bar-row{grid-template-columns:110px 1fr 50px}
+.bl{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Solo Coach<b>・</b>生存戦略</span>
+    <div class="nav-links">
+      <a href="#reality">現実</a>
+      <a href="#rivals">競合</a>
+      <a href="#eaten">AIの領域</a>
+      <a href="#survive">生存条件</a>
+      <a href="#revenue">収益設計</a>
+      <a href="#future">市場予測</a>
+      <a href="#actions">行動計画</a>
+    </div>
+  </div>
+</nav>
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Industry Analysis ／ 業界分析</span>
+    <h1 class="title">個人コーチ<span class="ac">生存戦略</span>──<br>AI・プラットフォーム・<br>12万人の競合を前に、<br>一人でどう勝つか。</h1>
+    <p class="lede">世界のコーチは12万3千人。市場は53億ドル。だが60%のコーチが1年以内に廃業する──スキルがないからではなく、ビジネスモデルが壊れているからだ。AIが月額10ドルでコーチングを提供する世界で、個人のコーチはどう稼ぎ、成長し、生き残るか。</p>
+    <div class="src-tag">
+      主要ソース：2025 ICF Global Coaching Study (PwC) / The Coach's CMO "State of AI in Coaching 2026"<br>
+      Robin Waite "Coaching Industry Trends 2026" / Coachilly "Getting Coaching Clients 2026" / Luisa Zhou Coaching Statistics 2026
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">122,974</div><div class="l">世界のコーチ数（2025 ICF）</div></div>
+      <div class="stat"><div class="n">$49K</div><div class="l">コーチの平均年収（世界）</div></div>
+      <div class="stat"><div class="n">60<small>%</small></div><div class="l">1年以内に廃業するコーチ</div></div>
+      <div class="stat"><div class="n">$234</div><div class="l">北米の平均セッション単価/時</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- Section 01 -->
+<section id="reality">
+  <div class="wrap">
+    <span class="sec-no">01 ── 冷たい数字</span>
+    <h2>個人コーチの経済的リアル</h2>
+    <p class="sec-sub">The uncomfortable truth</p>
+    <p>2025年のICFグローバルコーチング調査（PwC実施、127カ国10,035人回答）は、業界の表と裏を同時に映し出した。表：市場規模53.4億ドル、前回比ほぼ倍増、コーチの59%が来年の収入増を見込んでいる。裏：コーチの世界平均年収は49,283ドル（約740万円）、週平均11.6時間のコーチングを提供し、アクティブクライアントは平均12.4人。</p>
+    <p>この「平均」の中身を分解すると、景色が変わる。米国のコーチは平均71,719ドル（約1,070万円）を稼ぐが、西欧は51,100ドル、アジアは33,600ドル、東欧は19,100ドルだ。そして収入を最も強く予測する変数は、手法でも資格でもなく、<mark class="c">経験年数</mark>だ。経験1年未満のエグゼクティブコーチは時給120ドル、10年以上は330ドル以上。同じ「コーチ」という職業の中に、3倍近い価格差がある。</p>
+    <p>Robin Waite（英国のビジネスコーチ、2,500人以上のコーチを支援）は、この業界で最も語られない統計をこう指摘する。約60%のコーチが最初の1年以内に廃業する。理由はコーチングの技術がないからではない。<mark>価格設定とポジショニングの問題だ</mark>──つまりビジネスモデルが壊れているのだ。60ポンド（約12,000円）のセッション単価で6人のクライアントを抱えるコーチは、月収360ポンド（約7万円）。口コミが効き始める前に資金が尽きる。</p>
+    <div class="chart-card">
+      <div class="ct">コーチの年収分布（地域別）</div>
+      <div class="cs">出典：2025 ICF Global Coaching Study / 2020 ICF Regional Data</div>
+      <div id="chart1"></div>
+      <div class="leg"><span><i style="background:var(--teal)"></i>年収（USD）</span><span><i style="background:var(--teal-deep)"></i>最高水準</span></div>
+    </div>
+    <p>もう一つ重要な数字がある。53.4億ドルの市場を12万3千人で割ると、コーチ一人あたり平均43,425ドル。だが実際の分配は均等ではない。上位の一部がプレミアム料金で市場の大半を獲得し、下位の多数が低価格帯で共食いしている。Robin Waiteの表現を借りれば、「市場成長＝コーチあたりの収入増ではない。低価格帯では供給が需要より速く増えている。」</p>
+  </div>
+</section>
+
+<!-- Section 02 -->
+<section id="rivals">
+  <div class="wrap">
+    <span class="sec-no">02 ── 三方向からの競合</span>
+    <h2>あなたを脅かすのは誰か</h2>
+    <p class="sec-sub">Three fronts of competition</p>
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dn">AIコーチング</div>
+        <div class="de">AI PLATFORMS</div>
+        <div class="dq">月額$10〜60で24時間対応。Valence（Nadia）、BetterUp Grow、Rocky.ai。2025年のValenceのシリーズBは$50M。AIキャリアコーチング市場は年22.3%成長。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">法人プラットフォーム</div>
+        <div class="de">ENTERPRISE PLATFORMS</div>
+        <div class="dq">BetterUp（5,000人のコーチネットワーク）、CoachHub（80言語）、Ezra。年間$3,000〜15,000/人。企業予算を丸ごと獲得。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">他の個人コーチ</div>
+        <div class="de">OTHER SOLO COACHES</div>
+        <div class="dq">6年間で54%増の12万3千人。北米だけで34,200人。72%が女性。54%がエグゼクティブ/リーダーシップ。ジェネラリストは埋没。</div>
+      </div>
+    </div>
+    <p>3つの競合は、それぞれ異なる角度から個人コーチの領域を侵食している。AIプラットフォームは「底辺」──月額$10のRocky.aiから$60のRiselyまで、日常的なコーチング機能を桁違いの低コストで提供する。法人プラットフォームは「天井」──BetterUpやCoachHubが企業のL&D予算を年間契約で獲得し、個人コーチが法人案件にアクセスする経路を狭める。そして他の個人コーチは「横」──同じ価格帯と同じポジショニングで、差別化できないまま競い合う。</p>
+    <p>最も深刻なのは、この3つが同時進行していることだ。The Coach's CMOの分析によれば、<mark>AIに飽和した市場で代替不可能になるコーチは、AIを避けるコーチではなく、独自の視点をAIで拡張するコーチだ</mark>。</p>
+    <div class="note sand">
+      <p><span class="h">価格のスペクトラム</span></p>
+      <p>ChatGPT/Claudeでのセルフコーチング：月額$0〜20。AIコーチング専用プラットフォーム（Rocky.ai）：$10〜13/月。AIコーチング企業版（Risely）：$59/月。ハイブリッド（CoachHub、BetterUp）：年$1,000〜5,000/人。人間の個人コーチ：年$3,000〜15,000。あなたのサービスが「月額$20のAIとどう違うか」を説明できない場合、価格競争に巻き込まれる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 03 -->
+<section id="eaten">
+  <div class="wrap">
+    <span class="sec-no">03 ── 浸食と聖域</span>
+    <h2>AIが食べる領域と、食べられない領域</h2>
+    <p class="sec-sub">What AI commoditizes — and what it can't</p>
+    <p>The Conference Board（2025年）の調査結果を起点にする。AIは日常的なコーチング機能の90%を代替できる。だが残り10%──感情的に複雑な場面、政治的判断、価値観の葛藤──は人間のコーチにしか対処できない。この10%が、あなたの商品だ。</p>
+    <h3>AIがすでに商品化した領域</h3>
+    <ul class="clean">
+      <li><b>構造化された目標設定対話</b>　GROWモデルに沿った質問はAIの得意分野。利用者の96%がカスタマイズされていると評価。</li>
+      <li><b>ロールプレイとシミュレーション</b>　難しい会話の練習、フィードバック練習。Exec.comやHoneが大規模に展開。</li>
+      <li><b>セッション間のフォローアップ</b>　ナッジ、リマインダー、進捗チェック。AIの24時間対応に人間は勝てない。</li>
+      <li><b>汎用的なインスピレーション/モチベーション</b>　コンテンツ生成AIがこの領域を溢れさせた。没個性な励ましに課金する人は減っている。</li>
+    </ul>
+    <h3>人間のコーチにしかできない領域</h3>
+    <ul class="clean">
+      <li><b>ハイステークスの意思決定伴走</b>　取締役会の判断、経営幹部の退任、キャリアの根本的な転換。結果の責任をAIは負えない。</li>
+      <li><b>組織政治のナビゲーション</b>　言外の意味、力関係の読み解き、「本当は何が起きているか」の共同解釈。</li>
+      <li><b>アイデンティティの変容</b>　制限的信念（limiting beliefs）への対峙、価値観の再編、人生のフェーズ転換。信頼関係なしでは到達できない深度。</li>
+      <li><b>情動的共感と「居る」こと</b>　解決を急がず、感情的な困難のなかにただ共に座る。テキストベースのAIには届かない。</li>
+    </ul>
+    <div class="pull">
+      <p>AIがルーティンのコーチングを処理する世界で、人間のコーチがプレミアムになる。逆説だが、AIが賢くなるほど、人間のコーチの希少価値は上がる。</p>
+    </div>
+    <p>個人コーチがとるべき戦略の骨子は、ここから導かれる。<mark>AIが食べる領域で競わない。AIが届かない領域に専門化する。そしてAIが食べる領域を「自分のビジネスの裏方」として使い倒す。</mark></p>
+  </div>
+</section>
+
+<!-- Section 04 -->
+<section id="survive">
+  <div class="wrap">
+    <span class="sec-no">04 ── 生存条件</span>
+    <h2>死なないコーチの5つの条件</h2>
+    <p class="sec-sub">What thriving coaches do differently</p>
+    <p>データと複数のレポートを横断して、生き残っている（そして成長している）コーチに共通する条件を5つ抽出した。</p>
+
+    <h3>1. ニッチを絞る──「誰の何を解決するか」を一文で言える</h3>
+    <p>Market Research Future（2024）によれば、ニッチに特化したコーチはジェネラリストより30%速く成長する。ICFの2025年調査でも、経験10年以上のコーチの80%がビジネスコーチングに特化しており、ベビーブーマー世代の87%が明確な専門領域を持っている。「ライフコーチ」「ビジネスコーチ」という汎用ラベルでは、12万人の中に埋没する。「SaaS企業のミドルマネージャーが、初めてのピープルマネジメントで成果を出すための意思決定コーチ」──この粒度が必要だ。</p>
+
+    <h3>2. 成果で価格をつける──時間を売るのをやめる</h3>
+    <p>Robin Waiteは2026年のコーチング業界で最も本質的なトレンドを「プロダクト化」と呼ぶ。成果定義のある期間限定プログラム、固定料金、達成指標つき。「60分×月2回」ではなく「6か月で目標Xを達成するプログラム」。セッション時間を売っている限り、AIの月額$10と比較される。成果を売れば、比較対象が変わる。</p>
+
+    <h3>3. 証拠を積み上げる──「効いた」を見える形にする</h3>
+    <p>ICFの2022年調査によれば、クライアントの85%がコーチの資格を期待している。だが2026年にはそれはもう入場券であって差別化にならない。差をつけるのは<mark>成果の証拠</mark>だ。360度フィードバックの変化、クライアントの行動変容記録、具体的なROI事例。73%のクライアント・組織がコーチに認定資格を期待する時代は、逆に言えば全員が資格を持っている時代だ。</p>
+
+    <h3>4. AIリテラシーを見せる──ツールではなくシグナルとして</h3>
+    <p>The Coach's CMOの分析で最も指摘が鋭かったのはこの点だ。クライアント（特にビジネスコーチングの領域）はすでにAIを日常的に使っている。コーチに同等以上のリテラシーを期待する。AIを使いこなすコーチは高い料金を設定でき、より洗練されたクライアントを引きつける。逆にAIに無関心なコーチは、「時代遅れ」のシグナルを送っている。</p>
+
+    <h3>5. 一つのチャネルに集中する──散らかさない</h3>
+    <p>成功しているコーチは最も多くのツールを使っているのではなく、正しいツールを一貫して使っている。コーチの集客チャネルとして有効なのは、自分のウェブサイトのブログ（SEO/GEO）、LinkedIn（ビジネス系ニッチ）、ポッドキャストへのゲスト出演の3つだ。62%がソーシャルメディア、55%がLinkedIn、58%がウェビナーからリードを獲得している（Thinkific, 2024）。全部をやる必要はない。1つを選び、毎週現れ、同じメッセージを異なる切り口で伝え続ける。</p>
+
+    <div class="insight">
+      <span class="ik">Insight</span>
+      <h4>60%が脱落する理由はスキル不足ではなく、ビジネスの設計ミス</h4>
+      <p>コーチングの技術は持っている。セッションではクライアントに変化を起こせる。だが価格設計、ニッチ設定、集客の仕組み──ビジネスとしての骨格がないまま始めるから1年で資金が尽きる。コーチングの腕前を磨く前に、ビジネスモデルを組み立てる。この順序を間違えると、90%の確率で生き残れない。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 05 -->
+<section id="revenue">
+  <div class="wrap">
+    <span class="sec-no">05 ── 収益の設計図</span>
+    <h2>時間を売るのをやめた先にある収益モデル</h2>
+    <p class="sec-sub">Beyond the hourly session</p>
+    <p>ICFの2025年調査は、ある重要な変化を記録している。<mark>93%のコーチがすでにコーチング以外のサービスも提供している</mark>。内訳は、トレーニング60%、コンサルティング57%、ファシリテーション55%、メンタリング49%。1対1のセッションだけで食べているコーチは、もはや少数派だ。</p>
+
+    <h3>収入帯別の特徴</h3>
+    <ul class="clean">
+      <li><b>〜$50K/年</b>　参入層。ニッチが広すぎるか、時間単位の安い価格設定。クライアント数は少ない。集客に苦戦。コーチの約半数がこの層にいる。</li>
+      <li><b>$50K〜$100K/年</b>　ICFによるとこれが米国の平均的な水準。一つの明確なオファー、一つの明確なニッチ、そして続けるに足る長さのマーケティング戦略を持つ。週11.6時間のコーチング、クライアント12.4人。</li>
+      <li><b>$100K〜$250K/年</b>　ニッチの精錬と再現可能なセールスプロセスが共通項。月数人のクライアントを獲得し、高い割合で更新。グループプログラムやコースも提供。</li>
+      <li><b>$250K以上/年</b>　強いポジショニング、システム化、長期のクライアント関係。ここに到達するコーチは、「コーチ」というよりも「自分の名前のついた事業」を運営している。</li>
+    </ul>
+
+    <h3>マルチフォーマット化の具体的な形</h3>
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dn">1対1プレミアム</div>
+        <div class="de">PREMIUM 1:1</div>
+        <div class="dq">最高単価。6か月の成果定義型プログラム。月2〜3回セッション＋非同期サポート。年$5,000〜$15,000/人。クライアント上限10〜15人。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">グループ/コホート</div>
+        <div class="de">GROUP PROGRAM</div>
+        <div class="dq">時間単価を引き上げる。5〜15人のコホートに同じ枠組みを提供。月$200〜$1,000/人。ピアラーニングの付加価値。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">デジタルプロダクト</div>
+        <div class="de">COURSES & TEMPLATES</div>
+        <div class="dq">非同期。コース、ワークシート、アセスメント。一度作れば繰り返し売れる。1対1の入口にもなる。$100〜$2,000。</div>
+      </div>
+    </div>
+    <p>ポイントは、これら3つを「松竹梅」のように階層化することだ。デジタルプロダクトで認知を広げ（低価格・大量）、グループプログラムで関係を深め（中価格・中量）、1対1プレミアムで最大の価値を届ける（高価格・少量）。AIが処理できるのは最初の層だけだ。2層目、3層目は人間のコーチの独壇場になる。</p>
+  </div>
+</section>
+
+<!-- Section 06 -->
+<section id="future">
+  <div class="wrap">
+    <span class="sec-no">06 ── 市場予測</span>
+    <h2>この先5年で何が起きるか</h2>
+    <p class="sec-sub">Where the market is heading</p>
+
+    <p>データから読み取れる市場の方向性を、3つの時間軸で整理する。</p>
+
+    <h3>今〜12か月（2026年後半）</h3>
+    <p>ハイブリッドモデル（AI＋人間）が企業バイヤーのデフォルトになる。AIオンリーのValenceが$50MのシリーズBで証明したように、AIだけでもスケールできるが、複雑な場面では人間が必要──この棲み分けが実務上の合意になりつつある。個人コーチにとっては、法人案件の取り方が変わる時期だ。プラットフォーム経由（BetterUpやCoachHubのネットワーク）が主流になり、個人で法人に直接売ることが難しくなる。</p>
+
+    <h3>1〜3年後（2027〜2028年）</h3>
+    <p>AIがコーチングプラットフォームの標準インフラになる。「AIがあるかないか」ではなく「AIの質と倫理性」が差別化要因になる。GEO（Generative Engine Optimization）とAEO（AI Engine Optimization）がコーチの集客に影響を及ぼし始める。Google AI OverviewsがSERPの25%に表示される2026年現在、オーガニック検索のCTRは58%低下している。コーチの発見経路が「検索→AI推薦」にシフトする。</p>
+
+    <h3>3〜5年後（2029〜2031年）</h3>
+    <p>The Coach's CMOの予測。「AIがビジネスの管理的・コンテンツ的な要素を自動化するにつれ、<mark>判断力、独自の視点、真に差別化されたクライアント関係に投資するコーチの価値は劇的に高まる──減るのではなく</mark>。機械が量を処理する。人間のコーチはプレミアムになる。」</p>
+
+    <div class="chart-card">
+      <div class="ct">世界コーチング市場規模の推移と予測</div>
+      <div class="cs">出典：ICF Global Coaching Study 2019〜2025 / Luisa Zhou 2032予測</div>
+      <div id="chart2"></div>
+      <div class="leg"><span><i style="background:var(--teal)"></i>市場規模（$B）</span><span><i style="background:var(--teal-deep)"></i>予測値</span></div>
+    </div>
+
+    <div class="note">
+      <p><span class="h">Born-in-AI型コーチの台頭</span></p>
+      <p>2023年以降に開業し、最初からAIを業務の基盤に組み込んだ「Born-in-AI」型のコーチングプラクティスは、レガシー型（後からAIを追加）に比べて100〜200%高い生産性を実現している（The Coach's CMO, 2026）。個人コーチにとってこれは朗報だ──ソロプラクティスの構造は、Born-in-AI型スタートアップと本質的に同じだからだ。今からAIを前提に事業を設計する個人コーチは、大組織の後付けAI導入よりも速く動ける。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 07 -->
+<section id="actions">
+  <div class="wrap">
+    <span class="sec-no">07 ── 行動計画</span>
+    <h2>一人のコーチが今すぐとるべき10の手順</h2>
+    <p class="sec-sub">Your action plan</p>
+    <p>ここまでの調査で明らかになった知見を、具体的なアクションに翻訳する。順序は意図的に設計してある──1〜3は戦略基盤、4〜6はAI活用、7〜10は成長エンジンだ。</p>
+
+    <div class="step-card"><div class="sn">Step 01</div><h4>ニッチを一文で定義する</h4><p>「誰の、どんな痛みを、どう解決するか」を30秒で説明できる粒度に。ジェネラリストとして始めない。始めるなら、最初から尖る。</p></div>
+    <div class="step-card"><div class="sn">Step 02</div><h4>成果定義型の固定料金プログラムを設計する</h4><p>「60分×月2回」ではなく「3か月で○○を達成するプログラム」。時間ではなく成果に値段をつける。AIとの比較対象から外れる。</p></div>
+    <div class="step-card"><div class="sn">Step 03</div><h4>信頼の資産を3つ作る</h4><p>クライアントの成果事例（匿名可）、自分の専門性を示すコンテンツ（ブログ3本で十分）、認定資格。ディスカバリーコールの前に信頼が成立する状態をつくる。</p></div>
+    <div class="step-card"><div class="sn">Step 04</div><h4>セッション記録をAIで自動化する</h4><p>Notta、Otter、Firefliesなどの文字起こしAI。1時間の面談を「決定事項・宿題・保留論点」に圧縮。あなたの時間で最も無駄な作業を消す。</p></div>
+    <div class="step-card"><div class="sn">Step 05</div><h4>AIで質問の壁打ちをする</h4><p>クライアントの状況を入力し「深掘りする質問を10個」と依頼する。盲点に気づける。ただし出てきた質問をそのまま使うのは禁物──投げるタイミングと言い回しは人間が判断する。</p></div>
+    <div class="step-card"><div class="sn">Step 06</div><h4>コンテンツ制作にAIを使うが、ポジショニングには使わない</h4><p>ブログの下書き、ニュースレター、ワークシートのドラフトはAI。だがポジショニング、視点、クライアント哲学は100%自分の頭で考える。AIが生成したものは全部同じに見える。あなたの声は生成できない。</p></div>
+    <div class="step-card"><div class="sn">Step 07</div><h4>1つのトラフィックチャネルを選び、毎週現れる</h4><p>LinkedIn（ビジネス系ニッチ）、ブログ（SEO/GEO）、ポッドキャスト（認知拡大）。3つ同時にやらない。1つに集中し、12週間続ける。数字を追い、何が効くか学ぶ。</p></div>
+    <div class="step-card"><div class="sn">Step 08</div><h4>3層の収益構造を設計する</h4><p>デジタルプロダクト（広い入口）→ グループプログラム（中間）→ 1対1プレミアム（頂点）。松竹梅をAI時代の文脈で組む。</p></div>
+    <div class="step-card"><div class="sn">Step 09</div><h4>成果を測定し、可視化する</h4><p>コーチング前後の自己効力感スケール、360度フィードバックの変化、目標達成率。「効いた」を数字で示せるコーチは、業界平均の3倍の説得力を持つ。</p></div>
+    <div class="step-card"><div class="sn">Step 10</div><h4>AIで買い戻した時間を、関係深化に再投資する</h4><p>AIが月10〜20時間を解放する。その時間をコンテンツ量産に回すか、クライアントとの関係深化に回すかで、3年後の立ち位置が決まる。量はAIに、質は自分に。</p></div>
+
+    <div class="pull">
+      <p>ポジショニングが不明確で、ニッチが広すぎて、顧客獲得が紹介頼みなら、AIはそれらの問題を解決しない。増幅するだけだ。戦略の明確化がAI導入に先行しなければ、レバレッジは効かない。──Scott Danish, The Coach's CMO</p>
+    </div>
+
+    <p>稼げるか。成長できるか。生き残れるか。答えは「条件つきのイエス」だ。市場は成長している。だが低価格帯の競争は激化し、AIが日常的なコーチング機能を飲み込み、参入するコーチは増え続ける。生き残るのは、最も多くのツールを持つコーチでも、最も多くの資格を持つコーチでもない。<mark>誰に・何を・なぜ──この3つに最も明確に答えられるコーチだ</mark>。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    個人コーチ生存戦略──AI・プラットフォーム・12万人の競合を前に、一人でどう勝つか<br>
+    主要ソース：2025 ICF Global Coaching Study / The Coach's CMO (2026) / Robin Waite / Coachilly / Luisa Zhou<br>
+    <br>
+    <a class="pc-link" href="https://coachingfederation.org/resources/research/global-coaching-study/" target="_blank" rel="noopener">2025 ICF Global Coaching Study</a>
+    <a class="pc-link" href="https://www.thecoachscmo.com/state-of-ai-coaching-2026" target="_blank" rel="noopener">State of AI in Coaching 2026</a>
+    <a class="pc-link" href="https://www.robinwaite.com/blog/coaching-industry-trends" target="_blank" rel="noopener">Coaching Industry Trends 2026</a>
+    <a class="pc-link" href="https://coachilly.com/getting-coaching-clients-in-2026/" target="_blank" rel="noopener">Getting Coaching Clients 2026</a>
+    <a class="pc-link" href="https://tandemcoach.co/coaching-industry-statistics/" target="_blank" rel="noopener">Coaching Industry Statistics 2026</a>
+    <a class="pc-link" href="https://luisazhou.com/blog/coaching-industry-market-size/" target="_blank" rel="noopener">Coaching Industry Market Size</a>
+  </div>
+</footer>
+
+<script>
+const bar=document.getElementById('progress');
+document.addEventListener('scroll',()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';},{passive:true});
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>{const on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+// Chart 1 - Income by region
+const d1=[["北米（US）",71719],["オセアニア",61100],["西欧",51100],["世界平均",49283],["中東・アフリカ",34900],["アジア",33600],["中南米",20900],["東欧",19100]];
+const c1=document.getElementById('chart1');
+c1.innerHTML=d1.map(([n,v])=>{const w=Math.max(2,(v/75000)*100);const hi=n.includes("US")?" hi":"";return'<div class="bar-row'+hi+'"><div class="bl">'+n+'</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="'+w+'"></div></div><div class="bv">$'+Math.round(v/1000)+'K</div></div>';}).join('');
+
+// Chart 2 - Market size timeline
+const d2=[["2019年",2.85],["2022年",4.56],["2025年（実績）",5.34],["2026年（予測）",5.8],["2030年（予測）",8.04],["2032年（予測）",9.5]];
+const c2=document.getElementById('chart2');
+c2.innerHTML=d2.map(([n,v])=>{const w=Math.max(2,(v/10)*100);const hi=n.includes("予測")?" hi":"";return'<div class="bar-row'+hi+'"><div class="bl">'+n+'</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="'+w+'"></div></div><div class="bv">$'+v.toFixed(1)+'B</div></div>';}).join('');
+
+const animate=el=>{el.querySelectorAll('[data-w]').forEach(f=>{requestAnimationFrame(()=>{f.style.width=f.dataset.w+'%';});});};
+const ao=new IntersectionObserver((es,obs)=>{es.forEach(e=>{if(e.isIntersecting){animate(e.target);obs.unobserve(e.target);}});},{threshold:.25});
+document.querySelectorAll('.chart-card').forEach(el=>ao.observe(el));
+</script>
+</body>
+</html>

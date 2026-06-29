@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI時代のコーチング──人間にしかできないこと、AIに任せるべきこと</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #fbfcfb;
+  --paper-2: #f4f7f5;
+  --panel: #f4f7f5;
+  --ink: #2b3a3e;
+  --ink-soft: #46585c;
+  --ink-faint: #74827f;
+  --teal-deep: #4f7c87;
+  --teal: #62B8A0;
+  --teal-wash: #eef6f3;
+  --coral: #eb6584;
+  --coral-wash: #fdeef1;
+  --sand: #B98B2E;
+  --sand-wash: #F5EBD3;
+  --line: #e3e8e4;
+  --line-soft: #eef1ef;
+  --shadow: 0 1px 2px rgba(39,53,54,.04), 0 10px 34px -18px rgba(39,53,54,.22);
+  --maxw: 760px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans JP",sans-serif;font-size:15.6px;line-height:1.95;letter-spacing:.01em;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+a{color:var(--teal-deep);text-decoration:none}
+a:hover{color:var(--coral)}
+img{max-width:100%}
+
+/* Progress */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(251,252,251,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}
+.brand b{color:var(--coral)}
+.nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.nav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+.nav-links a:hover,.nav-links a.on{color:var(--teal-deep);background:var(--teal-wash)}
+
+/* Hero */
+.hero{padding:80px 0 56px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral);display:block;margin-bottom:16px}
+h1.title{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(28px,5vw,40px);line-height:1.35;margin-bottom:20px;color:var(--ink)}
+h1.title .ac{color:var(--teal-deep)}
+.lede{font-size:16.5px;line-height:2;color:var(--ink-soft);margin-bottom:24px;max-width:640px}
+.src-tag{font-size:13px;color:var(--ink-faint);line-height:1.7;border-left:3px solid var(--teal);padding-left:14px;margin-bottom:32px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.stat{background:var(--panel);border-radius:10px;padding:18px 16px;text-align:center}
+.stat .n{font-family:"Noto Serif JP",serif;font-weight:800;font-size:28px;color:var(--teal-deep);line-height:1.2}
+.stat .n small{font-size:14px;font-weight:600}
+.stat .l{font-size:12.5px;color:var(--ink-faint);margin-top:6px;line-height:1.5}
+
+/* Sections */
+section{padding:60px 0;border-top:1px solid var(--line-soft)}
+.sec-no{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral)}
+h2{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(24px,4.1vw,32px);line-height:1.42;margin:8px 0 8px}
+.sec-sub{font-size:14.5px;color:var(--ink-faint);font-weight:500;margin:0 0 28px}
+h3{font-family:"Noto Serif JP",serif;font-weight:700;font-size:19px;line-height:1.6;margin:36px 0 12px;color:var(--teal-deep)}
+p{margin-bottom:18px}
+p+p{margin-top:0}
+
+/* Components */
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(217,84,107,.28) 58%)}
+ul.clean{list-style:none;margin:24px 0}
+ul.clean li{padding:12px 0 12px 22px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8}
+ul.clean li::before{content:"";position:absolute;left:0;top:20px;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+ul.clean li b{color:var(--teal-deep)}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+.dom{background:var(--panel);border-radius:10px;padding:20px 18px}
+.dom .dn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:2px}
+.dom .de{font-size:11.5px;font-weight:500;color:var(--teal-deep);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.dom .dq{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+
+.chart-card{background:var(--panel);border-radius:12px;padding:28px 24px;margin:28px 0;box-shadow:var(--shadow)}
+.ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;margin-bottom:4px}
+.cs{font-size:12.5px;color:var(--ink-faint);margin-bottom:18px}
+.bar-row{display:grid;grid-template-columns:140px 1fr 52px;align-items:center;gap:10px;padding:7px 0}
+.bar-row.hi .bl{color:var(--teal-deep);font-weight:700}
+.bar-row.hi .bar-fill{background:var(--teal-deep)!important}
+.bl{font-size:13px;color:var(--ink-soft);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{height:22px;background:var(--line-soft);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:var(--teal);border-radius:6px;transition:width .8s ease}
+.bv{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:700;color:var(--ink)}
+.leg{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--ink-faint)}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+
+.pull{border-left:4px solid var(--coral);background:var(--coral-wash);border-radius:0 10px 10px 0;padding:22px 26px;margin:28px 0}
+.pull p{font-family:"Noto Serif JP",serif;font-size:17.5px;line-height:1.85;color:var(--ink);margin:0}
+
+.note{background:var(--teal-wash);border-radius:10px;padding:20px 24px;margin:28px 0;font-size:14.5px;line-height:1.85}
+.note .h{font-weight:700;color:var(--teal-deep);display:block;margin-bottom:4px}
+.note.sand{background:var(--sand-wash)}
+.note.sand .h{color:var(--sand)}
+.note p{margin-bottom:8px}
+.note p:last-child{margin-bottom:0}
+
+.insight{border-top:4px solid var(--teal);background:var(--panel);border-radius:0 0 10px 10px;padding:24px 26px;margin:28px 0}
+.ik{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--teal);text-transform:uppercase}
+.insight h4{font-family:"Noto Serif JP",serif;font-weight:700;font-size:18px;margin:6px 0 10px;color:var(--ink)}
+.insight p{font-size:14.5px;color:var(--ink-soft);margin:0;line-height:1.85}
+
+ul.limit{list-style:none;margin:24px 0}
+ul.limit li{padding:12px 0 12px 34px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8;font-size:14.5px;color:var(--ink-soft)}
+ul.limit li::before{content:"!";position:absolute;left:0;top:14px;width:22px;height:22px;border-radius:50%;background:var(--sand-wash);color:var(--sand);font-weight:700;font-size:13px;text-align:center;line-height:22px}
+ul.limit li b{color:var(--ink)}
+
+.pc-link{display:inline-block;padding:10px 22px;border:1.5px solid var(--teal);border-radius:999px;font-size:13.5px;font-weight:500;color:var(--teal-deep);transition:.18s;margin:6px 6px 6px 0}
+.pc-link:hover{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+
+footer{padding:48px 0;background:var(--paper-2);border-top:1px solid var(--line);text-align:center;font-size:13px;color:var(--ink-faint);line-height:1.8}
+
+/* Tier table */
+.tier-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13.5px}
+.tier-table th{font-family:"Noto Serif JP",serif;font-weight:700;color:var(--teal-deep);text-align:left;padding:12px 14px;border-bottom:2px solid var(--teal);font-size:13px}
+.tier-table td{padding:12px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top;line-height:1.7;color:var(--ink-soft)}
+.tier-table tr:last-child td{border-bottom:none}
+.tier-table .tl{font-weight:700;color:var(--ink);white-space:nowrap}
+
+@media(max-width:680px){
+  section{padding:46px 0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{padding:11px 18px}
+  .brand{display:none}
+  .bar-row{grid-template-columns:100px 1fr 44px}
+  .bl{font-size:12px}
+  .tier-table{font-size:12px}
+  .tier-table th,.tier-table td{padding:10px 8px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="brand">AI × Coaching<b>・</b>共存の設計</span>
+    <div class="nav-links">
+      <a href="#market">市場</a>
+      <a href="#ninety">90%と10%</a>
+      <a href="#tiers">3層モデル</a>
+      <a href="#human">人間だけの領域</a>
+      <a href="#cases">事例</a>
+      <a href="#backstage">武器としてのAI</a>
+      <a href="#positioning">売り出し方</a>
+      <a href="#coexist">共存の設計</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Industry Analysis ／ 業界分析</span>
+    <h1 class="title">AI時代のコーチング──<br><span class="ac">人間にしかできないこと</span>、<br>AIに任せるべきこと。</h1>
+    <p class="lede">AIが日常的なコーチング機能の90%を代替できる──2025年、The Conference Boardの調査がそう結論づけた。だが残り10%にこそ、コーチの存在意義が凝縮されている。58億ドルに達した世界コーチング市場で、人間のコーチはどう戦い、どう共存し、どうサービスを届けるべきか。</p>
+    <div class="src-tag">
+      主要ソース：The Coach's CMO "State of AI in Coaching 2026" / The Conference Board AI Coaching Research (2025)<br>
+      Barger (2025) Frontiers in Psychology / Bachkirova &amp; Kemp (2025) / ICF AI Coaching Framework &amp; Standards
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">$5.8<small>B</small></div><div class="l">2026年の世界コーチング市場規模</div></div>
+      <div class="stat"><div class="n">90<small>%</small></div><div class="l">AIが代替可能な日常的コーチング機能</div></div>
+      <div class="stat"><div class="n">5.7<small>x</small></div><div class="l">エグゼクティブコーチングの投資対効果</div></div>
+      <div class="stat"><div class="n">75<small>%</small></div><div class="l">AIコパイロットを常用するハイパフォーマンスコーチ</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- Section 01 -->
+<section id="market">
+  <div class="wrap">
+    <span class="sec-no">01 ── 転換点</span>
+    <h2>58億ドル市場で何が起きているのか</h2>
+    <p class="sec-sub">The Inflection Point</p>
+
+    <p>2026年4月、コーチング業界に特化したマーケティングファーム The Coach's CMO が公開した年次レポートは、業界関係者を驚かせた。世界のコーチング市場は58億ドル（約9,000億円）に達し、2032年には95億ドルへ拡大する見通しだという。なかでもAI特化型のコーチングセグメントは、従来型の2〜3倍の速度で成長している。年間成長率22〜28%。これは、テクノロジー業界の伸びに匹敵する数字だ。</p>
+
+    <p>BetterUpが500万件以上のセッションデータでAIモデルを訓練し、Valenceが5,000万ドルのシリーズBを調達してFortune 500企業にAI音声コーチを提供し、CoachHubが80以上の言語で24時間対応のAIコーチ「AIMY」を展開する。日本でもZaPASSがAIコーチングの無料プランを提供し、NTTエクセスパートナーやビジネスコンサルタントが法人向けAIコーチングサービスを次々と立ち上げている。</p>
+
+    <p>だが、このレポートが最も鋭く指摘したのは、数字ではなかった。<mark>コーチング業界は、AIがもたらす商業的機会と、人間の代替不可能性という本質的価値のあいだで、本物の緊張状態にある</mark>──これが報告書の核心だった。ほとんどのコーチはすでにAIを使っている。しかし、ほとんどのコーチは、もっとも効果の低い使い方しかしていない。</p>
+
+    <div class="chart-card">
+      <div class="ct">コーチング・セグメント別の市場規模と成長率（2026年）</div>
+      <div class="cs">出典：The Coach's CMO State of AI in Coaching 2026 / Business Research Company / Retorio</div>
+      <div id="chart1"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>年間成長率（CAGR）</span>
+        <span><i style="background:var(--teal-deep)"></i>注目セグメント</span>
+      </div>
+    </div>
+
+    <p>この成長はコーチにとって朗報のはずだ。しかし、同時に問いも突きつけている。AIが月額10ドル〜60ドルで24時間コーチングを提供できる世界で、年間3,000ドル〜15,000ドルの人間のコーチングに、誰が何に対してお金を払うのか。</p>
+  </div>
+</section>
+
+<!-- Section 02 -->
+<section id="ninety">
+  <div class="wrap">
+    <span class="sec-no">02 ── 90%と10%</span>
+    <h2>AIにできること、人間にしかできないこと</h2>
+    <p class="sec-sub">What AI can and cannot do</p>
+
+    <p>2025年10月、米国のシンクタンクThe Conference Boardが発表した調査結果は、コーチング業界に衝撃を与えた。AIは日常的なコーチング機能の90%を代替できる──そう結論づけたのだ。</p>
+
+    <p>衝撃的な数字に見えるが、その内訳を読むと風景は変わる。AIが得意なのは、構造化された対話の進行（GROWモデルに沿った質問、目標設定の支援）、オープンクエスチョンによる思考の深掘り、行動計画の策定とフォローアップ、そしてロールプレイによる練習だ。利用者の96%がAIのコーチングは自分の状況に合わせてカスタマイズされていると回答し、89%がセッションから具体的で有用な次のアクションを得られたと答えている。</p>
+
+    <p>では残り10%とは何か。<mark class="c">感情的に複雑な場面、政治的判断を要する場面、そして価値観に関わる議論</mark>だ。</p>
+
+    <p>AIは認知的共感（相手の立場を理論的に理解すること）は模倣できる。最近のメタ分析では、メッセージの出所を隠した場合、AI生成のメッセージが人間のものより共感的と評価されたケースすらある。しかし、相手と共に感情的な困難のなかに「座る」こと──解決を急がず、ただ居ること──この情動的共感（affective empathy）は、テキストベースのAIには到達できない領域として残っている。</p>
+
+    <div class="pull">
+      <p>AIルーティンコーチングを自動化することで、人間のコーチは共感、直観、戦略的な内省に集中できるようになる。──The Conference Board, Amit Mohindra</p>
+    </div>
+
+    <p>ここに逆説がある。AIが90%を代替できるからこそ、残り10%に凝縮された人間の価値は、かえって浮き彫りになる。人間のコーチが勝負すべきフィールドが、これほど明確になった時代はかつてなかった。</p>
+  </div>
+</section>
+
+<!-- Section 03 -->
+<section id="tiers">
+  <div class="wrap">
+    <span class="sec-no">03 ── 3層モデル</span>
+    <h2>AIと人間の「すみ分け」はどう設計するか</h2>
+    <p class="sec-sub">The 3-Tier Coaching Stack</p>
+
+    <p>スタンフォード経営大学院で教鞭を執り、Fortune 100企業で150人以上のリーダーをコーチしてきたEric Nitzberg（Sierra Leadership創業者）は、2026年3月、HR Executiveへの寄稿で「3層コーチングスタック」という明快なフレームワークを提示した。</p>
+
+    <table class="tier-table">
+      <thead>
+        <tr><th>層</th><th>対象</th><th>配信</th><th>用途</th><th>年間コスト/人</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="tl">Tier 1: AIコーチング</td><td>全マネージャー（200〜4,000人）</td><td>24時間・業務フロー内</td><td>日常の判断、フィードバック準備、委任、対立解消</td><td>$200〜500</td></tr>
+        <tr><td class="tl">Tier 2: AI＋人間ハイブリッド</td><td>選抜リーダー（50〜200人）</td><td>AIによる日常支援＋月次の人間コーチ</td><td>リーダーシップ移行、チームダイナミクス、360°フィードバック</td><td>$1,000〜3,000</td></tr>
+        <tr><td class="tl">Tier 3: 人間コーチング</td><td>Cレベル・上級幹部（10〜50人）</td><td>対面 or オンライン 1:1</td><td>ハイステークスな意思決定、価値観の葛藤、アイデンティティ変容</td><td>$3,000〜15,000</td></tr>
+      </tbody>
+    </table>
+
+    <p>このモデルの美点は、AIと人間を「代替」ではなく「補完」として位置づけたことにある。Tier 1は規模の経済を活かし、全従業員に開発機会を届ける。Tier 3は希少性を武器に、人間のコーチにしかできない深い関わりに集中する。Tier 2のハイブリッド層がその橋渡しをする。</p>
+
+    <p>Nitzbergの整理で見落とせないのは、「ハイステークス」「ハイコンプレキシティ」「ハイタッチ」の3条件だ。この3つが重なる場面──たとえば、取締役会での意思決定、経営幹部の退任・異動、組織政治のなかでのポジショニング──では、AIコーチは話し相手にはなれても、信頼に足るパートナーにはなれない。結果の責任をAIは引き受けないからだ。</p>
+
+    <div class="note">
+      <p><span class="h">日本市場での適用</span></p>
+      <p>日本では「AIでセルフリフレクション → 月1で人間コーチ」というハイブリッド設計が急速に広がりつつある。アスピックの2026年調査によると、AIコーチングサービスは「管理職・マネージャーの育成支援型」「日常対話型」「対人コーチング併用型」「人事データ活用型」の4タイプに分化している。株式会社リフレクトはDigital HR Competition 2023グランプリを受賞し、AIと人間の役割を明確に分けた設計思想で注目を集めている。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 04 -->
+<section id="human">
+  <div class="wrap">
+    <span class="sec-no">04 ── 人間だけの領域</span>
+    <h2>AIでは届かない、コーチングの核心</h2>
+    <p class="sec-sub">The Irreducibly Human</p>
+
+    <p>Oxford Brookes大学コーチング心理学教授のTatiana Bachkirovaは、Rob Kempとの共同研究（2025年）で、コーチングに不可欠な6つの特性を特定した。そしてAIはこの6つのいずれも「原理的に」満たせないと論じた。技術が未熟だからではない。これらの特性が、生きた経験と道徳的主体性を前提としているからだ。</p>
+
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dn">共同探究</div>
+        <div class="de">JOINT INQUIRY</div>
+        <div class="dq">答えを知っている側が教えるのではなく、二人で分からないことを一緒に探る。真の好奇心が必要。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">行動志向の意味生成</div>
+        <div class="de">SENSEMAKING</div>
+        <div class="dq">「何が起きているか」を共に解釈し、行動につなげる。パターン認識だけでは足りない。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">価値観に根ざした倫理</div>
+        <div class="de">VALUE-BASED ETHICS</div>
+        <div class="dq">コーチ自身が倫理的主体であること。アルゴリズムに道徳的責任は存在しない。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">文脈への敏感さ</div>
+        <div class="de">CONTEXTUAL SENSITIVITY</div>
+        <div class="dq">組織の政治力学、文化的ニュアンス、言外の意味を読み取る力。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">信頼に基づく関係</div>
+        <div class="de">TRUST-BASED RELATIONSHIP</div>
+        <div class="dq">傷つきやすさを見せ合える関係性。テクノロジー受容とは質的に異なる。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">契約と責任</div>
+        <div class="de">CONTRACTING</div>
+        <div class="dq">相互にコミットし、法的・倫理的な責任を引き受け合う枠組み。</div>
+      </div>
+    </div>
+
+    <p>Bachkirovaの主張は厳しい。AIが提供するのは「洗練された、潜在的に有用な、しかし存在論的に異なるもの」──つまりコーチングの表面構造のシミュレーションであって、本質ではないと言い切った。</p>
+
+    <h3>ワーキングアライアンスの研究から</h3>
+
+    <p>コロンビア大学ティーチャーズカレッジのAmber S. Bargerが2025年にFrontiers in Psychologyに発表したRCT（ランダム化比較試験）は、興味深い結果を出している。被験者を「AIコーチ（実はWizard of Oz方式で人間が操作するアバター）」と「人間のコーチ」にランダムに割り当て、60分のCLEARモデルに基づくセッションを行った。結果、ワーキングアライアンス（作業同盟）のスコアに有意差は見られなかった。</p>
+
+    <p>ただし、これは「AIが人間と同等」を意味しない。被験者がAIと思い込んだ場合でも実際に対応したのは人間のコーチだったからだ。この研究が示したのは、<mark>クライアントが「AIだと信じている相手」ともそれなりのラポールを築けるという事実</mark>──そしてそれが「テクノロジー受容」であって「深い相互的な関係」とは別物かもしれないという問題提起だ。</p>
+
+    <p>一方、Passmore, Olafsson, Tee（2025年）の別の実証研究では、人間のコーチはコミットメント（中央値82.5 vs 50）とポジティブなワーキングアライアンス（中央値89.5 vs 35.25）において、AIコーチを有意に上回った。同じ現象を見ても、研究デザインによって結論が反転する。この領域の知見はまだ若い。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>沈黙の読み方がコーチを定義する</h4>
+      <p>ある日本語の分析記事が的確に表現している。「相手の沈黙の意味、言葉の裏の感情、その場の空気──これらを読んで一拍置く判断は、テキストベースのAIには届かない。コーチングの核心はここにあり、当面は人間の仕事として残る。」問いの素材はAIに出せる。だが「効く問い」を選ぶのは、まだ人間のほうが上手い。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 05 -->
+<section id="cases">
+  <div class="wrap">
+    <span class="sec-no">05 ── 先行事例</span>
+    <h2>プラットフォームたちの実験</h2>
+    <p class="sec-sub">Platforms Leading the Way</p>
+
+    <p>概念的な議論だけでは見えない風景がある。実際に数千〜数十万人にAIコーチングを届けているプラットフォームは、何をやり、何がわかったのか。</p>
+
+    <h3>Valence「Nadia」──AIオンリーの挑戦</h3>
+    <p>2018年にBridgewater Associates元副COOのParker Mitchellが創業したValenceは、2025年9月に5,000万ドルのシリーズBを調達し、Fortune 500企業向けにAI音声コーチ「Nadia」を展開している。人間のコーチは一人もいない。完全にAIだけで届ける。Prudential社での導入では、利用者の90%がNadiaを定期的に使い、NPS（推奨度）は91に達した。強みはスケジュール調整の摩擦がゼロであることと、圧倒的なコスト効率。弱点は、リミティング・ビリーフ（制限的信念）やアイデンティティ・レベルの深い変容には、信頼に基づく人間関係なしでは到達しにくいことだ。</p>
+
+    <h3>BetterUp「Grow」──500万セッションが訓練したAI</h3>
+    <p>BetterUpは2013年からコーチングデータの蓄積を始めた、この領域のパイオニアだ。5,000人以上の認定コーチのネットワークを持ちつつ、2025年にはAIコーチ「Grow」をリリースした。258人を対象としたRCT（BetterUp Labs, 2025年8〜9月）では、Grow利用者の77%が1か月以内に職務遂行能力の向上を実感し、AI楽観度が28%上昇したという。特筆すべきは、Growが「ユーザーがより深いサポートを必要としている」と検知すると、人間のコーチへシームレスにエスカレーションする設計だ。</p>
+
+    <h3>日本の動き──ZaPASS、リフレクト、MetaMentor</h3>
+    <p>日本市場ではZaPASS JAPAN株式会社がLINE連携のAIコーチングを無料プランで展開し、X（旧Twitter）上で「壁打ちに投げるとスッキリする」という利用者の声が散見される。株式会社リフレクトは企業向けの行動変容支援に特化し、GROWモデル対応のAI対話と音声セッション機能を備える。MetaMentor CRMはHIPAA準拠設計でセッション記録の自動要約を提供している。</p>
+
+    <div class="note sand">
+      <p><span class="h">ハイブリッドが「勝ちパターン」に</span></p>
+      <p>2026年時点で企業バイヤーの多数派が選択しているのは、AIオンリーでも人間オンリーでもなく、ハイブリッドモデルだ（Boon, BetterUp, CoachHub, Coachello, Exec.comなどが該当）。複雑な場面やエグゼクティブレベルには人間が必要で、AIは練習・反復・スケールを低コストで担う──この棲み分けが実務上のコンセンサスになりつつある。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 06 -->
+<section id="backstage">
+  <div class="wrap">
+    <span class="sec-no">06 ── 舞台裏の力</span>
+    <h2>コーチの武器としてのAI</h2>
+    <p class="sec-sub">AI as Your Backstage Crew</p>
+
+    <p>ある日本語のAI活用記事が、この問題を最も端的に表現していた。「AIは舞台裏を固める。舞台に立つのは人間のままだ。」コーチがAIを活用するときの鉄則は、クライアントとの「本番対話の外側」で使うことにある。</p>
+
+    <h3>5つの活用領域</h3>
+
+    <ul class="clean">
+      <li><b>セッション記録と要約</b>　NottaやOtterなどの文字起こしAIは日本語ビジネス会話で実用域に達した。1時間の面談を「決定事項・宿題・保留論点」の3ブロックに自動圧縮する。コーチがいちばん時間を無駄にしている作業を消す。</li>
+      <li><b>質問の壁打ち</b>　クライアントの状況を入力し「このテーマで深掘りする質問を10個」と頼む。自分の盲点に気づける。ただし出てきた質問をそのまま読み上げるのは禁物──AIの問いは一般論に寄りがちで、目の前の相手の温度を読まない。</li>
+      <li><b>事前リサーチ</b>　クライアントの業界動向、競合の動き、組織再編のニュースを30分で俯瞰する。エグゼクティブコーチにとって準備の質はセッションの質に直結する。</li>
+      <li><b>コンテンツ制作と発信</b>　75%のハイパフォーマンスコーチがAIコパイロットを日常的に使っている（Delenta, 2026）。ブログ、ニュースレター、ワークシートの下書き。ただし最もレバレッジの低い使い方でもある──ここで止まると差別化を失う。</li>
+      <li><b>クライアント進捗の可視化</b>　長期的な行動変容データを整理し、次のセッションの焦点を提案する。BetterUp GrowやCoachHub AIMYはセッション間の「ナッジ」（小さな促し）を自動送信し、クライアントの実践率を高める。</li>
+    </ul>
+
+    <p>The Coach's CMOのレポートは、コーチのAI活用で最も多いのがコンテンツ制作であり、それが最もレバレッジが低いと指摘している。商業的な効果が高いのは、リード獲得、コンバージョン、リテンション、レベニューインテリジェンスの領域だ。多くのコーチが、AI活用の方向を間違えている。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>AIで買い戻した時間を、どこに再投資するか</h4>
+      <p>AIを戦略的に使うコーチは月10〜20時間を取り戻している。その時間をコンテンツ量産に回すのか、クライアントとの関係深化に回すのか、ビジネスモデルの構築に回すのかで、3年後のポジションが決定的に分かれる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 07 -->
+<section id="positioning">
+  <div class="wrap">
+    <span class="sec-no">07 ── 売り出し方</span>
+    <h2>AIに代替されないコーチになるには</h2>
+    <p class="sec-sub">Positioning in an AI-Saturated Market</p>
+
+    <p>もし今、あなたがコーチとしてサービスを売り出すなら、最初にやるべきことはAIツールの選定ではない。<mark>ポジショニング、視点（Point of View）、クライアント哲学の明確化</mark>──これらの戦略的基盤が先だ。The Coach's CMOのScott Danishは断言する。「ポジショニングが不明確で、ニッチが広すぎて、顧客獲得が紹介頼みなら、AIはそれらの問題を解決しない。増幅するだけだ。」</p>
+
+    <h3>AI時代に勝つコーチの条件</h3>
+
+    <p>調査データとレポートを横断して見えてくるのは、次の4つの条件だ。</p>
+
+    <ul class="clean">
+      <li><b>独自の視点を持つ</b>　AI生成コンテンツが市場を溢れさせた結果、没個性なインスピレーション系コンテンツは読まれなくなった。「あなたの経験からしか出てこない見方」──これが最大の差別化要因になる。ポジショニング、視点、クライアント哲学は100%人間が生み出し、AIはその発信を拡大するために使う。</li>
+      <li><b>証拠を積み上げる</b>　ICFの調査によれば、クライアントの80%がコーチの資格証明を期待し、85%のコーチがすでに何らかの認定を保有している。だが2026年に求められるのは資格の有無ではなく、「成果の証明」だ。行動変容のBefore/After、クライアントの証言、ROIの定量化──AI時代のコーチは「根拠に基づくオペレーター」として振る舞う必要がある。</li>
+      <li><b>マルチフォーマットで届ける</b>　93%のコーチがすでに1対1セッション以外のサービス（コンサルティング、研修、ファシリテーション）を提供しているとICFは報告している。1対1だけでは不十分。コース、グループワーク、ワークショップ、非同期コンテンツを組み合わせる。</li>
+      <li><b>AIリテラシーを見せる</b>　特にビジネスコーチングの領域では、クライアントがAI活用に精通していることが増えた。コーチにも同等のリテラシーが期待される。AIを使いこなすコーチは高いフィーを設定でき、より洗練されたクライアントを引きつける。</li>
+    </ul>
+
+    <h3>「意思決定パートナー」というポジション</h3>
+
+    <p>AIが得意なのは、選択肢の生成と情報の整理だ。一方、人間の意思決定は、データだけでは片付かない。価値観の葛藤、組織内の政治力学、人生の優先順位の再編──これらが絡み合った場面で、「あなたならどうする」と問いかけられる存在であること。これが、AI時代にコーチが占めるべきポジションだ。</p>
+
+    <p>The Coach's CMOは提言している。<mark>AIに飽和した市場で代替不可能になるコーチは、AIを避けるコーチではなく、独自の視点をAIで拡張するコーチだ</mark>、と。機械が量を捌く。人間のコーチがプレミアムになる。</p>
+
+    <div class="note">
+      <p><span class="h">真正性のジレンマ</span></p>
+      <p>Forbesの2026年分析によれば、71%のコーチがワーキングアライアンス（コーチング成果を最も強く予測する信頼の絆）をAIは再現できないと考えている。だが同時に、AIを使わないことで競合に差をつけられるリスクも認識している。この「真正性（authenticity）の緊張」は、2026年のコーチング業界における最大の未解決問題だ。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 08 -->
+<section id="coexist">
+  <div class="wrap">
+    <span class="sec-no">08 ── 共存の設計</span>
+    <h2>これからのコーチはどう生きるか</h2>
+    <p class="sec-sub">Designing Coexistence</p>
+
+    <p>ICF（国際コーチング連盟）は2025年、AIコーチングに関するフレームワークと基準を発表した。6つのドメイン（基盤倫理、関係の共創、効果的コミュニケーション、学習促進、品質保証、技術要件）にわたる体系的な基準だ。その核心的立場は一貫している──<mark>AIは人間のコーチングを「強化」するツールであり、「代替」するものではない</mark>。</p>
+
+    <p>同時に2025年改訂のICF倫理規定は、新基準2.5を導入し、AIツールを使用する際のクライアントへの開示義務を明文化した。文字起こし、分析ソフト、ストレージシステムにAIが関与している場合、誰がデータにアクセスでき、どのくらい保存され、どう使われるか──これを事前に伝えなければならない。</p>
+
+    <h3>コーチが今すぐ取れるアクション</h3>
+
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dn">戦略を先に、AIは後に</div>
+        <div class="de">STRATEGY FIRST</div>
+        <div class="dq">ポジショニング、ニッチ、収益モデルを明確にしてからAIを導入する。逆順で始めると混乱が増幅される。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">舞台裏で使い倒す</div>
+        <div class="de">BACKSTAGE AI</div>
+        <div class="dq">記録、リサーチ、コンテンツ、進捗管理。クライアントとの対話そのものは人間の領域として守る。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">成果を見える化する</div>
+        <div class="de">PROOF ARCHITECTURE</div>
+        <div class="dq">AIの分析能力を使って行動変容を追跡し、ROIを定量化する。証拠が信頼を生む。</div>
+      </div>
+    </div>
+
+    <p>de Haan et al.（2026）の研究は注目に値する発見をしている。コーチング成果を予測する最も強い因子は、希望、自己効力感、認知的頑健性、心理的ウェルビーイングといった「ベースライン要因」であり、コーチがAIか人間かという変数よりも強力だった。つまり、クライアントの「準備状態」そのものが成果を決定する度合いが大きい。</p>
+
+    <p>ここから見えてくるのは、人間のコーチの本当の仕事だ。テクニックを提供することでも、正解を告げることでもない。クライアントの希望と自己効力感を育て、変化への準備状態を整えること。それはアルゴリズムでは設計できない、関係のなかでしか起こらないプロセスだ。</p>
+
+    <div class="pull">
+      <p>コーチング成果は、コーチとクライアントの間の相互的で動的な影響を通じて最適化される──現在のAIコーチング・インタラクションには、この関係的ダイナミクスがほぼ存在しない。──de Haan et al. (2026)</p>
+    </div>
+
+    <p>2026年のコーチング業界は「責任ある加速」の局面にある、とThe Coach's CMOは総括している。AIはもう地平線の向こうにはない。ツールの中に、発見メカニズムの中に、コンテンツエコシステムの中に、ビジネスオペレーションの中に、すでに埋め込まれている。</p>
+
+    <p>だからこそ、問いの立て方が変わる。「AIを使うか使わないか」ではない。「AIが量を処理する世界で、自分は何のプレミアムを提供するのか」──この問いに答えられるコーチだけが、次の5年を生き残る。</p>
+
+    <p>沈黙に耳を傾け、言葉の裏を読み、「大丈夫ですか」と聞く代わりにただ横にいる。それができる存在の希少価値は、AIが賢くなればなるほど、上がっていく。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    AI時代のコーチング──人間にしかできないこと、AIに任せるべきこと<br>
+    主要ソース：The Coach's CMO (2026) / The Conference Board (2025) / Barger, Frontiers in Psychology (2025)<br>
+    Bachkirova &amp; Kemp, Coaching: An International Journal (2025) / ICF AI Coaching Framework (2025)<br>
+    <br>
+    <a class="pc-link" href="https://www.thecoachscmo.com/state-of-ai-coaching-2026" target="_blank" rel="noopener">State of AI in Coaching 2026</a>
+    <a class="pc-link" href="https://www.conference-board.org/press/ai-can-provide-career-coaching-but-humans-still-matter" target="_blank" rel="noopener">Conference Board Research</a>
+    <a class="pc-link" href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2024.1364054/full" target="_blank" rel="noopener">Barger (2025) Working Alliance Study</a>
+    <a class="pc-link" href="https://hrexecutive.com/the-new-coaching-stack-a-3-tier-model-for-ai-and-human-coaching/" target="_blank" rel="noopener">Nitzberg: 3-Tier Coaching Stack</a>
+    <a class="pc-link" href="https://coachingfederation.org/resource/icf-artificial-intelligence-ai-coaching-framework-and-standards/" target="_blank" rel="noopener">ICF AI Coaching Standards</a>
+    <a class="pc-link" href="https://www.changing-point.com/post/a-relationship-in-progress-human-and-ai-coaching" target="_blank" rel="noopener">ChangingPoint: Human and AI Coaching</a>
+  </div>
+</footer>
+
+<script>
+// Progress bar
+const bar = document.getElementById('progress');
+document.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  bar.style.width = (max > 0 ? (h.scrollTop / max * 100) : 0) + '%';
+}, { passive: true });
+
+// Active nav
+const links = [...document.querySelectorAll('.nav-links a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      const id = '#' + e.target.id;
+      links.forEach(l => {
+        const on = l.getAttribute('href') === id;
+        l.style.color = on ? 'var(--teal-deep)' : '';
+        l.style.background = on ? 'var(--teal-wash)' : '';
+      });
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+secs.forEach(s => io.observe(s));
+
+// Chart 1 - Bar chart
+const data1 = [
+  ["AIセールスコーチング", 28.3],
+  ["AIキャリアコーチング", 22.3],
+  ["オンラインコーチング", 14.0],
+  ["エグゼクティブ", 9.11],
+  ["ライフコーチング", 9.05],
+  ["ビジネスコーチング", 6.82]
+];
+const c1 = document.getElementById('chart1');
+c1.innerHTML = data1.map(([name, val]) => {
+  const w = Math.max(2, (val / 30) * 100);
+  const hi = val > 20 ? " hi" : "";
+  return '<div class="bar-row' + hi + '"><div class="bl">' + name + '</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="' + w + '"></div></div><div class="bv">' + val.toFixed(1) + '%</div></div>';
+}).join('');
+
+// Chart animation
+const animate = el => {
+  el.querySelectorAll('[data-w]').forEach(f => {
+    requestAnimationFrame(() => { f.style.width = f.dataset.w + '%'; });
+  });
+};
+const ao = new IntersectionObserver((es, obs) => {
+  es.forEach(e => {
+    if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); }
+  });
+}, { threshold: .25 });
+document.querySelectorAll('.chart-card').forEach(el => ao.observe(el));
+</script>
+</body>
+</html>

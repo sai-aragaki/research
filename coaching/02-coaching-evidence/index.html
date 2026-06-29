@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>コーチングは本当に効くのか──メタ分析とRCTが示す効果の正体</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbfcfb;--paper-2:#f4f7f5;--panel:#f4f7f5;--ink:#2b3a3e;--ink-soft:#46585c;--ink-faint:#74827f;--teal-deep:#4f7c87;--teal:#62B8A0;--teal-wash:#eef6f3;--coral:#eb6584;--coral-wash:#fdeef1;--sand:#B98B2E;--sand-wash:#F5EBD3;--line:#e3e8e4;--line-soft:#eef1ef;--shadow:0 1px 2px rgba(39,53,54,.04),0 10px 34px -18px rgba(39,53,54,.22);--maxw:760px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans JP",sans-serif;font-size:15.6px;line-height:1.95;letter-spacing:.01em;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+a{color:var(--teal-deep);text-decoration:none}a:hover{color:var(--coral)}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav{position:sticky;top:0;z-index:50;background:rgba(251,252,251,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}.brand b{color:var(--coral)}
+.nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.nav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+.nav-links a:hover,.nav-links a.on{color:var(--teal-deep);background:var(--teal-wash)}
+.hero{padding:80px 0 56px;border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral);display:block;margin-bottom:16px}
+h1.title{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(28px,5vw,40px);line-height:1.35;margin-bottom:20px;color:var(--ink)}
+h1.title .ac{color:var(--teal-deep)}
+.lede{font-size:16.5px;line-height:2;color:var(--ink-soft);margin-bottom:24px;max-width:640px}
+.src-tag{font-size:13px;color:var(--ink-faint);line-height:1.7;border-left:3px solid var(--teal);padding-left:14px;margin-bottom:32px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.stat{background:var(--panel);border-radius:10px;padding:18px 16px;text-align:center}
+.stat .n{font-family:"Noto Serif JP",serif;font-weight:800;font-size:28px;color:var(--teal-deep);line-height:1.2}
+.stat .n small{font-size:14px;font-weight:600}
+.stat .l{font-size:12.5px;color:var(--ink-faint);margin-top:6px;line-height:1.5}
+section{padding:60px 0;border-top:1px solid var(--line-soft)}
+.sec-no{font-family:"Noto Serif JP",serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--coral)}
+h2{font-family:"Noto Serif JP",serif;font-weight:800;font-size:clamp(24px,4.1vw,32px);line-height:1.42;margin:8px 0 8px}
+.sec-sub{font-size:14.5px;color:var(--ink-faint);font-weight:500;margin:0 0 28px}
+h3{font-family:"Noto Serif JP",serif;font-weight:700;font-size:19px;line-height:1.6;margin:36px 0 12px;color:var(--teal-deep)}
+p{margin-bottom:18px}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(217,84,107,.28) 58%)}
+ul.clean{list-style:none;margin:24px 0}
+ul.clean li{padding:12px 0 12px 22px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8}
+ul.clean li::before{content:"";position:absolute;left:0;top:20px;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+ul.clean li b{color:var(--teal-deep)}
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+.dom{background:var(--panel);border-radius:10px;padding:20px 18px}
+.dom .dn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:2px}
+.dom .de{font-size:11.5px;font-weight:500;color:var(--teal-deep);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.dom .dq{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+.chart-card{background:var(--panel);border-radius:12px;padding:28px 24px;margin:28px 0;box-shadow:var(--shadow)}
+.ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;margin-bottom:4px}
+.cs{font-size:12.5px;color:var(--ink-faint);margin-bottom:18px}
+.bar-row{display:grid;grid-template-columns:160px 1fr 52px;align-items:center;gap:10px;padding:7px 0}
+.bar-row.hi .bl{color:var(--teal-deep);font-weight:700}
+.bar-row.hi .bar-fill{background:var(--teal-deep)!important}
+.bl{font-size:13px;color:var(--ink-soft);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{height:22px;background:var(--line-soft);border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:var(--teal);border-radius:6px;transition:width .8s ease}
+.bv{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:700;color:var(--ink)}
+.leg{display:flex;gap:16px;margin-top:14px;font-size:12px;color:var(--ink-faint)}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.pull{border-left:4px solid var(--coral);background:var(--coral-wash);border-radius:0 10px 10px 0;padding:22px 26px;margin:28px 0}
+.pull p{font-family:"Noto Serif JP",serif;font-size:17.5px;line-height:1.85;color:var(--ink);margin:0}
+.note{background:var(--teal-wash);border-radius:10px;padding:20px 24px;margin:28px 0;font-size:14.5px;line-height:1.85}
+.note .h{font-weight:700;color:var(--teal-deep);display:block;margin-bottom:4px}
+.note.sand{background:var(--sand-wash)}.note.sand .h{color:var(--sand)}
+.note p{margin-bottom:8px}.note p:last-child{margin-bottom:0}
+.insight{border-top:4px solid var(--teal);background:var(--panel);border-radius:0 0 10px 10px;padding:24px 26px;margin:28px 0}
+.ik{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--teal);text-transform:uppercase}
+.insight h4{font-family:"Noto Serif JP",serif;font-weight:700;font-size:18px;margin:6px 0 10px;color:var(--ink)}
+.insight p{font-size:14.5px;color:var(--ink-soft);margin:0;line-height:1.85}
+ul.limit{list-style:none;margin:24px 0}
+ul.limit li{padding:12px 0 12px 34px;border-bottom:1px dashed var(--line);position:relative;line-height:1.8;font-size:14.5px;color:var(--ink-soft)}
+ul.limit li::before{content:"!";position:absolute;left:0;top:14px;width:22px;height:22px;border-radius:50%;background:var(--sand-wash);color:var(--sand);font-weight:700;font-size:13px;text-align:center;line-height:22px}
+ul.limit li b{color:var(--ink)}
+.pc-link{display:inline-block;padding:10px 22px;border:1.5px solid var(--teal);border-radius:999px;font-size:13.5px;font-weight:500;color:var(--teal-deep);transition:.18s;margin:6px 6px 6px 0}
+.pc-link:hover{background:var(--teal-deep);color:#fff;border-color:var(--teal-deep)}
+footer{padding:48px 0;background:var(--paper-2);border-top:1px solid var(--line);text-align:center;font-size:13px;color:var(--ink-faint);line-height:1.8}
+/* Diverging chart */
+.div-row{display:grid;grid-template-columns:160px 1fr 50px;align-items:center;gap:8px;padding:5px 0}
+.div-row .bl{font-size:12.5px;text-align:right}
+.div-track{position:relative;height:20px;background:var(--line-soft);border-radius:4px;overflow:hidden}
+.div-center{position:absolute;left:50%;top:0;width:1px;height:100%;background:var(--ink-faint);opacity:.3}
+.div-fill-pos{position:absolute;top:2px;height:16px;border-radius:3px;background:var(--teal);transition:width .8s ease}
+.div-fill-neg{position:absolute;top:2px;height:16px;border-radius:3px;background:var(--coral);transition:width .8s ease}
+/* Evidence table */
+.ev-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13px}
+.ev-table th{font-family:"Noto Serif JP",serif;font-weight:700;color:var(--teal-deep);text-align:left;padding:10px 12px;border-bottom:2px solid var(--teal);font-size:12.5px}
+.ev-table td{padding:10px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top;line-height:1.7;color:var(--ink-soft)}
+.ev-table .tl{font-weight:700;color:var(--ink);white-space:nowrap}
+.ev-table .hi{background:var(--teal-wash)}
+@media(max-width:680px){
+section{padding:46px 0}
+.stat-grid{grid-template-columns:repeat(2,1fr)}
+.dom-grid{grid-template-columns:1fr 1fr}
+.nav-inner{padding:11px 18px}.brand{display:none}
+.bar-row{grid-template-columns:110px 1fr 44px}
+.div-row{grid-template-columns:110px 1fr 40px}
+.bl{font-size:11.5px}
+.ev-table{font-size:11.5px}.ev-table th,.ev-table td{padding:8px 6px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">コーチング<b>・</b>エビデンス</span>
+    <div class="nav-links">
+      <a href="#question">問いの設計</a>
+      <a href="#meta">メタ分析</a>
+      <a href="#selfreport">自己報告</a>
+      <a href="#roi">ROI検証</a>
+      <a href="#rct">RCTの結論</a>
+      <a href="#gradient">効果の濃淡</a>
+      <a href="#critique">批判</a>
+      <a href="#practice">実践への翻訳</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究</span>
+    <h1 class="title">コーチングは<span class="ac">本当に効く</span>のか。<br>メタ分析とRCTが示す<br>効果の正体。</h1>
+    <p class="lede">コーチングは年間58億ドルの産業であり、ROI 5.7倍が喧伝され、自己効力感もウェルビーイングも上がると謳われる。だがそのエビデンスは、どこまで信頼できるのか。6本のメタ分析と37本のRCTを横断し、「何がどれだけ効くか」を、研究の質ごとに仕分ける。</p>
+    <div class="src-tag">
+      主要ソース：de Haan et al. (2023) Academy of Management Learning &amp; Education / Theeboom et al. (2014) J. of Positive Psychology<br>
+      Jones et al. (2016) J. of Occupational and Organizational Psychology / Nicolau et al. (2023) Frontiers in Psychology<br>
+      Wang et al. (2022) J. of Work-Applied Management / Grover &amp; Furnham (2016) PLOS ONE / Grant et al. (2009) J. of Positive Psychology
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">g=0.59</div><div class="l">RCTのみのメタ分析による全体効果量（中程度）</div></div>
+      <div class="stat"><div class="n">g=1.29</div><div class="l">目標達成への効果量（心理学的コーチングのメタ分析）</div></div>
+      <div class="stat"><div class="n">37<small>本</small></div><div class="l">de Haanメタ分析に含まれるRCT数</div></div>
+      <div class="stat"><div class="n">0.28<small>〜</small>1.24</div><div class="l">アウトカム別の効果量レンジ</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- Section 01 -->
+<section id="question">
+  <div class="wrap">
+    <span class="sec-no">01 ── 問いの設計</span>
+    <h2>「効くか」を問う前に考えるべきこと</h2>
+    <p class="sec-sub">Framing the question right</p>
+    <p>「コーチングは効くのか」。この問いは、実は少し粗い。薬の臨床試験なら、特定の疾患に対して特定の用量の薬を投与し、プラセボ群と比較する。だがコーチングは介入の種類が多様で（認知行動的、ポジティブ心理学的、ソリューションフォーカスト）、対象も幅広く（経営幹部、中間管理職、新入社員）、測定するアウトカムも複数ある（目標達成、自己効力感、ウェルビーイング、パフォーマンス）。</p>
+    <p>だから正確に問うなら、こうなる。<mark>「どのようなコーチングが、どのような人に対して、どのようなアウトカムをどの程度改善するのか。そしてそれはどの程度の研究の厳密さで示されているのか。」</mark></p>
+    <p>この記事では、コーチングの効果を3つの層に分けて整理する。第一に、6本のメタ分析が示す「全体像」。第二に、個別のRCT（ランダム化比較試験）が明らかにした具体的な知見。第三に、その証拠の質──どこに「確からしさ」があり、どこに「不確かさ」が残っているか。</p>
+    <div class="note">
+      <p><span class="h">効果量（effect size）の読み方</span></p>
+      <p>この記事ではHedges' gまたはCohen's dで表される効果量を多用する。目安として、g = 0.2は小さな効果、g = 0.5は中程度、g = 0.8は大きな効果とされる（Cohen, 1988）。ただし、心理学研究全体を俯瞰した Bosco et al.（2015）の25,891変数のデータベースでは、組織心理学領域の効果量の中央値は r = .16 程度であり、g = 0.5でもかなり大きな効果と見なせる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 02 -->
+<section id="meta">
+  <div class="wrap">
+    <span class="sec-no">02 ── 数字の地図</span>
+    <h2>6本のメタ分析が描くコーチングの効果</h2>
+    <p class="sec-sub">What the meta-analyses tell us</p>
+    <p>2014年から2023年にかけて、コーチングの効果を定量的に統合したメタ分析が6本発表されている。対象とする研究の範囲、含めるデザイン（RCTのみか、前後比較も含めるか）、アウトカムの分類法はそれぞれ異なる。だが、浮かび上がるパターンには一貫性がある。</p>
+
+    <table class="ev-table">
+      <thead>
+        <tr><th>メタ分析</th><th>掲載誌</th><th>研究数</th><th>デザイン</th><th>全体効果量</th><th>最も強い効果</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hi"><td class="tl">Theeboom et al. (2014)</td><td>J. Positive Psychology</td><td>k=18</td><td>混合</td><td>g=0.66</td><td>目標自己制御 g=0.74</td></tr>
+        <tr><td class="tl">Jones et al. (2016)</td><td>J. Occup. Org. Psych.</td><td>k=17</td><td>混合</td><td>δ=0.36</td><td>個人レベル結果 δ=1.24</td></tr>
+        <tr><td class="tl">Grover & Furnham (2016)</td><td>PLOS ONE</td><td>系統的レビュー</td><td>混合</td><td>─</td><td>定量的結論は保留</td></tr>
+        <tr class="hi"><td class="tl">Wang et al. (2022)</td><td>J. Work-Applied Mgmt.</td><td>k=20, n=957</td><td>混合</td><td>─</td><td>目標達成 g=1.29</td></tr>
+        <tr><td class="tl">Nicolau et al. (2023)</td><td>Frontiers in Psych.</td><td>k=20</td><td>RCTのみ</td><td>小〜中</td><td>行動変容（認知行動的）</td></tr>
+        <tr class="hi"><td class="tl">de Haan et al. (2023)</td><td>Acad. Mgmt. L&E</td><td>k=37, n=2,528</td><td>RCTのみ</td><td>g=0.59</td><td>自己報告アウトカム</td></tr>
+      </tbody>
+    </table>
+
+    <p>最も網羅的なのは de Haan et al.（2023）だ。1994年から2021年のあいだに発表された37本のRCTを対象とし、合計2,528人の参加者データを統合した。結果、コーチングの全体的な効果量は g = 0.59。中程度の効果だ。</p>
+
+    <p>Theeboom et al.（2014）はアムステルダム大学のチームが実施した初期の代表的メタ分析で、18の研究を統合して g = 0.66 という全体効果量を報告した。5つのアウトカムすべて──パフォーマンス/スキル、ウェルビーイング、コーピング、仕事態度、目標指向の自己制御──で統計的に有意な正の効果が確認された。</p>
+
+    <div class="chart-card">
+      <div class="ct">Theeboom et al. (2014) コーチングの効果量（アウトカム別）</div>
+      <div class="cs">18研究のメタ分析 / J. of Positive Psychology / 効果量 Hedges' g</div>
+      <div id="chart1"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>効果量（Hedges' g）</span>
+        <span><i style="background:var(--teal-deep)"></i>最大効果</span>
+      </div>
+    </div>
+
+    <p>一方、Jones et al.（2016）は「被験者間デザイン」（コーチング群と統制群の比較）に限ると δ = 0.35 とやや控えめな数字を報告している。特筆すべきは、「個人レベルの結果」（individual-level results）──つまり直属の上司や同僚による評価、実際の業績指標──に対する効果量が δ = 1.24 と極めて大きかったことだ。ただしこの数値は少数の研究に基づいており、安定性には注意が必要だ。</p>
+
+    <p>Wang et al.（2022）は認知行動療法やポジティブ心理学に基づくコーチングアプローチに限定した分析で、<mark>目標達成への効果量 g = 1.29、自己効力感への効果量 g = 0.59</mark> を報告した。さらに興味深いことに、他者評価による客観的な業績（360度フィードバックなど）の方が、自己報告よりも大きな効果を示した。これはコーチングの効果が「気分」だけでなく実際の行動変容に表れうることを示唆する。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>6本のメタ分析に共通する結論</h4>
+      <p>手法や対象範囲は異なるが、すべてのメタ分析がコーチングの正の効果を報告している。効果量は g = 0.35〜0.74 の範囲（全体）、個別アウトカムでは g = 1.29 に達するケースもある。「効果なし」を結論づけたメタ分析は、現時点で存在しない。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 03 -->
+<section id="selfreport">
+  <div class="wrap">
+    <span class="sec-no">03 ── 自己報告のワナ</span>
+    <h2>主観的指標は「信じていい」のか</h2>
+    <p class="sec-sub">The self-report problem</p>
+
+    <p>コーチング研究の最大の弱点を一つだけ挙げるなら、<mark class="c">アウトカムの大部分が自己報告に依存している</mark>ことだ。自己効力感、ウェルビーイング、レジリエンス、仕事への満足度──これらはすべて「自分がどう感じたか」を本人に尋ねる形式で測定される。</p>
+
+    <p>de Haan et al.（2023）のRCTメタ分析は、この問題を正面から検証した。そして予想どおりの結果が出た。自己報告によるアウトカムは、他者による観察に基づくアウトカムよりも効果量が大きかった。つまり、コーチングを受けた本人は効果を実感するが、周囲から見た変化はそれよりも小さい。</p>
+
+    <p>米国防総省の心理健康センター（PHCoE）による2021年のエビデンスサマリーは、この問題をさらに鋭く指摘している。自己効力感を成果指標として使うこと自体が問題をはらむ──コーチングを受けた人が「自分は成長した」と感じるのは当然であり、それが客観的な能力向上を反映しているとは限らない、と。</p>
+
+    <h3>だが、主観的指標には固有の価値がある</h3>
+
+    <p>ここで立ち止まる必要がある。主観的指標を「信頼できない」と一蹴するのは早計だ。ウェルビーイングや自己効力感は、定義上、本人の内的体験を測定する概念だ。自己効力感（Bandura, 1997）は「自分にはできるという信念」であり、他者が代わりに回答できるものではない。ウェルビーイングもまた、主観的な評価が概念の核にある。</p>
+
+    <p>Grant et al.（2009）のRCT──公衆衛生機関の41人の幹部を対象に、10週間で4回のコーチングセッションを実施した研究──は、コーチング群で統制群と比較して目標達成、レジリエンス、ウェルビーイングが有意に向上し、抑うつとストレスが有意に低下したことを示した。これはコーチング領域で最初に発表された外部の専門コーチによるRCTであり、自己報告指標であっても統制群との比較で有意差が出ている点で、一定の信頼性を持つ。</p>
+
+    <div class="note sand">
+      <p><span class="h">自己報告バイアスの主な原因</span></p>
+      <p>コーチング研究における自己報告の歪みには複数の要因がある。需要特性（demand characteristics：研究者の期待に沿おうとする傾向）、社会的望ましさバイアス（良い結果を報告したがる傾向）、後知恵バイアス（事後的に効果を過大評価する傾向）、そしてコーチングに時間と費用を投じた自分の意思決定を正当化したい心理。これらが重なると、効果量は過大推定される方向に偏る。</p>
+    </div>
+
+    <p>結論を言えば、主観的指標は「嘘」ではないが「膨らみやすい」。効果量の絶対値よりも、統制群との差分、そしてその差分が複数の研究にわたって再現されるかどうかに注目すべきだ。メタ分析の価値はそこにある。</p>
+  </div>
+</section>
+
+<!-- Section 04 -->
+<section id="roi">
+  <div class="wrap">
+    <span class="sec-no">04 ── ROI神話</span>
+    <h2>「5.7倍のリターン」は本当か</h2>
+    <p class="sec-sub">Dissecting the ROI claims</p>
+
+    <p>コーチング業界で最も頻繁に引用される数字は3つある。Manchester Inc.の「5.7倍」、MetrixGlobal LLCの「788%」、ICF/PwCの「700%中央値」。これらは業界の正当性を支える数字として、無数のウェブサイトやセールス資料に登場する。だが、その出自を丁寧に辿ると、見える風景はかなり変わる。</p>
+
+    <h3>Manchester Inc.（2001年）：5.7倍</h3>
+    <p>Fortune 1000企業の100人のエグゼクティブを対象とした調査。コーチングの効果を金額換算で自己見積りさせた結果、平均10万ドル（投資額の5.7倍）のリターンがあったとする。問題は2つ。まず、エグゼクティブが「自分の受けたコーチングの効果」を自分で金額に換算している──後知恵バイアスと正当化バイアスの温床だ。次に、この研究はManchester社自身の刊行物に掲載されており、査読付き学術誌ではない。</p>
+
+    <h3>MetrixGlobal（2003年）：788%</h3>
+    <p>Fortune 500企業1社でのケーススタディ。Phillips ROI Methodologyを用いて、生産性向上・品質改善・離職率低下などを金額換算したもの。1社の事例であり、母集団レベルの知見ではない。「こういうケースは存在する」という存在証明としては有効だが、「コーチングは一般に788%のROIを生む」と読むのは誤りだ。</p>
+
+    <h3>ICF/PwC（2009年）：700%中央値</h3>
+    <p>64カ国2,165人のコーチングクライアントを対象としたグローバル調査。ROIを追跡した組織の86%が少なくとも投資を回収できたと報告。3つの中では最も大規模だが、やはり自己報告ベースであり、ICFはコーチング業界の最大の業界団体であるという構造的な利益相反がある。</p>
+
+    <div class="pull">
+      <p>これらのROI数字の大半は、コーチングを選んだ人に「効果がありましたか」と尋ねている。彼らはたいてい「はい」と答える。だからこそ、ランダム化比較試験のメタ分析が重要になる──それらは比較群との差を測っている。</p>
+    </div>
+
+    <p>では、厳密な研究で測定された「ビジネス成果」はどうか。Jones et al.（2016）のメタ分析では、個人レベルの業績指標（上司評価、360度フィードバック、売上高など）に対する効果量が δ = 1.24 と報告されている。これは非常に大きな効果だが、該当する研究数が少なく、信頼区間が広い。</p>
+
+    <p>BetterUpの2025年のRCTでは、AIコーチ「Grow」の利用者の77%が1か月で職務遂行能力の向上を実感したと報告した。だがこれもまた自己報告だ。正直に言えば、<mark>コーチングのビジネスROIについて、業界の外から見て「定量的に信頼できる」と断言できる研究は、まだ十分とは言えない</mark>。傾向としては正の方向を指しているが、数字の精度には大きな幅がある。</p>
+  </div>
+</section>
+
+<!-- Section 05 -->
+<section id="rct">
+  <div class="wrap">
+    <span class="sec-no">05 ── 最も厳密な答え</span>
+    <h2>RCTだけで見たコーチングの効果</h2>
+    <p class="sec-sub">de Haan's RCT-only meta-analysis</p>
+
+    <p>de Haan, Nilsson, & Burger（2023年）がAcademy of Management Learning & Education に発表したメタ分析は、コーチング研究のエビデンス水準を一段引き上げた。彼らは1994〜2021年のあいだに発表されたRCTのみを対象とし、39のサンプル（37のRCT研究、参加者2,528人）を統合した。RCTだけに絞った点が決定的に重要だ──被験者をランダムに「コーチング群」と「統制群」に割り当てることで、自己選択バイアス（「もともと変わりたい人がコーチングを受ける」という交絡）を排除できる。</p>
+
+    <h3>主な発見</h3>
+    <ul class="clean">
+      <li><b>全体効果量 g = 0.59</b>　中程度の効果。ただし出版バイアス（有意な結果が出た研究ほど発表されやすい傾向）の指標があり、真の効果量はやや過大評価されている可能性がある。</li>
+      <li><b>自己報告 ＞ 他者観察</b>　本人が報告するアウトカムの効果量は、他者が観察するアウトカムの効果量よりも大きい。コーチングの効果は「本人が感じるほど大きく、周囲から見るとそれより控えめ」。</li>
+      <li><b>資格を持つコーチの方が効果が大きい（ただし非リーダーシップ分野）</b>　認定資格を持つコーチが非リーダーシップ的な応用（ウェルビーイング、学業など）でコーチングを行った場合、効果量が大きくなる。</li>
+      <li><b>女性のコーチーでやや効果が大きい</b>　性差は小さいが一貫して確認された。</li>
+      <li><b>セッション数は効果量を予測しない</b>　長くやれば効くわけではない。これはTheeboom et al.（2014）の発見とも一致する。</li>
+    </ul>
+
+    <div class="chart-card">
+      <div class="ct">コーチング効果量の比較：メタ分析別</div>
+      <div class="cs">RCTのみ vs 混合デザイン / 全体効果量（Hedges' g または Cohen's δ）</div>
+      <div id="chart2"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>混合デザイン</span>
+        <span><i style="background:var(--teal-deep)"></i>RCTのみ</span>
+      </div>
+    </div>
+
+    <p>g = 0.59 をどう解釈するか。心理療法のメタ分析と比較すると、認知行動療法（CBT）のうつ病に対する効果量はおおむね g = 0.6〜0.8 とされる。コーチングの g = 0.59 は、それに近い水準だ。ただし比較には注意が要る──心理療法は臨床症状の改善を測定し、コーチングはパフォーマンスやウェルビーイングの向上を測定しているため、測定概念が異なる。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>「効果あり」の確度は高い。「どれくらい効くか」の精度はまだ粗い。</h4>
+      <p>37本のRCTを統合して正の効果が確認されたことの重みは大きい。コーチングの効果がゼロまたは負であるという仮説は、現在のエビデンスによって棄却されている。ただし、g = 0.59 という数字の精度には出版バイアスの影響が含まれうるため、真の効果量はこれよりやや小さい可能性がある。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 06 -->
+<section id="gradient">
+  <div class="wrap">
+    <span class="sec-no">06 ── 効果の濃淡</span>
+    <h2>何に効くか、何に効きにくいか</h2>
+    <p class="sec-sub">The gradient of effectiveness</p>
+
+    <p>コーチングの効果は一律ではない。アウトカムの種類によって、効果量に明確な勾配がある。複数のメタ分析を横断して浮かび上がるパターンを整理する。</p>
+
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dn">目標達成</div>
+        <div class="de">GOAL ATTAINMENT</div>
+        <div class="dq">g = 0.74〜1.29。コーチングが最も強い効果を示す領域。GROWモデルなど目標指向の対話が直接的に作用する。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">自己効力感</div>
+        <div class="de">SELF-EFFICACY</div>
+        <div class="dq">g = 0.59。中程度の効果。「できるという信念」の強化はほぼ一貫して確認される。ただし自己報告の膨張を含む可能性。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">ウェルビーイング</div>
+        <div class="de">WELL-BEING</div>
+        <div class="dq">g = 0.46。中程度。抑うつやストレスの低減もRCTで確認されている（Grant et al., 2009）。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">コーピング</div>
+        <div class="de">COPING</div>
+        <div class="dq">g = 0.43。最も控えめな効果。ストレス対処能力への影響はあるが、他のアウトカムほど顕著ではない。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">行動変容</div>
+        <div class="de">BEHAVIOR CHANGE</div>
+        <div class="dq">Nicolau et al. (2023)によれば、認知行動的活動の変化が最も大きい。態度やパーソナリティ特性の変化はそれより小さい。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">業績（他者評価）</div>
+        <div class="de">PERFORMANCE</div>
+        <div class="dq">δ = 0.28〜1.24。範囲が広い。スキルベース δ=0.28、情動的 δ=0.51、個人レベル結果 δ=1.24（Jones et al.）。研究数が少なく不安定。</div>
+      </div>
+    </div>
+
+    <p>このグラデーションから見えてくるのは、コーチングは<mark>「何かを達成する」系のアウトカムに最も強く効き、「ものの感じ方が変わる」系のアウトカムにはそれより控えめに効く</mark>という構図だ。目標達成は g = 1.29 に達するが、コーピングは g = 0.43 にとどまる。約3倍の開きがある。</p>
+
+    <p>Grant et al.（2009）のRCTは、こうした量的知見と質的知見を組み合わせた好例だ。コーチングを受けた幹部は定量的にウェルビーイングとレジリエンスが向上しただけでなく、質的インタビューで「自信がついた」「個人的な洞察が深まった」「マネジメントスキルが向上した」「組織変革への対処力がついた」と報告している。数字だけでは捉えきれない変化が、当事者の語りに表れている。</p>
+  </div>
+</section>
+
+<!-- Section 07 -->
+<section id="critique">
+  <div class="wrap">
+    <span class="sec-no">07 ── 業界の外から</span>
+    <h2>コーチング研究への批判と未解決問題</h2>
+    <p class="sec-sub">What the critics say</p>
+
+    <p>コーチングの効果研究に対する批判は、業界の外からも内からも上がっている。これらの批判を直視することが、エビデンスを正しく読むためには不可欠だ。</p>
+
+    <ul class="limit">
+      <li><b>自己報告への過度な依存</b>　Nicolau et al.（2023）のRCTメタ分析に含まれた20研究すべてで、アウトカムは自己報告に基づいていた。他者観察、テスト結果、業績データを用いた研究はなかった。</li>
+      <li><b>研究の少なさ</b>　de Haanのメタ分析に含まれるRCTは37本。医療分野では1つの治療法に対して数百本のRCTが蓄積されることがある。コーチング研究のエビデンスベースは、まだ成長途上にある。</li>
+      <li><b>出版バイアス</b>　de Haan et al.（2023）は出版バイアスの有意な兆候を検出した。効果が出なかった研究は出版されにくく、結果として全体の効果量が過大推定される構造がある。</li>
+      <li><b>研究者と業界の重なり</b>　PHCoE（2021）は「現在のコンセンサスは、一つの研究グループからの複数の出版物と、単一のデータセットに基づいており、偏っている可能性がある」と警告した。コーチング研究者の多くはコーチの資格を持つ実践者でもあり、構造的利益相反が存在する。</li>
+      <li><b>介入の標準化の欠如</b>　コーチングの内容、頻度、期間、コーチの資格は研究ごとに大きく異なる。何をもって「コーチング介入」とするかの合意が不十分で、研究間の比較が困難。</li>
+      <li><b>理論的基盤の弱さ</b>　Theeboom et al.（2014）自身が認めている──コーチングが「なぜ効くのか」「どのようなメカニズムで効くのか」についての理論は、実証研究に比べて著しく未発達だ。</li>
+    </ul>
+
+    <p>Grover & Furnham（2016）のPLOS ONE系統的レビューは、このもどかしさを端的に表現していた。「コーチングの各アウトカムについて確定的な判断を下すには十分なデータがない──実験的厳密さを持って、十分なサンプルサイズで、複数回調査されたアウトカムはほとんどないからだ。」</p>
+
+    <div class="pull">
+      <p>批判を総合しても、コーチングの効果がゼロであるという結論にはならない。問題は「効果があるかないか」ではなく、「効果の大きさをどこまで精密に特定できるか」にある。答えは──まだそこまで精密ではない。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 08 -->
+<section id="practice">
+  <div class="wrap">
+    <span class="sec-no">08 ── 実践への翻訳</span>
+    <h2>このエビデンスとどう付き合うか</h2>
+    <p class="sec-sub">From evidence to practice</p>
+
+    <p>ここまでの調査で得られた知見を、コーチとしての実践に翻訳するとどうなるか。</p>
+
+    <h3>確からしいこと（複数のRCTで再現されている）</h3>
+    <ul class="clean">
+      <li><b>コーチングには統計的に有意な正の効果がある</b>　37本のRCTを統合した結果が g = 0.59。業界の内輪の主張ではなく、Academy of Management Learning & Education（経営学のトップジャーナル）で報告されている。</li>
+      <li><b>目標達成に最も強く効く</b>　複数のメタ分析で g = 0.74〜1.29。GROWモデルなど目標指向の対話構造が効いている可能性が高い。</li>
+      <li><b>自己効力感とウェルビーイングが向上する</b>　効果量はそれぞれ g ≈ 0.59、g ≈ 0.46。一貫して正の効果が報告されている。</li>
+      <li><b>ストレスと抑うつが低減する</b>　Grant et al.（2009）のRCTで統制群と比較して有意に低下。</li>
+    </ul>
+
+    <h3>まだ不確かなこと（エビデンスが限定的）</h3>
+    <ul class="clean">
+      <li><b>ROIの精密な数字</b>　5.7倍や788%は方向としては正しいが、方法論的に厳密とは言いがたい。「3〜7倍のリターン」という範囲は妥当な推定だが、個別のケースでは大きくばらつく。</li>
+      <li><b>他者評価による業績の変化</b>　Jones et al. で δ = 1.24 と大きいが、研究数が少なく再現性は未検証。</li>
+      <li><b>長期的効果の持続性</b>　多くの研究はコーチング直後の測定であり、6か月〜1年後のフォローアップを行った研究は限られる。</li>
+      <li><b>コーチングが「なぜ」効くかのメカニズム</b>　目標設定、経験学習、コーチとの作業同盟のどれがどの程度寄与しているかは未解明。</li>
+    </ul>
+
+    <h3>コーチとして語るとき</h3>
+    <p>これらの知見を踏まえると、コーチがクライアントや組織に対して自分のサービスの価値を語るとき、3つの態度が可能になる。</p>
+    <p>第一に、<mark>「効果がある」と言い切れる</mark>。37本のRCTと6本のメタ分析がそれを支持している。これは業界のセールストークではなく、査読付き学術誌の知見だ。</p>
+    <p>第二に、<mark>「どれくらい効くかは文脈による」と正直に認める</mark>。目標達成には大きく効くが、パーソナリティの変容には控えめにしか効かない。自己報告の効果は他者評価より大きくなりがちだ。ROIの数字は幅がある。この正直さが、かえって信頼を生む。</p>
+    <p>第三に、<mark>自分自身の実践でエビデンスを積み上げる</mark>。コーチング前後の360度フィードバック、クライアントの行動変容の記録、目標達成率の追跡。業界全体のエビデンスに頼るだけでなく、自分のコーチングの効果を測定し可視化する。de Haan et al.（2023）が示したように、効果量は自己報告より他者評価で測る方が正確だ。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>エビデンスの誠実な使い方が、最大の差別化になる</h4>
+      <p>「ROI 788%」をセールスページに掲げるコーチと、「RCTメタ分析で g = 0.59 の中程度の効果が確認されています。特に目標達成に強く、ウェルビーイングの向上も一貫して報告されています」と説明するコーチ。後者の方が、知的なクライアントからの信頼を獲得できる。エビデンスを正確に語ることそのものが、専門性の証明になる。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    コーチングは本当に効くのか──メタ分析とRCTが示す効果の正体<br>
+    主要ソース：de Haan et al. (2023) / Theeboom et al. (2014) / Jones et al. (2016) / Wang et al. (2022) / Nicolau et al. (2023) / Grover &amp; Furnham (2016)<br>
+    <br>
+    <a class="pc-link" href="https://journals.aom.org/doi/10.5465/amle.2022.0107" target="_blank" rel="noopener">de Haan et al. (2023) RCT Meta-Analysis</a>
+    <a class="pc-link" href="https://www.tandfonline.com/doi/abs/10.1080/17439760.2013.837499" target="_blank" rel="noopener">Theeboom et al. (2014)</a>
+    <a class="pc-link" href="https://bpspsychub.onlinelibrary.wiley.com/doi/abs/10.1111/joop.12119" target="_blank" rel="noopener">Jones et al. (2016)</a>
+    <a class="pc-link" href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1089797/full" target="_blank" rel="noopener">Nicolau et al. (2023)</a>
+    <a class="pc-link" href="https://www.emerald.com/jwam/article/14/1/77/254662/The-effectiveness-of-workplace-coaching-a-meta" target="_blank" rel="noopener">Wang et al. (2022)</a>
+    <a class="pc-link" href="https://journals.plos.org/plosone/article/citation?id=10.1371/journal.pone.0159137" target="_blank" rel="noopener">Grover & Furnham (2016)</a>
+  </div>
+</footer>
+
+<script>
+const bar=document.getElementById('progress');
+document.addEventListener('scroll',()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';},{passive:true});
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>{const on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+// Chart 1 - Theeboom effect sizes
+const d1=[["目標自己制御",0.74],["パフォーマンス/スキル",0.60],["ウェルビーイング",0.46],["仕事態度",0.54],["コーピング",0.43]];
+const c1=document.getElementById('chart1');
+c1.innerHTML=d1.map(([n,v])=>{const w=Math.max(2,(v/0.8)*100);const hi=v>=0.7?" hi":"";return'<div class="bar-row'+hi+'"><div class="bl">'+n+'</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="'+w+'"></div></div><div class="bv">'+v.toFixed(2)+'</div></div>';}).join('');
+
+// Chart 2 - Cross-meta comparison
+const d2=[["Theeboom (2014) 混合",0.66],["Jones (2016) 混合",0.36],["Wang (2022) 混合 全体",0.59],["de Haan (2023) RCTのみ",0.59],["Nicolau (2023) RCTのみ",0.45]];
+const c2=document.getElementById('chart2');
+c2.innerHTML=d2.map(([n,v])=>{const w=Math.max(2,(v/0.75)*100);const hi=n.includes("RCT")?" hi":"";return'<div class="bar-row'+hi+'"><div class="bl">'+n+'</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="'+w+'"></div></div><div class="bv">'+v.toFixed(2)+'</div></div>';}).join('');
+
+const animate=el=>{el.querySelectorAll('[data-w]').forEach(f=>{requestAnimationFrame(()=>{f.style.width=f.dataset.w+'%';});});};
+const ao=new IntersectionObserver((es,obs)=>{es.forEach(e=>{if(e.isIntersecting){animate(e.target);obs.unobserve(e.target);}});},{threshold:.25});
+document.querySelectorAll('.chart-card').forEach(el=>ao.observe(el));
+</script>
+</body>
+</html>
