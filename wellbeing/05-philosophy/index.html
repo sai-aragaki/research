@@ -125,9 +125,38 @@
     body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
     th,td{padding:9px 8px;font-size:13px;} .theory .th-head{flex-wrap:wrap;gap:6px;} .theory .th-tag{margin-left:0;}
   }
+
+/* ---- header nav ---- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav.gnav{position:sticky;top:0;z-index:50;background:rgba(251,252,251,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.gnav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.gnav-brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}
+.gnav-brand b{color:var(--coral)}
+.gnav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.gnav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft,#46585c);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+.gnav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+@media(max-width:560px){.gnav-inner{padding:11px 18px}.gnav-brand{display:none}}
+
 </style>
 </head>
 <body>
+<div id="progress"></div>
+<nav class="gnav">
+  <div class="gnav-inner">
+    <span class="gnav-brand">WBの哲学<b>・</b>深掘り</span>
+    <div class="gnav-links">
+      <a href="#sec-1">善さ</a>
+      <a href="#sec-2">3家系</a>
+      <a href="#sec-3">経験機械</a>
+      <a href="#sec-4">欲求説</a>
+      <a href="#sec-5">リスト</a>
+      <a href="#sec-6">ハイブリッド</a>
+      <a href="#sec-7">尺度</a>
+      <a href="#sec-8">対話</a>
+    </div>
+  </div>
+</nav>
+
 
 <header class="hero">
   <div class="wrap">
@@ -203,7 +232,7 @@
 
 <main>
 
-<section>
+<section id="sec-1">
   <div class="wrap">
     <p class="kicker fade">なぜ哲学を入れるのか</p>
     <h2 class="fade"><span class="num">01</span>「その人にとって良い」という特殊な善さ</h2>
@@ -213,7 +242,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-2">
   <div class="wrap">
     <p class="kicker fade">標準の地図</p>
     <h2 class="fade"><span class="num">02</span>3つの家系（Parfit 1984）</h2>
@@ -246,7 +275,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-3">
   <div class="wrap">
     <p class="kicker fade">快楽説への反論</p>
     <h2 class="fade"><span class="num">03</span>経験機械——そして、その思考実験も検証された</h2>
@@ -259,7 +288,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-4">
   <div class="wrap">
     <p class="kicker fade">欲求充足説への反論</p>
     <h2 class="fade"><span class="num">04</span>望みが叶えば良い、とは限らない</h2>
@@ -282,7 +311,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-5">
   <div class="wrap">
     <p class="kicker fade">客観的リスト説への反論</p>
     <h2 class="fade"><span class="num">05</span>リストは誰のもの？ 冷めていても善いのか？</h2>
@@ -301,7 +330,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-6">
   <div class="wrap">
     <p class="kicker fade">合流点</p>
     <h2 class="fade"><span class="num">06</span>ハイブリッド説——客観 × 共鳴</h2>
@@ -311,7 +340,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-7">
   <div class="wrap">
     <p class="kicker fade">シリーズの結節点</p>
     <h2 class="fade"><span class="num">07</span>尺度は、どの立場に賭けているか</h2>
@@ -335,7 +364,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-8">
   <div class="wrap">
     <p class="kicker fade">意思決定パートナーとしての使い方</p>
     <h2 class="fade"><span class="num">08</span>対話に、どこを差し込むか</h2>
@@ -354,7 +383,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-9">
   <div class="wrap">
     <p class="kicker fade">総合評価</p>
     <h2 class="fade"><span class="num">09</span>堅牢度</h2>
@@ -371,7 +400,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-10">
   <div class="wrap">
     <p class="kicker fade">日本語で読める学習ルート</p>
     <h2 class="fade">入口 → 中核 → 応用（哲学編）</h2>
@@ -453,7 +482,7 @@
   </div>
 </section>
 
-<section class="sources">
+<section id="sec-11" class="sources">
   <div class="wrap">
     <p class="kicker fade">主な出典</p>
     <h2 class="fade">この読み物の根拠</h2>
@@ -490,6 +519,17 @@
     fades.forEach(f=>io.observe(f));
     document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
   }
+</script>
+<script>
+
+// progress bar
+var _pb=document.getElementById('progress');
+document.addEventListener('scroll',function(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;_pb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';},{passive:true});
+// active nav
+var _nl=[].slice.call(document.querySelectorAll('.gnav-links a'));
+var _ns=_nl.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+var _io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;_nl.forEach(function(l){var on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+_ns.forEach(function(s){_io.observe(s);});
 </script>
 </body>
 </html>

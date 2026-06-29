@@ -137,9 +137,38 @@
     th,td{padding:9px 8px;font-size:13px;}
     .saga li{padding-left:84px;} .saga li::before{width:62px;font-size:13.5px;} .saga li::after{left:72px;} .saga .dotmark{left:68px;}
   }
+
+/* ---- header nav ---- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav.gnav{position:sticky;top:0;z-index:50;background:rgba(251,252,251,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.gnav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.gnav-brand{font-family:"Noto Serif JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}
+.gnav-brand b{color:var(--coral)}
+.gnav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.gnav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft,#46585c);text-decoration:none;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.18s}
+.gnav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+@media(max-width:560px){.gnav-inner{padding:11px 18px}.gnav-brand{display:none}}
+
 </style>
 </head>
 <body>
+<div id="progress"></div>
+<nav class="gnav">
+  <div class="gnav-inner">
+    <span class="gnav-brand">WBの経済学<b>・</b>深掘り</span>
+    <div class="gnav-links">
+      <a href="#sec-1">パラドックス</a>
+      <a href="#sec-2">反撃</a>
+      <a href="#sec-3">$75K壁</a>
+      <a href="#sec-4">頑健な発見</a>
+      <a href="#sec-5">GDP先</a>
+      <a href="#sec-6">対話</a>
+      <a href="#sec-7">収束点</a>
+      <a href="#sec-8">堅牢度</a>
+    </div>
+  </div>
+</nav>
+
 
 <header class="hero">
   <div class="wrap">
@@ -196,7 +225,7 @@
 
 <main>
 
-<section>
+<section id="sec-1">
   <div class="wrap">
     <p class="kicker fade">起点</p>
     <h2 class="fade"><span class="num">01</span>イースタリン・パラドックス（1974）</h2>
@@ -210,7 +239,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-2">
   <div class="wrap">
     <p class="kicker fade">論争①</p>
     <h2 class="fade"><span class="num">02</span>「パラドックスは存在しない」という反撃</h2>
@@ -224,7 +253,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-3">
   <div class="wrap">
     <p class="kicker fade">論争②（核心）</p>
     <h2 class="fade"><span class="num">03</span>$75,000の壁——と、それを壊した敵対的協働</h2>
@@ -255,7 +284,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-4">
   <div class="wrap">
     <p class="kicker fade">経済学が本当に確信していること</p>
     <h2 class="fade"><span class="num">04</span>所得論争より頑健な、4つの発見</h2>
@@ -270,7 +299,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-5">
   <div class="wrap">
     <p class="kicker fade">政策へ</p>
     <h2 class="fade"><span class="num">05</span>GDPの先を測る</h2>
@@ -280,7 +309,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-6">
   <div class="wrap">
     <p class="kicker fade">意思決定パートナーとしての使い方</p>
     <h2 class="fade"><span class="num">06</span>対話に、どこを差し込むか</h2>
@@ -298,7 +327,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-7">
   <div class="wrap">
     <p class="kicker fade">シリーズの収束点</p>
     <h2 class="fade"><span class="num">07</span>6本は、同じ一点に集まる</h2>
@@ -314,7 +343,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-8">
   <div class="wrap">
     <p class="kicker fade">総合評価</p>
     <h2 class="fade"><span class="num">08</span>堅牢度</h2>
@@ -327,7 +356,7 @@
   </div>
 </section>
 
-<section>
+<section id="sec-9">
   <div class="wrap">
     <p class="kicker fade">日本語で読める学習ルート</p>
     <h2 class="fade">入口 → 中核 → 応用（経済学編）</h2>
@@ -409,7 +438,7 @@
   </div>
 </section>
 
-<section class="sources">
+<section id="sec-10" class="sources">
   <div class="wrap">
     <p class="kicker fade">主な出典</p>
     <h2 class="fade">この読み物の根拠</h2>
@@ -446,6 +475,17 @@
     fades.forEach(f=>io.observe(f));
     document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
   }
+</script>
+<script>
+
+// progress bar
+var _pb=document.getElementById('progress');
+document.addEventListener('scroll',function(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;_pb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';},{passive:true});
+// active nav
+var _nl=[].slice.call(document.querySelectorAll('.gnav-links a'));
+var _ns=_nl.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+var _io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;_nl.forEach(function(l){var on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+_ns.forEach(function(s){_io.observe(s);});
 </script>
 </body>
 </html>
