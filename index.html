@@ -37,6 +37,8 @@
   .left-head{flex-shrink:0;padding:20px 20px 0}
   .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.18em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 16px;display:flex;align-items:center}
   .eyebrow::before{content:"";display:inline-block;width:22px;height:2px;background:var(--teal);margin-right:10px}
+  .last-updated{font-size:11.5px;color:var(--muted);letter-spacing:.03em;margin-top:6px}
+  .last-updated b{font-weight:600;color:var(--ink-soft)}
 
   .toolbar{flex-shrink:0;padding:0 20px 14px;border-bottom:1px solid var(--line);background:var(--paper)}
   .search{position:relative;margin:0 0 12px}
@@ -160,6 +162,7 @@
   <div class="left">
     <div class="left-head">
       <div class="eyebrow">Research Archive</div>
+      <div class="last-updated">最終更新 <b>2026-07-25</b>／全<b id="luCount"></b>件</div>
     </div>
     <div class="toolbar">
       <div class="search">
@@ -202,6 +205,7 @@ const ARTICLES = [
   { cat:"コーチング", num:"01", date:"2026-06-29", title:"AI時代のコーチング", sub:"人間にしかできないこと、AIに任せるべきこと", url:"./coaching/01-ai-era-coaching/" },
   { cat:"コーチング", num:"02", date:"2026-06-29", title:"コーチングは本当に効くのか", sub:"メタ分析とRCTが示す効果の正体", url:"./coaching/02-coaching-evidence/" },
   { cat:"コーチング", num:"03", date:"2026-06-29", title:"個人コーチ生存戦略", sub:"AI・プラットフォーム・12万人の競合を前に、一人でどう勝つか", url:"./coaching/03-solo-coach-strategy/" },
+  { cat:"心理学", num:"02", date:"2026-07-25", title:"マインドフルネスの効果量を、正しく値引きする", sub:"メタ分析だけで見積もる「何が、どれくらい効くのか」", url:"./psychology/02-mindfulness/" },
 ];
 
 /* ---- flags (localStorage) ---- */
@@ -330,6 +334,7 @@ function closeReader(){
 mobBackBtn.addEventListener('click',closeReader);
 qEl.addEventListener('input',()=>{keyword=qEl.value.trim();render();});
 render();
+document.getElementById('luCount').textContent = ARTICLES.length;
 </script>
 </body>
 </html>
