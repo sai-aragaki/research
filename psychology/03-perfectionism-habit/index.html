@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>完璧主義は、習慣を壊すのか — 完璧主義と習慣化の交差点</title>
+<meta name="description" content="習慣は1日サボった程度では壊れない。それでも人は崩れる。完璧主義と習慣形成という別々に育った2つの研究領域を橋渡しし、壊しているのは中断そのものではなく中断の解釈だという仮説を、隣接エビデンスから組み立てるディープリサーチ。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F7F9; --paper-2:#EBEEF2; --panel:#EBEEF2;
+  --ink:#1D2328; --ink-soft:#59656E; --ink-faint:#59656E;
+  --teal-deep:#4F7C87; --teal:#62B8A0; --teal-wash:#EAF4F0;
+  --coral:#EB6584; --coral-wash:#FDEEF1;
+  --sand:#B98B2E; --sand-wash:#F5EBD3;
+  --line:#DDE3E8; --line-soft:#E8ECEF;
+  --shadow:0 1px 2px rgba(29,35,40,.04), 0 10px 34px -18px rgba(29,35,40,.22);
+  --maxw:760px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans JP","Helvetica Neue",Arial,sans-serif;
+  font-size:15.6px; line-height:1.95; letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 26px}
+
+#progress{position:fixed; top:0; left:0; height:3px; width:0;
+  background:linear-gradient(90deg,var(--teal),var(--teal-deep));
+  z-index:60; transition:width .12s ease-out}
+
+nav{position:sticky; top:0; z-index:50;
+  background:rgba(246,247,249,.86); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft)}
+.nav-inner{max-width:1080px; margin:0 auto; display:flex; align-items:center; gap:18px; padding:13px 26px}
+.brand{font-family:"Noto Serif JP",serif; font-weight:700; font-size:15px; color:var(--teal-deep); white-space:nowrap}
+.brand b{color:var(--coral)}
+.nav-links{display:flex; gap:4px; margin-left:auto; overflow-x:auto; scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-size:12.5px; font-weight:500; color:var(--ink-soft); text-decoration:none;
+  padding:6px 11px; border-radius:999px; white-space:nowrap; transition:.18s}
+.nav-links a:hover{color:var(--teal-deep); background:var(--teal-wash)}
+
+.hero{padding:76px 0 60px; border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-family:"Noto Serif JP",serif; font-size:12.5px; font-weight:600;
+  letter-spacing:.18em; color:var(--coral); display:block; margin-bottom:20px}
+.title{font-family:"Noto Serif JP",serif; font-weight:800;
+  font-size:clamp(29px,5.6vw,44px); line-height:1.4; letter-spacing:.01em; margin:0 0 24px}
+.title .ac{color:var(--teal-deep)}
+.lede{font-size:16.4px; line-height:2.0; color:var(--ink-soft); margin:0 0 28px}
+.src-tag{font-size:13px; line-height:1.85; color:var(--ink-faint);
+  border-left:2px solid var(--teal); padding:4px 0 4px 14px; margin-bottom:34px}
+.src-tag b{color:var(--ink-soft); font-weight:500}
+
+.stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.stat{background:#fff; border:1px solid var(--line); border-radius:14px; padding:17px 15px}
+.stat .n{font-family:"Noto Serif JP",serif; font-weight:700; font-size:26px;
+  line-height:1.2; color:var(--teal-deep); letter-spacing:-.01em}
+.stat .n small{font-size:12.5px; font-weight:600; margin-left:2px; color:var(--ink-faint)}
+.stat .l{font-size:11.5px; line-height:1.6; color:var(--ink-faint); margin-top:7px; letter-spacing:.02em}
+
+section{padding:60px 0; border-top:1px solid var(--line-soft)}
+.sec-no{font-family:"Noto Serif JP",serif; font-weight:600; font-size:13px;
+  letter-spacing:.16em; color:var(--coral); display:block}
+h2{font-family:"Noto Serif JP",serif; font-weight:800;
+  font-size:clamp(24px,4.1vw,32px); line-height:1.42; margin:8px 0 8px; letter-spacing:.01em}
+.sec-sub{font-size:14.5px; color:var(--ink-faint); font-weight:500; margin:0 0 28px; letter-spacing:.03em}
+h3{font-family:"Noto Serif JP",serif; font-weight:700; font-size:19px;
+  line-height:1.6; margin:38px 0 12px; color:var(--teal-deep)}
+p{margin:0 0 18px}
+mark{background:linear-gradient(transparent 58%, rgba(98,184,160,.34) 58%); padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%, rgba(235,101,132,.28) 58%)}
+strong{font-weight:700}
+.q{font-family:"Noto Serif JP",serif; font-style:normal; color:var(--ink-soft)}
+
+ul.clean{list-style:none; padding:0; margin:24px 0}
+ul.clean li{position:relative; padding:11px 0 11px 22px; border-bottom:1px dashed var(--line);
+  font-size:14.8px; line-height:1.9}
+ul.clean li:before{content:""; position:absolute; left:2px; top:20px;
+  width:7px; height:7px; border-radius:50%; background:var(--teal)}
+ul.clean li b{color:var(--teal-deep); font-weight:700; margin-right:6px}
+
+ul.limit{list-style:none; padding:0; margin:24px 0}
+ul.limit li{position:relative; padding:12px 0 12px 30px; border-bottom:1px dashed var(--line);
+  font-size:14.8px; line-height:1.9}
+ul.limit li:before{content:"!"; position:absolute; left:0; top:15px;
+  width:18px; height:18px; border-radius:50%; background:var(--sand-wash); color:var(--sand);
+  font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center}
+ul.limit li b{color:var(--ink); font-weight:700; margin-right:6px}
+
+.dom-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:26px 0}
+.dom{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 16px}
+.dn{font-family:"Noto Serif JP",serif; font-weight:700; font-size:15.5px; color:var(--teal-deep)}
+.de{font-size:10.5px; letter-spacing:.11em; color:var(--ink-faint); margin:3px 0 9px; font-weight:600}
+.dq{font-size:13px; line-height:1.8; color:var(--ink-soft)}
+
+.chart-card{background:#fff; border:1px solid var(--line); border-radius:16px;
+  padding:24px 22px; margin:30px 0; box-shadow:var(--shadow)}
+.ct{font-family:"Noto Serif JP",serif; font-weight:700; font-size:16px; margin-bottom:5px}
+.cs{font-size:12px; color:var(--ink-faint); line-height:1.7; margin-bottom:20px}
+.leg{display:flex; gap:16px; flex-wrap:wrap; margin-top:16px; font-size:11.5px; color:var(--ink-faint)}
+.leg span{display:flex; align-items:center; gap:6px}
+.leg i{width:10px; height:10px; border-radius:3px; display:inline-block}
+
+/* 横バーチャート */
+.bar-row{display:grid; grid-template-columns:1fr 150px 52px; align-items:center;
+  gap:12px; padding:7px 0}
+.bl{font-size:13px; color:var(--ink-soft); line-height:1.5}
+.bar-track{height:9px; background:var(--paper-2); border-radius:999px; overflow:hidden}
+.bar-fill{height:100%; background:var(--teal); border-radius:999px;
+  width:0; transition:width 1s cubic-bezier(.22,.9,.3,1)}
+.bar-row.hi .bar-fill{background:var(--coral)}
+.bar-row.hi .bl{color:var(--ink); font-weight:700}
+.bv{font-family:"Noto Serif JP",serif; font-size:13.5px; font-weight:700;
+  color:var(--teal-deep); text-align:right}
+.bar-row.hi .bv{color:var(--coral)}
+
+/* レンジチャート（習慣化までの日数）*/
+.range-row{display:grid; grid-template-columns:172px 1fr 92px; align-items:center;
+  gap:12px; padding:12px 0; border-bottom:1px dashed var(--line-soft)}
+.range-row:last-child{border-bottom:none}
+.rl{font-size:13px; color:var(--ink-soft); line-height:1.5}
+.range-track{position:relative; height:9px; background:var(--paper-2); border-radius:999px}
+.range-fill{position:absolute; top:0; left:0; height:100%; width:0;
+  background:var(--teal); border-radius:999px; transition:width 1s cubic-bezier(.22,.9,.3,1)}
+.range-mid{position:absolute; top:-6px; bottom:-6px; width:2px; background:var(--coral);
+  border-radius:1px; opacity:0; transition:opacity .5s ease .6s}
+.range-mid.show{opacity:1}
+.range-mid-label{position:absolute; top:-21px; left:50%; transform:translateX(-50%);
+  font-size:10px; font-weight:700; color:var(--coral); white-space:nowrap}
+.rv{font-family:"Noto Serif JP",serif; font-size:13px; font-weight:700;
+  color:var(--teal-deep); text-align:right; white-space:nowrap}
+
+/* ダイバージングチャート（懸念 vs 努力）*/
+.divg{margin:6px 0 22px}
+.divg-name{font-family:"Noto Serif JP",serif; font-weight:700; font-size:14.5px;
+  color:var(--ink); margin:18px 0 4px}
+.div-row{display:grid; grid-template-columns:64px 1fr 54px; align-items:center;
+  gap:10px; padding:5px 0}
+.div-tag{font-size:11.5px; color:var(--ink-faint); font-weight:600}
+.div-track{position:relative; height:9px; background:var(--paper-2); border-radius:999px}
+.div-track:before{content:""; position:absolute; left:50%; top:-5px; bottom:-5px;
+  width:1px; background:var(--line); transform:translateX(-.5px)}
+.div-fill{position:absolute; top:0; height:100%; width:0; border-radius:999px;
+  transition:width 1s cubic-bezier(.22,.9,.3,1)}
+.div-fill.concern{background:var(--coral)}
+.div-fill.effort{background:var(--teal)}
+.div-fill.pos{left:50%}
+.div-fill.neg{right:50%}
+.dv{font-family:"Noto Serif JP",serif; font-size:13px; font-weight:700; text-align:right; white-space:nowrap}
+.dv.concern{color:var(--coral)}
+.dv.effort{color:var(--teal-deep)}
+
+.pull{border-left:3px solid var(--coral); background:var(--coral-wash);
+  border-radius:0 14px 14px 0; padding:22px 24px; margin:32px 0}
+.pull p{font-family:"Noto Serif JP",serif; font-size:18px; line-height:1.85;
+  font-weight:600; margin:0; color:var(--ink)}
+
+.note{background:var(--teal-wash); border-radius:14px; padding:20px 22px; margin:28px 0;
+  font-size:13.8px; line-height:1.9}
+.note p{margin:0 0 10px} .note p:last-child{margin:0}
+.note .h{font-family:"Noto Serif JP",serif; font-weight:700; font-size:14.5px; color:var(--teal-deep)}
+.note.sand{background:var(--sand-wash)}
+.note.sand .h{color:var(--sand)}
+
+.insight{background:#fff; border:1px solid var(--line); border-top:4px solid var(--teal);
+  border-radius:14px; padding:22px 22px 20px; margin:20px 0; box-shadow:var(--shadow)}
+.ik{font-size:10.5px; font-weight:700; letter-spacing:.14em; color:var(--coral)}
+.insight h4{font-family:"Noto Serif JP",serif; font-weight:700; font-size:17px;
+  margin:8px 0 10px; line-height:1.6}
+.insight p{font-size:14px; line-height:1.9; margin:0; color:var(--ink-soft)}
+
+.pc-link{display:inline-block; font-size:13px; font-weight:500; text-decoration:none;
+  color:var(--teal-deep); border:1.5px solid var(--teal-deep); border-radius:999px;
+  padding:9px 20px; margin:6px 6px 6px 0; transition:.2s}
+.pc-link:hover{background:var(--teal-deep); color:#fff}
+
+.refs{font-size:12.6px; line-height:1.9; color:var(--ink-soft); counter-reset:r}
+.refs li{padding:9px 0; border-bottom:1px solid var(--line-soft)}
+.refs a{color:var(--teal-deep); word-break:break-all}
+
+footer{padding:52px 0 70px; border-top:1px solid var(--line);
+  font-size:12.8px; line-height:2; color:var(--ink-faint); background:var(--paper-2)}
+
+@media (max-width:680px){
+  body{font-size:15.2px}
+  section{padding:46px 0}
+  .hero{padding:52px 0 44px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{padding:11px 18px}
+  .brand{display:none}
+  .bar-row{grid-template-columns:1fr 100px 46px; gap:8px}
+  .bl{font-size:12px}
+  .range-row{grid-template-columns:1fr; gap:6px; padding:14px 0}
+  .rv{text-align:left}
+  .div-row{grid-template-columns:52px 1fr 46px; gap:6px}
+  .wrap{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="brand">完璧主義<b>・</b>習慣化</span>
+    <div class="nav-links">
+      <a href="#start">出発点</a>
+      <a href="#what">解剖</a>
+      <a href="#why">起源</a>
+      <a href="#habit">定義</a>
+      <a href="#selfcontrol">逆説</a>
+      <a href="#gap">空白</a>
+      <a href="#bridge">架橋</a>
+      <a href="#change">介入</a>
+      <a href="#excellencism">分岐</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究</span>
+    <h1 class="title">完璧主義は、<span class="ac">習慣</span>を壊すのか。<br>壊しているのは、失敗ではなく解釈だ。</h1>
+    <p class="lede">Lallyら（2010）の12週間追跡では、実行を1日サボったことによる自動性スコアの低下は0.5ポイントに満たず、しかもすぐに回復した。習慣は、そもそも取りこぼしを織り込んで形成される。では、なぜ現実の私たちは1日サボると全部やめてしまうのか。完璧主義と習慣形成を直接つないだ実証研究は、探しても見つからなかった。この記事はその空白から始める。</p>
+    <div class="src-tag">
+      出典：<b>Lally et al. (2010), European Journal of Social Psychology</b><br>
+      Curran &amp; Hill (2019), Psychological Bulletin ／ Sirois, Molnar &amp; Hirsch (2017) ／ Gaudreau (2019)
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">66日<small>中央値</small></div><div class="l">自動化に要した日数（範囲18〜254日）</div></div>
+      <div class="stat"><div class="n">0.5pt<small>未満</small></div><div class="l">1日の実行漏れによる自動性の低下</div></div>
+      <div class="stat"><div class="n">+33<small>%</small></div><div class="l">27年間の社会規定的完璧主義の増加</div></div>
+      <div class="stat"><div class="n">0<small>本</small></div><div class="l">完璧主義と習慣形成を直接つないだ実証研究</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="start">
+  <div class="wrap">
+    <span class="sec-no">01 ── 出発点</span>
+    <h2>習慣は、1日サボったくらいでは壊れない</h2>
+    <p class="sec-sub">Lally et al. (2010) ／ How are habits formed</p>
+    <p>Lallyら（2010）は、大学関係者のボランティア96名に食事・飲料・運動などの行動を1つ選ばせ、12週間にわたって同じ文脈（「朝食後に」など）で毎日実行させ、自動性を毎日測定した。分析に十分なデータが残ったのは82名、そのうち明確な自動化曲線が適合したのは39名、約48%に過ぎない。自ら望んで参加したモチベーションの高い集団でさえ、半数以上は綺麗な曲線を描かなかった。</p>
+    <p>自動化に到達するまでの日数は、中央値66日、範囲は18日から254日。運動だけに絞ると中央値は91日まで伸びる。この研究の核心はもう一点ある。1回の実行機会を逃しても、自動性スコアの低下は0.5ポイントに満たず、その後のスコアはすぐに回復した。長期的な上昇カーブ自体は、ほとんど影響を受けていない。</p>
+    <p>これが意味するのは、習慣形成が最初から「取りこぼしを織り込んだプロセス」として実測されているということだ。理論上の理想形ではなく、実際に人が行動を続けた記録の中に、すでに欠損は組み込まれている。</p>
+    <div class="note sand">
+      <p><span class="h">「66日で習慣になる」の実態</span></p>
+      <p>ネット上で広く流布する「66日」は平均ではなく中央値であり、範囲は18日から254日と個人・行動によって大きく異なる。しかも参加者82名のうち曲線が適合したのは39名、半数以上は明確な自動化パターンを示さなかった。単一の数字として扱えるものではない。</p>
+    </div>
+    <p>では、なぜ現実の私たちは1日サボると、そのまま全部やめてしまうのか。データが示す「無害な中断」と、実感としての「取り返しのつかない失敗」の間には、明らかな溝がある。この記事はその溝を埋める作業になる。</p>
+  </div>
+</section>
+
+<section id="what">
+  <div class="wrap">
+    <span class="sec-no">02 ── 解剖</span>
+    <h2>完璧主義は「高い基準」のことではない</h2>
+    <p class="sec-sub">perfectionistic strivings vs. perfectionistic concerns</p>
+    <p>完璧主義の学術的な捉え方は、この40年で何度も組み替えられてきた。Hamachek（1978）は「正常な完璧主義」と「神経症的な完璧主義」を分けた最初期の研究者で、前者は高い基準を追いながらも自分の限界を受け入れられる態度、後者は些細な不完全さも許せず慢性的な不安に苛まれる態度とした。Frostら（1990）はこれを35項目・6下位尺度からなるFMPSとして測定可能な形に落とし込み、Hewitt &amp; Flett（1991）はさらに対人関係の軸を加えて、自己志向的・他者志向的・社会規定的という3次元モデルを提示した（精神科患者263名のサンプルでα=.88／.74／.81）。</p>
+    <p>だが記事の主張にとって決定的なのは、次元の数ではない。Stoeber &amp; Otto（2006）が整理した<mark>perfectionistic strivings（完璧主義的努力）</mark>と<mark class="c">perfectionistic concerns（完璧主義的懸念）</mark>という2因子の区別だ。前者は高い達成基準そのもの、後者は失敗への否定的態度・自己批判・理想と現実の乖離感を指す。ここに、この記事全体を貫く核心がある。<mark>concerns</mark>を統制して初めて、<mark>strivings</mark>のポジティブな関連が姿を現す。両者を一緒くたに扱うと、逆方向の効果が互いに打ち消し合ってしまうのだ。</p>
+    <p>つまり「完璧主義は良いか悪いか」という問いの立て方そのものが、統計的に誤っている。基準の高さは、それ単体では病理と結びつかない。結びつくのは、基準に届かなかったときに何を思うか、という解釈の層である。</p>
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dn">完璧主義的努力</div>
+        <div class="de">STRIVINGS</div>
+        <div class="dq">高い達成基準そのもの。誠実性や忍耐力、生活満足度と関連する。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">完璧主義的懸念</div>
+        <div class="de">CONCERNS</div>
+        <div class="dq">失敗への否定的態度、自己批判、理想と現実の乖離感。うつ・不安・摂食障害と関連する。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">卓越主義</div>
+        <div class="de">EXCELLENCISM</div>
+        <div class="dq">高いが到達可能な基準に柔軟に取り組む態度。09で詳しく扱う。</div>
+      </div>
+    </div>
+    <p>この抑制効果は臨床データにもはっきり現れる。Limburgら（2017）は284研究・2,047の効果量を統合したメタ分析で、<mark class="c">concerns</mark>とうつ症状の相関がr=.39〜.40、不安症状がr=.30〜.35と報告した。2023年のメタ分析に目を移すと、<mark class="c">concerns</mark>と神経性やせ症の症状の相関はr=.81に達している。心理測定研究でr=.50を超えれば「強い」とされる中で、この数値は例外的だ。同じ調査で<mark>strivings</mark>との相関はr=.56で、方向は同じでも強さが違う。</p>
+    <div class="pull">
+      <p>"I don't think needing to be perfect is in any way adaptive."<br>「完璧である必要性が、いかなる意味であれ適応的だとは私は思わない」</p>
+    </div>
+    <p>完璧主義研究の重鎮の一人、Paul Hewittはこう言い切る。一方でStoeberらは、<mark class="c">concerns</mark>を統制した上での<mark>strivings</mark>の純粋な効果は高いウェルビーイングと結びつくとし、次元を区別せずに完璧主義を一枚岩として語ることこそ誤りだと反論する。この論争に決着はついていない。ただ、双方が同意している一点がある。完璧主義を単一の性質として扱う限り、何もわからないということだ。</p>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <span class="sec-no">03 ── 起源</span>
+    <h2>27年で33%増えた、他人からの視線</h2>
+    <p class="sec-sub">Curran &amp; Hill (2019, 2022) ／ Psychological Bulletin</p>
+    <p>完璧主義がどこから来るのかを説明する経路は複数ある。まず遺伝率。スペインの青年期双生児研究では、自己志向的完璧主義の遺伝率が男児23%・女児30%であるのに対し、社会規定的完璧主義は男児39%・女児42%と、対人的な次元のほうがむしろ遺伝的影響が強い。個人内で完結する基準よりも、他人からどう見られているかという感覚のほうが遺伝的に規定されやすいというのは、直感に反する結果だろう。</p>
+    <p>養育の影響も無視できない。親の批判は自己志向的・他者志向的完璧主義とは小さな正の関連に留まる一方、社会規定的完璧主義とは大きな正の関連を示す（2021年のメタ分析）。Hewittらが提唱したPerfectionism Social Disconnection Modelは、社会規定的完璧主義が社会的孤立感を経由して自殺念慮にまで至る経路を想定しており、対人的な完璧主義がなぜ個人内の完璧主義より深刻に扱われるのかを裏づける枠組みになっている。</p>
+    <p>ここからが本題だ。Curran &amp; Hill（2019）は、米英加の大学生41,641名（164サンプル）を対象に、1989年から2016年までのMultidimensional Perfectionism Scaleのスコアをクロス時間メタ分析した。結果、自己志向的完璧主義は+10%、他者志向的完璧主義は+16%、そして社会規定的完璧主義は<mark class="c">+33%</mark>という、突出した増加を示した。続くCurran &amp; Hill（2022）では、23,975名を分析対象に、若者が知覚する「親の期待」が1989年比で平均+40%増加していることも確認されている。</p>
+    <div class="chart-card">
+      <div class="ct">27年間で、完璧主義はどう増えたか</div>
+      <div class="cs">Curran &amp; Hill (2019, 2022), Psychological Bulletin。1989年比の平均スコア変化率</div>
+      <!-- chartRise データ: 自己志向的完璧主義 10%／他者志向的完璧主義 16%／社会規定的完璧主義 33%（強調）／親の期待の知覚 40%。単位はすべて%、1989年を基準とした増加率。 -->
+      <div id="chartRise"></div>
+      <div class="leg">
+        <span><i style="background:var(--coral)"></i>社会規定的完璧主義</span>
+        <span><i style="background:var(--teal)"></i>その他の次元</span>
+      </div>
+    </div>
+    <p>ここで注意すべきは、この増加が1989年からすでに始まっている点だ。Instagramの登場は2010年であり、SNSの普及よりずっと前から社会規定的完璧主義は上昇していた。SNSはこの傾向を増幅した要因ではあっても、起点ではない。Curran &amp; Hillが指摘するのは、新自由主義の台頭とメリトクラシーの強まりという、もっと長期的な文化的変容である。努力し、成果を出し、達成することが、現代生活の中心に据えられるようになった。</p>
+    <p>社会規定的完璧主義とは、他者や社会全体が自分に完璧さを要求していると知覚することだった。この27年間で最も伸びたのが、まさにこの「他人からの視線」の次元だったという事実は、この記事が後に習慣の中断をどう解釈するかという問題に接続していく上で、重要な伏線になる。</p>
+  </div>
+</section>
+
+<section id="habit">
+  <div class="wrap">
+    <span class="sec-no">04 ── 定義</span>
+    <h2>習慣は意志ではなく、文脈でできている</h2>
+    <p class="sec-sub">Wood &amp; Rünger (2016) ／ context-response association</p>
+    <p>Wood &amp; Rünger（2016）の定義に立ち戻ろう。習慣とは、過去にある文脈で反復的に行動した結果、記憶の中に形成された文脈手がかりと反応の連合であり、その手がかりが再び現れると自動的に反応が活性化される。自動性を定義づける条件は2つ。文脈手がかりによって反復的に活性化されること、そして短期的な目標変化に対して鈍感であることだ。目標が変わっても、習慣はすぐには反応を変えない。</p>
+    <p>この鈍感さは弱点ではない。Wood, Quinn &amp; Kashy（2002）の経験サンプリング調査では、日常行動の約43%が同じ場所でほぼ毎日反復されていることが確認されている。日常の半分近くが、その場の意思決定ではなく過去の反復による自動反応で占められているということだ。Neal, Wood, Labrecque &amp; Lally（2012）も、強い習慣は文脈手がかりで駆動し、現在の目標にはほとんど左右されないことを示している。</p>
+    <p>では、その自動化にはどれだけの時間がかかるのか。Buyalskaya ら（2023, PNAS）は、機械学習を用いてジム通い3万人超・4年分と病院の手洗い3千人超のデータを解析し、行動が予測可能になる漸近点を習慣化の指標とした。ジム通いは95%漸近点まで68〜78日、手洗いは数週間で済む。研究者自身の言葉を借りれば、"There is no magic number for habit formation"——習慣形成に魔法の日数は存在しない。</p>
+    <div class="chart-card">
+      <div class="ct">「何日で習慣になるか」に答えはない</div>
+      <div class="cs">Lally et al. (2010) ／ Buyalskaya et al. (2023, PNAS)。習慣化に要した日数の幅</div>
+      <!-- chartDays データ: Lally全体（中央値66日、範囲18-254日）／Lally運動限定（中央値91日）／ジム通い（68〜78日）／病院の手洗い（約14〜21日）。単位は日数、範囲があるものはレンジで表示。 -->
+      <div id="chartDays"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>Lally (2010)</span>
+        <span><i style="background:var(--coral)"></i>Buyalskaya (2023)</span>
+      </div>
+    </div>
+    <p>期間のばらつきが桁で違う以上、「〇日続ければ習慣になる」という目標設定そのものが検証不能だとわかる。66日という数字も、68〜78日という数字も、特定の行動・特定の集団における一つの観測値に過ぎない。</p>
+  </div>
+</section>
+
+<section id="selfcontrol">
+  <div class="wrap">
+    <span class="sec-no">05 ── 逆説</span>
+    <h2>自制心の強い人は、我慢していない</h2>
+    <p class="sec-sub">Galla &amp; Duckworth (2015, JPSP) ／ the self-control paradox</p>
+    <p>Galla &amp; Duckworth（2015）は6つの研究、合計N=2,274を通じて、意外な事実を突き止めた。自己制御と学業成績や幸福感といった良い結果との関係を媒介していたのは、健康的な間食や運動、一定した睡眠といった「良い習慣」であり、自己制御の高い人ほど、日常生活での意識的な抑制の実感はむしろ<mark>少ない</mark>。従来の「自己制御＝誘惑に打ち勝つ力」という前提そのものが、ここで覆る。de Ridder ら（2012）の102研究・N=32,648のメタ分析も、この関係を補強するエビデンスとして位置づけられている（ただし具体的な効果量の数値は原典未確認）。</p>
+    <div class="pull">
+      <p>自制心の高い人が良い結果を得るのは、その場で耐えるからではない。そもそも耐える必要のない習慣を築いているからだ。（Galla &amp; Duckworthの中心的主張の要約）</p>
+    </div>
+    <p>Oaten &amp; Cheng（2006）の2ヶ月間の運動プログラムでは、この波及効果が別の角度から確認されている。運動という一つの行動を習慣化しただけで、学習習慣・食事・衝動買いにまで良い変化が広がった。自己統制は使えば減っていく在庫のようなものではなく、習慣を通じて増やせる何かだということになる。</p>
+    <p>ここに、この記事が完璧主義へと接続していく伏線がある。習慣化とは、意志力を使わずに済ませる仕組みを作ることだ。行動を文脈に結びつけ、判断の回数そのものを減らす。ところが完璧主義は、その逆を行く。あらゆる実行を、その都度の意志力の試験に変えてしまう構えなのだ。次の章では、この二つの領域を直接つないだ研究がなぜ存在しないのかを見ていく。</p>
+  </div>
+</section>
+
+<section id="gap">
+  <div class="wrap">
+    <span class="sec-no">06 ── 空白</span>
+    <h2>探しても、その研究は存在しなかった</h2>
+    <p class="sec-sub">perfectionism × habit formation ／ 交差する実証研究の不在</p>
+
+    <p>完璧主義は臨床・パーソナリティ心理学の畑で育った概念である。習慣形成は社会心理学・行動科学の畑で育った概念である。育った土地が違えば、使う尺度も、載る雑誌も、引用し合う相手も違ってくる。この記事の準備段階で、両者を直接つなぐ実証研究を探した。完璧主義を独立変数に、習慣強度や自動性を従属変数に置いた相関研究・介入研究・メタ分析——そのどれかに該当する論文を探すクエリを何通りも試したが、見つからなかった。</p>
+
+    <p>唯一近かったのは1997年に発表された、幼児の儀式的行動と完璧主義傾向の発達的共起を扱う研究である。対象は成人ではなく幼児、扱う行動も日常習慣の形成ではなく反復的な儀式行動だった。近いというより、遠くから手を振っている程度の関係でしかない。</p>
+
+    <p>運動科学の内部でさえ、この空白は自覚されている。Segar ら（2025, <i>BMC Public Health</i>）はフォーカスグループ研究の中で、完璧主義的な運動観がもたらす全か無か思考について、こう書いている。</p>
+
+    <p>"a potential barrier to sustained exercise that has received virtually no attention within the exercise, public health, and behavioral science literatures"<br>
+    「運動の継続を妨げうる障壁でありながら、運動科学・公衆衛生学・行動科学のいずれの文献においても、これまでほとんど注目されてこなかった」</p>
+
+    <p>運動継続という、完璧主義と習慣が最も交わりそうな現場でさえ、2025年時点でこの状態だった。</p>
+
+    <div class="note sand">
+      <p><span class="h">採用しなかった数字について</span></p>
+      <p>調査の過程では「全か無か思考の人は一度のミスの後、習慣を放棄する確率が3.5倍になる」「特定のリカバリープロトコルを実行すると82%高い確率で習慣を再確立できる」といった、具体的で説得力のある数字に複数回遭遇した。いずれも一次文献のジャーナル名・巻号・DOIを特定できず、SEO記事の中にしか存在しなかった。本稿ではこれらを事実として扱わない。使わなかった、という事実そのものをここに明記しておく。</p>
+    </div>
+
+    <p>空白があるなら、隣の領域から橋を架けるしかない。ここから先は、直接の証拠ではなく推論である。そう断ったうえで進む。</p>
+  </div>
+</section>
+
+<section id="bridge">
+  <div class="wrap">
+    <span class="sec-no">07 ── 架橋</span>
+    <h2>完璧主義は、習慣の何を壊すのか</h2>
+    <p class="sec-sub">4本の橋 ／ 実証されていることと、そこからの推論</p>
+
+    <p>直接つないだ研究がない以上、ここでは隣接する4つの実証知見を橋として渡し、その先に仮説を組み立てる。橋の途中までは事実、そこから先は推論であることを、そのつど明示する。</p>
+
+    <h3>橋① 反復の頻度が落ちる</h3>
+    <p>Sirois, Molnar & Hirsch（2017）のメタ分析は、完璧主義を単一の構成概念として扱わず、努力（strivings）と懸念（concerns）に分けて先延ばしとの相関を再検討した。結果は明確に分かれる。完璧主義的懸念（失敗への恐れ、他者評価への懸念）と先延ばしは r=.23（k=43研究、N≈10,000）。完璧主義的努力（高い基準の追求）と先延ばしは r=−.22（k=38研究、N≈9,544）。符号が逆を向く。</p>
+    <p>Steel（2007）が単一次元の完璧主義で先延ばしとの関連を「非有意」と結論していたのは、この2つの逆向きの効果が互いを打ち消していたためだった。Steel自身の言葉が的確である。</p>
+    <p>"Perfectionism is not the culprit. In fact, perfectionists actually procrastinate less, but they worry about it more."<br>
+    「完璧主義は犯人ではない。むしろ完璧主義者は実際には先延ばしを少なくしているが、そのことをより心配しているだけだ」</p>
+    <p>ここから先は推論になるが、Lallyのモデルが要求するのは「安定した文脈での頻繁な反復」である。先延ばしはその反復の頻度を直接削る。完璧主義的懸念が強い人ほど、習慣形成に必要な回数そのものを積みにくい可能性がある。</p>
+
+    <h3>橋② 中断が破局として解釈される</h3>
+    <p>Byrne, Cooper & Fairburn（2004）は、初期体重の10%減量に成功した女性54名を1年間追跡し、体重リバウンドの予測因子を調べた。二分法思考というスタイルが有意な予測因子として同定されている。具体的な回帰係数やオッズ比は原著の本文表を確認する必要があり、ここでは「有意な予測因子だった」という定性的な結果までにとどめる。先んじて行われたのは、リバウンド群・維持群・健常域群を比較した2003年の質的研究（女性76名）で、そこから二分法思考という着眼点が引き継がれている。</p>
+
+    <h3>橋③ 一度目より、二度目以降の反応が効く</h3>
+    <p>禁煙研究（N=203の喫煙者）は、この記事にとって最も示唆的な結果を出している。最初のラプス——つまり一度目の喫煙——に対する自己非難や罪悪感は、それ自体では再発を予測しなかった。ところが2回目以降の各ラプスへの反応を統制すると、自己効力感の低下が再発の進行を有意に加速していた（ハザード比 HR=1.09, 95%CI 1.02–1.15）。過食研究でも同様の構図が見られ、より内的・全般的・統制不能な原因帰属をした人ほど、次の過食までの間隔が短かった。</p>
+    <p>Marlatt & Gordon の禁欲違反効果、Polivy & Herman の what-the-hell 効果は、いずれもこの「一度の逸脱をどう解釈するか」を扱った古典的な枠組みである。ここで Lally の0.5ポイントと対比させたい。行動としての1回の中断は、無害だった。有害だったのは、その中断に対する帰属である。</p>
+
+    <h3>橋④ 壊れ方は「続かない」だけではない</h3>
+    <p>完璧主義的懸念は運動依存（exercise addiction/dependence）と一貫して正の相関を示す。エリートアスリートを対象にした燃え尽きのメタ分析でも、完璧主義的懸念と燃え尽きは中〜強度の正の関連にある。完璧主義は行動を止めさせるだけではない。止められなくもする。単純な直線関係では説明がつかない。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>壊しているのは中断ではなく帰属</h4>
+      <p>Lallyの実測では1回の実行漏れによる自動性の低下は0.5ポイント未満で、すぐ回復する。壊れて見えるのは、その中断を「もう無理だ」と解釈した瞬間からである。橋②③が示すのは、行動そのものより、その行動をどう意味づけるかが習慣の運命を分けるという構図だ。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>完璧主義的努力と完璧主義的懸念は、習慣化に対して逆向きに働く（と推測できる）</h4>
+      <p>先延ばし・拒食症症状・スポーツパフォーマンスのいずれでも、努力と懸念は逆方向、あるいは異なる強さで動く。習慣形成に対しても同じ分岐が起きているとすれば、「完璧主義は習慣化を妨げるか」という問いの立て方自体が、02で見た抑制効果と同じ罠に落ちていることになる。ただし習慣形成そのものを対象にこの分岐を直接検証した研究はまだない。</p>
+    </div>
+
+    <!-- chartDiverge データ: 同一アウトカムに対する完璧主義的懸念（coral）と完璧主義的努力（teal）の相関係数rを対比
+         先延ばし: 懸念 +0.23 / 努力 -0.22 （Sirois, Molnar & Hirsch, 2017; k=43/38, N≈10,000/9,544）
+         スポーツパフォーマンス: 懸念 +0.03 / 努力 +0.21 （スポーツ心理メタ分析 2025, N=6,102）
+         拒食症症状: 懸念 +0.81 / 努力 +0.56 （摂食障害メタ分析, International Journal of Eating Disorders, 2023） -->
+    <div class="chart-card">
+      <div class="ct">同じ「完璧主義」が、成分によって逆を向く</div>
+      <div class="cs">Sirois, Molnar & Hirsch (2017) ／ スポーツ心理メタ分析 (2025, N=6,102) ／ 摂食障害メタ分析 (2023)。相関係数 r</div>
+      <div id="chartDiverge"></div>
+      <div class="leg">
+        <span><i style="background:var(--coral)"></i>完璧主義的懸念</span>
+        <span><i style="background:var(--teal)"></i>完璧主義的努力</span>
+      </div>
+    </div>
+
+    <ul class="limit">
+      <li><b>直接研究がない</b>　完璧主義と習慣形成そのものを結んだ実証研究は、06で見た通り存在しない。ここまでの4本の橋は、いずれも隣接領域からの類推である。</li>
+      <li><b>相関から因果は言えない</b>　先延ばし・リバウンド・燃え尽きとの関連はいずれも相関研究に基づく。完璧主義が原因で習慣が崩れるのか、崩れやすい生活状況が完璧主義的な認知を強めるのか、逆方向の可能性も残る。</li>
+      <li><b>二分法思考は完璧主義の一成分にすぎない</b>　橋②③で使った知見の多くは「二分法思考」「破局的帰属」という認知スタイルを扱っており、完璧主義そのもの（努力・懸念の2因子構造）を直接測定したものではない。</li>
+      <li><b>減量・禁煙・過食からの外挿という飛躍</b>　橋②③のエビデンスは体重管理・禁煙・過食という特定の行動変容の文脈で得られたものであり、それを運動や勉強といった一般的な習慣形成にそのまま当てはめてよい保証はない。</li>
+      <li><b>自己報告尺度への依拠</b>　完璧主義・習慣強度・二分法思考のいずれも自己報告尺度で測定されている。回答者の内省の正確さに依存する限界がある。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="change">
+  <div class="wrap">
+    <span class="sec-no">08 ── 介入</span>
+    <h2>基準を下げる必要はない、という臨床的合意</h2>
+    <p class="sec-sub">CBT-P、self-compassion、if-then プランニング</p>
+
+    <p>完璧主義への心理療法介入を統合したメタ分析は、はっきりした像を結んでいる。Lloyd ら（2015）は6件の臨床試験を統合し、介入前後の群内効果量 Hedges' g=1.32（95%CI 1.02–1.64）を報告した。副次的にうつは g=0.64、不安は g=0.52 まで下がっている。Galloway ら（2022, <i>Cognitive Behaviour Therapy</i>）はさらに範囲を広げ、15件のRCT・912名（平均23歳）を統合した。失敗への懸念は g=0.89、臨床的完璧主義の総合スコアは g=0.87、個人的基準は g=0.57。対面とインターネット配信で効果に差がなかった点も見逃せない。</p>
+
+    <p>Egan, Shafran & Wade（2023）の「Coming of age」は、CBT-Pというモデルが提唱されてからの21年間を振り返った論文である。この21年間、一貫して中心に据えられてきた原則は、基準を下げることではない。<mark>自己価値の再評価（re-evaluation of self-worth）</mark>である。何を達成したかではなく、達成度以外の何によって自分の価値を測るかを問い直す。ここが、この記事の実践的な要になる。</p>
+
+    <p>自分に厳しくすることをやめると怠けるのではないか、という懸念は根強い。Breines & Chen（2012）の4つの実験は、これを裏切る結果を出している。実験3では、自己コンパッション条件の参加者は、最初のテストで失敗した後、次のテストに向けてより長く勉強した。自尊心条件・統制条件よりも、である。ノルウェーで行われた3週間のセルフコンパッション介入RCT（完了者89名、計16時間程度のプログラム）でも、完璧主義的な評価懸念がη²=.06、不安がη²=.09、うつがη²=.08、それぞれ小〜中程度の改善を示した。わずか16時間で、である。</p>
+
+    <p>習慣の側の設計にも、対応する知見がある。Gollwitzer & Sheeran（2006）のメタ分析は、94の独立した検証を通じて、if-then形式の実行意図（implementation intentions）が目標達成に対して中〜大の効果量 d=.65 を持つことを示した。「もし逃したら、翌日どうするか」まで事前に決めておくやり方は、この枠組みに乗る。文脈手がかりを一貫させること、環境変化（引っ越し等）が習慣を組み替える窓になること（habit discontinuity）も、04で見た知見と重なる。</p>
+
+    <div class="note">
+      <p><span class="h">実務書と学術知見の境界</span></p>
+      <p>Fogg の B=MAP、Clear の2分ルールやidentity-based habitsは査読研究ではなく実務書の産物である。ただし、行動を小さくして始めやすくする発想（Ability重視）や、文脈手がかりを固定する発想は、上に挙げた学術的な知見と方向が一致している。</p>
+    </div>
+
+    <ul class="clean">
+      <li><b>基準ではなく解釈に介入する</b>　CBT-Pが21年一貫して置いてきた焦点は、基準の高さではなく自己価値の測り方だった（Egan et al., 2023）。</li>
+      <li><b>実行漏れを事前に計画へ織り込む</b>　1回の実行漏れは自動性をほとんど落とさない、というLallyの知見をそのまま計画の前提にする。</li>
+      <li><b>if-thenで「逃したら翌日どうするか」まで決めておく</b>　実行意図のd=.65という効果量は、決めておくこと自体の効力を裏付けている（Gollwitzer & Sheeran, 2006）。</li>
+      <li><b>文脈手がかりを固定する</b>　強い習慣は目標より文脈手がかりに動かされる（Neal et al., 2012）。場所・時間帯を毎回同じにする。</li>
+      <li><b>失敗した自分を責めるより、労わる</b>　自己コンパッションは失敗後の改善動機をむしろ高めた（Breines & Chen, 2012）。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="excellencism">
+  <div class="wrap">
+    <span class="sec-no">09 ── 分岐</span>
+    <h2>完璧主義ではなく、卓越主義へ</h2>
+    <p class="sec-sub">excellencism ／ Gaudreau (2019) Model of Excellencism and Perfectionism</p>
+
+    <p>Gaudreau（2019）が提唱したModel of Excellencism and Perfectionism（MEP）は、追いかける基準の高さそのものではなく、その基準への向き合い方で2つを切り分ける。卓越主義（excellencism）は、非常に高いが到達可能な基準に、柔軟に取り組む傾向。完璧主義（perfectionism）は、理想化され瑕疵のない基準に、容赦なく（relentlessly）取り組む傾向。基準の高さは同じでも、柔軟性と容赦のなさの有無だけが違う。Gaudreau自身、この区別の欠如をこう表現している。</p>
+
+    <p>"This conceptual gap has been, thus far, the Achilles heel of the perfectionism literature."<br>
+    「この概念的なギャップこそが、これまでの完璧主義研究におけるアキレス腱であった」</p>
+
+    <p>Gaudreau ら（2025, <i>British Journal of Psychology</i>）は大学院生を対象にこの区別を検証した。完璧を追う層（Perfection strivers）は、卓越を追う層（Excellence strivers）より研究セルフエフィカシーも生産性満足度も高い。ところが生産性満足度を統制すると、燃え尽きとドロップアウト意図もPerfection striversの方が高い。両刃の剣という言葉がそのまま当てはまる結果である。</p>
+
+    <p>文脈による違いも大きい。スポーツパフォーマンスのメタ分析（N=6,102）では、完璧主義的努力は競技パフォーマンスと正の関連（r+=.21）を持つ。ただしこの関連が現れるのは、努力が高く、かつ懸念が低いという組み合わせのときに限られる——完璧主義的な転換点である。一方、職場ではこの図式そのものが成立しない。Harari ら（2018）は職務パフォーマンスと完璧主義的努力・懸念のいずれにも有意な関連を見出せず、こう結論している。</p>
+
+    <p>"In total, perfectionism is likely not constructive at work."<br>
+    「総じて、完璧主義は職場においておそらく建設的ではない」</p>
+
+    <p>習慣化にとっての解は、完璧主義を捨てることではない。基準の高さはそのまま残し、到達不能性と容赦のなさだけを外すこと。そして「1日逃した」を失敗ではなく、次の一歩の材料として扱えるようになること。それだけでいい。</p>
+
+    <p>Lallyの実測が示していたのは、0.5ポイント未満の、すぐ消える揺らぎだった。壊れていたのは習慣ではない。壊していたのは、その揺らぎを大惨事だと読んだ、私たちの側の解釈だった。</p>
+  </div>
+</section>
+
+<section id="refs">
+  <div class="wrap">
+    <span class="sec-no">— ── 参考文献</span>
+    <h2>主要文献</h2>
+    <ul class="clean">
+      <li><b>Lally, P., van Jaarsveld, C. H. M., Potts, H. W. W., & Wardle, J. (2010).</b>　How are habits formed: Modelling habit formation in the real world. <i>European Journal of Social Psychology</i>, 40(6), 998–1009. https://onlinelibrary.wiley.com/doi/abs/10.1002/ejsp.674</li>
+      <li><b>Frost, R. O., Marten, P., Lahart, C., & Rosenblate, R. (1990).</b>　The dimensions of perfectionism. <i>Cognitive Therapy and Research</i>, 14, 449–468. https://scholarworks.smith.edu/cgi/viewcontent.cgi?article=1165&context=psy_facpubs</li>
+      <li><b>Hewitt, P. L., & Flett, G. L. (1991).</b>　Perfectionism in the self and social contexts. <i>Journal of Personality and Social Psychology</i>, 60(3), 456–470. https://hewittlab.sites.olt.ubc.ca/files/2014/11/MPS-RESEARCH-ONLY.pdf</li>
+      <li><b>Stoeber, J., & Otto, K. (2006).</b>　Positive Conceptions of Perfectionism: Approaches, Evidence, Challenges. <i>Personality and Social Psychology Review</i>, 10(4), 295–319. https://journals.sagepub.com/doi/10.1207/s15327957pspr1004_2</li>
+      <li><b>Limburg, K., Watson, H. J., Hagger, M. S., & Egan, S. J. (2017).</b>　The Relationship Between Perfectionism and Psychopathology: A Meta-Analysis. <i>Journal of Clinical Psychology</i>, 73(10), 1301–1326. https://onlinelibrary.wiley.com/doi/10.1002/jclp.22435</li>
+      <li><b>Curran, T., & Hill, A. P. (2019).</b>　Perfectionism Is Increasing Over Time: A Meta-Analysis of Birth Cohort Differences From 1989 to 2016. <i>Psychological Bulletin</i>, 145(4), 410–429. https://www.apa.org/pubs/journals/releases/bul-bul0000138.pdf</li>
+      <li><b>Curran, T., & Hill, A. P. (2022).</b>　Young People's Perceptions of Their Parents' Expectations and Criticism Are Increasing Over Time. <i>Psychological Bulletin</i>, 148(1-2), 107–128. https://www.apa.org/pubs/journals/releases/bul-bul0000347.pdf</li>
+      <li><b>Wood, W., & Rünger, D. (2016).</b>　Psychology of Habit. <i>Annual Review of Psychology</i>, 67, 289–314. https://www.annualreviews.org/content/journals/10.1146/annurev-psych-122414-033417</li>
+      <li><b>Wood, W., Quinn, J. M., & Kashy, D. A. (2002).</b>　Habits in everyday life: Thought, emotion, and action. <i>Journal of Personality and Social Psychology</i>, 83(6), 1281–1297. https://dornsife.usc.edu/wendy-wood/wp-content/uploads/sites/183/2023/10/Wood.Quinn_.Kashy_.2002_Habits_in_everyday_life.pdf</li>
+      <li><b>Buyalskaya, A., Ho, H., Milkman, K. L., Li, X., Duckworth, A. L., & Camerer, C. (2023).</b>　What can machine learning teach us about habit formation? <i>PNAS</i>, 120(17), e2216115120. https://www.pnas.org/doi/full/10.1073/pnas.2216115120</li>
+      <li><b>Galla, B. M., & Duckworth, A. L. (2015).</b>　More than resisting temptation: Beneficial habits mediate the relationship between self-control and positive life outcomes. <i>Journal of Personality and Social Psychology</i>, 109(3), 508–525. https://www.researchgate.net/publication/271772750</li>
+      <li><b>de Ridder, D. T. D., et al. (2012).</b>　Taking Stock of Self-Control: A Meta-Analysis. <i>Personality and Social Psychology Review</i>, 16(1), 76–99. https://journals.sagepub.com/doi/10.1177/1088868311418749</li>
+      <li><b>Oaten, M., & Cheng, K. (2006).</b>　Longitudinal gains in self-regulation from regular physical exercise. <i>British Journal of Health Psychology</i>. https://pubmed.ncbi.nlm.nih.gov/17032494/</li>
+      <li><b>Segar, Updegraff, McGhee-Dinvaut & Taber (2025).</b>　The secret life of all-or-nothing thinking with exercise. <i>BMC Public Health</i>. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12831378/</li>
+      <li><b>Sirois, F. M., Molnar, D. S., & Hirsch, J. K. (2017).</b>　A Meta-analytic and Conceptual Update on the Associations Between Procrastination and Multidimensional Perfectionism. <i>European Journal of Personality</i>, 31(2), 137–159. https://onlinelibrary.wiley.com/doi/abs/10.1002/per.2098</li>
+      <li><b>Steel, P. (2007).</b>　The Nature of Procrastination. <i>Psychological Bulletin</i>, 133(1), 65–94. https://www.researchgate.net/publication/6598646</li>
+      <li><b>Byrne, S. M., Cooper, Z., & Fairburn, C. G. (2004).</b>　Psychological predictors of weight regain in obesity. <i>Behaviour Research and Therapy</i>, 42(11), 1341–1356. https://pubmed.ncbi.nlm.nih.gov/15381442/</li>
+      <li><b>Relapse dynamics during smoking cessation（禁煙研究, N=203）.</b>　https://pubmed.ncbi.nlm.nih.gov/21787035/</li>
+      <li><b>Perfectionism and Exercise Dependence.</b>　<i>International Journal of Mental Health and Addiction</i>. https://link.springer.com/article/10.1007/s11469-022-00943-6</li>
+      <li><b>Systematic Review and Meta-Analysis on Burnout Owing to Perfectionism in Elite Athletes.</b>　https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10218371/</li>
+      <li><b>The association between eating disorders and perfectionism in adults (2023).</b>　<i>International Journal of Eating Disorders</i>. https://www.sciencedirect.com/science/article/abs/pii/S1471015323000697</li>
+      <li><b>Lloyd, S., Schmidt, U., Khondoker, M., & Tchanturia, K. (2015).</b>　Can psychological interventions reduce perfectionism? <i>Behavioural and Cognitive Psychotherapy</i>, 43(6), 705–731. https://www.cambridge.org/core/services/aop-cambridge-core/content/view/D68265723C9F8AEC72F3BD7852D62A6F/S1352465814000162a.pdf/can-psychological-interventions-reduce-perfectionism-a-systematic-review-and-meta-analysis.pdf</li>
+      <li><b>Galloway, R., Watson, H., Greene, D., Shafran, R., & Egan, S. J. (2022).</b>　The efficacy of RCTs of CBT for perfectionism. <i>Cognitive Behaviour Therapy</i>, 51(2), 170–184. https://www.cognbehavther.com/cbt-perfectionism-meta-rcts/</li>
+      <li><b>Egan, S. J., Shafran, R., & Wade, T. D. (2023).</b>　Coming of age: A reflection of the first 21 years of cognitive behaviour therapy for perfectionism. <i>Behaviour Research and Therapy</i>. https://www.sciencedirect.com/science/article/pii/S0005796723000074</li>
+      <li><b>Breines, J. G., & Chen, S. (2012).</b>　Self-Compassion Increases Self-Improvement Motivation. <i>Personality and Social Psychology Bulletin</i>, 38(9), 1133–1143. https://self-compassion.org/wp-content/uploads/publications/selfimp.motivation.pdf</li>
+      <li><b>A Randomized Control Trial of a Brief Self-Compassion Intervention for Perfectionism, Anxiety, Depression, and Body Image (2021).</b>　<i>Frontiers in Psychology</i>. https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2021.751294/full</li>
+      <li><b>Gollwitzer, P. M., & Sheeran, P. (2006).</b>　Implementation intentions and goal achievement: A meta-analysis of effects and processes. <i>Advances in Experimental Social Psychology</i>, 38, 69–119. https://www.socmot.uni-konstanz.de/publications/implementation-intentions-and-goal-achievement-meta-analysis-effects-and-processes</li>
+      <li><b>Neal, D. T., Wood, W., Labrecque, J. S., & Lally, P. (2012).</b>　How do habits guide behavior? <i>Journal of Experimental Social Psychology</i>, 48(2), 492–498. https://www.sciencedirect.com/science/article/abs/pii/S002210311100254X</li>
+      <li><b>Gaudreau, P. (2019).</b>　On the Distinction Between Personal Standards Perfectionism and Excellencism. <i>Perspectives on Psychological Science</i>. https://journals.sagepub.com/doi/abs/10.1177/1745691618797940</li>
+      <li><b>Gaudreau, P., et al. (2025).</b>　Distinguishing perfectionism and excellencism in graduate students. <i>British Journal of Psychology</i>. https://pmc.ncbi.nlm.nih.gov/articles/PMC12514335/</li>
+      <li><b>Multidimensional perfectionism and sport performance: a systematic review and meta-analysis (2025).</b>　<i>International Review of Sport and Exercise Psychology</i>. https://www.tandfonline.com/doi/full/10.1080/1750984X.2025.2541342</li>
+      <li><b>Harari, D., Swider, B. W., Steed, L. B., & Breidenthal, A. P. (2018).</b>　Is perfect good? A meta-analysis of perfectionism in the workplace. <i>Journal of Applied Psychology</i>, 103(10), 1121–1144. https://www.researchgate.net/publication/325917046</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    完璧主義は、習慣を壊すのか。壊しているのは、失敗ではなく解釈だ。<br>
+    Deep Research ／ 完璧主義と習慣化の実証研究レビュー
+  </div>
+</footer>
+
+
+<script>
+// 読了プログレスバー
+const bar = document.getElementById('progress');
+document.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  bar.style.width = (max > 0 ? (h.scrollTop / max * 100) : 0) + '%';
+}, { passive: true });
+
+// アクティブナビ
+const links = [...document.querySelectorAll('.nav-links a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const navIo = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      const id = '#' + e.target.id;
+      links.forEach(l => {
+        const on = l.getAttribute('href') === id;
+        l.style.color = on ? 'var(--teal-deep)' : '';
+        l.style.background = on ? 'var(--teal-wash)' : '';
+      });
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+secs.forEach(s => navIo.observe(s));
+
+// チャート共通：スクロール連動アニメーション
+const animateChart = el => {
+  el.querySelectorAll('[data-w]').forEach(f => {
+    requestAnimationFrame(() => { f.style.width = f.dataset.w + '%'; });
+  });
+  el.querySelectorAll('.range-mid').forEach(m => {
+    setTimeout(() => m.classList.add('show'), 50);
+  });
+};
+const chartIo = new IntersectionObserver((es, obs) => {
+  es.forEach(e => {
+    if (e.isIntersecting) { animateChart(e.target); obs.unobserve(e.target); }
+  });
+}, { threshold: .25 });
+
+// #chartRise ─ 1989年比の増加率(%)
+(() => {
+  const el = document.getElementById('chartRise');
+  if (!el) return;
+  const data = [
+    ["自己志向的完璧主義", 10],
+    ["他者志向的完璧主義", 16],
+    ["社会規定的完璧主義", 33],
+    ["親の期待の知覚", 40]
+  ];
+  const min = 0, max = 45;
+  el.innerHTML = data.map(([name, value]) => {
+    const w = Math.max(2, ((value - min) / (max - min)) * 100);
+    const hi = name === "社会規定的完璧主義" ? " hi" : "";
+    return `<div class="bar-row${hi}"><div class="bl">${name}</div><div class="bar-track"><div class="bar-fill" style="width:0" data-w="${w}"></div></div><div class="bv">+${value}%</div></div>`;
+  }).join('');
+  chartIo.observe(el.closest('.chart-card') || el);
+})();
+
+// #chartDays ─ 習慣が自動化するまでの日数（レンジ）
+(() => {
+  const el = document.getElementById('chartDays');
+  if (!el) return;
+  const AXIS_MAX = 260;
+  const data = [
+    { label: "手洗い（病院スタッフ）", lo: 14, hi: 21, mid: null },
+    { label: "ジム通い", lo: 68, hi: 78, mid: null },
+    { label: "日常行動（全体）", lo: 18, hi: 254, mid: 66 },
+    { label: "運動行動のみ", lo: 18, hi: 254, mid: 91 }
+  ];
+  el.innerHTML = data.map(d => {
+    const loPct = (d.lo / AXIS_MAX) * 100;
+    const hiPct = (d.hi / AXIS_MAX) * 100;
+    const widthPct = hiPct - loPct;
+    const midMarkup = (d.mid != null)
+      ? `<div class="range-mid" style="left:${(d.mid / AXIS_MAX) * 100}%"><span class="range-mid-label">中央値${d.mid}日</span></div>`
+      : '';
+    return `<div class="range-row">
+      <div class="rl">${d.label}</div>
+      <div class="range-track" style="margin-left:${loPct}%">
+        <div class="range-fill" style="width:0" data-w="${widthPct}"></div>
+        ${midMarkup}
+      </div>
+      <div class="rv">${d.lo}–${d.hi}日</div>
+    </div>`;
+  }).join('');
+  chartIo.observe(el.closest('.chart-card') || el);
+})();
+
+// #chartDiverge ─ 完璧主義的懸念(coral) と 完璧主義的努力(teal) の相関 r
+(() => {
+  const el = document.getElementById('chartDiverge');
+  if (!el) return;
+  const SCALE = 0.9; // r = -0.9 〜 +0.9
+  const data = [
+    ["先延ばし", 0.23, -0.22],
+    ["スポーツパフォーマンス", 0.03, 0.21],
+    ["神経性やせ症の症状", 0.81, 0.56]
+  ];
+  const fmt = v => {
+    const sign = v > 0 ? '+' : (v < 0 ? '−' : '');
+    return sign + Math.abs(v).toFixed(2).replace(/^0/, '');
+  };
+  el.innerHTML = data.map(([name, concern, effort]) => {
+    const concernPct = Math.min(100, (Math.abs(concern) / SCALE) * 50);
+    const effortPct = Math.min(100, (Math.abs(effort) / SCALE) * 50);
+    const concernDir = concern >= 0 ? 'pos' : 'neg';
+    const effortDir = effort >= 0 ? 'pos' : 'neg';
+    return `<div class="divg">
+      <div class="divg-name">${name}</div>
+      <div class="div-row">
+        <div class="div-tag">懸念</div>
+        <div class="div-track"><div class="div-fill concern ${concernDir}" style="width:0" data-w="${concernPct}"></div></div>
+        <div class="dv concern">${fmt(concern)}</div>
+      </div>
+      <div class="div-row">
+        <div class="div-tag">努力</div>
+        <div class="div-track"><div class="div-fill effort ${effortDir}" style="width:0" data-w="${effortPct}"></div></div>
+        <div class="dv effort">${fmt(effort)}</div>
+      </div>
+    </div>`;
+  }).join('');
+  chartIo.observe(el.closest('.chart-card') || el);
+})();
+</script>
+</body>
+</html>
