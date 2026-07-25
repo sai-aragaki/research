@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マインドフルネスの効果量を、正しく値引きする ─ メタ分析だけで見積もる「何が、どれくらい効くのか」</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fbfcfb; --paper-2:#f4f7f5; --panel:#f4f7f5;
+  --ink:#2b3a3e; --ink-soft:#46585c; --ink-faint:#74827f;
+  --teal-deep:#4f7c87; --teal:#62B8A0; --teal-wash:#eef6f3;
+  --coral:#eb6584; --coral-wash:#fdeef1;
+  --sand:#B98B2E; --sand-wash:#F5EBD3;
+  --line:#e3e8e4; --line-soft:#eef1ef;
+  --shadow:0 1px 2px rgba(39,53,54,.04), 0 10px 34px -18px rgba(39,53,54,.22);
+  --maxw:760px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Sans JP","Helvetica Neue",Arial,sans-serif;
+  font-size:15.6px; line-height:1.95; letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 26px}
+
+#progress{position:fixed; top:0; left:0; height:3px; width:0;
+  background:linear-gradient(90deg,var(--teal),var(--teal-deep));
+  z-index:60; transition:width .12s ease-out}
+
+nav{position:sticky; top:0; z-index:50;
+  background:rgba(251,252,251,.86); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft)}
+.nav-inner{max-width:1080px; margin:0 auto; display:flex; align-items:center; gap:18px; padding:13px 26px}
+.brand{font-family:"Noto Serif JP",serif; font-weight:700; font-size:15px; color:var(--teal-deep); white-space:nowrap}
+.brand b{color:var(--coral)}
+.nav-links{display:flex; gap:4px; margin-left:auto; overflow-x:auto; scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-size:12.5px; font-weight:500; color:var(--ink-soft); text-decoration:none;
+  padding:6px 11px; border-radius:999px; white-space:nowrap; transition:.18s}
+.nav-links a:hover{color:var(--teal-deep); background:var(--teal-wash)}
+
+.hero{padding:76px 0 60px; border-bottom:1px solid var(--line-soft)}
+.eyebrow{font-family:"Noto Serif JP",serif; font-size:12.5px; font-weight:600;
+  letter-spacing:.18em; color:var(--coral); display:block; margin-bottom:20px}
+.title{font-family:"Noto Serif JP",serif; font-weight:800;
+  font-size:clamp(29px,5.6vw,44px); line-height:1.4; letter-spacing:.01em; margin:0 0 24px}
+.title .ac{color:var(--teal-deep)}
+.lede{font-size:16.4px; line-height:2.0; color:var(--ink-soft); margin:0 0 28px}
+.src-tag{font-size:13px; line-height:1.85; color:var(--ink-faint);
+  border-left:2px solid var(--teal); padding:4px 0 4px 14px; margin-bottom:34px}
+.src-tag b{color:var(--ink-soft); font-weight:500}
+
+.stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.stat{background:#fff; border:1px solid var(--line); border-radius:14px; padding:17px 15px}
+.stat .n{font-family:"Noto Serif JP",serif; font-weight:700; font-size:26px;
+  line-height:1.2; color:var(--teal-deep); letter-spacing:-.01em}
+.stat .n small{font-size:12.5px; font-weight:600; margin-left:2px; color:var(--ink-faint)}
+.stat .l{font-size:11.5px; line-height:1.6; color:var(--ink-faint); margin-top:7px; letter-spacing:.02em}
+
+section{padding:60px 0; border-top:1px solid var(--line-soft)}
+.sec-no{font-family:"Noto Serif JP",serif; font-weight:600; font-size:13px;
+  letter-spacing:.16em; color:var(--coral); display:block}
+h2{font-family:"Noto Serif JP",serif; font-weight:800;
+  font-size:clamp(24px,4.1vw,32px); line-height:1.42; margin:8px 0 8px; letter-spacing:.01em}
+.sec-sub{font-size:14.5px; color:var(--ink-faint); font-weight:500; margin:0 0 28px; letter-spacing:.03em}
+h3{font-family:"Noto Serif JP",serif; font-weight:700; font-size:19px;
+  line-height:1.6; margin:38px 0 12px; color:var(--teal-deep)}
+p{margin:0 0 18px}
+mark{background:linear-gradient(transparent 58%, rgba(98,184,160,.34) 58%); padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%, rgba(235,101,132,.28) 58%)}
+strong{font-weight:700}
+.q{font-family:"Noto Serif JP",serif; font-style:normal; color:var(--ink-soft)}
+
+ul.clean{list-style:none; padding:0; margin:24px 0}
+ul.clean li{position:relative; padding:11px 0 11px 22px; border-bottom:1px dashed var(--line);
+  font-size:14.8px; line-height:1.9}
+ul.clean li:before{content:""; position:absolute; left:2px; top:20px;
+  width:7px; height:7px; border-radius:50%; background:var(--teal)}
+ul.clean li b{color:var(--teal-deep); font-weight:700; margin-right:6px}
+
+ul.limit{list-style:none; padding:0; margin:24px 0}
+ul.limit li{position:relative; padding:12px 0 12px 30px; border-bottom:1px dashed var(--line);
+  font-size:14.8px; line-height:1.9}
+ul.limit li:before{content:"!"; position:absolute; left:0; top:15px;
+  width:18px; height:18px; border-radius:50%; background:var(--sand-wash); color:var(--sand);
+  font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center}
+ul.limit li b{color:var(--ink); font-weight:700; margin-right:6px}
+
+.dom-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:26px 0}
+.dom{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 16px}
+.dn{font-family:"Noto Serif JP",serif; font-weight:700; font-size:15.5px; color:var(--teal-deep)}
+.de{font-size:10.5px; letter-spacing:.11em; color:var(--ink-faint); margin:3px 0 9px; font-weight:600}
+.dq{font-size:13px; line-height:1.8; color:var(--ink-soft)}
+
+.chart-card{background:#fff; border:1px solid var(--line); border-radius:16px;
+  padding:24px 22px; margin:30px 0; box-shadow:var(--shadow)}
+.ct{font-family:"Noto Serif JP",serif; font-weight:700; font-size:16px; margin-bottom:5px}
+.cs{font-size:12px; color:var(--ink-faint); line-height:1.7; margin-bottom:20px}
+.leg{display:flex; gap:16px; flex-wrap:wrap; margin-top:16px; font-size:11.5px; color:var(--ink-faint)}
+.leg span{display:flex; align-items:center; gap:6px}
+.leg i{width:10px; height:10px; border-radius:3px; display:inline-block}
+
+.bar-row{display:grid; grid-template-columns:1fr 150px 52px; align-items:center;
+  gap:12px; padding:7px 0}
+.bl{font-size:13px; color:var(--ink-soft); line-height:1.5}
+.bar-track{height:9px; background:var(--paper-2); border-radius:999px; overflow:hidden}
+.bar-fill{height:100%; background:var(--teal); border-radius:999px;
+  width:0; transition:width 1s cubic-bezier(.22,.9,.3,1)}
+.bar-row.hi .bar-fill{background:var(--teal-deep)}
+.bar-row.neg .bar-fill{background:var(--coral)}
+.bar-row.hi .bl{color:var(--ink); font-weight:700}
+.bv{font-family:"Noto Serif JP",serif; font-size:13.5px; font-weight:700;
+  color:var(--teal-deep); text-align:right}
+.bar-row.neg .bv{color:var(--coral)}
+
+table.tb{width:100%; border-collapse:collapse; margin:24px 0; font-size:13.4px}
+table.tb th{text-align:left; font-weight:700; font-size:12px; letter-spacing:.05em;
+  color:var(--ink-faint); border-bottom:1.5px solid var(--line); padding:9px 8px}
+table.tb td{border-bottom:1px solid var(--line-soft); padding:11px 8px; line-height:1.75;
+  vertical-align:top}
+table.tb td:first-child{color:var(--ink); font-weight:500}
+table.tb .num{font-family:"Noto Serif JP",serif; font-weight:700; color:var(--teal-deep); white-space:nowrap}
+table.tb .num.c{color:var(--coral)}
+.tb-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+
+.pull{border-left:3px solid var(--coral); background:var(--coral-wash);
+  border-radius:0 14px 14px 0; padding:22px 24px; margin:32px 0}
+.pull p{font-family:"Noto Serif JP",serif; font-size:18px; line-height:1.85;
+  font-weight:600; margin:0; color:var(--ink)}
+
+.note{background:var(--teal-wash); border-radius:14px; padding:20px 22px; margin:28px 0;
+  font-size:13.8px; line-height:1.9}
+.note p{margin:0 0 10px} .note p:last-child{margin:0}
+.note .h{font-family:"Noto Serif JP",serif; font-weight:700; font-size:14.5px; color:var(--teal-deep)}
+.note.sand{background:var(--sand-wash)}
+.note.sand .h{color:var(--sand)}
+
+.insight{background:#fff; border:1px solid var(--line); border-top:4px solid var(--teal);
+  border-radius:14px; padding:22px 22px 20px; margin:20px 0; box-shadow:var(--shadow)}
+.ik{font-size:10.5px; font-weight:700; letter-spacing:.14em; color:var(--coral)}
+.insight h4{font-family:"Noto Serif JP",serif; font-weight:700; font-size:17px;
+  margin:8px 0 10px; line-height:1.6}
+.insight p{font-size:14px; line-height:1.9; margin:0; color:var(--ink-soft)}
+
+.pc-link{display:inline-block; font-size:13px; font-weight:500; text-decoration:none;
+  color:var(--teal-deep); border:1.5px solid var(--teal-deep); border-radius:999px;
+  padding:9px 20px; margin:6px 6px 6px 0; transition:.2s}
+.pc-link:hover{background:var(--teal-deep); color:#fff}
+
+.refs{font-size:12.6px; line-height:1.9; color:var(--ink-soft); counter-reset:r}
+.refs li{padding:9px 0; border-bottom:1px solid var(--line-soft)}
+.refs a{color:var(--teal-deep); word-break:break-all}
+
+footer{padding:52px 0 70px; border-top:1px solid var(--line);
+  font-size:12.8px; line-height:2; color:var(--ink-faint); background:var(--paper-2)}
+
+@media (max-width:680px){
+  body{font-size:15.2px}
+  section{padding:46px 0}
+  .hero{padding:52px 0 44px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr}
+  .nav-inner{padding:11px 18px}
+  .brand{display:none}
+  .bar-row{grid-template-columns:1fr 100px 46px; gap:8px}
+  .bl{font-size:12px}
+  .wrap{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="brand">マインドフルネス<b>・</b>効果量</span>
+    <div class="nav-links">
+      <a href="#s1">定義</a>
+      <a href="#s2">種類</a>
+      <a href="#s3">対照群</a>
+      <a href="#s4">効果</a>
+      <a href="#s5">分数</a>
+      <a href="#s6">条件</a>
+      <a href="#s7">誤解</a>
+      <a href="#s8">副作用</a>
+      <a href="#s9">結論</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ エビデンス精読</span>
+    <h1 class="title">マインドフルネスの効果量を、<br><span class="ac">正しく値引きする</span>。</h1>
+    <p class="lede">1日10分と20分、どちらが効くのか。372人を対象にした2023年の実験は、差を見つけられなかった。71人を対象にした2021年の研究に至っては、5分を4回に分けたほうが20分まとめてやるよりストレスが下がっている。マインドフルネスのランダム化比較試験は2,500件を超えた。それなのに、セッションの長さそのものを操作した研究は4件ほどしかない。この記事はメタ分析と系統的レビューだけを頼りに、何がどれくらい効くのかを見積もる。そして「何分やればいいか」という問いに、いまの科学がまだ答えていないことを確認する。</p>
+    <div class="src-tag">
+      主要ソース：<b>Goyal et al. (2014) JAMA Internal Medicine</b>／<b>Goldberg et al. (2018) Clinical Psychology Review</b>／<b>Parsons et al. (2017) Behaviour Research and Therapy</b>／<b>Britton et al. (2021) Clinical Psychological Science</b> ほかメタ分析・系統的レビュー計30本超
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">47<small>試験</small></div><div class="l">Goyal 2014 が18,753件から選んだRCT数（計3,515人）</div></div>
+      <div class="stat"><div class="n">0.55<small>→0.23</small></div><div class="l">対照群を無治療から実治療に替えたときの効果量d</div></div>
+      <div class="stat"><div class="n">0.21<small>→0.04</small></div><div class="l">短時間訓練65件のg、出版バイアス補正の前後</div></div>
+      <div class="stat"><div class="n">83<small>%</small></div><div class="l">丁寧に聞き取ると副作用を報告する参加者の割合</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="wrap">
+    <span class="sec-no">01 ── 定義</span>
+    <h2>まず、何を測っているのかを確かめる</h2>
+    <p class="sec-sub">What exactly is being measured?</p>
+
+    <p>ジョン・カバットジンがマサチューセッツ大学医学部にストレス低減クリニックを開いたのは1979年。ただし最初に論文化されたプログラムは、いま知られる8週間ではなく<mark>10週間</mark>だった。1982年の <em>General Hospital Psychiatry</em> 誌に載った報告は、慢性疼痛患者51名を対象にしたもので、60%がMelzackの疼痛評価指標で33%以上の減少を示している。宗教的な文脈は意図的に外され、ヴィパッサナーと禅とハタヨーガに由来する技法が、医学の言語に翻訳された。</p>
+
+    <p>カバットジン自身の定義は広く引用される。<span class="q">"the awareness that arises through paying attention, on purpose, in the present moment, and nonjudgmentally"</span>——意図的に、いまこの瞬間に、評価を加えずに注意を向けることで生じる気づき。ただし彼はこれを暫定的な作業定義と呼んでいた。厳密さより、非仏教徒がとりあえず実践に入れることを優先した表現である。</p>
+
+    <p>研究に使える定義を与えたのは Bishop らの2004年論文だった。専門家会議を経て合意された二成分モデルは、マインドフルネスを<strong>注意の自己制御</strong>と<strong>経験への志向性</strong>に分解する。前者は注意を現在に留め、必要に応じて柔軟に切り替える能力。後者は生じてきた思考や感情に、望ましさの判断を挟まず好奇心をもって向き合う姿勢を指す。技法の側からは Lutz らが2008年に、対象を一つに絞る<strong>集中的注意（Focused Attention）</strong>と、特定の対象を持たず経験全体を眺める<strong>開放的モニタリング（Open Monitoring）</strong>に整理した。</p>
+
+    <div class="note">
+      <p><span class="h">尺度が抱える構造的な問題</span></p>
+      <p>マインドフルネスの測定はほぼ自己報告に頼る。FFMQ（39項目、観察・記述・気づきを持った行動・非判断・非反応の5因子、α=.75〜.91）と MAAS（15項目）が二大尺度だが、Paul Grossman は測定の前提そのものを疑っている。外部の照合基準がない、内容的妥当性が担保されていない、そして「上の空だった時間」を尋ねる項目の意味が、瞑想経験の有無で受け取られ方ごと変わってしまう。MAASは非判断的な気づきではなく、自覚された不注意を測っているだけかもしれない。この記事で扱う効果量の一部は、この測り方の上に乗っている。</p>
+    </div>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="wrap">
+    <span class="sec-no">02 ── 種類</span>
+    <h2>やり方は、驚くほど標準化されている</h2>
+    <p class="sec-sub">Programs, techniques, and delivery formats</p>
+
+    <p>「マインドフルネス」という言葉の緩さに反して、研究されているプログラムはかなり厳密に規格化されている。エビデンスを読むとき、目の前の実践がどの規格に対応するかを見るだけで、参照できる数字が絞り込める。</p>
+
+    <div class="tb-scroll">
+    <table class="tb">
+      <thead><tr><th>プログラム</th><th>回数・時間</th><th>自宅練習</th><th>主な対象</th></tr></thead>
+      <tbody>
+        <tr><td>MBSR<br><span style="font-size:11.5px;color:var(--ink-faint)">ストレス低減法</span></td><td>週1回×8回<br>1回2.5〜3時間＋終日集中日</td><td class="num">45〜60分／日<br>週6日</td><td>慢性疼痛・ストレス・一般成人</td></tr>
+        <tr><td>MBCT<br><span style="font-size:11.5px;color:var(--ink-faint)">認知療法統合版</span></td><td>週1回×8回<br>1回2時間＋集中日</td><td class="num">45分／日</td><td>うつ病の寛解期（再発予防）</td></tr>
+        <tr><td>MBRP<br><span style="font-size:11.5px;color:var(--ink-faint)">再発予防法</span></td><td>週1回×8回<br>1回2時間</td><td>—</td><td>物質使用障害のアフターケア</td></tr>
+        <tr><td>アプリ<br><span style="font-size:11.5px;color:var(--ink-faint)">Headspace・Calm 等</span></td><td>自由</td><td class="num">10分前後／日</td><td>非臨床の一般利用者</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p>MBSRの総接触時間は約26時間。Carmody と Baer が2009年に「MBSRはどれだけ長い必要があるのか」を検討した際の基準値である。この26時間という数字は、あとで効いてくる。</p>
+
+    <h3>技法は三系統に分かれる</h3>
+
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dn">集中的注意</div>
+        <div class="de">FOCUSED ATTENTION</div>
+        <div class="dq">呼吸など単一の対象に注意を置き、逸れたら戻す。ボディスキャンもここに近い。初学者の入口。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">開放的モニタリング</div>
+        <div class="de">OPEN MONITORING</div>
+        <div class="dq">対象を固定せず、生じる経験を反応せずに眺め続ける。集中的注意の習熟を前提とすることが多い。</div>
+      </div>
+      <div class="dom">
+        <div class="dn">慈悲の瞑想</div>
+        <div class="de">LOVING-KINDNESS</div>
+        <div class="dq">自他への優しさを能動的に育てる。<b style="font-weight:700">マインドフルネスとは別系統</b>で、24研究・1,759人のメタ分析が独立に存在する。</div>
+      </div>
+    </div>
+
+    <p>ここで一つ、混同されがちな区別を置いておきたい。ACT や DBT にもマインドフルネスの要素は入っているが、それらは治療パッケージの一部品にすぎない。MBSRやMBCTのようにマインドフルネスが中核になっている介入とは、効果の帰属先が違う。DBTの改善をマインドフルネスの効果として引用するのは筋が悪い。</p>
+
+    <div class="note sand">
+      <p><span class="h">アプリ研究の利益相反</span></p>
+      <p>Headspace を扱ったRCT14件を精査した2022年の系統的レビュー（<em>JMIR Mental Health</em>）によれば、企業から直接資金提供を受けた研究はほぼなかった一方で、<mark class="c">50%にあたる7件に何らかの利益相反が報告されていた</mark>。うち2件では企業側の人員がデータ分析に関与している。アプリの効果量を読むときは、この背景を差し引いて考える必要がある。</p>
+    </div>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="wrap">
+    <span class="sec-no">03 ── 対照群</span>
+    <h2>効果量の話をする前に、一つだけ</h2>
+    <p class="sec-sub">The single most important variable is the control group</p>
+
+    <p>「マインドフルネスは不安に効く、効果量0.38」という文には、決定的な情報が欠けている。何と比べて0.38なのか。この分野で最も再現性の高い知見は、特定のアウトカムに関するものではない。<strong>比較対象を強くするほど効果量が縮む</strong>という、構造そのものについての知見である。</p>
+
+    <p>Goldberg らが2018年に142サンプル・12,005人を統合した結果を見てほしい。同じ介入が、対照群の設計次第でこれだけ違う顔を見せる。</p>
+
+    <div class="chart-card">
+      <div class="ct">対照群の種類別にみた効果量（Cohen's d）</div>
+      <div class="cs">Goldberg et al. (2018) <em>Clinical Psychology Review</em> 59:52-60／142サンプル・12,005人・治療直後時点。EBT＝エビデンスに基づく既存治療との直接比較。</div>
+      <div id="ch1"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>有意な差あり</span>
+        <span><i style="background:var(--coral)"></i>差が消失</span>
+      </div>
+    </div>
+
+    <p>無治療と比べれば中程度（d=0.55, 95%CI 0.47–0.63, k=89）。時間と注目だけを揃えた対照群だと0.35まで落ちる。認知行動療法のような実質のある治療と比べると0.23。そしてエビデンスに基づく既存治療との一騎打ちでは、<mark class="c">d=−0.004（95%CI −0.15〜0.14, k=28）</mark>——差は消える。</p>
+
+    <p>この構造は同じ研究チームが2022年に44のメタ分析・336RCT・30,483人へ拡張しても崩れなかった。Goyal らの2014年のAHRQレビューも、独立に同じ結論に達している。</p>
+
+    <div class="pull">
+      <p>「瞑想プログラムが、いかなる積極的治療（薬物・運動・他の行動療法）よりも優れているという証拠は見つからなかった」<br><span style="font-size:13px;font-weight:400;color:var(--ink-soft)">── Goyal et al. (2014) JAMA Internal Medicine 本文より</span></p>
+    </div>
+
+    <p>同じ論文はこうも書いている。<span class="q">"These small effects are comparable with what would be expected from the use of an antidepressant in a primary care population, without the associated toxicities."</span>——プライマリケアで抗うつ薬に期待される程度の小さな効果に匹敵し、しかも薬物毒性を伴わない。これは称賛でも否定でもなく、正確な位置づけである。無治療の状態から見れば意味のある変化が起きる。すでに何らかの有効な治療を受けている人が乗り換える理由にはならない。</p>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="wrap">
+    <span class="sec-no">04 ── 効果</span>
+    <h2>何に効いて、何に効かないのか</h2>
+    <p class="sec-sub">Outcome-by-outcome, with the controls held honest</p>
+
+    <p>前節の補正をかけたうえで、アウトカム別に見ていく。以下はいずれも、待機リストではなく能動的な対照群と比較した値を優先して並べた。</p>
+
+    <div class="chart-card">
+      <div class="ct">アウトカム別の効果量（アクティブ対照との比較を優先）</div>
+      <div class="cs">Goyal 2014（不安・抑うつ・疼痛、8週時点）／Rusch 2019（睡眠）／Neuropsychol Rev 2022（注意・ワーキングメモリ）／Khoury 2015（ストレス・健常者）／Spinelli 2019（バーンアウト・医療従事者）。赤は信頼区間が0をまたぐ、または統合不能なもの。</div>
+      <div id="ch2"></div>
+      <div class="leg">
+        <span><i style="background:var(--teal)"></i>統計的に有意</span>
+        <span><i style="background:var(--coral)"></i>非有意</span>
+      </div>
+    </div>
+
+    <p>不安（SMD 0.38, 95%CI 0.12–0.64）と抑うつ（0.30, 0.00–0.59）はエビデンスの強さが「中程度」と格付けされた。ただし3〜6か月後にはそれぞれ0.22、0.23まで下がる。疼痛は0.33。ストレスやQOLは「低」止まりで、注意への効果は「低ないし不十分」と分類された。</p>
+
+    <h3>睡眠は、対照群の教科書的な実例になる</h3>
+
+    <p>Rusch らが18試験・1,654人を統合した2019年のメタ分析は、この記事で最も鮮やかな一例を提供する。時間だけ揃えた対照群に対しては、瞑想は睡眠の質を改善した（ES=0.33, 0.17–0.48）。フォローアップではむしろ広がって0.54。ところが不眠症の認知行動療法のような<strong>本物の睡眠治療と比べると、効果量は0.03（95%CI −0.43〜0.49）</strong>になる。フォローアップでは−0.14。差は消えるどころか、符号すら安定しない。</p>
+
+    <div class="note">
+      <p><span class="h">痛みそのものより、痛みに伴う抑うつ</span></p>
+      <p>Hilton らの慢性疼痛メタ分析（30RCT・3,536人）には奇妙な逆転がある。主目的である疼痛そのものの効果量は0.32だが、GRADE評価は「低」。一方、痛みに伴う<strong>抑うつ</strong>への効果は0.15と小さいのに、評価は「高」——このレビュー全体で数少ない最高格付けである。精神的健康関連QOLも0.49で「中」。マインドフルネスは痛みを減らすというより、痛みとの付き合い方を変えている可能性が高い。</p>
+    </div>
+
+    <h3>認知機能への効果は、宣伝されるほど強くない</h3>
+
+    <p>「集中力が上がる」という触れ込みは、データに支えられていない。45研究・2,238人を統合した2022年のレビューでは、認知全体でHedges g=0.15。内訳を見ると、ワーキングメモリは0.23で有意、実行機能は0.15で辛うじて有意。しかし<mark class="c">注意そのものは g=0.12（95%CI −0.02〜0.26）で非有意</mark>だった。宣言的記憶も同様に0をまたぐ。Verhaeghen が2021年に3種類のメタ分析を並べた検討でも、有意だったのは抑制制御が中心で、持続的注意や更新は一貫しなかった。</p>
+
+    <h3>ただし、例外が一つある</h3>
+
+    <p>ここまで「アクティブ対照では効果が消える」という話をしてきたが、それを破る領域が存在する。うつ病の再発予防だ。</p>
+
+    <p>Kuyken らが9試験・1,258人の個人参加者データを再解析した2016年の <em>JAMA Psychiatry</em> 論文は、MBCTが通常治療に対してハザード比0.69（95%CI 0.58–0.82）で再発を抑えることを示した。重要なのはその次で、<mark>維持療法としての抗うつ薬という本物のアクティブ対照に対しても、HR 0.77（95%CI 0.60–0.98）で優越が残った</mark>。</p>
+
+    <p>さらに古い Piet と Hougaard の2011年メタ分析（6RCT・593人）は、この効果に条件があることを示している。うつ病エピソードの既往が3回以上ある患者では相対リスクが43%減った。既往2回以下の患者では、減少は認められなかった。Teasdale らの2000年の原著では、3回以上の群で通常治療の再発率66%に対しMBCTは37%である。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>効くのは「誰にでも、何にでも」ではない</h4>
+      <p>マインドフルネスのエビデンスが最も強いのは、対象と目的を絞り込んだ一点——反復性うつ病の寛解期にある人の、再発予防——である。汎用のウェルビーイング増進策として見ると効果量は小さく、既存治療に対する優位もない。この非対称は、実践を設計するうえで扱いやすい情報だと思う。</p>
+    </div>
+
+    <div class="note sand">
+      <p><span class="h">血液と血圧の数字は、慎重に</span></p>
+      <p>血圧については12RCT・715人のメタ分析が収縮期で−9.12mmHg（95%CI −12.18〜−6.05）という大きな値を報告している。ただし異質性 I²=92%（拡張期は97%）。研究間のばらつきが極端で、統合値をそのまま期待値として扱うのは無理がある。炎症マーカーはもっと悪い。2022年のあるメタ分析はd=−0.38を報告したが、<strong>事前登録されたより厳密な3水準メタ分析では対照群比較でg=−0.11（95%CI −0.23〜0.001）と非有意</strong>になった。事前登録された方が出版バイアスに強い。</p>
+    </div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="wrap">
+    <span class="sec-no">05 ── 分数</span>
+    <h2>では、何分やればいいのか</h2>
+    <p class="sec-sub">The dose-response curve that does not exist</p>
+
+    <p>これがおそらく、実践者にとって最も切実な問いだろう。そして正直に答えるなら——<strong>「1日◯分で効果量◯」という用量反応曲線を描けるメタ分析は、存在しない。</strong></p>
+
+    <p>ないものをあるように書くつもりはないので、なぜそう言い切れるかを積み上げる。</p>
+
+    <h3>練習量とアウトカムの相関は、あるが小さい</h3>
+
+    <p>この問いに最も近づいたのが Parsons らの2017年メタ分析である。MBSR/MBCTの宿題実施状況を報告した43研究（1,427人）を集め、そのうち練習量とアウトカムの関連を報告していた28研究（898人）を統合した。結果は<mark>r = 0.26（95%CI 0.19–0.34, Z=6.74, p&lt;0.0001）</mark>。小さいが、確かに正の相関がある。異質性も低い（I²=17.4%）。</p>
+
+    <p>同じ論文がもっと面白いことを言っている。参加者は指示されたほどには練習していない。MBSRの標準指示は1日45分・週6日、つまり週270分。実際の平均実施量は<strong>指示量の64%（95%CI 60–69%）、およそ1日29分</strong>だった。スマートフォンで客観計測した2020年の小規模研究（25人）では、週6回の指示に対して中央値が週3回。自己報告はさらに甘い可能性がある。</p>
+
+    <p>そして決定的なのがここだ。「平均練習量の多いクラスほど、練習とアウトカムの相関が強くなる」という関係を検証した結果は、<mark class="c">Beta=−0.0004, p=0.86</mark>——完全な無関係だった。つまり量そのものが効果を押し上げるという直線的な構造は、このデータからは見えない。</p>
+
+    <h3>プログラムを短くしても、効果量は落ちなかった</h3>
+
+    <p>Carmody と Baer は2009年、「MBSRはどれだけ長い必要があるのか」を直接問うた。クラス内の総接触時間と心理的苦痛に対する効果量の相関は、<strong>臨床群でも非臨床群でも有意でなかった</strong>。標準の26時間に医学的な根拠があるわけではない、ということになる。</p>
+
+    <p>これを実験で確かめたのが Demarzo らの2017年の研究だ。非臨床の148人を8週版・4週版・統制群に割り付け、6か月後に比較した。8週版と4週版の差は、マインドフルネス尺度でd=0.12、ポジティブ感情でd=−0.18。いずれも有意ではない。半分の長さで、ほぼ同じところに着く。</p>
+
+    <h3>短時間訓練の効果量は、補正すると消える</h3>
+
+    <p>では極端に短い介入はどうか。Schumer、Lindsay、Creswell が65のRCT・5,489人を統合した2018年のメタ分析は、単回の誘導から2週間程度までの短時間訓練について、ネガティブ感情への効果を<strong>g=0.21</strong>と算出した。小さいが有意。</p>
+
+    <p>ところが trim-and-fill 法で出版バイアスを補正すると、<mark class="c">g=0.04</mark>まで落ちる。ほぼ消滅である。この分野で報告される数字が、公表されなかった研究の重みでどれだけ膨らんでいるかを示す、痛烈な一例だと思う。同じ論文で、介入の総分数・セッション数・日数はいずれも効果量を有意にモデレートしなかった。</p>
+
+    <h3>用量を直接操作した研究は、結論がばらばらになる</h3>
+
+    <p>203研究・15,971人を投入した Strohmaier らの2020年の大規模メタ回帰でさえ、抑うつ・不安・ストレスについて頑健な用量反応関係を見出せなかった。有意な関係が出たのは、特性マインドフルネス尺度という中間指標に対してだけである。</p>
+
+    <p>個別のRCTに降りると、結論は三方向に散る。</p>
+
+    <div class="chart-card">
+      <div class="ct">セッション長を実験的に操作した研究の結果</div>
+      <div class="cs">セッション長そのものを操作した研究は、査読文献全体で4〜5件程度しか存在しない。以下はその主要なもの。</div>
+      <div class="tb-scroll">
+      <table class="tb" style="margin:0">
+        <thead><tr><th>研究</th><th>条件</th><th>N</th><th>結果</th></tr></thead>
+        <tbody>
+          <tr><td>Berghoff et al. 2017</td><td>10分 vs 20分／2週間</td><td>77</td><td>ストレスは両条件で低下。自己コンパッションのみ20分群で増加</td></tr>
+          <tr><td>Palmer et al. 2023</td><td>10分 vs 20分（単回）</td><td>372</td><td class="num c">有意差なし</td></tr>
+          <tr><td>Fincham et al. 2023</td><td>約10分 vs 約30分／2週間</td><td>161</td><td class="num c">有意差なし（η²=0.001）</td></tr>
+          <tr><td>Strohmaier et al. 2021</td><td>5分×4回 vs 20分×1回</td><td>71</td><td><b>5分×4回が優位</b>（ストレス低減・特性マインドフルネス）</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <p>多いほうがいい、差がない、少ないほうがいい——三つの主張が併存している。しかもサンプルサイズはいずれも71〜372人で、「差がない」という結果が本当に差がないのか、検出できなかっただけなのかを区別する検出力がない。</p>
+
+    <div class="pull">
+      <p>マインドフルネスのRCTは2,500件を超える。それでも、どれくらいの頻度と時間で練習すべきかについては、ほとんど何も分かっていない。</p>
+    </div>
+
+    <h3>ただし、累積時間のスケールでは非線形の関係が見える</h3>
+
+    <p>視野を「1日何分」から「生涯で何時間」に広げると、様子が変わる。Bowles、Davies、Van Dam が1,668人を対象にした2022年の研究では、報告された累積練習時間（平均1,095時間、中央値266時間）と心理的苦痛にr=−.30の相関があった。曲線の形が興味深い。<mark>およそ500時間までは急勾配で、それ以降は平坦になる</mark>。臨床的に意味のある変化（SMD 0.24）に到達する推定累積時間は、心理的苦痛で約423時間、生活満足度で約495時間だった。</p>
+
+    <p>同じ研究者らが1,052人を2〜4年追跡した2025年の縦断研究は、実務的に使える示唆を一つ出している。<strong>練習の頻度は、1回の長さのおよそ2.5倍の予測力を持っていた</strong>。臨床的に意味のある変化の目安として推定されたのは「1日35〜80分を1か月間毎日」。</p>
+
+    <div class="note sand">
+      <p><span class="h">この2つの研究の限界</span></p>
+      <p>いずれも累積時間の自己報告に基づく観察研究であり、ランダム化されていない。「たくさん練習した人は調子がいい」という相関からは、逆向きの因果——調子がいい人ほど続けられる——を排除できない。500時間という数字を目標値として受け取るのは行き過ぎになる。</p>
+    </div>
+
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>分数は、いま最も投資対効果の低い変数かもしれない</h4>
+      <p>「1日何分やるべきか」に答えが出ていないのは、研究者が怠けたからではなく、おそらく分数がそれほど強い変数ではないからだ。8週を4週に半減しても効果は落ちず、20分を10分にしても差が出ず、5分×4回が20分×1回に勝った例すらある。一方で累積時間と頻度には関係が見える。最適な長さを探すより、短くてもいいから毎日に落とし込むほうが、いまのエビデンスとは整合的である。</p>
+    </div>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="wrap">
+    <span class="sec-no">06 ── 条件</span>
+    <h2>効果を上げる条件は、直感を裏切る</h2>
+    <p class="sec-sub">Moderators that matter, and one that doesn't</p>
+
+    <p>分数が効かないなら、何が効くのか。モデレーター分析を集めると、いくつかは予想通りで、一つは明確に予想外だった。</p>
+
+    <h3>予想外：指導者の熟練度は、アウトカムを予測しなかった</h3>
+
+    <p>MBCTの指導者241件分の評価データを、MBI:TAC という専用の熟練度尺度で検証した2017年の研究がある。教師15名、評価者16名。結果は、指導者の熟練度が<strong>アドヒアランスとも、想定される作用機序（反芻・認知的反応性・マインドフルネス・セルフコンパッション）とも、治療後のうつ症状とも、15か月後の再発とも、有意に関連しなかった</strong>。</p>
+
+    <p>これをどう読むかは慎重を要する。指導者は誰でもいいという話ではない。研究に参加している指導者はそもそも一定の訓練を受けており、その範囲内では熟練度の差が結果に現れなかった、という限定つきの知見である。とはいえ「良い先生を探すこと」に投じる労力の見積もりは、少し下げてよさそうだ。</p>
+
+    <h3>予想通り：ガイドの有無と、届け方</h3>
+
+    <div class="chart-card">
+      <div class="ct">届け方による効果量の差</div>
+      <div class="cs">Goldberg et al. 2018（対面・無治療対照）／Linardon et al. 2023（アプリ・45RCT）／PLoS ONE 2022（オンライン・8RCT, n=868）。指標が完全に揃っていないため、大きさの感覚をつかむための並置として読んでほしい。</div>
+      <div id="ch3"></div>
+    </div>
+
+    <p>アプリ単独の効果量は、抑うつでg=0.24（95%CI 0.17–0.31, NNT=13.57）、不安でg=0.28（0.21–0.35, NNT=11.47）。対面型の無治療対照比d=0.55と比べると半分以下になる。オンライン介入でも、治療者のガイドがある方がない方より効果量が大きいことがサブグループ解析で示されている。</p>
+
+    <ul class="clean">
+      <li><b>継続率</b>　MBI群のドロップアウトは19.1%（95%CI 16–22%、114研究・11,288人）。統制群の18.6%とほぼ同じで、マインドフルネスが特別に脱落しやすいわけではない。</li>
+      <li><b>対象者の状態</b>　臨床群 g=−.43 と非臨床群 g=−.49 に有意差はない。健康な人がやっても、患者がやっても、変化の大きさは似ている。</li>
+      <li><b>ベースライン重症度</b>　Kuyken 2016 のうつ再発予防では、症状が重いほど利益が大きいという唯一の有意なモデレーターが出た。ただし Galante らの2023年の大規模個人データ解析では、ベースライン苦痛・年齢・性別・教育・特性マインドフルネスのいずれも明確な調整効果を示さなかった。</li>
+      <li><b>フォーマル練習とインフォーマル練習</b>　r=0.26 の相関はフォーマルな座る実践のもの。日常のインフォーマルな実践については、Parsons らが調べた2研究でアウトカムへの効果が見られなかった。</li>
+      <li><b>質と量</b>　48人の小規模研究ながら、練習の分数より練習の「質」（PQ-M尺度）の方が予後を予測したという報告がある。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="wrap">
+    <span class="sec-no">07 ── 誤解</span>
+    <h2>実践がうまくいかない、よくある理由</h2>
+    <p class="sec-sub">Common misconceptions and where the evidence is thin</p>
+
+    <p>この節だけは、他より根拠が弱いことを先に断っておきたい。「よくある間違い」の多くは臨床家の経験知として語られていて、査読を通った検証は限られている。以下は裏の取れたものに絞る。</p>
+
+    <h3>リラックスすることが目的ではない</h3>
+
+    <p>Brendan Kelly が2022年に <em>Irish Journal of Psychological Medicine</em> に寄せた批判的論考は、この混同を名指ししている。<span class="q">"the concept of mindfulness is often applied mindlessly to all sorts of activities, including simple relaxation, which is a valuable activity but is not necessarily mindful"</span>——単なるリラクゼーションを含むあらゆる活動に、マインドフルネスという概念が無自覚に適用されている、と。リラクゼーションには固有の価値がある。ただしそれはマインドフルネスとは別物で、両者を混ぜると何を実践しているのか分からなくなる。</p>
+
+    <h3>「うまくやろう」とすることの逆説</h3>
+
+    <p>瞑想の伝統の多くは目標志向を明示的に退ける。にもかかわらず、実践を始める人はほぼ全員、何かを変えたくて始める。Sauerborn らが2022年にまとめた <em>Paradoxes of Mindfulness</em> は、この構造的な矛盾を扱っている。到達すべき「マインドフルな状態」を設定してそこへ向かおうとすると、その努力自体が現在から離れる動きになる。</p>
+
+    <p>関連して、Ghanbari Noshari の2023年の実験は、「マインドフルネス」というラベルを貼るだけで期待効果が生じることを示した。介入の中身とは独立に、名前が効いている部分がある。</p>
+
+    <h3>独学とアプリの、継続という壁</h3>
+
+    <p>アプリのメンタルヘルス領域におけるアドヒアランス率は、抑うつ34%、不安36%、ストレス41%程度と報告されている。業界データでは Headspace の30日後継続率が約4.7%、Calm が約5.2%——これは査読論文ではなく市場調査の数字なので、そのつもりで受け取ってほしい。効果量g=0.24という数字は、続けた人の中での話である。</p>
+
+    <h3>向かない場合がある</h3>
+
+    <p>トラウマ関連の領域では、厳密な禁忌というより慎重な適応が必要とされる。トラウマインフォームドの立場からは、型どおりの適用が強制性・予測不能性・調整不全という、トラウマの構造そのものを再現しうると指摘されている。PTSD患者では高いドロップアウト率が報告され、より短く、事前説明を伴うエクササイズへの調整が推奨される。</p>
+
+    <div class="note sand">
+      <p><span class="h">「無心になる」という誤解について</span></p>
+      <p>「思考を消すことが目的だ」という誤解は実務でよく語られるが、これを直接検証した査読論文は今回の調査では見つからなかった。定義（Bishop 2004 の「経験への志向性」）からは、思考の消去ではなく思考との関係の変化が目指されていると読めるものの、この点は経験知として扱うのが正確だと考える。</p>
+    </div>
+  </div>
+</section>
+
+<section id="s8">
+  <div class="wrap">
+    <span class="sec-no">08 ── 副作用</span>
+    <h2>語られてこなかった、副作用の話</h2>
+    <p class="sec-sub">Adverse effects, and why we barely know about them</p>
+
+    <p>ここは、この記事で最も伝えたい部分かもしれない。マインドフルネスの有害事象は、長いあいだ測られてこなかった。</p>
+
+    <p>Britton らが2021年に <em>Clinical Psychological Science</em> に発表した研究は、MBCT系プログラムの参加者96人に、44項目の構造化面接（MedEx-I）で丁寧に聞き取りを行った。結果は衝撃的である。</p>
+
+    <div class="chart-card">
+      <div class="ct">構造化面接で聞き取った瞑想関連の有害事象（n=96）</div>
+      <div class="cs">Britton et al. (2021) <em>Clinical Psychological Science</em>／MBCTバリアント3群・44項目のMedEx-I面接による。</div>
+      <div id="ch4"></div>
+    </div>
+
+    <p>83%が何らかの瞑想関連の有害な体験を報告し、58%は否定的な価値づけを伴うもの、<mark class="c">37%は日常機能への負の影響を伴っていた</mark>。持続する悪影響も無視できない割合で生じている。1日から1週間未満が14.1%、1週間から1か月未満が9.0%、1か月以上または現在進行中が6.4%。実行機能障害・不眠・感情鈍麻・自己感覚の障害はいずれも標本の5%未満と稀だが、いったん生じると持続的な悪影響のリスクが6〜14倍に跳ね上がる。</p>
+
+    <p>一方、Farias らが2020年に <em>Acta Psychiatrica Scandinavica</em> でまとめた統合有病率は8.3%（95%CI 5–12%）。数字がまるで違う理由は、内訳を見ると分かる。<strong>実験研究では3.7%、観察研究では33.2%</strong>——測り方が結果を決めている。報告された事象の内訳は不安33%、抑うつ27%、認知の異常25%、消化器症状と自殺関連行動が各11%だった。</p>
+
+    <p>そしてこの節の核心が、Britton論文の次の指摘である。</p>
+
+    <div class="pull">
+      <p>瞑想の臨床試験のうち、有害事象を能動的に測定しているものは20%に満たない。</p>
+    </div>
+
+    <p>薬剤の試験でこの比率だったら承認は下りない。効果量ばかりが精密に議論され、コストの側が測られてこなかった。</p>
+
+    <div class="note sand">
+      <p><span class="h">長期実践者の困難な体験</span></p>
+      <p>Lindahl らが2017年に <em>PLoS ONE</em> で報告した混合研究法の調査（西洋仏教の実践者60人＋専門家32人）は、より重い体験を記述している。恐怖・不安・パニック・被害念慮82%、体性のエネルギー症状63%、抑うつ57%、統合失調症様の妄想的信念47%、トラウマ記憶の再体験43%、自殺念慮18%。中等度から重度の機能障害が73%、入院を要した例が17%。困難な体験は瞑想歴1〜10年の層で最も多く（45%）、しかも<strong>75%は指導者がついている状況で生じている</strong>。指導者の存在は保険にならない。</p>
+    </div>
+
+    <ul class="limit">
+      <li><b>選択バイアス</b>　Lindahl 2017 は困難を体験した人が回答しやすい設計であり、有病率の推定には使えない。体験の「種類」を知るための研究である。</li>
+      <li><b>測り方が数字を決める</b>　Farias 2020 の実験研究3.7%と観察研究33.2%の乖離は、能動的に尋ねるかどうかの差がほぼすべてを説明する。</li>
+      <li><b>比較群がない</b>　83%という Britton の数字には、同様に丁寧な聞き取りを受けた対照群の値が併記されていない。日常生活でも一定割合は不快な心理体験を報告するはずで、超過分がどれだけかは分からない。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="wrap">
+    <span class="sec-no">09 ── 結論</span>
+    <h2>それでも、何が残るのか</h2>
+    <p class="sec-sub">After the discount, what survives</p>
+
+    <p>2018年、Van Dam ら15名の研究者が <em>Perspectives on Psychological Science</em> に「Mind the Hype」と題した論考を発表した。定義の曖昧さ、尺度の心理測定的な弱さ、研究の質、そしてメディアと臨床応用における誇張。彼らは、誤情報と方法論的欠陥が消費者に害と誤解と失望をもたらしうると警告した。</p>
+
+    <p>その警告を裏づける数字がある。Coronado-Montoya らが公表済みRCT 124件を調べたところ、<mark class="c">87%が要旨に一つ以上の陽性結果を報告し、88%が「マインドフルネスは有効」と結論していた</mark>。d=0.55という効果量を前提にした検出力から期待される陽性率の、およそ1.6倍にあたる。加えて、試験登録された21件のうち62%は、完了から30か月経っても公表されていなかった。出ない結果は、出ないまま消えている。</p>
+
+    <p>ここまでの割引をすべて適用したうえで、それでも手元に残るものを挙げておく。</p>
+
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>最も確かなのは、反復性うつ病の再発予防</h4>
+      <p>MBCTは維持療法としての抗うつ薬というアクティブ対照に対しても、ハザード比0.77で優越を保った数少ない例外である。しかも既往エピソード3回以上という条件が明確に特定されている。効くと言い切れる範囲が狭く定義されていることは、弱点ではなく強みだと思う。</p>
+    </div>
+
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>無治療の状態からなら、確かに動く</h4>
+      <p>いま何もしていない人が始める場合、不安と抑うつには中程度のエビデンスで小〜中の効果が期待できる。薬物毒性がなく、ドロップアウト率も他の心理介入と変わらない。プライマリケアにおける抗うつ薬と同程度、という Goyal らの位置づけは、控えめに見えて実はかなり肯定的な評価である。</p>
+    </div>
+
+    <div class="insight">
+      <span class="ik">Insight 05</span>
+      <h4>ただし、上乗せとしての価値は保証されない</h4>
+      <p>すでに認知行動療法を受けている、運動習慣がある、有効な治療につながっている——そういう人にとって、マインドフルネスを追加することの効果はd=−0.004、つまり実証されていない。「やって損はない」は正しいが、「やれば上積みがある」は根拠を欠く。</p>
+    </div>
+
+    <p>実践に落とすなら、いまのエビデンスはこう読める。長さを最適化しようとするより、短くてもいいから頻度を確保する。頻度は1回の長さの2.5倍の予測力を持っていた。フォーマルな座る実践を軸にする。日常のインフォーマルな実践に効果を示したデータはまだない。そして自分に何が起きているかを観察し、悪化の兆候があれば止める。83%が何かを報告し、37%が機能への影響を報告したという事実は、副作用が例外的な事故ではないことを示している。</p>
+
+    <p>26時間のプログラムに医学的な必然性はなく、45分という指示に従えている人は6割強で、それでも効果は出ている。この分野で最も誠実な要約は、たぶんこうなる——<strong>マインドフルネスは効く。ただし、宣伝されているより控えめに、宣伝されているのとは違う場所で。</strong></p>
+
+    <div class="note">
+      <p><span class="h">この記事で扱わなかったこと</span></p>
+      <p>出版バイアス補正後の効果量の具体的な減少幅（Schumer 2018 を除く）、待機リスト対照が全研究に占める割合、MBSRの終日集中日そのものの寄与——これらは検証したメタ分析が見つからなかった。記事中で数字を示さなかった箇所は、書き手が省いたのではなく、データが存在しない。</p>
+    </div>
+
+    <h3>主要文献</h3>
+    <ol class="refs">
+      <li>Goyal M, et al. (2014). Meditation Programs for Psychological Stress and Well-being: A Systematic Review and Meta-analysis. <em>JAMA Internal Medicine</em>, 174(3), 357-368. <a href="https://pubmed.ncbi.nlm.nih.gov/24395196/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov/24395196</a></li>
+      <li>Goldberg SB, et al. (2018). Mindfulness-based interventions for psychiatric disorders: A systematic review and meta-analysis. <em>Clinical Psychology Review</em>, 59, 52-60. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5741505/" target="_blank" rel="noopener">PMC5741505</a></li>
+      <li>Goldberg SB, Riordan KM, Sun S, Davidson RJ (2022). The Empirical Status of Mindfulness-Based Interventions. <em>Perspectives on Psychological Science</em>, 17(1), 108-130.</li>
+      <li>Parsons CE, Crane C, Parsons LJ, Fjorback LO, Kuyken W (2017). Home practice in MBCT and MBSR. <em>Behaviour Research and Therapy</em>, 95, 29-41. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5501725/" target="_blank" rel="noopener">PMC5501725</a></li>
+      <li>Carmody J, Baer RA (2009). How long does a mindfulness-based stress reduction program need to be? <em>Journal of Clinical Psychology</em>, 65(6), 627-638.</li>
+      <li>Schumer MC, Lindsay EK, Creswell JD (2018). Brief mindfulness training for negative affectivity. <em>Journal of Consulting and Clinical Psychology</em>, 86(7), 569-583. <a href="https://pubmed.ncbi.nlm.nih.gov/29939051/" target="_blank" rel="noopener">pubmed 29939051</a></li>
+      <li>Strohmaier S, et al. (2020). The Relationship Between Doses of Mindfulness-Based Programs and Depression, Anxiety, Stress, and Mindfulness. <em>Mindfulness</em>.</li>
+      <li>Strohmaier S, et al. (2021). Effects of Length of Mindfulness Practice on Mindfulness, Depression, Anxiety, and Stress. <em>Mindfulness</em>, 12(1), 198-214.</li>
+      <li>Demarzo M, et al. (2017). Efficacy of 8- and 4-Session Mindfulness-Based Interventions in a Non-clinical Population. <em>Frontiers in Psychology</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5550824/" target="_blank" rel="noopener">PMC5550824</a></li>
+      <li>Bowles NI, Davies JN, Van Dam NT (2022). Dose–response Relationship of Reported Lifetime Meditation Practice with Mental Health and Wellbeing. <em>Mindfulness</em>, 13(10), 2529-2546.</li>
+      <li>Bowles NI, Van Dam NT (2025). Dose–response effects of reported meditation practice on mental-health and wellbeing. <em>Applied Psychology: Health and Well-Being</em>, 17(4), e70063.</li>
+      <li>Kuyken W, et al. (2016). Efficacy of MBCT in Prevention of Depressive Relapse: An Individual Patient Data Meta-analysis. <em>JAMA Psychiatry</em>, 73(6), 565-574. <a href="https://jamanetwork.com/journals/jamapsychiatry/fullarticle/2517515" target="_blank" rel="noopener">jamanetwork.com</a></li>
+      <li>Piet J, Hougaard E (2011). The effect of MBCT for prevention of relapse in recurrent major depressive disorder. <em>Clinical Psychology Review</em>, 31(6), 1032-1040.</li>
+      <li>Hilton L, et al. (2017). Mindfulness Meditation for Chronic Pain. <em>Annals of Behavioral Medicine</em>, 51(2), 199-213.</li>
+      <li>Rusch HL, et al. (2019). The effect of mindfulness meditation on sleep quality. <em>Annals of the New York Academy of Sciences</em>, 1445(1), 5-16.</li>
+      <li>Britton WB, Lindahl JR, Cooper DJ, Canby NK, Palitsky R (2021). Defining and Measuring Meditation-Related Adverse Effects in Mindfulness-Based Programs. <em>Clinical Psychological Science</em>.</li>
+      <li>Farias M, Maraldi E, Wallenkampf KC, Lucchetti G (2020). Adverse events in meditation practices and meditation-based therapies. <em>Acta Psychiatrica Scandinavica</em>, 142, 374-393.</li>
+      <li>Lindahl JR, Fisher NE, Cooper DJ, Rosen RK, Britton WB (2017). The varieties of contemplative experience. <em>PLoS ONE</em>, 12(5).</li>
+      <li>Van Dam NT, et al. (2018). Mind the Hype: A Critical Evaluation and Prescriptive Agenda for Research on Mindfulness and Meditation. <em>Perspectives on Psychological Science</em>, 13(1), 36-61.</li>
+      <li>Coronado-Montoya S, et al. (2016). Reporting of Positive Results in Randomized Controlled Trials of Mindfulness-Based Mental Health Interventions. <em>PLoS ONE</em>.</li>
+      <li>Huijbers MJ, et al. (2017). Teacher Competence in Mindfulness-Based Cognitive Therapy. <em>Mindfulness</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5506231/" target="_blank" rel="noopener">PMC5506231</a></li>
+      <li>Lam SU, Kirvin-Quamme A, Goldberg SB (2022). Overall and Differential Attrition in Mindfulness-Based Interventions. <em>Mindfulness</em>, 13, 2676-2690.</li>
+      <li>Linardon J, et al. (2023). The efficacy of mindfulness apps on symptoms of depression and anxiety. <em>Clinical Psychology Review</em>, 107, 102370.</li>
+      <li>Galante J, et al. (2023). Systematic review and individual participant data meta-analysis of RCTs assessing mindfulness-based programs for mental health promotion. <em>Nature Mental Health</em>.</li>
+      <li>Bishop SR, et al. (2004). Mindfulness: A Proposed Operational Definition. <em>Clinical Psychology: Science and Practice</em>, 11(3), 230-241.</li>
+      <li>Lutz A, Slagter HA, Dunne JD, Davidson RJ (2008). Attention regulation and monitoring in meditation. <em>Trends in Cognitive Sciences</em>, 12(4), 163-169.</li>
+      <li>Kabat-Zinn J (1982). An Outpatient Program in Behavioral Medicine for Chronic Pain Patients. <em>General Hospital Psychiatry</em>, 4, 33-47.</li>
+      <li>Kelly BD (2022). Mindful, mindless or misunderstood? A critical perspective of the mindfulness concept. <em>Irish Journal of Psychological Medicine</em>, 40(3).</li>
+      <li>O'Daffer A, Colt SF, Wasil AR, Lau N (2022). Efficacy and Conflicts of Interest in RCTs Evaluating Headspace and Calm Apps. <em>JMIR Mental Health</em>, 9(9), e40924.</li>
+      <li>Verhaeghen P (2021). Mindfulness as Attention Training: Meta-Analyses on the Links Between Attention Performance and Mindfulness Interventions. <em>Mindfulness</em>, 12, 564-581.</li>
+    </ol>
+
+    <a class="pc-link" href="https://pubmed.ncbi.nlm.nih.gov/24395196/" target="_blank" rel="noopener">Goyal 2014 を読む（JAMA Intern Med）</a>
+    <a class="pc-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5501725/" target="_blank" rel="noopener">Parsons 2017 を読む（全文公開）</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    マインドフルネスの効果量を、正しく値引きする<br>
+    メタ分析・系統的レビュー30本超に基づく／2026年7月<br>
+    <span style="font-size:12px">効果量の数値はすべて原論文またはPubMed/PMCの記載に基づく。裏づけの取れなかった数値は本文中で「データが存在しない」と明示した。</span>
+  </div>
+</footer>
+
+<script>
+// プログレスバー
+const bar = document.getElementById('progress');
+document.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  bar.style.width = (max > 0 ? (h.scrollTop / max * 100) : 0) + '%';
+}, { passive: true });
+
+// アクティブナビ
+const links = [...document.querySelectorAll('.nav-links a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      const id = '#' + e.target.id;
+      links.forEach(l => {
+        const on = l.getAttribute('href') === id;
+        l.style.color = on ? 'var(--teal-deep)' : '';
+        l.style.background = on ? 'var(--teal-wash)' : '';
+        l.style.fontWeight = on ? '700' : '';
+      });
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+secs.forEach(s => io.observe(s));
+
+// チャート描画
+function drawBars(elId, data, min, max, fmt) {
+  const el = document.getElementById(elId);
+  el.innerHTML = data.map(d => {
+    const [name, value, flag] = d;
+    const w = Math.max(2, ((Math.abs(value) - min) / (max - min)) * 100);
+    const cls = flag === 'neg' ? ' neg' : (flag === 'hi' ? ' hi' : '');
+    const label = fmt ? fmt(value) : value.toFixed(2);
+    return `<div class="bar-row${cls}"><div class="bl">${name}</div>`
+      + `<div class="bar-track"><div class="bar-fill" style="width:0" data-w="${w}"></div></div>`
+      + `<div class="bv">${label}</div></div>`;
+  }).join('');
+}
+
+// 01: 対照群別の効果量
+drawBars('ch1', [
+  ['無治療との比較　<span style="font-size:11px;color:var(--ink-faint)">k=89</span>', 0.55, 'hi'],
+  ['最小限の治療との比較　<span style="font-size:11px;color:var(--ink-faint)">k=4</span>', 0.37],
+  ['時間を揃えた対照群　<span style="font-size:11px;color:var(--ink-faint)">k=9</span>', 0.35],
+  ['CBT等の実治療との比較　<span style="font-size:11px;color:var(--ink-faint)">k=42</span>', 0.23],
+  ['既存の標準治療との直接比較　<span style="font-size:11px;color:var(--ink-faint)">k=28</span>', 0.004, 'neg']
+], 0, 0.60, v => (v === 0.004 ? '−0.00' : v.toFixed(2)));
+
+// 02: アウトカム別
+drawBars('ch2', [
+  ['不安（8週時点）', 0.38, 'hi'],
+  ['疼痛', 0.33],
+  ['睡眠　<span style="font-size:11px;color:var(--ink-faint)">時間を揃えた対照</span>', 0.33],
+  ['ストレス（健常者）', 0.53, 'hi'],
+  ['抑うつ（8週時点）', 0.30],
+  ['バーンアウト（医療従事者）', 0.26],
+  ['ワーキングメモリ', 0.23],
+  ['実行機能', 0.15],
+  ['注意', 0.12, 'neg'],
+  ['睡眠　<span style="font-size:11px;color:var(--ink-faint)">CBT-I等の実治療と比較</span>', 0.03, 'neg']
+], 0, 0.60);
+
+// 03: 届け方
+drawBars('ch3', [
+  ['対面プログラム（無治療対照）', 0.55, 'hi'],
+  ['オンライン・ストレス', 0.62, 'hi'],
+  ['オンライン・抑うつ', 0.32],
+  ['アプリ・不安', 0.28],
+  ['アプリ・抑うつ', 0.24]
+], 0, 0.68);
+
+// 04: 有害事象
+drawBars('ch4', [
+  ['何らかの有害な体験を報告', 83, 'hi'],
+  ['否定的な価値づけを伴う', 58],
+  ['日常機能への負の影響を伴う', 37, 'neg'],
+  ['悪影響が1週間以上持続', 15.4, 'neg'],
+  ['悪影響が1か月以上持続', 6.4, 'neg']
+], 0, 90, v => v.toFixed(0) + '%');
+
+// アニメーション
+const ao = new IntersectionObserver((es, obs) => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-w]').forEach((f, i) => {
+        setTimeout(() => { f.style.width = f.dataset.w + '%'; }, i * 70);
+      });
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: .25 });
+['ch1','ch2','ch3','ch4'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) ao.observe(el);
+});
+</script>
+
+</body>
+</html>
