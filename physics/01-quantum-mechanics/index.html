@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--paper:#fbfcfb;--paper-2:#f4f7f5;--panel:#f4f7f5;--ink:#2b3a3e;--ink-soft:#46585c;--ink-faint:#74827f;--teal-deep:#4f7c87;--teal:#62B8A0;--teal-wash:#eef6f3;--coral:#eb6584;--coral-wash:#fdeef1;--sand:#B98B2E;--sand-wash:#F5EBD3;--line:#e3e8e4;--line-soft:#eef1ef;--shadow:0 1px 2px rgba(39,53,54,.04),0 10px 34px -18px rgba(39,53,54,.22);--maxw:760px}
+:root{--paper: #FAFAFA;--paper-2: #F5F5F5;--panel: #F5F5F5;--ink: #111111;--ink-soft: #333333;--ink-faint: #808080;--teal-deep: #111111;--teal: #111111;--teal-wash: #F5F5F5;--coral: #333333;--coral-wash: #F5F5F5;--sand: #333333;--sand-wash: #F5F5F5;--line: #EEEEEE;--line-soft: #EEEEEE;--shadow: none;--maxw:760px}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"Noto Sans JP",sans-serif;font-size:15.6px;line-height:1.95;letter-spacing:.01em;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
@@ -49,7 +49,7 @@ ul.clean li b{color:var(--teal-deep)}
 .dn{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:2px}
 .de{font-size:11.5px;font-weight:500;color:var(--teal-deep);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
 .dq{font-size:13.5px;color:var(--ink-soft);line-height:1.7}
-.chart-card{background:var(--panel);border-radius:12px;padding:28px 24px;margin:28px 0;box-shadow:var(--shadow)}
+.chart-card{background:var(--panel);border-radius:12px;padding:28px 24px;margin:28px 0;box-shadow: none}
 .ct{font-family:"Noto Serif JP",serif;font-weight:700;font-size:17px;margin-bottom:4px}
 .cs{font-size:12.5px;color:var(--ink-faint);margin-bottom:18px}
 .bar-row{display:grid;grid-template-columns:120px 1fr 50px;align-items:center;gap:10px;margin-bottom:8px}
@@ -88,7 +88,7 @@ footer{padding:50px 0;background:var(--paper-2);border-top:1px solid var(--line)
 .tl-text{font-size:14px;color:var(--ink-soft);line-height:1.7}
 
 /* === ANIMATION COMPONENTS === */
-.sim-box{background:var(--panel);border-radius:12px;padding:24px;margin:28px 0;box-shadow:var(--shadow);overflow:hidden}
+.sim-box{background:var(--panel);border-radius:12px;padding:24px;margin:28px 0;box-shadow: none;overflow:hidden}
 .sim-title{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;margin-bottom:4px}
 .sim-desc{font-size:12.5px;color:var(--ink-faint);margin-bottom:16px}
 .sim-canvas{display:block;margin:0 auto;border-radius:8px;background:#1a2a2e;max-width:100%}
@@ -101,7 +101,7 @@ footer{padding:50px 0;background:var(--paper-2);border-top:1px solid var(--line)
 .sim-btn.coral.active{background:var(--coral);color:#fff}
 .sim-label{font-size:12px;color:var(--ink-faint);font-weight:500}
 .sim-slider{-webkit-appearance:none;appearance:none;width:200px;height:6px;border-radius:3px;background:var(--line);outline:none}
-.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--teal);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--teal);cursor:pointer;border:2px solid #fff;box-shadow: none}
 
 @media(max-width:680px){
   section{padding:46px 0}

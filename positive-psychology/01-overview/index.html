@@ -9,22 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#fbfcfb;
-    --paper-2:#f4f7f5;
-    --panel:#f4f7f5;
-    --ink:#2b3a3e;
-    --ink-soft:#46585c;
-    --ink-faint:#74827f;
-    --teal-deep:#4f7c87;
-    --teal:#62B8A0;
-    --teal-wash:#eef6f3;
-    --coral:#eb6584;
-    --coral-wash:#fdeef1;
-    --sand:#B98B2E;
-    --sand-wash:#F5EBD3;
-    --line:#e3e8e4;
-    --line-soft:#eef1ef;
-    --shadow:0 1px 2px rgba(39,53,54,.04),0 10px 34px -18px rgba(39,53,54,.22);
+    --paper: #FAFAFA;
+    --paper-2: #F5F5F5;
+    --panel: #F5F5F5;
+    --ink: #111111;
+    --ink-soft: #333333;
+    --ink-faint: #808080;
+    --teal-deep: #111111;
+    --teal: #111111;
+    --teal-wash: #F5F5F5;
+    --coral: #333333;
+    --coral-wash: #F5F5F5;
+    --sand: #333333;
+    --sand-wash: #F5F5F5;
+    --line: #EEEEEE;
+    --line-soft: #EEEEEE;
+    --shadow: none;
     --maxw:760px;
   }
   *{box-sizing:border-box}
@@ -70,12 +70,12 @@
   .meta-row b{color:var(--teal-deep);font-weight:700}
 
   /* dialectic mark */
-  .dialectic{display:flex;align-items:center;gap:20px;margin:42px 0 4px;padding:22px 24px;background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+  .dialectic{display:flex;align-items:center;gap:20px;margin:42px 0 4px;padding:22px 24px;background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow: none}
   .orb{flex:none;width:74px;height:74px;border-radius:50%;position:relative;overflow:hidden;border:1px solid var(--line)}
   .orb .light{position:absolute;inset:0;background:radial-gradient(120% 120% at 30% 25%,#FFF3CE,#F6C95B 55%,#E9A93C);clip-path:polygon(0 0,100% 0,0 100%)}
   .orb .shade{position:absolute;inset:0;background:radial-gradient(120% 120% at 75% 80%,#5E9AA1,#4f7c87 60%,#2A4D54);clip-path:polygon(100% 0,100% 100%,0 100%)}
-  .orb .dotA{position:absolute;width:14px;height:14px;border-radius:50%;background:#E9A93C;top:50%;left:23%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(255,243,206,.7)}
-  .orb .dotB{position:absolute;width:14px;height:14px;border-radius:50%;background:#4f7c87;top:50%;left:77%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(94,154,161,.45)}
+  .orb .dotA{position:absolute;width:14px;height:14px;border-radius:50%;background:#E9A93C;top:50%;left:23%;transform:translate(-50%,-50%);box-shadow: none}
+  .orb .dotB{position:absolute;width:14px;height:14px;border-radius:50%;background:#4f7c87;top:50%;left:77%;transform:translate(-50%,-50%);box-shadow: none}
   .dialectic p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.85}
   .dialectic p b{color:var(--ink);font-weight:700}
 
@@ -141,8 +141,8 @@
   .tl .tx b{color:var(--teal-deep)}
 
   /* paper cards */
-  .paper-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px 24px 20px;margin:18px 0;box-shadow:var(--shadow);transition:.2s}
-  .paper-card:hover{transform:translateY(-2px);box-shadow:0 1px 2px rgba(39,53,54,.05),0 18px 44px -20px rgba(39,53,54,.3)}
+  .paper-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px 24px 20px;margin:18px 0;box-shadow: none;transition:.2s}
+  .paper-card:hover{transform:translateY(-2px);box-shadow: none}
   .pc-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
   .pc-kind{font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 10px;border-radius:6px;background:var(--paper-2);color:var(--ink-soft)}
   .pc-kind.k-found{background:#EFE7F2;color:#6A4A78}
