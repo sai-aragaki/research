@@ -8,6 +8,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- THEMES:BOOT:START -->
+<script>
+  /* 描画前にテーマを確定させる（切り替え時のちらつき防止） */
+  try {
+    var t = localStorage.getItem('design-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+<!-- THEMES:BOOT:END -->
 <style>
 :root{
   --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
@@ -17,7 +26,251 @@
   --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
   --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
   --maxw:720px;
+
+  --paper-rgb: 250, 250, 250;  /* 固定ヘッダーの半透明背景用。--paper と同じ色 */;
+  --coral-rgb: 235,101,132;
+  --deep-rgb: 79,124,135;
+  --teal-rgb: 98,184,160;
+  --yellow-rgb: 242,201,76;}
+/* THEMES:CSS:START */
+/* =========================================================
+   DESIGN THEMES — 共有テーマ定義（正本）
+   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
+   ページ側のHTMLを手で書き換えないこと。
+   ========================================================= */
+
+/* --- 既定テーマ（sai）: ページ側のパレットに足りないトークンを補う --- */
+:root {
+  /* 形 */
+  --r-card: 0px;        /* カード・パネルの角丸 */
+  --r-pill: 48px;       /* チップ・タグ・ピルボタン */
+  --r-input: 4px;       /* 入力欄 */
+  --r-xs: 3px;          /* トースト等の極小要素 */
+  --r-inner: 12px;      /* 吹き出し・入れ子カード */
+  --r-band-card: 16px;  /* 一段大きいカード */
+  --bw: 1px;            /* カードの枠線幅 */
+  --r-scale: 1;         /* 角丸の倍率。値が散っているページ（research-sai）はこれで一括調整する */
+  --card-line: var(--rule);
+  --input-line: var(--rule-strong);
+
+  /* ページごとに既定が違うトークン（--paper-rgb / --ls-display）は
+     ここに書かない。各ページの :root で定義し、テーマ側は
+     html[data-theme="..."] ブロックでだけ上書きする。 */
+
+  /* 文字 */
+  --fw-display: 300;         /* 大見出しのウェイト */
+  --ls-label: 0.14em;        /* 欧文ラベルの字間 */
+  --label-case: uppercase;   /* 欧文ラベルの大文字化 */
+  --lh-body: 1.9;            /* 本文の行間 */
+
+  /* 影（既定は使わない。浮かせるテーマ用の受け口） */
+  --shadow-card: none;
+  --shadow-pop: none;
+
+  /* アイコン（線画SVGの線の太さ） */
+  --ico-sw: 1.5;
+  --ico-sw-lg: 1.25;
+
+  /* 装飾 */
+  --caution: #c84e6c;                    /* 注意書きのラベル */
+  --track-bg: #dde5e1;                   /* バーの溝 */
+  --track-bg-soft: #eef1ef;              /* バーの溝（淡い方） */
+  --lang-en-bg: #eef1f5;                 /* 言語バッジ（EN） */
+  --lang-en-fg: #5a6b86;
+  --mark-bg: rgba(98, 184, 160, .34);    /* マーカー線（標準） */
+  --mark-c-bg: rgba(235, 101, 132, .28); /* マーカー線（強調） */
+  --accent-band: var(--stripe);
+  --footer-bg: var(--rule);
+  --footer-fg: var(--muted);
+  --chip-g-bg: rgba(98, 184, 160, .14);
+  --chip-b-bg: rgba(79, 124, 135, .14);
+  --mosaic: #62B8A0, #F2C94C, #EB6584, #4F7C87, #FFFFFF, #FFFFFF, #F5F5F5;
 }
+
+/* --- theme: bold（黒と黄・2pxの枠線・影なし）--- */
+html[data-theme="bold"] {
+  --paper: #FAF9EC;
+  --paper-rgb: 250, 249, 236;
+  --white: #FFFFFF;
+  --ink: #1B1B1B;
+  --text: #1B1B1B;
+  --muted: #6E6B5E;
+  --rule: #E4E2D2;
+  --rule-strong: #1B1B1B;
+  --tint: #F2F1E2;
+  --teal: #1B1B1B;      /* 文字にも背景にも使われるため黒。黄色は --teal-wash 側 */
+  --teal-deep: #1B1B1B;
+  --coral: #6E6A12;     /* 強調テキスト。紙の上で 5.3:1 */
+  --yellow: #E3E143;
+  --deep-teal: #1B1B1B;
+  --deep: #1B1B1B;
+  --en: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --stripe: repeating-linear-gradient(135deg, #E3E143 0 16px, #1B1B1B 16px 18px, #E3E143 18px 34px);
+
+  --r-card: 12px;
+  --r-pill: 999px;
+  --r-input: 12px;
+  --r-xs: 999px;
+  --r-inner: 12px;
+  --r-band-card: 12px;
+  --bw: 2px;
+  --r-scale: 1;
+  --card-line: var(--ink);
+  --input-line: var(--ink);
+
+  --fw-display: 700;
+  --ls-display: 0;
+  --ls-label: 0.08em;
+  --label-case: uppercase;
+  --lh-body: 1.8;
+
+  --shadow-card: none;
+  --shadow-pop: none;
+
+  --ico-sw: 2;
+  --ico-sw-lg: 2;
+
+  /* research-sai 系のトークン名（記事ページはこちらの語彙を使う）
+     --teal は文字色にも背景にも使われるので黒に寄せ、
+     背景専用の --teal-wash に黄色を置く。 */
+  --panel: #F3F1DF;
+  --paper-2: #F3F1DF;
+  --ink-soft: #1B1B1B;
+  --ink-faint: #6E6B5E;
+  --teal-wash: #E3E143;
+  --coral-wash: #F6F4C4;
+  --sand: #6E6A12;
+  --sand-wash: #F6F4C4;
+  --line: #E0DECB;
+  --line-soft: #EDEBD9;
+  --line-strong: #1B1B1B;
+  --paper-warm: #F3F1DF;
+  --card: #FFFFFF;
+  --shadow: none;
+
+  --caution: #9B2C2C;
+  --track-bg: #E0DECB;
+  --track-bg-soft: #EDEBD9;
+  /* 淡い面の上に置く濃い文字色。既定は各ページの :root にある */
+  --teal-ink: #1B1B1B;
+  --sand-ink: #6E6A12;
+  --sand-ink-soft: #6E6A12;
+  --coral-ink: #9B2C2C;
+  --pull-ink: #1B1B1B;
+  --lang-en-bg: #F0EFE2;
+  --lang-en-fg: #5B5848;
+  /* 半透明の下地（alpha はページ側に残し、RGBだけ差し替える） */
+  --teal-rgb: 227, 225, 67;
+  --coral-rgb: 110, 106, 18;
+  --yellow-rgb: 227, 225, 67;
+  --deep-rgb: 27, 27, 27;
+  --mark-bg: rgba(227, 225, 67, .60);
+  --mark-c-bg: rgba(110, 106, 18, .20);
+  --accent-band: #E3E143;
+  --footer-bg: #E3E143;
+  --footer-fg: #1B1B1B;
+  --chip-g-bg: rgba(227, 225, 67, .34);
+  --chip-b-bg: rgba(27, 27, 27, .08);
+  --mosaic: #E3E143, #1B1B1B, #F9F8D9, #FFFFFF, #FFFFFF, #F2F1E2, #E3E143;
+}
+
+/* =========================================================
+   切り替えボタン（.ts- 接頭辞。ページ側のCSSと衝突させない）
+   ページ側は <div data-theme-switch></div> を1つ置くだけ。
+   ========================================================= */
+
+[data-theme-switch] { position: relative; flex: none; line-height: 0; }
+
+/* ヘッダーの無いページ用：右上に浮かせる */
+[data-theme-switch][data-ts-float] { position: fixed; top: 16px; right: 16px; z-index: 300; }
+[data-theme-switch][data-ts-float] .ts-btn { background: var(--white); }
+
+.ts-btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s;
+}
+
+.ts-btn:hover { background: var(--ink); color: var(--white); }
+.ts-btn:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+
+.ts-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ico-sw);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ts-btn svg circle[data-dot] { fill: currentColor; stroke: none; }
+
+.ts-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 290px;
+  background: var(--white);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-pop);
+  padding: 6px;
+  line-height: 1.5;
+  z-index: 200;
+}
+
+.ts-menu[hidden] { display: none; }
+
+.ts-opt {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 9px 10px;
+  border-radius: var(--r-card);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .18s;
+}
+
+.ts-opt:hover { background: var(--tint); }
+.ts-opt:focus-visible { outline: 1px solid var(--ink); outline-offset: -1px; }
+.ts-dots { display: flex; gap: 3px; flex: none; }
+.ts-dots i { display: block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--rule-strong); box-sizing: border-box; }
+.ts-text { flex: 1; min-width: 0; }
+.ts-name { font-family: var(--en); font-size: 12px; font-weight: 500; letter-spacing: .04em; }
+.ts-desc { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 1px; }
+.ts-check { margin-left: auto; flex: none; font-size: 11px; color: var(--ink); opacity: 0; }
+.ts-opt[aria-selected="true"] .ts-check { opacity: 1; }
+
+/* research-sai の細いナビの中では一回り小さく */
+.nav-inner > [data-theme-switch] .ts-btn,
+.gnav-inner > [data-theme-switch] .ts-btn { width: 28px; height: 28px; }
+.nav-inner > [data-theme-switch] .ts-btn svg,
+.gnav-inner > [data-theme-switch] .ts-btn svg { width: 16px; height: 16px; }
+
+@media (max-width: 768px) {
+  .ts-btn { width: 32px; height: 32px; }
+  .ts-btn svg { width: 18px; height: 18px; }
+  .ts-menu { min-width: 264px; }
+}
+/* THEMES:CSS:END */
 *{box-sizing:border-box}
 html,body{overflow-x:hidden}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
@@ -26,7 +279,7 @@ body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);fo
 a{color:var(--ink)}
 b,strong{color:var(--ink);font-weight:700}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(var(--paper-rgb),.96) 0%,rgba(var(--paper-rgb),.92) 30%,rgba(var(--paper-rgb),.8) 55%,rgba(var(--paper-rgb),.6) 78%,rgba(var(--paper-rgb),.42) 100%)}
 .nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
 .brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
 .brand b{color:var(--muted);font-weight:400}
@@ -99,11 +352,11 @@ ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
 ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
 ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
 
-.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing{background:var(--tint);border-radius:calc(16px * var(--r-scale));padding:40px 44px;margin:80px 0 0}
 .closing h3{margin-top:0}
 
-.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
-.pc-link:hover{background:var(--ink);color:#fff}
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:calc(48px * var(--r-scale));color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:var(--white)}
 
 .refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
 .refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
@@ -129,8 +382,8 @@ footer .wrap{padding:0}
   .pull p{font-size:16px}
 }
 @media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
-mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
-mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+mark{background:linear-gradient(transparent 58%,rgba(var(--teal-rgb),.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(var(--coral-rgb),.28) 58%)}
 
 /* --- map page extras --- */
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
@@ -172,7 +425,7 @@ details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted
 details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
 details.cat[open] .tog{transform:rotate(45deg)}
 details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
-details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--white)}
 .cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
 .cbody .q{margin:0 0 14px}
 .cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
@@ -227,7 +480,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
 .plane .pc .full{grid-column:1/-1}
 .plane.hl{border-color:var(--ink)}
 .plane.hl .pn{color:var(--ink);font-weight:600}
-.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.plane.hl .ia{background:rgba(var(--teal-rgb),.18);font-weight:700;color:var(--ink)}
 .pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
 .pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .pl-cols span{padding-left:12px}
@@ -242,7 +495,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
 .deftl .who{display:block;font-size:12px;color:var(--muted)}
 .deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
 .deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
-.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+.l-und{background:rgba(var(--yellow-rgb),.45)}.l-str{background:rgba(var(--teal-rgb),.35)}.l-mea{background:rgba(var(--coral-rgb),.28)}.l-pla{background:rgba(var(--deep-rgb),.3)}
 
 .quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
 .quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
@@ -294,8 +547,8 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
 .lk{font-size:12.5px;color:var(--ink);line-height:1.5}
 .lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
 .lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
-.lbar .in{background:rgba(79,124,135,.55);color:#fff}
-.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .in{background:rgba(var(--deep-rgb),.55);color:var(--white)}
+.lbar .ex{background:rgba(var(--coral-rgb),.4)}
 .lbar .fr{color:var(--muted)}
 
 @media (max-width:680px){
@@ -322,7 +575,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
 .lvr .lvn{font-size:11.5px;color:var(--muted)}
 .lvr b{font-size:16px}
 .lvr .lvd{font-size:13px;line-height:1.7}
-.lvr.hl{border-color:var(--ink);background:rgba(98,184,160,.12)}
+.lvr.hl{border-color:var(--ink);background:rgba(var(--teal-rgb),.12)}
 .lvr.hl .lvn{color:var(--ink);font-weight:700}
 
 .two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
@@ -386,7 +639,8 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
       <a href="#politics">Politics</a>
       <a href="#carry">Carry</a>
     </div>
-  </div>
+    <div data-theme-switch></div>
+</div>
 </nav>
 
 <header class="hero">
@@ -667,6 +921,117 @@ const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(B
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
 secs.forEach(s=>io.observe(s));
 
+</script>
+<script>
+/* THEMES:JS:START */
+/* =========================================================
+   DESIGN THEMES — 共有スクリプト（正本）
+   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
+   ページ側は <div data-theme-switch></div> を1つ置くだけでよい。
+   ページ固有の後処理が要る場合は window.onThemeChange に関数を入れる。
+   ========================================================= */
+
+var THEMES = [
+  { id: 'sai',  name: 'SAI v2',      desc: 'モノクロ基調・エディトリアル', dots: ['#62B8A0', '#EB6584', '#F2C94C'] },
+  { id: 'bold', name: 'Bold Yellow', desc: '黒と黄・2pxの枠線・影なし',    dots: ['#1B1B1B', '#E3E143', '#FAF9EC'] }
+];
+
+var THEME_KEY = 'design-theme';
+var THEME_ICON =
+  '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+  '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>' +
+  '<circle data-dot cx="13.5" cy="6.5" r="1.5"/><circle data-dot cx="17.5" cy="10.5" r="1.5"/>' +
+  '<circle data-dot cx="6.5" cy="12.5" r="1.5"/><circle data-dot cx="8.5" cy="7.5" r="1.5"/></svg>';
+
+var activeTheme = THEMES[0].id;
+
+function themeDotsHTML(theme) {
+  return theme.dots.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('');
+}
+
+function applyTheme(id, persist) {
+  var theme = THEMES.filter(function (t) { return t.id === id; })[0] || THEMES[0];
+  activeTheme = theme.id;
+  if (theme.id === THEMES[0].id) {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme.id);
+  }
+  if (persist) { try { localStorage.setItem(THEME_KEY, theme.id); } catch (e) {} }
+  renderThemeSwitch();
+  if (typeof window.onThemeChange === 'function') window.onThemeChange(theme.id);
+}
+
+function renderThemeSwitch() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  var theme = THEMES.filter(function (t) { return t.id === activeTheme; })[0] || THEMES[0];
+
+  if (!mount.querySelector('.ts-btn')) {
+    mount.innerHTML =
+      '<button type="button" class="ts-btn" aria-haspopup="listbox" aria-expanded="false">' + THEME_ICON + '</button>' +
+      '<div class="ts-menu" role="listbox" aria-label="デザイン" hidden></div>';
+    mount.querySelector('.ts-btn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      var menu = mount.querySelector('.ts-menu');
+      menu.hidden ? openThemeMenu() : closeThemeMenu();
+    });
+  }
+
+  var btn = mount.querySelector('.ts-btn');
+  btn.setAttribute('aria-label', 'デザインを切り替える（現在: ' + theme.name + '）');
+  btn.setAttribute('title', 'デザイン: ' + theme.name);
+
+  var menu = mount.querySelector('.ts-menu');
+  menu.innerHTML = '';
+  THEMES.forEach(function (t) {
+    var opt = document.createElement('button');
+    opt.type = 'button';
+    opt.className = 'ts-opt';
+    opt.setAttribute('role', 'option');
+    opt.setAttribute('aria-selected', String(t.id === activeTheme));
+    opt.innerHTML =
+      '<span class="ts-dots">' + themeDotsHTML(t) + '</span>' +
+      '<span class="ts-text"><span class="ts-name">' + t.name + '</span>' +
+      '<span class="ts-desc">' + t.desc + '</span></span>' +
+      '<span class="ts-check">●</span>';
+    opt.addEventListener('click', function () { applyTheme(t.id, true); closeThemeMenu(); });
+    menu.appendChild(opt);
+  });
+}
+
+function openThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = false;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'true');
+}
+
+function closeThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = true;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'false');
+}
+
+function initThemeSwitch() {
+  var saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+  applyTheme(saved || THEMES[0].id, false);
+
+  document.addEventListener('click', function (e) {
+    var mount = document.querySelector('[data-theme-switch]');
+    if (mount && !mount.contains(e.target)) closeThemeMenu();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeThemeMenu(); });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initThemeSwitch);
+} else {
+  initThemeSwitch();
+}
+/* THEMES:JS:END */
 </script>
 </body>
 </html>
