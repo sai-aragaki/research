@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>二人が同じ言葉を選ぶ確率は、2割に満たなかった｜情報設計シリーズ 06</title>
+<meta name="description" content="組織化スキーム、組織化構造、ラベリング。分け方と名づけ方の実務の原理を、LATCH、ポーラーベア本、語彙の問題、GOV.UK からたどる。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+/* --- article 01 extras --- */
+.planes{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.plane{display:grid;grid-template-columns:96px 1fr;align-items:stretch;border:1px solid var(--line)}
+.plane .pn{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px;border-right:1px solid var(--line);display:flex;align-items:center}
+.plane .pc{display:grid;grid-template-columns:1fr 1fr}
+.plane .pc div{padding:10px 12px;font-size:13px;line-height:1.6}
+.plane .pc div + div{border-left:1px dashed var(--line-strong)}
+.plane .pc .full{grid-column:1/-1}
+.plane.hl{border-color:var(--ink)}
+.plane.hl .pn{color:var(--ink);font-weight:600}
+.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
+.pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-cols span{padding-left:12px}
+
+.tmodel svg{width:100%;height:auto;display:block}
+.tmodel text{font-family:var(--jp)}
+
+.deftl{list-style:none;padding:0;margin:8px 0 0}
+.deftl li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.deftl li:last-child{border-bottom:none}
+.deftl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:14px}
+.deftl .who{display:block;font-size:12px;color:var(--muted)}
+.deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
+.deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
+.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
+.quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
+.quad .qn{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quad .qt{font-weight:700;color:var(--ink);font-size:15px;margin:2px 0 4px}
+.quad p{font-size:13px;margin:0;line-height:1.7}
+.quad .hot{border-color:var(--ink)}
+
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 8px}
+.gear{background:var(--white);border:1px solid var(--line);padding:16px;text-align:left;position:relative}
+.gear::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.gear.o::before{background:var(--coral)}.gear.t::before{background:var(--teal)}.gear.c::before{background:var(--deep-teal)}
+.gear .ge{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gear .gj{font-weight:700;color:var(--ink);font-size:17px;margin:2px 0 6px}
+.gear p{font-size:13px;line-height:1.7;margin:0}
+.gear .ex{display:block;font-size:12px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line-strong);padding-top:8px}
+
+@media (max-width:680px){
+  .plane{grid-template-columns:70px 1fr}
+  .plane .pn{font-size:9.5px;padding:10px 8px}
+  .pl-cols{grid-template-columns:70px 1fr 1fr}
+  .quad,.gears{grid-template-columns:1fr}
+  .deftl li{grid-template-columns:48px 1fr}
+}
+
+/* --- article 02 extras --- */
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
+.hb .hl{color:var(--ink);line-height:1.4}
+.hb .track{height:14px;background:var(--tint);position:relative}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb.avg .fill{background:var(--ink)}
+.hb.avg .hl{font-weight:700}
+.hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
+.hb .hv small{color:var(--muted);font-size:11px;margin-left:4px}
+
+.gdemo,.sdemo{display:grid;gap:14px}
+.gdemo{grid-template-columns:repeat(3,1fr)}
+.sdemo{grid-template-columns:1fr 1fr}
+.gdemo figure,.sdemo figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.gdemo svg,.sdemo svg{display:block;width:100%;height:auto}
+.gdemo figcaption,.sdemo figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.gdemo figcaption b,.sdemo figcaption b{display:block;color:var(--ink);font-size:13px}
+.chart-card .mini{margin:12px 0 0}
+.chart-card button.pc-link{background:none;font-family:var(--jp);cursor:pointer}
+
+.loadfig{display:flex;flex-direction:column;gap:12px}
+.lrow{display:grid;grid-template-columns:168px 1fr;align-items:center;gap:12px}
+.lk{font-size:12.5px;color:var(--ink);line-height:1.5}
+.lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
+.lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.lbar .in{background:rgba(79,124,135,.55);color:#fff}
+.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .fr{color:var(--muted)}
+
+@media (max-width:680px){
+  .hb{grid-template-columns:96px 1fr;row-gap:2px}
+  .hb .hv{grid-column:2}
+  .gdemo{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .gdemo figcaption{font-size:11px;padding:6px 8px}
+  .sdemo{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr;gap:4px}
+  .lbar i{font-size:10.5px;padding:0 5px}
+}
+
+/* --- article 03 extras --- */
+.catfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.catfig figure,.mfig{margin:0}
+.catfig figure{border:1px solid var(--line);background:var(--paper)}
+.catfig svg,.mfig svg{display:block;width:100%;height:auto}
+.catfig svg text,.mfig svg text{font-family:var(--jp)}
+.catfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.catfig figcaption b{display:block;color:var(--ink);font-size:13px}
+
+.lv{display:flex;flex-direction:column;gap:6px}
+.lvr{display:grid;grid-template-columns:56px 132px 1fr;align-items:center;gap:12px;border:1px solid var(--line);padding:12px 14px;background:var(--white)}
+.lvr .lvn{font-size:11.5px;color:var(--muted)}
+.lvr b{font-size:16px}
+.lvr .lvd{font-size:13px;line-height:1.7}
+.lvr.hl{border-color:var(--ink);background:rgba(98,184,160,.12)}
+.lvr.hl .lvn{color:var(--ink);font-weight:700}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.two > div{padding:18px 16px}
+.two > div + div{border-left:1px solid var(--line)}
+.two .k{font-weight:700;color:var(--ink);font-size:15px}
+.two .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.two p{font-size:13px;line-height:1.8;margin:0}
+
+@media (max-width:680px){
+  .catfig{grid-template-columns:1fr}
+  .lvr{grid-template-columns:44px 1fr;row-gap:2px}
+  .lvr .lvd{grid-column:2}
+  .two{grid-template-columns:1fr}
+  .two > div + div{border-left:none;border-top:1px solid var(--line)}
+  .mfig{overflow-x:auto}
+  .mfig svg{min-width:520px}
+}
+
+/* --- article 04 extras --- */
+.bfig svg,.ispfig svg{display:block;width:100%;height:auto}
+.bfig svg text,.ispfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .bfig,.ispfig{overflow-x:auto}
+  .bfig svg,.ispfig svg{min-width:540px}
+}
+
+/* --- article 05 extras --- */
+.ffig svg{display:block;width:100%;height:auto}
+.ffig svg text{font-family:var(--jp)}
+.thfig{display:flex;flex-direction:column;gap:6px}
+.thc{align-self:flex-start;font-weight:700;color:var(--ink);font-size:16px;border:1px solid var(--ink);padding:6px 16px;margin-bottom:6px}
+.thr{display:grid;grid-template-columns:48px 76px 1fr 190px;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:10px 12px;font-size:13px;line-height:1.6}
+.thr .thk{font-weight:700;color:var(--ink)}
+.thr .thl{font-family:var(--en);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.thr .thw{font-size:12px;color:var(--muted);border-left:1px dashed var(--line-strong);padding-left:12px}
+.thr.eq{border-left:3px solid var(--yellow)}.thr.hi{border-left:3px solid var(--teal)}.thr.as{border-left:3px solid var(--coral)}
+@media (max-width:680px){
+  .ffig{overflow-x:auto}
+  .ffig svg{min-width:560px}
+  .thr{grid-template-columns:40px 1fr;row-gap:2px}
+  .thr .thl{grid-column:2;grid-row:1}
+  .thr .thv,.thr .thw{grid-column:1/-1}
+  .thr .thw{border-left:none;padding-left:0}
+}
+
+/* --- article 06 extras --- */
+.latch{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.latch > div{background:var(--white);border:1px solid var(--line);padding:14px 12px}
+.latch b{display:block;font-family:var(--en);font-size:28px;font-weight:500;color:var(--ink);line-height:1}
+.latch .ln{display:block;font-size:11.5px;color:var(--muted);margin:6px 0 8px}
+.latch p{font-size:12.5px;line-height:1.7;margin:0 0 8px;color:var(--ink)}
+.latch .lq{display:block;font-size:11.5px;line-height:1.6;color:var(--text);border-top:1px dashed var(--line-strong);padding-top:8px}
+.sfig{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sfig figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.sfig svg{display:block;width:100%;height:auto}
+.sfig svg text{font-family:var(--jp)}
+.sfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.sfig figcaption b{display:block;color:var(--ink);font-size:13px}
+.lbfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lbcol{border:1px solid var(--line);background:var(--white);padding:16px}
+.lbcol.good{border-color:var(--ink)}
+.lbh{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lbcol ul{list-style:none;padding:0;margin:10px 0 12px;display:flex;flex-wrap:wrap;gap:6px}
+.lbcol li{font-size:13px;border:1px solid var(--line-strong);padding:3px 10px;color:var(--ink)}
+.lbcol.bad li{background:rgba(235,101,132,.08)}
+.lbcol.good li{background:rgba(98,184,160,.14)}
+.lbcol p{font-size:12.5px;line-height:1.7;margin:0}
+@media (max-width:680px){
+  .latch{grid-template-columns:1fr 1fr}
+  .latch > div:last-child{grid-column:1/-1}
+  .sfig{grid-template-columns:1fr}
+  .lbfig{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>06 Organize &amp; Label</span>
+    <div class="nav-links">
+      <a href="#five">Five</a>
+      <a href="#exact">Exact</a>
+      <a href="#ambiguous">Ambiguous</a>
+      <a href="#hybrid">Hybrid</a>
+      <a href="#structure">Structure</a>
+      <a href="#org">Org Chart</a>
+      <a href="#words">Words</a>
+      <a href="#labels">Labels</a>
+      <a href="#carry">Carry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究 ── 情報設計シリーズ 06</span>
+    <h1 class="title" style="font-size:clamp(28px,6vw,40px)">二人が同じ言葉を<br>選ぶ確率は、<br>2割に満たなかった。</h1>
+    <p class="lede">1987年、米国のベル通信研究所（Bellcore）の George Furnas らは、人にいろいろな物や操作の名前を付けてもらう実験を、文書編集のコマンド名など五つの分野で行った。ある物を指す言葉として、二人の人がたまたま同じ言葉を選ぶ確率は、どの分野でも0.2を下回った。設計者が一番いいと思った一つの言葉だけを用意しておくと、多くの場面で、ユーザーの8〜9割はその言葉にたどり着けない。前回は、図書館が「どこに置くか」と「何と呼ぶか」の道具をどう磨いてきたかを見た。この回はその道具を、サイトやアプリの設計の現場に持ち込む。分け方にはどんな種類があり、いつどれを選ぶのか。そして、ほぼ確実にずれる言葉を、どうやってユーザーの言葉に近づけるのか。</p>
+    <div class="src-tag">
+      主な出典：<b>Rosenfeld &amp; Morville『Information Architecture for the World Wide Web』、Furnas ほか「The Vocabulary Problem in Human-System Communication」（1987）</b><br>
+      Wurman『Information Anxiety』（1989）、Nielsen Norman Group、McGovern のトップタスク、GOV.UK ほか ／ 調査日 2026年10月22日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">&lt;20<small>%</small></div><div class="l">二人が同じものに同じ名前を付ける確率（Furnas ほか 1987）</div></div>
+      <div class="stat"><div class="n">5<small>通り</small></div><div class="l">Wurman が「情報の整理のしかたはこれだけ」とした数（LATCH）</div></div>
+      <div class="stat"><div class="n">25<small>%</small></div><div class="l">100のタスクのうち、上位5つが集める票の平均（McGovern）</div></div>
+      <div class="stat"><div class="n">46→61<small>%</small></div><div class="l">GOV.UK への移行後のタスク成功率（旧サイト Business Link との比較）</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="five">
+  <div class="wrap">
+    <span class="sec-no">01 ── Five</span>
+    <h2>整理のしかたは、五通りしかない？</h2>
+    <p class="sec-sub">Wurman's LATCH</p>
+
+    <p>①に登場した Richard Saul Wurman は、1989年の『Information Anxiety』（邦訳『情報選択の時代』）で、大胆なことを書いている。情報そのものは無限にあるが、それを整理するしかたは限られていて、五つしかない。彼はのちに頭文字を取ってこれを LATCH と呼んだ。</p>
+    <div class="chart-card">
+      <div class="ct">同じ「都内のカフェ50軒」を、五通りに並べる</div>
+      <div class="cs">Wurman の LATCH をもとに筆者が例を作成</div>
+      <div class="latch">
+        <div><b>L</b><span class="ln">Location 場所</span><p>地図の上に置く。駅や区で分ける</p><span class="lq">「この近くにある？」に答える</span></div>
+        <div><b>A</b><span class="ln">Alphabet 五十音</span><p>店名の順に並べる</p><span class="lq">「あの店、どこだっけ」に答える</span></div>
+        <div><b>T</b><span class="ln">Time 時間</span><p>開店年、営業時間、新着順</p><span class="lq">「今開いてる？」「新しい店は？」に答える</span></div>
+        <div><b>C</b><span class="ln">Category 種類</span><p>喫茶店、ロースター、ブックカフェ</p><span class="lq">「どんな店がある？」に答える</span></div>
+        <div><b>H</b><span class="ln">Hierarchy 序列</span><p>評価順、価格順、席数順</p><span class="lq">「一番いいのは？」に答える</span></div>
+      </div>
+    </div>
+    <p>五つに本当に収まるのかには異論もあるだろう（「種類」と「序列」の線引きはそれほどはっきりしない）。ただ、LATCH の価値は網羅性より、並べ方を選ぶと、答えられる問いが決まる、と気づかせるところにある。地図に並べれば「近くにあるか」には一目で答えられるが、「どれが一番いいか」には答えにくい。評価順に並べればその逆になる。</p>
+    <p><mark>並べ方は、ユーザーがどの問いを持って来るかで決まる。</mark>④で見た探し方の違いが、ここで並べ方の選択に結びつく。</p>
+  </div>
+</section>
+
+<section id="exact">
+  <div class="wrap">
+    <span class="sec-no">02 ── Exact</span>
+    <h2>正確な分け方は、名前を知っている人のためにある</h2>
+    <p class="sec-sub">Exact organization schemes</p>
+
+    <p>Louis Rosenfeld と Peter Morville は、ポーラーベア本でサイトの分け方（組織化スキーム）を二つの系統に分けた。一つめは「正確な」スキームで、五十音順、時系列、地理の三つがある。どの項目がどこに入るかは機械的に決まり、重なりもない。作るのも、保つのも、使うのも簡単だ。</p>
+    <p>弱点は一つで、ユーザーが探しているものの名前を知っていないと使えない。社員名簿を五十音で並べるのは、名前の分かっている人を探すときには最強だが、「経理で、去年の監査を担当した人」を探すときには役に立たない。正確なスキームが支えるのは、④の Marchionini の言葉で言えば「調べる（lookup）」、目的のものが特定できている探し方だけだ。</p>
+    <p>日本語の五十音には固有の落とし穴もある。漢字の社名や商品名は、読み方が分からなければ並び順の中で探せない。「日本」は「にほん」か「にっぽん」か。アルファベットの社名をカナ読みで並べるのか、別にするのか。正確なはずのスキームも、ユーザーの頭の中にある「読み」とずれた瞬間に、正確さを失う。</p>
+  </div>
+</section>
+
+<section id="ambiguous">
+  <div class="wrap">
+    <span class="sec-no">03 ── Ambiguous</span>
+    <h2>あいまいな分け方のほうが、役に立つ</h2>
+    <p class="sec-sub">Topic, task, audience, metaphor</p>
+
+    <p>二つめの系統が「あいまいな」スキームだ。主題別、タスク別、利用者別、メタファー別。どの項目がどこに入るかは、言葉の意味と人の判断に左右され、境界ははっきりしない。作るのも保つのも使うのも難しい。</p>
+    <p>それでも Rosenfeld と Morville は、こちらのほうが多くの場合より役に立つと書いた。ユーザーは探しているものの正しい名前を知らないことが多く、自分のニーズをうまく言葉にできないことも多い。意味のまとまりで分けてあれば、近そうなところを開き、中を見ながら考えを進められる。図書館でも、著者名や書名の目録より、主題の分類のほうがよく使われてきた。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>スキーム</th><th>ユーザーの問い</th><th>例</th><th>気をつけること</th></tr></thead>
+      <tbody>
+        <tr><td>主題</td><td>「何について？」</td><td>ニュースの政治・経済・スポーツ</td><td>③の基本レベルを意識し、上位の言葉だけで並べない</td></tr>
+        <tr><td>タスク</td><td>「何をしたい？」</td><td>申し込む、変更する、解約する</td><td>タスクを全部並べると長くなる。上位のタスクに絞る</td></tr>
+        <tr><td>利用者</td><td>「私は誰？」</td><td>個人のお客様、法人のお客様、学生</td><td>ユーザーは複数の区分に属するので、迷いを生みやすい</td></tr>
+        <tr><td>メタファー</td><td>「何に似ている？」</td><td>デスクトップ、ゴミ箱、本棚</td><td>比喩が外れると、何も伝わらなくなる</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>タスクは、上のほうに集中している</h3>
+    <p>タスク別のスキームを作るとき役に立つのが、Gerry McGovern の「トップタスク」の調査だ。サイトでできることを100項目ほど並べ、ユーザーに大事なものを五つだけ選んでもらう。多くの調査で、上位5つのタスクが全体の票のおよそ4分の1を集め、下位の50項目は全部合わせても同じくらいにしかならないという。しかも上位はすぐに決まる。McGovern によれば、およそ400人に答えてもらえば上位10はほぼ確定し、欧州連合の約10万7千票を集めた調査では、上位3つは30票の時点ですでに最終結果と同じだった。</p>
+    <p>全部のタスクを平等に並べるのをやめ、上位のタスクを入り口に、残りを主題の階層の中に置く。あいまいなスキームを使いこなすには、こうした重みづけの根拠が要る。</p>
+
+    <h3>利用者別は、見た目ほど簡単ではない</h3>
+    <p>「個人のお客様」「法人のお客様」のような利用者別の入り口は、作り手には分かりやすく見える。ところが Nielsen Norman Group は、利用者の区分でナビゲーションを分けると、しばしば使いやすさが下がると指摘している。個人事業主は個人なのか法人なのか。教員で保護者でもある人はどちらを開くのか。ユーザーは一つの区分にきれいに収まらず、どちらを開くかで迷い、開いた先に目当てのものがないと戻ってくる。③で見た、人のカテゴリーの境界がぼやけているという話が、ここでもそのまま効いてくる。</p>
+  </div>
+</section>
+
+<section id="hybrid">
+  <div class="wrap">
+    <span class="sec-no">04 ── Hybrid</span>
+    <h2>混ぜると、頭の中の地図がぼやける</h2>
+    <p class="sec-sub">Hybrid schemes and polyhierarchy</p>
+
+    <p>現実のサイトでは、スキームが混ざる。グローバルナビに「製品」（主題）、「お申し込み」（タスク）、「法人の方へ」（利用者）、「ニュース」（時系列）が並ぶ。スーパーマーケットも、野菜や乳製品の売り場（主題）と、お弁当や「今夜の献立」コーナー（タスク）が混在するハイブリッドだ。</p>
+    <p>Rosenfeld と Morville は、混ぜること自体を禁じてはいない。トップページやグローバルナビのような浅い場所で、少数の入り口として混ぜるのはうまくいくことがある。問題は、大量の中身を混ざったスキームで深く組織したときで、ユーザーは「このサイトはどういう切り方をしているのか」という頭の中の地図を作れなくなり、メニューを毎回読み直すことになる。勧められているのは、スキームごとにまとめて見せること。同じページの中でも、主題の一覧とタスクの一覧を別の場所に分けて置けば、混ぜたことにはならない。</p>
+
+    <h3>二か所に置く、という手もある</h3>
+    <p>⑤で見たように、書架では一冊の本は一か所にしか置けない。Web にはその制約がない。一つの項目を複数のカテゴリーに置く構造を「ポリヒエラルキー（多重階層）」と呼ぶ。③のカードソートの外れ値のように、二つのカテゴリーのどちらにも同じくらい属しそうな項目は、両方に置けば、どちらから探した人にも見つかる。</p>
+    <p>NN/g は、ポリヒエラルキーはあいまいなカテゴリーの見つけやすさを上げるが、使いすぎないように、と勧めている。何でも複数の場所に置くと、カテゴリーの中身が重なり合い、カテゴリーの違いそのものが見えなくなるからだ。</p>
+  </div>
+</section>
+
+<section id="structure">
+  <div class="wrap">
+    <span class="sec-no">05 ── Structure</span>
+    <h2>階層、データベース、ハイパーテキスト</h2>
+    <p class="sec-sub">Organization structures</p>
+
+    <p>スキームが「何で分けるか」だとすれば、構造は「分けたものどうしをどうつなぐか」だ。Rosenfeld と Morville は主な構造を三つ挙げている。</p>
+    <div class="chart-card">
+      <div class="ct">三つの組織化構造</div>
+      <div class="cs">Rosenfeld &amp; Morville の整理をもとに筆者作図</div>
+      <div class="sfig">
+        <figure>
+          <svg viewBox="0 0 180 120" aria-label="木構造"><g stroke="#CCCCCC" fill="none"><path d="M90 22 L40 60 M90 22 L90 60 M90 22 L140 60 M40 68 L22 100 M40 68 L58 100 M140 68 L122 100 M140 68 L158 100"/></g><g fill="#4F7C87"><circle cx="90" cy="18" r="7"/><circle cx="40" cy="64" r="6"/><circle cx="90" cy="64" r="6"/><circle cx="140" cy="64" r="6"/><circle cx="22" cy="104" r="5"/><circle cx="58" cy="104" r="5"/><circle cx="122" cy="104" r="5"/><circle cx="158" cy="104" r="5"/></g></svg>
+          <figcaption><b>階層</b>上から下へ分ける。全体の見通しと主ナビゲーションに強い</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 180 120" aria-label="表"><g fill="#FFF" stroke="#CCCCCC"><rect x="20" y="14" width="140" height="92"/></g><g stroke="#CCCCCC"><path d="M20 37 H160 M20 60 H160 M20 83 H160 M66 14 V106 M113 14 V106"/></g><rect x="20" y="14" width="140" height="23" fill="rgba(98,184,160,.3)"/><g font-size="9.5" fill="#111" text-anchor="middle"><text x="43" y="29">名前</text><text x="90" y="29">価格</text><text x="136" y="29">色</text></g></svg>
+          <figcaption><b>データベース</b>同じ形のものを属性で並べ替え、絞り込む。商品、人、事例に強い</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 180 120" aria-label="網の目状のつながり"><g stroke="#CCCCCC" fill="none"><path d="M30 30 L90 20 L150 40 L130 95 L60 100 L30 30 M90 20 L60 100 M30 30 L130 95 M150 40 L60 100 M90 20 L130 95"/></g><g fill="#4F7C87"><circle cx="30" cy="30" r="6"/><circle cx="90" cy="20" r="6"/><circle cx="150" cy="40" r="6"/><circle cx="130" cy="95" r="6"/><circle cx="60" cy="100" r="6"/></g></svg>
+          <figcaption><b>ハイパーテキスト</b>項目どうしを自由につなぐ。関連や文脈に強いが、迷いやすい</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p>階層は、上から下へ枝分かれする構造で、ほとんどのサイトの主ナビゲーションはこれで作られている。全体を見通しやすく、いま自分がどこにいるかも分かりやすい。②で見た広さと深さの釣り合いが問題になるのはここだ。</p>
+    <p>データベース型は、同じ形をした項目（商品、社員、事例、物件）をたくさん持つ中身に向いている。項目ごとに同じ属性を持たせておけば、並べ替えも絞り込みもできる。⑤のファセットは、この構造の上に乗っている。</p>
+    <p>ハイパーテキストは、項目どうしを、階層とは関係なく自由につなぐ。④のベリーピッキングの道筋や、Wikipedia の記事から記事への移動はこれだ。文脈に沿った移動には強いが、これだけで組むと全体像がつかめず、迷子になりやすい。</p>
+    <p>実際のサイトは、階層で骨組みを作り、商品や記事の群をデータベース型で持ち、その間をハイパーテキストの関連リンクでつなぐ、という三つの組み合わせでできていることが多い。どれか一つに決めるというより、中身の性質ごとに使い分けるものだ。</p>
+  </div>
+</section>
+
+<section id="org">
+  <div class="wrap">
+    <span class="sec-no">06 ── Org Chart</span>
+    <h2>サイトは、作った組織の形に似てくる</h2>
+    <p class="sec-sub">Conway's law and the GOV.UK case</p>
+
+    <p>1968年、プログラマの Melvin Conway は、システムを設計する組織は、その組織のコミュニケーションの構造を写したような設計を生み出す、と書いた。のちに「コンウェイの法則」と呼ばれるこの観察は、ソフトウェアだけでなく、サイトの構造にもよく当てはまる。部署ごとにページを作り、部署ごとに更新すれば、グローバルナビは自然に組織図になる。</p>
+    <p>⑤で見た言葉で言えば、これは分類の根拠を「作り手の正しい順序」に置いた状態だ。ユーザーは組織図を知らない。住民票の写しが欲しい人は、それがどの課の担当かを知らずにサイトに来る。</p>
+
+    <h3>24の省庁のサイトを、一つにまとめる</h3>
+    <p>この問題に国の規模で取り組んだのが、英国の政府デジタルサービス（GDS）だ。英国では長く、各省庁がそれぞれのサイトを持ち、それとは別に国民向けの Directgov と事業者向けの Business Link という二つの総合サイトがあった。2012年10月17日、GDS はこの二つを置き換える単一の政府サイト GOV.UK を公開し、各省庁のサイトも順次そこへ移していった。</p>
+    <p>方針として掲げたのは、何よりもユーザーのニーズを優先すること。旧サイトの膨大なページは、誰が何のために必要としているかで見直され、誰にも読まれていなかった数千のページは移さずに保存庫に回された。旧サイトの住所から新サイトへの転送の対応づけは2万8,500件にのぼった。GDS の報告では、同じ種類の課題をこなせた人の割合は、Business Link の46%から GOV.UK では61%に上がっている。</p>
+    <div class="note"><p><span class="h">成功率の数字について</span></p><p>46%と61%は GDS 自身の報告による。測定の条件は今回確認できていない。GOV.UK も公開直後には「探しているものが見つからない」という声が出ており、構造はその後も改訂が重ねられている。</p></div>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>組織図をそのまま見せない</h4>
+      <p>中身を管理する単位（部署）と、ユーザーが探す単位（ニーズ、タスク、主題）は別物として設計する。管理の都合はCMSの権限や担当表で表現し、ナビゲーションには持ち込まない。</p>
+    </div>
+  </div>
+</section>
+
+<section id="words">
+  <div class="wrap">
+    <span class="sec-no">07 ── Words</span>
+    <h2>同じものを、人は違う言葉で呼ぶ</h2>
+    <p class="sec-sub">The vocabulary problem</p>
+
+    <p>リード文で触れた Furnas らの1987年の論文に戻る。題は「人とシステムのコミュニケーションにおける語彙の問題」。彼らが調べたのは、人がある物や操作を指すとき、どれくらい同じ言葉を使うかだった。</p>
+    <p>結果は、設計者の期待よりずっとばらついた。二人がたまたま同じ言葉を選ぶ確率は、どの分野でも2割を下回った。設計者が最もふさわしいと考えた一つの言葉だけをシステムが受け付ける場合、多くの場面でユーザーの80〜90%が失敗する計算になる。</p>
+    <p>彼らの処方は、言葉を一つに絞るのではなく、逆に増やすことだった。一つの対象に、ユーザーが使いそうな言葉をできるだけたくさん別名として登録しておく。これを「無制限の別名」と呼び、それだけで成功率が数倍に上がることを示した。この研究は、のちに共著者の Susan Dumais らによる、言葉の表面ではなく意味の近さで文書を探す「潜在的意味インデキシング」の研究へとつながっていく。</p>
+    <p>⑤のシソーラスの等価関係（「チャリ」で自転車を返す）は、まさにこの問題への図書館の答えだった。ナビゲーションのラベルは画面に一つしか書けない。だから見える言葉は一つに決め、検索の側でたくさんの別名を受け止める。ラベルと検索は、この意味で役割を分け合っている。</p>
+  </div>
+</section>
+
+<section id="labels">
+  <div class="wrap">
+    <span class="sec-no">08 ── Labels</span>
+    <h2>ラベルは、そろっていないと読めない</h2>
+    <p class="sec-sub">Labeling systems: scope, consistency, scent</p>
+
+    <p>Rosenfeld と Morville は、ラベルを一つずつではなく「ラベリングシステム」として扱うよう勧めた。ナビゲーションの項目、見出し、リンクの文言、索引語、アイコン。どれも、サイトの中身を代わりに表す言葉で、互いにそろっていて初めて読みやすくなる。</p>
+    <p>彼らの指針を短くまとめると、まず、誰に向けたラベルかを狭く決めること。対象が広いほど、一つの言葉に複数の解釈が生まれる。次に、一貫性。語の形（名詞か動詞か）、具体度、表記をそろえること。そして、読み手が実際に使う言葉を選ぶこと。</p>
+    <div class="chart-card">
+      <div class="ct">そろっていないラベルと、そろえたラベル</div>
+      <div class="cs">筆者による作例</div>
+      <div class="lbfig">
+        <div class="lbcol bad">
+          <span class="lbh">Before</span>
+          <ul><li>会社概要</li><li>製品を探す</li><li>Solutions</li><li>ニュース</li><li>採用情報はこちら</li><li>リソース</li></ul>
+          <p>名詞と動詞が混ざる。英語とカタカナが混ざる。「リソース」「Solutions」は中身を予想させない</p>
+        </div>
+        <div class="lbcol good">
+          <span class="lbh">After</span>
+          <ul><li>製品</li><li>導入事例</li><li>料金</li><li>サポート</li><li>会社情報</li><li>採用</li></ul>
+          <p>すべて短い名詞。具体度をそろえ、中に何があるかを思い描ける言葉にする</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>中身を予想させない言葉は、匂いが弱い</h3>
+    <p>④の情報の匂いは、ここで最もはっきり効く。NN/g は社内ポータルの調査で、「リソース」「ハウツー」「ライフ」のような汎用的なラベルは匂いが弱く、ユーザーはどこへ行くのか分からないのでクリックをためらう、と報告している。勧められている手当ての一つは、ラベルの下に何があるかを見せることで、ドロップダウンやメガメニューで下位の項目を先に見せると、汎用的なラベルの意味の分かりやすさは大きく改善したという。</p>
+    <p>③で見た上位カテゴリーの言葉の弱さと、同じ問題だ。上位のラベルは網羅のために抽象的にならざるをえない。だから、その下にある基本レベルの言葉を見せて補う。ラベルを単独で磨くより、ラベルとその下の項目の組を一つの単位として設計するほうがうまくいく。</p>
+    <div class="note"><p><span class="h">ラベルの良し悪しは、テストで分かる</span></p><p>ラベルが通じるかどうかは、作り手の議論では決まらない。カードソートで分け方と名前の付け方を聞き、ツリーテストでラベルだけを頼りに目的地へたどり着けるかを確かめる。その方法は⑪で扱う。</p></div>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <span class="sec-no">09 ── Carry</span>
+    <h2>この回から、次の回へ持っていくもの</h2>
+    <p class="sec-sub">What this chapter hands to the rest of the series</p>
+
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>並べ方は、答えられる問いを決める</h4>
+      <p>五十音は名前の分かっている人に、主題は名前の分からない人に、タスクは目的のはっきりした人に答える。どのスキームが正しいかより、ユーザーがどの問いを持って来るかで選ぶ。混ぜるなら浅く、スキームごとに分けて見せる。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>サイトの形は、放っておくと組織図になる</h4>
+      <p>管理の単位とユーザーの探す単位を分けて設計する。GOV.UK は、省庁ごとのサイトをユーザーのニーズ単位で組み直した。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>言葉はほぼ確実にずれる。見せる言葉は一つ、受ける言葉はたくさん</h4>
+      <p>二人が同じ言葉を選ぶ確率は2割未満。ラベルは一つに絞って一貫させ、下位の項目で意味を補う。検索の側で別名をたくさん受け止める。</p>
+    </div>
+
+    <div class="closing">
+      <h3>次回：情報空間を、「場所」として設計する</h3>
+      <p>この回では、分けて名づけるところまでを扱った。だがユーザーは、分けられた構造の中を動き回る。今どこにいて、どこへ行けて、どうやって戻るのか。次回⑦では、グローバルナビ、ローカルナビ、パンくずといったナビゲーションの部品から、都市計画家 Kevin Lynch のウェイファインディングの研究、そして情報空間を「場所」として捉える考え方までをたどる。</p>
+      <a class="pc-link" href="../07-navigation-wayfinding/">⑦ ナビゲーション・ウェイファインディング へ進む</a>
+      <a class="pc-link" href="../00-map/">全体地図に戻る</a>
+      <a class="pc-link" href="../05-knowledge-organization/">前回 ⑤ 分類と知識組織化</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Furnas, G. W., Landauer, T. K., Gomez, L. M. &amp; Dumais, S. T. (1987). The Vocabulary Problem in Human-System Communication. <i>Communications of the ACM</i>, 30(11), 964–971. <a href="https://courses.ischool.berkeley.edu/i202/f09/reading/L7R2.html" target="_blank" rel="noopener">解説</a></li>
+        <li>Wurman, R. S. (1989). <i>Information Anxiety</i>.（邦訳『情報選択の時代』松岡正剛訳、1990）LATCH：<a href="https://en.wikipedia.org/wiki/Richard_Saul_Wurman" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Rosenfeld, L. &amp; Morville, P. Organizing Web Sites and Intranets（ポーラーベア本の抜粋）. <a href="https://www.computerworld.com/article/2549487/organizing-web-sites-and-intranets.html" target="_blank" rel="noopener">Computerworld</a> ／ 第1版 Chapter 3 <a href="https://files.znu.edu.ua/files/comp.books/books/information_architecture_for_WWW/infoarch/ch03_02.htm" target="_blank" rel="noopener">Organization Schemes</a></li>
+        <li>Rosenfeld, L., Morville, P. &amp; Arango, J. (2015). <i>Information Architecture: For the Web and Beyond</i>, 4th ed. O'Reilly.（邦訳『情報アーキテクチャ 第4版』オライリー・ジャパン、2016）</li>
+        <li>McGovern, G. Top Tasks. <a href="https://www.cmswire.com/cms/web-engagement/wem-top-tasks-identification-method-explained-009217.php" target="_blank" rel="noopener">CMSWire</a></li>
+        <li>Nielsen Norman Group. Fixing Bad Intranet Navigation. <a href="https://www.nngroup.com/articles/fixing-bad-intranet-navigation/" target="_blank" rel="noopener">nngroup.com</a> ／ Polyhierarchy in Information Architecture. <a href="https://www.nngroup.com/videos/polyhierarchy-information-architecture/" target="_blank" rel="noopener">nngroup.com</a></li>
+        <li>Conway, M. E. (1968). How Do Committees Invent? <i>Datamation</i>. 解説：<a href="https://registerspill.thorstenball.com/p/the-most-powerful-law-in-software" target="_blank" rel="noopener">Thorsten Ball</a></li>
+        <li>Government Digital Service. Why GOV.UK matters (2012). <a href="https://gds.blog.gov.uk/2012/10/17/why-gov-uk-matters" target="_blank" rel="noopener">gds.blog.gov.uk</a> ／ Launch of new single government website. <a href="https://gov.uk/government/news/launch-of-new-single-government-website" target="_blank" rel="noopener">gov.uk</a> ／ <a href="https://en.wikipedia.org/wiki/Directgov" target="_blank" rel="noopener">Directgov（Wikipedia）</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 06 ── 二人が同じ言葉を選ぶ確率は、2割に満たなかった<br>
+    調査・執筆 2026年10月22日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+</script>
+</body>
+</html>

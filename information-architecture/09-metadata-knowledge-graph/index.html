@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>検索するのは、文字列ではなく「もの」になった｜情報設計シリーズ 09</title>
+<meta name="description" content="メタデータ、タクソノミー、オントロジー、ナレッジグラフ。図書館の目録とシソーラスが Web の上でどう姿を変え、画面から切り離された意味の層になったのかをたどる。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+/* --- article 01 extras --- */
+.planes{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.plane{display:grid;grid-template-columns:96px 1fr;align-items:stretch;border:1px solid var(--line)}
+.plane .pn{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px;border-right:1px solid var(--line);display:flex;align-items:center}
+.plane .pc{display:grid;grid-template-columns:1fr 1fr}
+.plane .pc div{padding:10px 12px;font-size:13px;line-height:1.6}
+.plane .pc div + div{border-left:1px dashed var(--line-strong)}
+.plane .pc .full{grid-column:1/-1}
+.plane.hl{border-color:var(--ink)}
+.plane.hl .pn{color:var(--ink);font-weight:600}
+.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
+.pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-cols span{padding-left:12px}
+
+.tmodel svg{width:100%;height:auto;display:block}
+.tmodel text{font-family:var(--jp)}
+
+.deftl{list-style:none;padding:0;margin:8px 0 0}
+.deftl li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.deftl li:last-child{border-bottom:none}
+.deftl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:14px}
+.deftl .who{display:block;font-size:12px;color:var(--muted)}
+.deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
+.deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
+.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
+.quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
+.quad .qn{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quad .qt{font-weight:700;color:var(--ink);font-size:15px;margin:2px 0 4px}
+.quad p{font-size:13px;margin:0;line-height:1.7}
+.quad .hot{border-color:var(--ink)}
+
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 8px}
+.gear{background:var(--white);border:1px solid var(--line);padding:16px;text-align:left;position:relative}
+.gear::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.gear.o::before{background:var(--coral)}.gear.t::before{background:var(--teal)}.gear.c::before{background:var(--deep-teal)}
+.gear .ge{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gear .gj{font-weight:700;color:var(--ink);font-size:17px;margin:2px 0 6px}
+.gear p{font-size:13px;line-height:1.7;margin:0}
+.gear .ex{display:block;font-size:12px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line-strong);padding-top:8px}
+
+@media (max-width:680px){
+  .plane{grid-template-columns:70px 1fr}
+  .plane .pn{font-size:9.5px;padding:10px 8px}
+  .pl-cols{grid-template-columns:70px 1fr 1fr}
+  .quad,.gears{grid-template-columns:1fr}
+  .deftl li{grid-template-columns:48px 1fr}
+}
+
+/* --- article 02 extras --- */
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
+.hb .hl{color:var(--ink);line-height:1.4}
+.hb .track{height:14px;background:var(--tint);position:relative}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb.avg .fill{background:var(--ink)}
+.hb.avg .hl{font-weight:700}
+.hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
+.hb .hv small{color:var(--muted);font-size:11px;margin-left:4px}
+
+.gdemo,.sdemo{display:grid;gap:14px}
+.gdemo{grid-template-columns:repeat(3,1fr)}
+.sdemo{grid-template-columns:1fr 1fr}
+.gdemo figure,.sdemo figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.gdemo svg,.sdemo svg{display:block;width:100%;height:auto}
+.gdemo figcaption,.sdemo figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.gdemo figcaption b,.sdemo figcaption b{display:block;color:var(--ink);font-size:13px}
+.chart-card .mini{margin:12px 0 0}
+.chart-card button.pc-link{background:none;font-family:var(--jp);cursor:pointer}
+
+.loadfig{display:flex;flex-direction:column;gap:12px}
+.lrow{display:grid;grid-template-columns:168px 1fr;align-items:center;gap:12px}
+.lk{font-size:12.5px;color:var(--ink);line-height:1.5}
+.lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
+.lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.lbar .in{background:rgba(79,124,135,.55);color:#fff}
+.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .fr{color:var(--muted)}
+
+@media (max-width:680px){
+  .hb{grid-template-columns:96px 1fr;row-gap:2px}
+  .hb .hv{grid-column:2}
+  .gdemo{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .gdemo figcaption{font-size:11px;padding:6px 8px}
+  .sdemo{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr;gap:4px}
+  .lbar i{font-size:10.5px;padding:0 5px}
+}
+
+/* --- article 03 extras --- */
+.catfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.catfig figure,.mfig{margin:0}
+.catfig figure{border:1px solid var(--line);background:var(--paper)}
+.catfig svg,.mfig svg{display:block;width:100%;height:auto}
+.catfig svg text,.mfig svg text{font-family:var(--jp)}
+.catfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.catfig figcaption b{display:block;color:var(--ink);font-size:13px}
+
+.lv{display:flex;flex-direction:column;gap:6px}
+.lvr{display:grid;grid-template-columns:56px 132px 1fr;align-items:center;gap:12px;border:1px solid var(--line);padding:12px 14px;background:var(--white)}
+.lvr .lvn{font-size:11.5px;color:var(--muted)}
+.lvr b{font-size:16px}
+.lvr .lvd{font-size:13px;line-height:1.7}
+.lvr.hl{border-color:var(--ink);background:rgba(98,184,160,.12)}
+.lvr.hl .lvn{color:var(--ink);font-weight:700}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.two > div{padding:18px 16px}
+.two > div + div{border-left:1px solid var(--line)}
+.two .k{font-weight:700;color:var(--ink);font-size:15px}
+.two .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.two p{font-size:13px;line-height:1.8;margin:0}
+
+@media (max-width:680px){
+  .catfig{grid-template-columns:1fr}
+  .lvr{grid-template-columns:44px 1fr;row-gap:2px}
+  .lvr .lvd{grid-column:2}
+  .two{grid-template-columns:1fr}
+  .two > div + div{border-left:none;border-top:1px solid var(--line)}
+  .mfig{overflow-x:auto}
+  .mfig svg{min-width:520px}
+}
+
+/* --- article 04 extras --- */
+.bfig svg,.ispfig svg{display:block;width:100%;height:auto}
+.bfig svg text,.ispfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .bfig,.ispfig{overflow-x:auto}
+  .bfig svg,.ispfig svg{min-width:540px}
+}
+
+/* --- article 05 extras --- */
+.ffig svg{display:block;width:100%;height:auto}
+.ffig svg text{font-family:var(--jp)}
+.thfig{display:flex;flex-direction:column;gap:6px}
+.thc{align-self:flex-start;font-weight:700;color:var(--ink);font-size:16px;border:1px solid var(--ink);padding:6px 16px;margin-bottom:6px}
+.thr{display:grid;grid-template-columns:48px 76px 1fr 190px;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:10px 12px;font-size:13px;line-height:1.6}
+.thr .thk{font-weight:700;color:var(--ink)}
+.thr .thl{font-family:var(--en);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.thr .thw{font-size:12px;color:var(--muted);border-left:1px dashed var(--line-strong);padding-left:12px}
+.thr.eq{border-left:3px solid var(--yellow)}.thr.hi{border-left:3px solid var(--teal)}.thr.as{border-left:3px solid var(--coral)}
+@media (max-width:680px){
+  .ffig{overflow-x:auto}
+  .ffig svg{min-width:560px}
+  .thr{grid-template-columns:40px 1fr;row-gap:2px}
+  .thr .thl{grid-column:2;grid-row:1}
+  .thr .thv,.thr .thw{grid-column:1/-1}
+  .thr .thw{border-left:none;padding-left:0}
+}
+
+/* --- article 06 extras --- */
+.latch{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.latch > div{background:var(--white);border:1px solid var(--line);padding:14px 12px}
+.latch b{display:block;font-family:var(--en);font-size:28px;font-weight:500;color:var(--ink);line-height:1}
+.latch .ln{display:block;font-size:11.5px;color:var(--muted);margin:6px 0 8px}
+.latch p{font-size:12.5px;line-height:1.7;margin:0 0 8px;color:var(--ink)}
+.latch .lq{display:block;font-size:11.5px;line-height:1.6;color:var(--text);border-top:1px dashed var(--line-strong);padding-top:8px}
+.sfig{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sfig figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.sfig svg{display:block;width:100%;height:auto}
+.sfig svg text{font-family:var(--jp)}
+.sfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.sfig figcaption b{display:block;color:var(--ink);font-size:13px}
+.lbfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lbcol{border:1px solid var(--line);background:var(--white);padding:16px}
+.lbcol.good{border-color:var(--ink)}
+.lbh{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lbcol ul{list-style:none;padding:0;margin:10px 0 12px;display:flex;flex-wrap:wrap;gap:6px}
+.lbcol li{font-size:13px;border:1px solid var(--line-strong);padding:3px 10px;color:var(--ink)}
+.lbcol.bad li{background:rgba(235,101,132,.08)}
+.lbcol.good li{background:rgba(98,184,160,.14)}
+.lbcol p{font-size:12.5px;line-height:1.7;margin:0}
+@media (max-width:680px){
+  .latch{grid-template-columns:1fr 1fr}
+  .latch > div:last-child{grid-column:1/-1}
+  .sfig{grid-template-columns:1fr}
+  .lbfig{grid-template-columns:1fr}
+}
+
+/* --- article 07 extras --- */
+.hbars .hgrp{font-size:12px;color:var(--muted);margin:6px 0 -2px}
+.hb.c-hide .fill{background:var(--coral)}
+.hb.c-show .fill{background:var(--deep-teal)}
+.hb.c-combo .fill{background:var(--teal)}
+.trunk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 28px}
+.trunk > div{background:var(--white);border:1px solid var(--line);padding:12px 14px}
+.trunk b{font-family:var(--en);font-weight:500;font-size:20px;color:var(--ink)}
+.trunk p{font-size:14px;font-weight:700;color:var(--ink);margin:2px 0 4px;line-height:1.5}
+.trunk span{font-size:12px;color:var(--muted)}
+@media (max-width:680px){.trunk{grid-template-columns:1fr 1fr}}
+
+/* --- article 08 extras --- */
+.prfig svg,.zfig svg{display:block;width:100%;height:auto}
+.prfig svg text,.zfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .prfig,.zfig{overflow-x:auto}
+  .prfig svg,.zfig svg{min-width:560px}
+}
+
+/* --- article 09 extras --- */
+.ladder{display:flex;flex-direction:column-reverse;gap:6px}
+.ld{width:var(--w);min-width:340px;display:grid;grid-template-columns:118px 1fr;gap:2px 12px;background:var(--white);border:1px solid var(--line);border-left:3px solid var(--teal);padding:10px 12px}
+.ld b{font-size:14px;color:var(--ink);grid-row:1/3;align-self:center}
+.ld span{font-size:12.5px;color:var(--text);line-height:1.6}
+.ld i{font-style:normal;font-size:11.5px;color:var(--muted)}
+.ld.hl{border-color:var(--ink);border-left-color:var(--ink);background:rgba(98,184,160,.12)}
+.kgfig svg{display:block;width:100%;height:auto}
+.kgfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .ld{width:100%;min-width:0;grid-template-columns:1fr}
+  .ld b{grid-row:auto}
+  .kgfig{overflow-x:auto}
+  .kgfig svg{min-width:540px}
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>09 Meaning</span>
+    <div class="nav-links">
+      <a href="#things">Things</a>
+      <a href="#third">Third Order</a>
+      <a href="#ladder">Ladder</a>
+      <a href="#ontology">Ontology</a>
+      <a href="#tags">Tags</a>
+      <a href="#web">Web</a>
+      <a href="#bbc">BBC</a>
+      <a href="#layer">Layer</a>
+      <a href="#carry">Carry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究 ── 情報設計シリーズ 09</span>
+    <h1 class="title" style="font-size:clamp(28px,6vw,40px)">検索するのは、<br>文字列ではなく<br>「もの」になった。</h1>
+    <p class="lede">2012年5月、Google の検索部門を率いていた Amit Singhal は、ブログに「Introducing the Knowledge Graph: things, not strings」という記事を書いた。それまでの検索は、入力された文字列と同じ文字列を含むページを探していた。「タージ・マハル」と入れれば、インドの霊廟の話も、同じ名前のミュージシャンの話も、同じ文字列として並ぶ。新しい仕組みでは、検索エンジンが「タージ・マハル」という名前の背後にある「もの」を区別し、それが建物なのか人なのか、どこにあり、誰と関係しているのかを知っている。発表の時点で、そこには5億を超える「もの」と、それらについての35億を超える事実と関係が入っていた。前回は、検索の良し悪しのほとんどが検索窓の外で決まると見た。ファセットにも同義語にもベストベットにも、その下に、中身に付けられた属性と、言葉どうしの関係が要る。この回は、その層を扱う。メタデータ、タクソノミー、オントロジー、ナレッジグラフ。⑤で見た図書館の目録とシソーラスが、Web の上でどう姿を変えてきたのかをたどる。</p>
+    <div class="src-tag">
+      主な出典：<b>Singhal「Introducing the Knowledge Graph: things, not strings」（2012）、Gruber「A Translation Approach to Portable Ontology Specifications」（1993）</b><br>
+      Weinberger『Everything Is Miscellaneous』（2007）、Dublin Core、W3C SKOS（2009）、Schema.org、Hedden『The Accidental Taxonomist』、BBC ほか ／ 調査日 2026年10月22日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">5<small>億超</small></div><div class="l">2012年の公開時、ナレッジグラフに入っていた「もの」の数</div></div>
+      <div class="stat"><div class="n">15<small>要素</small></div><div class="l">Web の資料を記述するための最小限の項目（Dublin Core）</div></div>
+      <div class="stat"><div class="n">2004</div><div class="l">利用者が付けるタグの分類に「フォークソノミー」の名が付いた年</div></div>
+      <div class="stat"><div class="n">31<small>%</small></div><div class="l">Web ページの標本のうち、Schema.org の記述を持っていた割合（2015）</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="things">
+  <div class="wrap">
+    <span class="sec-no">01 ── Things</span>
+    <h2>一つの言葉が、いくつものものを指す</h2>
+    <p class="sec-sub">From strings to things</p>
+
+    <p>⑥で、同じものを人が違う言葉で呼ぶ問題を見た。二人が同じ言葉を選ぶ確率は2割に満たなかった。タージ・マハルの例は、その裏返しだ。一つの言葉が、いくつもの違うものを指す。「Apple」は果物でも会社でもあり、「ジャガー」は動物でも車でもある。</p>
+    <p>文字列を照らし合わせるだけの仕組みは、どちらの問題も解けない。違う言葉で書かれた同じものは見つけられず、同じ言葉で書かれた違うものは区別できない。解くには、言葉の向こうに「もの」を一つずつ置き、その「もの」に、言葉と属性と関係を結びつけておく必要がある。</p>
+    <p>この「言葉の向こうのもの」をどこまで細かく、どこまで機械に分かる形で書くか。その程度の違いが、この回に出てくる道具の違いになる。</p>
+  </div>
+</section>
+
+<section id="third">
+  <div class="wrap">
+    <span class="sec-no">02 ── Third Order</span>
+    <h2>本から切り離された、本についての情報</h2>
+    <p class="sec-sub">Metadata and the three orders of order</p>
+
+    <p>2007年、David Weinberger は『Everything Is Miscellaneous』で、ものを整理するやり方を三つの段階に分けた。</p>
+    <div class="three">
+      <div><div class="k">第一の秩序</div><div class="e">First order</div><p>もの自体を並べる。本を棚に、皿を食器棚に。一つのものは一か所にしか置けない。</p></div>
+      <div><div class="k">第二の秩序</div><div class="e">Second order</div><p>ものについての情報を、ものから切り離して並べる。図書館のカード目録。同じ本のカードを、著者順と書名順と主題順の三か所に置ける。</p></div>
+      <div><div class="k">第三の秩序</div><div class="e">Third order</div><p>ものも、ものについての情報もデジタルになる。いくつの場所にも置け、その場で何通りにも並べ替えられる。</p></div>
+    </div>
+    <p>第二の秩序のカードに書かれていたものを、いまは「メタデータ」と呼ぶ。データについてのデータ、つまり、ある中身を説明するための情報だ。⑤で見たデューイの相対配架とファセットの話は、第一の秩序の制約（一か所にしか置けない）から、第二、第三の秩序へ移っていく話だったと言える。</p>
+
+    <h3>15の項目で、Web のあらゆる資料を記述する</h3>
+    <p>Web のためのメタデータを最初にまとめようとしたのは、図書館の人たちだった。1994年の秋、シカゴの Web 会議の会場で、生まれたばかりの Web ではもう資料を探すのが難しい、という立ち話が交わされた。それをきっかけに、翌1995年3月、図書館の目録サービスを運営する OCLC と、ブラウザ Mosaic を生んだ NCSA が、オハイオ州ダブリンで会議を開いた。</p>
+    <p>そこでまとめられた13の項目に、まもなく2つが足され、15の項目からなる「ダブリン・コア」ができた。タイトル、作成者、主題、説明、発行者、日付、種類、形式、識別子、言語、権利など、どんな種類の資料にも使える、ごく基本的な項目だけを選んだものだ。のちに ISO 15836 として国際規格になっている。</p>
+    <p>米国の情報標準化機構（NISO）の入門書は、メタデータを役割で三つに分けている。中身を見つけ、何であるかを知るための「記述」メタデータ（タイトル、作者、キーワード）。部分どうしのつながりを表す「構造」メタデータ（ページの順序、章立て）。そして、管理のための「管理」メタデータ（作成日、ファイル形式、利用の権利）。ユーザーの目に触れるのは主に記述メタデータだが、⑧で見たファセットや並べ替えが働くかどうかは、この三つ全部がきちんと付いているかに左右される。</p>
+  </div>
+</section>
+
+<section id="ladder">
+  <div class="wrap">
+    <span class="sec-no">03 ── Ladder</span>
+    <h2>言葉を管理する道具には、段階がある</h2>
+    <p class="sec-sub">From term lists to ontologies</p>
+
+    <p>メタデータの中でも、主題やカテゴリーのように「言葉」で書く項目は、書く人によって表記がばらつく。それをそろえるための道具が、⑤で見た統制語彙だ。タクソノミーの実務家 Heather Hedden は『The Accidental Taxonomist』で、こうした道具をまとめて扱い、語どうしの関係をどれだけ細かく書くかで違いを整理している。</p>
+    <div class="chart-card">
+      <div class="ct">語どうしの関係が増えていく階段</div>
+      <div class="cs">Hedden『The Accidental Taxonomist』の整理と ANSI/NISO Z39.19 をもとに筆者が作図</div>
+      <div class="ladder">
+        <div class="ld" style="--w:40%"><b>語のリスト</b><span>使ってよい語を並べる</span><i>例：都道府県の一覧</i></div>
+        <div class="ld" style="--w:52%"><b>同義語リング</b><span>同じ意味の語を束ねる</span><i>例：チャリ＝自転車＝サイクル</i></div>
+        <div class="ld" style="--w:64%"><b>典拠ファイル</b><span>束ねた中から正式な形を一つ決める</span><i>例：人名・社名の正式表記</i></div>
+        <div class="ld" style="--w:76%"><b>タクソノミー</b><span>語を上位・下位の階層に並べる</span><i>例：家具 › 椅子 › 事務椅子</i></div>
+        <div class="ld" style="--w:88%"><b>シソーラス</b><span>階層に、等価と連想の関係を加える</span><i>例：⑤の USE／UF、BT／NT、RT</i></div>
+        <div class="ld hl" style="--w:100%"><b>オントロジー</b><span>関係そのものに種類と意味を持たせる</span><i>例：「監督した」「出演した」「所在地は」</i></div>
+      </div>
+    </div>
+    <p>上に行くほど、語どうしの関係がたくさん書けるようになる。その分、作るのも保つのも手間がかかる。どの段階まで必要かは、中身の量と、その構造に何をさせたいかで決まる。ECサイトの絞り込みならタクソノミーと同義語で足りることが多い。辞書や百科事典のように「もの」どうしの関係を機械にたどらせたいなら、オントロジーまで要る。</p>
+    <div class="note"><p><span class="h">「タクソノミー」という言葉の広がり</span></p><p>Hedden は、タクソノミーという言葉がこの20年ほどで意味を広げ、いまでは情報の整理一般を指すように使われていると指摘している。実務の会話で「タクソノミーを作る」と言うとき、それが階層だけを指すのか、同義語やシソーラスまで含むのかは、最初に確かめておいたほうがいい。</p></div>
+  </div>
+</section>
+
+<section id="ontology">
+  <div class="wrap">
+    <span class="sec-no">04 ── Ontology</span>
+    <h2>何があり、どう関係するかを書き下す</h2>
+    <p class="sec-sub">Ontologies and triples</p>
+
+    <p>オントロジーは、もともと哲学で「何が存在するか」を論じる分野の名前だった。1993年、スタンフォード大学の Thomas Gruber は、人工知能の研究者どうしが知識を共有するための文脈で、この言葉に工学的な定義を与えた。オントロジーとは、概念化の明示的な仕様である。ある分野でどんな概念がありえて、それらがどんな関係を持ちうるかを、はっきり書き下したもの、という意味だ。この論文は、掲載誌の歴史で最も多く引用された論文になっている。</p>
+    <p>①で見た Dan Klyn の三つの歯車を思い出してほしい。意味（オントロジー）、構造（タクソノミー）、流れ（コレオグラフィ）。Klyn がオントロジーを「意味」の歯車に置いたのは、この意味での使い方だ。言葉が何を指していて、指されたものどうしがどうつながっているのか。</p>
+
+    <h3>主語、述語、目的語</h3>
+    <p>タクソノミーとの違いは、関係の種類にある。タクソノミーの関係は、基本的に「上位と下位」の一種類しかない。オントロジーでは、関係そのものに名前を付けられる。</p>
+    <div class="chart-card">
+      <div class="ct">「もの」と、名前の付いた関係</div>
+      <div class="cs">筆者による例。矢印一本が「主語・述語・目的語」の一組（トリプル）に当たる</div>
+      <div class="kgfig">
+        <svg viewBox="0 0 640 260" role="img" aria-label="映画を中心に、監督、制作会社、公開年、受賞がそれぞれ名前の付いた矢印でつながる図">
+          <defs><marker id="ah9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#808080"/></marker></defs>
+          <g stroke="#808080" stroke-width="1.4" fill="none" marker-end="url(#ah9)">
+            <line x1="250" y1="120" x2="118" y2="58"/>
+            <line x1="390" y1="120" x2="520" y2="58"/>
+            <line x1="390" y1="146" x2="520" y2="208"/>
+            <line x1="92" y1="72" x2="92" y2="190"/>
+          </g>
+          <rect x="246" y="110" width="148" height="46" fill="rgba(98,184,160,.22)" stroke="#62B8A0"/>
+          <text x="320" y="138" font-size="13" font-weight="700" fill="#111" text-anchor="middle">千と千尋の神隠し</text>
+          <g font-size="12.5" fill="#111" text-anchor="middle">
+            <rect x="40" y="28" width="104" height="36" fill="#FFF" stroke="#CCCCCC"/><text x="92" y="51">宮崎駿</text>
+            <rect x="496" y="28" width="112" height="36" fill="#FFF" stroke="#CCCCCC"/><text x="552" y="51">スタジオジブリ</text>
+            <rect x="40" y="194" width="104" height="36" fill="#FFF" stroke="#CCCCCC"/><text x="92" y="217">人物</text>
+            <rect x="496" y="194" width="112" height="36" fill="#FFF" stroke="#CCCCCC"/><text x="552" y="217">2001年</text>
+          </g>
+          <g font-size="11.5" fill="#4F7C87" text-anchor="middle">
+            <text x="172" y="80">監督</text>
+            <text x="468" y="80">制作</text>
+            <text x="468" y="192">公開年</text>
+            <text x="64" y="134">種類</text>
+          </g>
+          <text x="320" y="252" font-size="11" fill="#808080" text-anchor="middle">「宮崎駿」は人物の一種、という関係も同じ形で書ける</text>
+        </svg>
+      </div>
+    </div>
+    <p>「千と千尋の神隠し」「監督」「宮崎駿」。主語、述語、目的語の三つ組（トリプル）で一つの事実を書き、それをたくさんつなげると網の目になる。この網の目を、大規模に、実際の「もの」について作ったものを、いまはナレッジグラフと呼ぶ。Google のナレッジグラフの35億の事実は、こうした三つ組の集まりだ。</p>
+    <p>関係に名前があると、機械が網の目をたどれる。「宮崎駿が監督した、2000年以降の映画」は、文字列の照合では答えられないが、三つ組の網の目なら、監督の矢印と公開年の矢印をたどるだけで答えが出る。</p>
+  </div>
+</section>
+
+<section id="tags">
+  <div class="wrap">
+    <span class="sec-no">05 ── Tags</span>
+    <h2>利用者が付ける分類もある</h2>
+    <p class="sec-sub">Folksonomies and the case against ontology</p>
+
+    <p>ここまでの道具は、どれも作り手の側が言葉を決めるものだった。2000年代半ば、逆向きの動きが Web に現れた。ソーシャルブックマークの del.icio.us や、写真共有の Flickr で、利用者が自分の保存したものに、好きな言葉の「タグ」を自由に付けられるようになったのだ。</p>
+    <p>2004年、情報設計者の Thomas Vander Wal は、このやり方を「フォークソノミー」と呼んだ。folk（人々）と taxonomy を合わせた言葉だが、彼自身は、できあがるものはタクソノミーではない、と付け加えている。階層も、統制も、正式な形もない。たくさんの人が付けた言葉が、ただ積み重なっていく。</p>
+    <p>翌2005年、作家の Clay Shirky は「Ontology is Overrated（オントロジーは過大評価されている）」という講演で、Web は分類の歴史の延長ではなく、そこからの断絶だと論じた。棚の制約がない世界では、あらかじめ決めた分類より、人々が付けるタグのほうが、変わり続ける中身と関心に追いつける、という主張だ。</p>
+
+    <h3>タグの強さと弱さ</h3>
+    <p>タグの強みは、⑤で見た「利用者的根拠」をそのまま形にしていることだ。作り手が思いつかない言葉、新しく生まれた言葉が、すぐに分類に入ってくる。弱みは、⑥の語彙の問題がそのまま残ることだ。「猫」「ねこ」「cat」「にゃんこ」が別々のタグとして並び、綴りの間違いも混ざる。</p>
+    <p>実務でよく使われるのは、両方を組み合わせるやり方だ。利用者のタグを集め、よく使われるものを統制語彙の同義語として取り込み、正式な語に結びつける。タグは、統制語彙を育てるための、利用者の言葉の観測装置として働く。⑧の検索ログと同じ役割だ。</p>
+  </div>
+</section>
+
+<section id="web">
+  <div class="wrap">
+    <span class="sec-no">06 ── Web</span>
+    <h2>機械にも読める意味を、Web に載せる</h2>
+    <p class="sec-sub">The Semantic Web, SKOS, and Schema.org</p>
+
+    <p>2001年5月、Web の考案者 Tim Berners-Lee は、James Hendler、Ora Lassila と共に『Scientific American』誌に「The Semantic Web」という記事を書いた。今の Web は人が読むための文書の網だが、そこに書かれた情報に、はっきりした意味を与えれば、コンピュータも内容を理解して、人と一緒に働けるようになる、という構想だった。</p>
+    <p>構想の全体は、思い描かれたほどには実現しなかった。だが、その道具立ての一部は、静かに広く使われるようになっている。</p>
+
+    <h3>シソーラスを、Web の言葉で書く</h3>
+    <p>2009年、Web の標準化団体 W3C は、シソーラスやタクソノミーを Web 上で共有するための規格「SKOS」を勧告にした。中身を見ると、⑤で見たシソーラスの関係が、そのまま Web の語彙に置き換えられているのが分かる。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>シソーラス（⑤）</th><th>SKOS</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td>優先語</td><td>prefLabel</td><td>その概念の正式な呼び名</td></tr>
+        <tr><td>UF（非優先語）</td><td>altLabel</td><td>別の呼び名、同義語、表記ゆれ</td></tr>
+        <tr><td>BT／NT</td><td>broader／narrower</td><td>上位の概念と下位の概念</td></tr>
+        <tr><td>RT</td><td>related</td><td>上下ではない関連</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>1世紀かけて図書館が磨いてきた言葉の管理の作法は、Web の規格の中にほぼそのまま入っている。</p>
+
+    <h3>検索エンジンが読むための語彙</h3>
+    <p>2011年6月には、Google、Microsoft の Bing、Yahoo! が共同で「Schema.org」を立ち上げ、同じ年の秋にロシアの Yandex も加わった。ページの中の情報が、商品なのか、レシピなのか、イベントなのか、その価格や日時や場所はどれなのかを、検索エンジンが読める形で書き込むための共通の語彙だ。検索結果に星の評価や開催日が表示されるのは、この記述が読まれているからだ。2015年に Google が100億ページの標本を調べたところ、31.3%のページが Schema.org の記述を持っていた。前年の22%から増えている。</p>
+    <p>セマンティック Web の大きな構想が掲げた「機械が意味を理解する Web」は、こうして、検索エンジンとサイトの作り手のあいだの実利的な約束事という形で、部分的に実現した。</p>
+  </div>
+</section>
+
+<section id="bbc">
+  <div class="wrap">
+    <span class="sec-no">07 ── BBC</span>
+    <h2>画面より先に、扱う世界を設計する</h2>
+    <p class="sec-sub">Domain modeling at the BBC</p>
+
+    <p>こうした道具を、メディアのサイト全体の設計に使った例として、よく引かれるのが英国の BBC だ。</p>
+    <p>2008年、BBC は自然と料理のサイトを作り直すとき、ページの構成から考えるのをやめ、まず扱う世界そのもの（ドメイン）をモデルにした。自然のサイトなら、動物の種、その生息地、その行動、それが登場する番組。それぞれを「もの」として識別子を与え、関係を結び、野生生物のオントロジーとして公開した。ページは、このモデルの上に作られた。</p>
+    <p>2010年のサッカー・ワールドカップのサイトでは、この考え方をさらに進めた。記者が書いた記事に、出てくる選手、チーム、試合といった「もの」をタグとして付ける。すると、オントロジーの関係をたどって、その選手が所属するチーム、そのチームが出る試合、そのグループのページにも、記事が自動的に並ぶ。人が一つずつページを編集する代わりに、意味の層からページが組み立てられる。BBC はこの仕組みを、翌2011年にスポーツのサイト全体へ、2012年にはロンドン五輪のサイトへ広げた。</p>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>ページは、意味の層の「見え方」の一つにすぎない</h4>
+      <p>ドメインのモデルを先に作り、ページはそのモデルの上に生成する。そうすると、新しいページの種類（選手別、試合別）を足すのは、モデルの関係を一本たどる見え方を足すことになる。⑥で見たデータベース型の構造を、サイト全体に広げた形だ。</p>
+    </div>
+    <div class="note"><p><span class="h">自動生成されたページ数について</span></p><p>BBC のワールドカップのサイトで自動的に作られたページの数は、関わった技術会社の紹介では800以上とされているが、BBC 自身の数字は今回確認できなかった。</p></div>
+  </div>
+</section>
+
+<section id="layer">
+  <div class="wrap">
+    <span class="sec-no">08 ── Layer</span>
+    <h2>意味の層は、人と機械の両方に効く</h2>
+    <p class="sec-sub">Structure apart from screens</p>
+
+    <p>この回で見てきたことは、一つの方向にまとまる。構造を、画面から切り離すことだ。</p>
+    <p>サイトマップやメニューのような画面の構造は、特定の画面の大きさ、特定のサイトの見せ方に縛られている。スマホで表示を変えるたび、アプリを作るたび、音声のアシスタントに対応するたびに、作り直しになる。その手前に、「何があり、どう呼ばれ、どう関係しているか」という意味の層を持っておけば、画面はその層の見え方の一つになる。同じ層から、Web のメニューも、アプリの一覧も、検索のファセットも、外部の検索エンジンへの Schema.org の記述も作れる。</p>
+    <p>そしていま、この層を読む新しい読み手が現れている。大規模言語モデルを使った AI のアシスタントだ。AI に社内の文書やサイトの中身を答えさせる仕組みは、文書をそのまま渡すだけでなく、「もの」と関係の網の目（ナレッジグラフ）を手がかりにして関連する情報を探すやり方へと広がりつつある。⑥の語彙の問題も、⑧の再現率の問題も、相手が AI になったからといって消えるわけではない。意味の層が整っているかどうかが、AI がどれだけ正しく答えられるかにも効いてくる。</p>
+    <div class="note"><p><span class="h">AI とナレッジグラフについて</span></p><p>ナレッジグラフを AI の回答に使うやり方（GraphRAG などと呼ばれる）がどこまで実務に広まっているかは、今回確かめていない。⑫で改めて調べる。</p></div>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>情報設計の成果物は、画面の外にも残る</h4>
+      <p>ワイヤーフレームは画面が変われば古びるが、よく作られた語彙とドメインのモデルは、画面が何度変わっても使い続けられる。情報設計者がいちばん長く効く仕事を残せるのは、この層だ。</p>
+    </div>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <span class="sec-no">09 ── Carry</span>
+    <h2>この回から、次の回へ持っていくもの</h2>
+    <p class="sec-sub">What this chapter hands to the rest of the series</p>
+
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>言葉の向こうに「もの」を置く</h4>
+      <p>同じものを違う言葉で呼ぶ問題と、同じ言葉が違うものを指す問題は、文字列の照合では解けない。「もの」に識別子を与え、言葉と属性と関係を結びつける。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>必要な段階まで登ればいい</h4>
+      <p>語のリスト、同義語、典拠、タクソノミー、シソーラス、オントロジー。上に行くほど関係が増え、手間も増える。中身の量と、構造に何をさせたいかで、どこまで登るかを決める。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 05</span>
+      <h4>作り手の語彙と、利用者のタグを組み合わせる</h4>
+      <p>統制語彙は一貫性を、タグは新しい言葉を持ち込む。タグや検索ログを観測装置にして、統制語彙を育てる。</p>
+    </div>
+
+    <div class="closing">
+      <h3>次回：構造を、目に見える形にする</h3>
+      <p>この回で、構造は画面から切り離された意味の層になった。では、その構造を人に見せるときはどうするのか。次回⑩は、①の Wurman の出発点に戻り、情報デザインと図解を扱う。Otto Neurath の絵文字言語アイソタイプ、Jacques Bertin の視覚変数、Edward Tufte のデータ・インク。②で見た知覚と注意の研究が、ここで「見せる」側の技法として戻ってくる。</p>
+      <a class="pc-link" href="../10-information-design/">⑩ 情報デザインと図解 へ進む</a>
+      <a class="pc-link" href="../00-map/">全体地図に戻る</a>
+      <a class="pc-link" href="../08-search-findability/">前回 ⑧ 検索システムとファインダビリティ</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Singhal, A. (2012). Introducing the Knowledge Graph: things, not strings. Google. <a href="https://blog.google/products/search/introducing-knowledge-graph-things-not/" target="_blank" rel="noopener">blog.google</a></li>
+        <li>Weinberger, D. (2007). <i>Everything Is Miscellaneous</i>. Times Books. 書評：<a href="https://informationr.net/ir/reviews/revs269.html" target="_blank" rel="noopener">Information Research</a></li>
+        <li>Dublin Core Metadata Initiative. OCLC/NCSA Metadata Workshop (1995). <a href="https://www.dublincore.org/workshops/dc-1/" target="_blank" rel="noopener">dublincore.org</a> ／ RFC 5013. <a href="https://www.rfc-editor.org/rfc/rfc5013" target="_blank" rel="noopener">rfc-editor.org</a></li>
+        <li>Riley, J. (2017). <i>Understanding Metadata: What is Metadata, and What is it For?</i> NISO. <a href="https://metadataetc.org/metadatabasics/types.htm" target="_blank" rel="noopener">解説</a></li>
+        <li>Hedden, H. (2016). <i>The Accidental Taxonomist</i>, 2nd ed. Information Today. <a href="https://jarango.com/2020/07/20/the-informed-life-with-heather-hedden/" target="_blank" rel="noopener">インタビュー（The Informed Life）</a></li>
+        <li>Gruber, T. R. (1993). A Translation Approach to Portable Ontology Specifications. <i>Knowledge Acquisition</i>, 5(2), 199–220. <a href="https://tomgruber.org/writing/ontolingua-kaj-1993/" target="_blank" rel="noopener">tomgruber.org</a></li>
+        <li>Vander Wal, T. Folksonomy. <a href="https://en.wikipedia.org/wiki/Folksonomy" target="_blank" rel="noopener">Wikipedia</a> ／ Shirky, C. (2005). Ontology is Overrated: Categories, Links, and Tags. <a href="https://gwern.net/doc/philosophy/ontology/2005-04-shirky-ontologyisoverratedcategorieslinksandtags.html" target="_blank" rel="noopener">アーカイブ</a></li>
+        <li>Berners-Lee, T., Hendler, J. &amp; Lassila, O. (2001). The Semantic Web. <i>Scientific American</i>, 284(5). <a href="https://www.w3.org/news/2001/semantic-web-featured-in-scientific-american" target="_blank" rel="noopener">w3.org</a></li>
+        <li>W3C (2009). SKOS Simple Knowledge Organization System Reference. <a href="https://en.wikipedia.org/wiki/Simple_Knowledge_Organization_System" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Schema.org. <a href="https://en.wikipedia.org/wiki/Schema.org" target="_blank" rel="noopener">Wikipedia</a> ／ Guha, R. V. et al. (2015). Four years of Schema.org. <a href="https://www.research.google/blog/four-years-of-schemaorg-recent-progress-and-looking-forward/" target="_blank" rel="noopener">Google Research</a></li>
+        <li>BBC. Sports Refresh: Dynamic Semantic Publishing. <a href="https://bbc.in/1SLBRLO" target="_blank" rel="noopener">BBC</a> ／ Linked Data at the BBC. <a href="https://2019.semantics.cc/node/8" target="_blank" rel="noopener">SEMANTiCS</a></li>
+        <li>Atherton, M. &amp; Hane, C. (2017). <i>Designing Connected Content</i>. New Riders.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 09 ── 検索するのは、文字列ではなく「もの」になった<br>
+    調査・執筆 2026年10月22日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+</script>
+</body>
+</html>

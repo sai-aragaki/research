@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>最初の一歩を正しく選んだ人は、6倍成功しやすかった｜情報設計シリーズ 11</title>
+<meta name="description" content="情報設計の実践プロセス。最初のクリックの研究、三つの円、棚卸し、カードソート、ツリーテスト、Visual Vocabulary とワイヤーフレーム、Covert の手順をたどる。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+/* --- article 01 extras --- */
+.planes{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.plane{display:grid;grid-template-columns:96px 1fr;align-items:stretch;border:1px solid var(--line)}
+.plane .pn{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px;border-right:1px solid var(--line);display:flex;align-items:center}
+.plane .pc{display:grid;grid-template-columns:1fr 1fr}
+.plane .pc div{padding:10px 12px;font-size:13px;line-height:1.6}
+.plane .pc div + div{border-left:1px dashed var(--line-strong)}
+.plane .pc .full{grid-column:1/-1}
+.plane.hl{border-color:var(--ink)}
+.plane.hl .pn{color:var(--ink);font-weight:600}
+.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
+.pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-cols span{padding-left:12px}
+
+.tmodel svg{width:100%;height:auto;display:block}
+.tmodel text{font-family:var(--jp)}
+
+.deftl{list-style:none;padding:0;margin:8px 0 0}
+.deftl li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.deftl li:last-child{border-bottom:none}
+.deftl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:14px}
+.deftl .who{display:block;font-size:12px;color:var(--muted)}
+.deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
+.deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
+.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
+.quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
+.quad .qn{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quad .qt{font-weight:700;color:var(--ink);font-size:15px;margin:2px 0 4px}
+.quad p{font-size:13px;margin:0;line-height:1.7}
+.quad .hot{border-color:var(--ink)}
+
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 8px}
+.gear{background:var(--white);border:1px solid var(--line);padding:16px;text-align:left;position:relative}
+.gear::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.gear.o::before{background:var(--coral)}.gear.t::before{background:var(--teal)}.gear.c::before{background:var(--deep-teal)}
+.gear .ge{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gear .gj{font-weight:700;color:var(--ink);font-size:17px;margin:2px 0 6px}
+.gear p{font-size:13px;line-height:1.7;margin:0}
+.gear .ex{display:block;font-size:12px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line-strong);padding-top:8px}
+
+@media (max-width:680px){
+  .plane{grid-template-columns:70px 1fr}
+  .plane .pn{font-size:9.5px;padding:10px 8px}
+  .pl-cols{grid-template-columns:70px 1fr 1fr}
+  .quad,.gears{grid-template-columns:1fr}
+  .deftl li{grid-template-columns:48px 1fr}
+}
+
+/* --- article 02 extras --- */
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
+.hb .hl{color:var(--ink);line-height:1.4}
+.hb .track{height:14px;background:var(--tint);position:relative}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb.avg .fill{background:var(--ink)}
+.hb.avg .hl{font-weight:700}
+.hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
+.hb .hv small{color:var(--muted);font-size:11px;margin-left:4px}
+
+.gdemo,.sdemo{display:grid;gap:14px}
+.gdemo{grid-template-columns:repeat(3,1fr)}
+.sdemo{grid-template-columns:1fr 1fr}
+.gdemo figure,.sdemo figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.gdemo svg,.sdemo svg{display:block;width:100%;height:auto}
+.gdemo figcaption,.sdemo figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.gdemo figcaption b,.sdemo figcaption b{display:block;color:var(--ink);font-size:13px}
+.chart-card .mini{margin:12px 0 0}
+.chart-card button.pc-link{background:none;font-family:var(--jp);cursor:pointer}
+
+.loadfig{display:flex;flex-direction:column;gap:12px}
+.lrow{display:grid;grid-template-columns:168px 1fr;align-items:center;gap:12px}
+.lk{font-size:12.5px;color:var(--ink);line-height:1.5}
+.lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
+.lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.lbar .in{background:rgba(79,124,135,.55);color:#fff}
+.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .fr{color:var(--muted)}
+
+@media (max-width:680px){
+  .hb{grid-template-columns:96px 1fr;row-gap:2px}
+  .hb .hv{grid-column:2}
+  .gdemo{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .gdemo figcaption{font-size:11px;padding:6px 8px}
+  .sdemo{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr;gap:4px}
+  .lbar i{font-size:10.5px;padding:0 5px}
+}
+
+/* --- article 03 extras --- */
+.catfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.catfig figure,.mfig{margin:0}
+.catfig figure{border:1px solid var(--line);background:var(--paper)}
+.catfig svg,.mfig svg{display:block;width:100%;height:auto}
+.catfig svg text,.mfig svg text{font-family:var(--jp)}
+.catfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.catfig figcaption b{display:block;color:var(--ink);font-size:13px}
+
+.lv{display:flex;flex-direction:column;gap:6px}
+.lvr{display:grid;grid-template-columns:56px 132px 1fr;align-items:center;gap:12px;border:1px solid var(--line);padding:12px 14px;background:var(--white)}
+.lvr .lvn{font-size:11.5px;color:var(--muted)}
+.lvr b{font-size:16px}
+.lvr .lvd{font-size:13px;line-height:1.7}
+.lvr.hl{border-color:var(--ink);background:rgba(98,184,160,.12)}
+.lvr.hl .lvn{color:var(--ink);font-weight:700}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.two > div{padding:18px 16px}
+.two > div + div{border-left:1px solid var(--line)}
+.two .k{font-weight:700;color:var(--ink);font-size:15px}
+.two .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.two p{font-size:13px;line-height:1.8;margin:0}
+
+@media (max-width:680px){
+  .catfig{grid-template-columns:1fr}
+  .lvr{grid-template-columns:44px 1fr;row-gap:2px}
+  .lvr .lvd{grid-column:2}
+  .two{grid-template-columns:1fr}
+  .two > div + div{border-left:none;border-top:1px solid var(--line)}
+  .mfig{overflow-x:auto}
+  .mfig svg{min-width:520px}
+}
+
+/* --- article 04 extras --- */
+.bfig svg,.ispfig svg{display:block;width:100%;height:auto}
+.bfig svg text,.ispfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .bfig,.ispfig{overflow-x:auto}
+  .bfig svg,.ispfig svg{min-width:540px}
+}
+
+/* --- article 05 extras --- */
+.ffig svg{display:block;width:100%;height:auto}
+.ffig svg text{font-family:var(--jp)}
+.thfig{display:flex;flex-direction:column;gap:6px}
+.thc{align-self:flex-start;font-weight:700;color:var(--ink);font-size:16px;border:1px solid var(--ink);padding:6px 16px;margin-bottom:6px}
+.thr{display:grid;grid-template-columns:48px 76px 1fr 190px;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:10px 12px;font-size:13px;line-height:1.6}
+.thr .thk{font-weight:700;color:var(--ink)}
+.thr .thl{font-family:var(--en);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.thr .thw{font-size:12px;color:var(--muted);border-left:1px dashed var(--line-strong);padding-left:12px}
+.thr.eq{border-left:3px solid var(--yellow)}.thr.hi{border-left:3px solid var(--teal)}.thr.as{border-left:3px solid var(--coral)}
+@media (max-width:680px){
+  .ffig{overflow-x:auto}
+  .ffig svg{min-width:560px}
+  .thr{grid-template-columns:40px 1fr;row-gap:2px}
+  .thr .thl{grid-column:2;grid-row:1}
+  .thr .thv,.thr .thw{grid-column:1/-1}
+  .thr .thw{border-left:none;padding-left:0}
+}
+
+/* --- article 06 extras --- */
+.latch{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.latch > div{background:var(--white);border:1px solid var(--line);padding:14px 12px}
+.latch b{display:block;font-family:var(--en);font-size:28px;font-weight:500;color:var(--ink);line-height:1}
+.latch .ln{display:block;font-size:11.5px;color:var(--muted);margin:6px 0 8px}
+.latch p{font-size:12.5px;line-height:1.7;margin:0 0 8px;color:var(--ink)}
+.latch .lq{display:block;font-size:11.5px;line-height:1.6;color:var(--text);border-top:1px dashed var(--line-strong);padding-top:8px}
+.sfig{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sfig figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.sfig svg{display:block;width:100%;height:auto}
+.sfig svg text{font-family:var(--jp)}
+.sfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.sfig figcaption b{display:block;color:var(--ink);font-size:13px}
+.lbfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lbcol{border:1px solid var(--line);background:var(--white);padding:16px}
+.lbcol.good{border-color:var(--ink)}
+.lbh{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lbcol ul{list-style:none;padding:0;margin:10px 0 12px;display:flex;flex-wrap:wrap;gap:6px}
+.lbcol li{font-size:13px;border:1px solid var(--line-strong);padding:3px 10px;color:var(--ink)}
+.lbcol.bad li{background:rgba(235,101,132,.08)}
+.lbcol.good li{background:rgba(98,184,160,.14)}
+.lbcol p{font-size:12.5px;line-height:1.7;margin:0}
+@media (max-width:680px){
+  .latch{grid-template-columns:1fr 1fr}
+  .latch > div:last-child{grid-column:1/-1}
+  .sfig{grid-template-columns:1fr}
+  .lbfig{grid-template-columns:1fr}
+}
+
+/* --- article 07 extras --- */
+.hbars .hgrp{font-size:12px;color:var(--muted);margin:6px 0 -2px}
+.hb.c-hide .fill{background:var(--coral)}
+.hb.c-show .fill{background:var(--deep-teal)}
+.hb.c-combo .fill{background:var(--teal)}
+.trunk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 28px}
+.trunk > div{background:var(--white);border:1px solid var(--line);padding:12px 14px}
+.trunk b{font-family:var(--en);font-weight:500;font-size:20px;color:var(--ink)}
+.trunk p{font-size:14px;font-weight:700;color:var(--ink);margin:2px 0 4px;line-height:1.5}
+.trunk span{font-size:12px;color:var(--muted)}
+@media (max-width:680px){.trunk{grid-template-columns:1fr 1fr}}
+
+/* --- article 08 extras --- */
+.prfig svg,.zfig svg{display:block;width:100%;height:auto}
+.prfig svg text,.zfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .prfig,.zfig{overflow-x:auto}
+  .prfig svg,.zfig svg{min-width:560px}
+}
+
+/* --- article 09 extras --- */
+.ladder{display:flex;flex-direction:column-reverse;gap:6px}
+.ld{width:var(--w);min-width:340px;display:grid;grid-template-columns:118px 1fr;gap:2px 12px;background:var(--white);border:1px solid var(--line);border-left:3px solid var(--teal);padding:10px 12px}
+.ld b{font-size:14px;color:var(--ink);grid-row:1/3;align-self:center}
+.ld span{font-size:12.5px;color:var(--text);line-height:1.6}
+.ld i{font-style:normal;font-size:11.5px;color:var(--muted)}
+.ld.hl{border-color:var(--ink);border-left-color:var(--ink);background:rgba(98,184,160,.12)}
+.kgfig svg{display:block;width:100%;height:auto}
+.kgfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .ld{width:100%;min-width:0;grid-template-columns:1fr}
+  .ld b{grid-row:auto}
+  .kgfig{overflow-x:auto}
+  .kgfig svg{min-width:540px}
+}
+
+/* --- article 10 extras --- */
+.beckfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.beckfig figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.beckfig svg{display:block;width:100%;height:auto}
+.beckfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.beckfig figcaption b{display:block;color:var(--ink);font-size:13px}
+.rank{display:flex;flex-direction:column;gap:6px}
+.rank > div{display:grid;grid-template-columns:34px 1fr 1fr;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:9px 12px}
+.rank > div:first-child{border-color:var(--ink);background:rgba(98,184,160,.14)}
+.rank b{font-family:var(--en);font-weight:500;font-size:18px;color:var(--ink)}
+.rank span{font-size:13.5px;font-weight:700;color:var(--ink)}
+.rank i{font-style:normal;font-size:12px;color:var(--muted)}
+.marks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.marks > div{background:var(--white);border:1px solid var(--line);padding:12px;text-align:center}
+.marks svg{display:block;width:100%;height:auto;max-height:60px}
+.marks b{display:block;font-size:14px;color:var(--ink);margin-top:6px}
+.marks p{font-size:12px;line-height:1.6;margin:2px 0 0;color:var(--text)}
+@media (max-width:680px){
+  .beckfig{grid-template-columns:1fr}
+  .rank > div{grid-template-columns:28px 1fr}
+  .rank i{grid-column:2}
+  .marks{grid-template-columns:1fr 1fr}
+}
+
+/* --- article 11 extras --- */
+.hb.c-ok .fill{background:var(--deep-teal)}
+.hb.c-ng .fill{background:var(--coral)}
+.circfig svg{display:block;width:100%;height:auto}
+.circfig svg text{font-family:var(--jp)}
+.ctfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctfig > div{border:1px solid var(--line);background:var(--white);padding:16px}
+.ctfig b{display:block;font-size:15px;color:var(--ink);margin:6px 0}
+.ctfig p{font-size:13px;line-height:1.7;margin:0}
+@media (max-width:680px){
+  .circfig{overflow-x:auto}
+  .circfig svg{min-width:520px}
+  .ctfig{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>11 Practice</span>
+    <div class="nav-links">
+      <a href="#first">First Click</a>
+      <a href="#circles">Circles</a>
+      <a href="#inventory">Inventory</a>
+      <a href="#sort">Card Sort</a>
+      <a href="#tree">Tree Test</a>
+      <a href="#draw">Draw</a>
+      <a href="#mess">Mess</a>
+      <a href="#cycle">Cycle</a>
+      <a href="#carry">Carry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究 ── 情報設計シリーズ 11</span>
+    <h1 class="title" style="font-size:clamp(28px,6vw,40px)">最初の一歩を正しく<br>選んだ人は、6倍<br>成功しやすかった。</h1>
+    <p class="lede">UXの現場には、よく引かれる数字がある。最初のクリックが正しければ課題の87%が成功し、間違えると46%しか成功しない。2009年に Bob Bailey と Cari Wolfson が、12のユーザーテストを振り返って報告した数字だ。ところが、これはクリックだけを測る実験から出た数字ではなかった。のちに調査会社 MeasuringU が、5つのサイトで750人に課題をこなしてもらって確かめ直すと、差は78%と70%に縮んだ。一方で、画面を使わず、サイトの階層だけを文字で見せて目的地を探してもらう「ツリーテスト」の1,000人分のデータでは、最初の選択が正しかった人の成功率は81%、間違えた人は14%で、6倍近い差が出た。最初の一歩が大事だという結論は残ったが、その大きさは、何をどう測ったかで大きく変わる。この回は、②から⑩までの理論と道具を、実際の仕事の手順に落とす。調べ、作り、確かめ、伝える。そのどの段階でも、方法が何を確かめられて、何を確かめられないのかを知っておくことが、方法そのものを知るのと同じくらい役に立つ。</p>
+    <div class="src-tag">
+      主な出典：<b>Rosenfeld &amp; Morville『Information Architecture』、Spencer『Card Sorting』（2009）</b><br>
+      Bailey &amp; Wolfson（2009）と MeasuringU の追試、Tullis &amp; Wood（2004）、Garrett「Visual Vocabulary」（2000）、Covert（2014）、Nielsen Norman Group ほか ／ 調査日 2026年10月25日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">81<small>/14%</small></div><div class="l">ツリーテストで、最初の選択が正しかった人と間違えた人の成功率</div></div>
+      <div class="stat"><div class="n">3<small>つ</small></div><div class="l">情報設計で調べる対象。文脈、コンテンツ、ユーザー</div></div>
+      <div class="stat"><div class="n">20〜30<small>人</small></div><div class="l">カードソートの結果が、168人全体の結果とほぼ一致した人数（Tullis &amp; Wood）</div></div>
+      <div class="stat"><div class="n">2000</div><div class="l">情報設計の図を描くための共通の記法が公開された年（Garrett）</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="first">
+  <div class="wrap">
+    <span class="sec-no">01 ── First Click</span>
+    <h2>数字は、測り方を忘れて広まる</h2>
+    <p class="sec-sub">First-click studies and what they measured</p>
+
+    <div class="chart-card">
+      <div class="ct">最初の一歩が正しいときと、間違えたときの成功率</div>
+      <div class="cs">Bailey &amp; Wolfson（2009）、MeasuringU の追試と、同社のツリーテストのデータ（二次資料による）</div>
+      <div class="hbars" id="firstclick"></div>
+      <div class="leg"><span><i style="background:var(--deep-teal)"></i>最初の一歩が正しかった</span><span><i style="background:var(--coral)"></i>最初の一歩を間違えた</span></div>
+    </div>
+    <p>三つの数字を並べると、どれも同じ向きを指していることが分かる。最初の一歩を間違えると、成功しにくくなる。ただ、差の大きさはまるで違う。</p>
+    <p>実際のサイトで課題をこなしてもらう場合、最初に間違えた人も、画面のほかの手がかりや検索を使って立て直せる。だから差は縮む。ツリーテストでは、画面の見た目も検索もなく、ラベルと階層だけが頼りになる。最初の選択を誤ると立て直す手がかりがほとんどないので、差が大きく出る。数字の違いは、測っているものの違いだ。</p>
+    <p>情報設計にとっての教訓は二つある。一つは、⑥⑦で見た最上位のラベルとナビゲーションの重みだ。最初の分かれ道で正しい方を選べるかどうかが、その後の成否をかなりの程度決めている。もう一つは、方法の側の教訓で、どんな数字も、どんな方法で何を測ったものかとセットで受け取ること。この回の残りでは、それぞれの方法が何を測れて、何を測れないのかを見ていく。</p>
+  </div>
+</section>
+
+<section id="circles">
+  <div class="wrap">
+    <span class="sec-no">02 ── Circles</span>
+    <h2>調べる対象は、三つの円が重なるところにある</h2>
+    <p class="sec-sub">Context, content, and users</p>
+
+    <p>何を調べればいいのか。Rosenfeld と Morville は、ポーラーベア本で、情報設計が向き合う対象を三つの円の重なりとして描いた。</p>
+    <div class="chart-card">
+      <div class="ct">情報設計が調べる三つの対象</div>
+      <div class="cs">Rosenfeld &amp; Morville の「情報エコロジー」の図をもとに筆者作図</div>
+      <div class="circfig">
+        <svg viewBox="0 0 640 290" role="img" aria-label="文脈、コンテンツ、ユーザーの三つの円が重なる図">
+          <circle cx="250" cy="110" r="92" fill="rgba(98,184,160,.16)" stroke="#62B8A0"/>
+          <circle cx="390" cy="110" r="92" fill="rgba(242,201,76,.18)" stroke="#E0B53A"/>
+          <circle cx="320" cy="190" r="92" fill="rgba(235,101,132,.14)" stroke="#EB6584"/>
+          <g font-size="14" font-weight="700" fill="#111" text-anchor="middle">
+            <text x="200" y="80">文脈</text><text x="440" y="80">コンテンツ</text><text x="320" y="232">ユーザー</text>
+          </g>
+          <g font-size="10.5" fill="#333" text-anchor="middle">
+            <text x="198" y="100">事業の目標、予算</text><text x="198" y="115">組織の政治、文化</text><text x="198" y="130">技術、制約</text>
+            <text x="442" y="100">中身の目的と量</text><text x="442" y="115">文書の種類、構造</text><text x="442" y="130">管理と持ち主</text>
+            <text x="320" y="250">誰が、何をしに来るか</text><text x="320" y="265">探し方の癖、経験</text>
+          </g>
+          <text x="320" y="146" font-size="12" font-weight="700" fill="#111" text-anchor="middle">IA</text>
+        </svg>
+      </div>
+    </div>
+    <p>文脈の円には、その組織の事業の目標、予算、社内の力関係、文化、使える技術が入る。コンテンツの円には、中身の種類と量、いまの構造、誰がそれを持ち、更新しているか。ユーザーの円には、誰が、何をしに来て、どう探すか。</p>
+    <p>三つの円は、それぞれ別の方法で調べる。文脈は、関係者へのインタビューや事業計画の読み込みで。コンテンツは、次節の棚卸しで。ユーザーは、③のカードソートや④のインタビュー、⑧の検索ログで。そして、三つのどれか一つだけを見て構造を決めると、偏りが出る。ユーザーだけを見れば実現できない構造になり、コンテンツだけを見ればユーザーの言葉とずれ、文脈だけを見れば⑥で見た組織図のサイトになる。</p>
+  </div>
+</section>
+
+<section id="inventory">
+  <div class="wrap">
+    <span class="sec-no">03 ── Inventory</span>
+    <h2>まず、何があるかを数える</h2>
+    <p class="sec-sub">Content inventory and audit</p>
+
+    <p>既存のサイトを作り直すとき、最初にやるのは、いまある中身を一覧にすることだ。全ページの住所、タイトル、種類、更新日、担当者、閲覧数を、表に一行ずつ書き出していく。これを「コンテンツ・インベントリ（棚卸し）」と呼ぶ。数百ページなら手で、数万ページなら道具を使って。</p>
+    <p>コンテンツ戦略の実務家 Kristina Halvorson は、2009年の『Content Strategy for the Web』などで、この作業には量と質の両面があると説いた。何がどれだけあるかを数えるのがインベントリで、その一つひとつが役に立っているか、正確か、誰のためのものかを評価するのが「監査」だ。よく使われる最初のふるいに ROT がある。重複している（Redundant）、古い（Outdated）、どうでもいい（Trivial）ものを洗い出す。ただし ROT は出発点にすぎず、出来の悪い中身や、ブランドの語り口からずれた中身までは拾えない。</p>
+    <p>棚卸しは地味だが、情報設計の作業の中で最も効き目の大きいものの一つだ。⑥の GOV.UK は、誰にも読まれていない数千のページを移さずに保存庫へ回した。⑤の言葉で言えば、棚卸しは「文献的根拠」を作る作業で、構造は実際にある中身から立てる。そして、作り直しの前に中身の半分を減らせるなら、構造の悩みの半分は消える。</p>
+  </div>
+</section>
+
+<section id="sort">
+  <div class="wrap">
+    <span class="sec-no">04 ── Card Sort</span>
+    <h2>カードソートで、ユーザーの分け方を借りる</h2>
+    <p class="sec-sub">Open, closed, and hybrid card sorting</p>
+
+    <p>③で見たように、作り手の分類は専門家の分類になりやすい。それを補うために、ユーザーに分けてもらう方法がカードソートだ。オーストラリアの情報設計者 Donna Spencer は、2009年の『Card Sorting』で、この方法の進め方を一冊にまとめた。</p>
+    <p>中身の項目を一枚ずつカードに書き、参加者に、似ていると思うものどうしをまとめてもらう。まとめたグループに参加者自身が名前を付けるのが「オープン」、作り手が用意したカテゴリーに振り分けてもらうのが「クローズド」、両方を混ぜたのが「ハイブリッド」だ。オープンは新しく構造を考えるときに、クローズドはすでにあるカテゴリーが通じるかを確かめるときに向く。</p>
+    <p>結果は、どのカードとどのカードが同じグループに入ったかを数えた表（類似度行列）や、近いもの同士を順につないだ樹形図（デンドログラム）で読む。参加者がグループに付けた名前は、⑥のラベルの候補になる。どのグループにもうまく収まらなかったカードは、③で見た「外れ値」で、カテゴリーの周辺部にあたる。</p>
+
+    <h3>何人に頼めばいいか</h3>
+    <p>2004年、Jakob Nielsen は、カードソートは15人で全体の傾向との相関が0.90、30人で0.95に達すると書いた。ユーザビリティテストでよく言われる「5人で足りる」は、カードソートには当てはまらず、5人では0.75にとどまる。同じ年、Tom Tullis と Larry Wood は、168人に行ったカードソートの結果から、少人数の組を何度も取り出して比べ、20〜30人で全体の結果との相関が0.93を超えることを示した。</p>
+    <div class="note"><p><span class="h">カードソートで分からないこと</span></p><p>カードソートが教えてくれるのは、人がものをどうまとめるかであって、まとめた構造の中で目的のものを見つけられるかではない。カードの文言に引きずられた分け方（同じ言葉を含むカードを集める）が出ることもある。見つけられるかどうかは、次節のツリーテストで確かめる。</p></div>
+  </div>
+</section>
+
+<section id="tree">
+  <div class="wrap">
+    <span class="sec-no">05 ── Tree Test</span>
+    <h2>ツリーテストは、構造だけを試す</h2>
+    <p class="sec-sub">Testing the hierarchy without the interface</p>
+
+    <p>カードソートを裏返した方法がある。ユーザーに項目を分けてもらうのではなく、作った構造の中で、項目を探してもらう。こちらも Donna Spencer が、オーストラリア統計局のサイトの仕事の中で考案した。最初は索引カードを使う紙の方法で、彼女は2003年にそれを「カードによる分類の評価」として発表している。のちに、ツリーテスト、あるいはリバース・カードソートと呼ばれるようになった。</p>
+    <div class="chart-card">
+      <div class="ct">カードソートとツリーテストは、向きが逆</div>
+      <div class="cs">Nielsen Norman Group の整理をもとに筆者作図</div>
+      <div class="ctfig">
+        <div>
+          <span class="lbh">Card sort ／ 生む</span>
+          <b>項目 → グループ</b>
+          <p>ばらばらの項目を、参加者がまとめて名前を付ける。どんな構造がありうるかを知る。</p>
+        </div>
+        <div>
+          <span class="lbh">Tree test ／ 確かめる</span>
+          <b>課題 → 階層の中の道筋</b>
+          <p>「〇〇を探してください」という課題を出し、文字だけの階層をたどってもらう。作った構造で見つかるかを知る。</p>
+        </div>
+      </div>
+    </div>
+    <p>ツリーテストの特徴は、画面のデザインを使わないことだ。参加者に見えるのは、カテゴリー名を並べた文字だけの階層で、色も画像も検索窓もない。だから、構造とラベルの良し悪しだけを、見た目の助けから切り離して確かめられる。結果は、正しい場所にたどり着けた割合（成功率）と、引き返さずにたどり着けた割合（直接性）で読む。成功率は高いのに直接性が低ければ、迷いながらも最後は見つけている。成功率が低いのに直接性が高ければ、多くの人が自信を持って同じ間違った場所へ行っている。ラベルが誤解を招いている印だ。</p>
+    <p>Nielsen Norman Group は、カードソートを構造の案を生む方法、ツリーテストを案を評価する方法と整理している。順番としては、カードソートで案を作り、ツリーテストで確かめ、直してもう一度確かめる。リード文の数字が示すように、ツリーテストは最初の分かれ道のラベルの弱さを、とくにはっきり浮かび上がらせる。</p>
+  </div>
+</section>
+
+<section id="draw">
+  <div class="wrap">
+    <span class="sec-no">06 ── Draw</span>
+    <h2>成果物は、誰かに伝えるための図である</h2>
+    <p class="sec-sub">Sitemaps, flows, and wireframes</p>
+
+    <p>調べて作った構造は、関係者に伝えなければ実装されない。情報設計の成果物の多くは、そのための図だ。</p>
+    <p>2000年10月、①で見た Jesse James Garrett は、情報設計の図を描くための共通の記法「Visual Vocabulary」を公開した。ページ、ファイル、ページの束、利用者が選ぶ分かれ道、条件による分岐。それぞれに決まった記号を割り当て、どの描画ソフトでも、紙の上でも描けるようにした。2002年版までに改訂が重ねられ、英語のほか7つの言語に訳されている。</p>
+    <p>⑩で見た図の印の文法は、ここでそのまま効く。サイトマップの線は「つながっている」を、箱は「同じ仲間」を、矢印は「この順で進む」を主張する。階層を表す図に矢印を使えば、読む人は手順だと受け取る。ユーザーフローに矢印のない線を使えば、順序が伝わらない。共通の記法があると、図の読み方を説明する手間が減り、議論が中身に向かう。</p>
+
+    <h3>ワイヤーフレームは、何を描かないか</h3>
+    <p>画面ごとの配置を示す図はワイヤーフレームと呼ばれる。名前は、コンピュータで立体を設計するときの、輪郭の線だけで形を示す表示から来ているとされる。色も書体も画像もなく、何がどこにどの順で並ぶかだけを示す、骨組みの図だ。</p>
+    <p>⑩の Beck の路線図と同じで、ワイヤーフレームの価値は、描かないものにある。見た目を描かないから、関係者は色の好みではなく、構造と優先順位について話せる。逆に、早い段階から見た目まで作り込んだ図を見せると、議論はボタンの色に向かう。どこまで作り込むか（忠実度）は、その図で何を決めたいかで選ぶ。</p>
+  </div>
+</section>
+
+<section id="mess">
+  <div class="wrap">
+    <span class="sec-no">07 ── Mess</span>
+    <h2>誰もが、散らかったものを片づけている</h2>
+    <p class="sec-sub">Abby Covert and information architecture for everybody</p>
+
+    <p>2014年、①で見た Abby Covert は『How to Make Sense of Any Mess』（邦訳『今日からはじめる情報設計』）で、情報設計の進め方を、専門家でなくても使える7つの段階の手順にまとめた。副題は「誰もが使える情報アーキテクチャ」。各章には、自分の抱えている問題に当てはめて取り組める演習が付いている。</p>
+    <p>Covert は、情報設計が取り組む対象を「mess（散らかった状態）」と呼ぶ。人と情報とのやり取りが混乱していたり、困難に満ちていたりする状況のことだ。サイトのメニューだけでなく、社内の共有フォルダも、引き継ぎ資料も、家族の予定表も、散らかりうる。</p>
+    <p>この本の実務的な価値は、手順そのものより、情報設計の仕事の大半が関係者と言葉と意図をそろえる作業だと、はっきり示したところにある。何を目指すのか、いまどこにいるのか、どの言葉が何を指すのか。①の Klyn の三つの歯車で言えば、構造を作る前の「意味」の歯車を、チームで回す作業だ。成果物の図は、そのための道具になる。</p>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>成果物のいちばんの仕事は、合意をつくること</h4>
+      <p>サイトマップもワイヤーフレームも、最終的にユーザーの目に触れるわけではない。それを見た関係者が、同じ構造を思い描き、同じ言葉で話せるようになったとき、成果物は役目を果たしている。</p>
+    </div>
+  </div>
+</section>
+
+<section id="cycle">
+  <div class="wrap">
+    <span class="sec-no">08 ── Cycle</span>
+    <h2>調べる、作る、確かめる、伝える</h2>
+    <p class="sec-sub">Choosing methods by what they can and cannot tell</p>
+
+    <p>ここまでの方法を、何が分かり、何が分からないかで並べ直すと、次のようになる。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>方法</th><th>分かること</th><th>分からないこと</th><th>関係する回</th></tr></thead>
+      <tbody>
+        <tr><td>関係者インタビュー</td><td>事業の目標、制約、社内の言葉</td><td>ユーザーがどう探すか</td><td>⑥</td></tr>
+        <tr><td>棚卸し・監査</td><td>何がどれだけあり、何が要らないか</td><td>何が足りないか</td><td>⑤⑥</td></tr>
+        <tr><td>ユーザーインタビュー</td><td>状況、行き詰まり、使っている言葉</td><td>構造の良し悪し</td><td>③④</td></tr>
+        <tr><td>カードソート</td><td>人のまとめ方、名前の付け方</td><td>その構造で見つかるか</td><td>③⑥</td></tr>
+        <tr><td>ツリーテスト</td><td>構造とラベルで見つかるか</td><td>画面のデザインの影響</td><td>⑥⑦</td></tr>
+        <tr><td>ファーストクリックテスト</td><td>最初の分かれ道で正しく選べるか</td><td>その後の道筋</td><td>⑦</td></tr>
+        <tr><td>検索ログ・アクセス解析</td><td>実際に使われた言葉と行動</td><td>なぜそうしたか</td><td>⑧</td></tr>
+        <tr><td>ユーザビリティテスト</td><td>画面全体で課題をこなせるか、どこで詰まるか</td><td>多くの人に共通する傾向</td><td>全般</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>どの方法も、ほかの方法の「分からないこと」を埋める形で組み合わされている。カードソートで生み、ツリーテストで確かめ、ワイヤーフレームで伝え、ユーザビリティテストで画面全体を確かめ、公開後は検索ログで言葉を読む。一回で終わる手順ではなく、回し続ける循環だ。⑤の五法則の「図書館は成長する有機体である」は、情報設計の仕事の進め方そのものにも当てはまる。</p>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <span class="sec-no">09 ── Carry</span>
+    <h2>この回から、次の回へ持っていくもの</h2>
+    <p class="sec-sub">What this chapter hands to the rest of the series</p>
+
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>方法は、何を測っているかとセットで使う</h4>
+      <p>同じ「最初のクリック」の数字でも、測り方で差は数倍変わる。どの方法も、分かることと分からないことを持っている。分からないことを、別の方法で埋める。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>生む方法と、確かめる方法を分ける</h4>
+      <p>カードソートは構造の案を生み、ツリーテストは案を確かめる。棚卸しは中身から、カードソートと検索ログはユーザーから、インタビューは文脈から根拠を集める。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>成果物は、合意のための図</h4>
+      <p>共通の記法で描き、描かないものを選ぶ。線と箱と矢印の文法を守る。図を見た人が同じ構造を思い描けたとき、成果物は役目を果たす。</p>
+    </div>
+
+    <div class="closing">
+      <h3>最終回：Web の先で、情報設計は何を問われているか</h3>
+      <p>シリーズの最後の⑫では、情報設計の舞台が Web の外へ広がった今を扱う。アプリとお店と電話をまたぐクロスチャネルの体験、構造化されたコンテンツ、AI との会話という新しいインターフェース、そして分類が人に与える影響と設計者の責任。①で見た Garrett の「IAの行き先は認知と感情」という言葉に、もう一度戻ってくる。</p>
+      <a class="pc-link" href="../12-expanding-space/">⑫ 拡張する情報空間 へ進む</a>
+      <a class="pc-link" href="../00-map/">全体地図に戻る</a>
+      <a class="pc-link" href="../10-information-design/">前回 ⑩ 情報デザインと図解</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Bailey, R. W. &amp; Wolfson, C. A. (2009). FirstClick Usability Testing. ／ MeasuringU. Do Click Tests Predict Live Site Clicks? <a href="https://measuringu.com/do-click-tests-predict-live-site-clicks/" target="_blank" rel="noopener">measuringu.com</a> ／ <a href="https://measuringu.com/?p=36842" target="_blank" rel="noopener">MeasuringU（最初のクリック）</a></li>
+        <li>Rosenfeld, L. &amp; Morville, P. Practicing Information Architecture in the Real World（三つの円）. <a href="https://www.oreilly.com/library/view/information-architecture-for/0596000359/ch02s04.html" target="_blank" rel="noopener">O'Reilly</a></li>
+        <li>Halvorson, K. (2009). <i>Content Strategy for the Web</i>. New Riders. ／ Content analysis: A practical approach. <a href="https://www.uxmatters.com/mt/archives/2009/08/content-analysis-a-practical-approach.php" target="_blank" rel="noopener">UXmatters</a> ／ <a href="https://en.wikipedia.org/wiki/Content_audit" target="_blank" rel="noopener">Content audit（Wikipedia）</a></li>
+        <li>Spencer, D. (2009). <i>Card Sorting: Designing Usable Categories</i>. 書評：<a href="https://oldmagazine.uxpa.org/?p=5384" target="_blank" rel="noopener">UXPA Magazine</a></li>
+        <li>Nielsen, J. (2004). Card Sorting: How Many Users to Test. <a href="https://www.nngroup.com/articles/card-sorting-how-many-users-to-test/" target="_blank" rel="noopener">nngroup.com</a> ／ Tullis, T. &amp; Wood, L. (2004). How Many Users Are Enough for a Card-Sorting Study? 解説：<a href="https://measuringu.com/card-sorting/" target="_blank" rel="noopener">MeasuringU</a></li>
+        <li>Spencer, D. (2003). Card-Based Classification Evaluation. ／ Tree testing. <a href="https://en.wikipedia.org/wiki/Tree_testing" target="_blank" rel="noopener">Wikipedia</a> ／ <a href="https://boxesandarrows.com/tree-testing/" target="_blank" rel="noopener">Boxes and Arrows</a></li>
+        <li>Nielsen Norman Group. Card Sorting vs. Tree Testing. <a href="https://nngroup.com/articles/card-sorting-tree-testing-differences" target="_blank" rel="noopener">nngroup.com</a></li>
+        <li>Garrett, J. J. (2002). A Visual Vocabulary for Describing Information Architecture and Interaction Design. ／ The Visual Vocabulary Three Years Later. <a href="https://boxesandarrows.com/the-visual-vocabulary-three-years-later-an-interview-with-jesse-james-garrett/" target="_blank" rel="noopener">Boxes and Arrows</a></li>
+        <li>Website wireframe. <a href="https://en.wikipedia.org/wiki/Website_wireframe" target="_blank" rel="noopener">Wikipedia</a> ／ Who coined the term wireframes? <a href="https://whitneyhess.com/blog/2008/11/02/who-coined-the-term-wireframes/" target="_blank" rel="noopener">Whitney Hess</a></li>
+        <li>Covert, A. (2014). <i>How to Make Sense of Any Mess</i>.（邦訳『今日からはじめる情報設計』BNN新社、2015）<a href="https://www.simonwhatley.co.uk/reading/how-to-make-sense-of-any-mess/" target="_blank" rel="noopener">書評</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 11 ── 最初の一歩を正しく選んだ人は、6倍成功しやすかった<br>
+    調査・執筆 2026年10月25日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+// First-click studies (Bailey & Wolfson 2009; MeasuringU replication; MeasuringU tree tests)
+const FC=[
+  {g:"Bailey & Wolfson（2009、12のテストの振り返り）"},
+  {l:"正しかった",v:87,c:"c-ok"},{l:"間違えた",v:46,c:"c-ng"},
+  {g:"MeasuringU の追試（実際のサイト、750人）"},
+  {l:"正しかった",v:78,c:"c-ok"},{l:"間違えた",v:70,c:"c-ng"},
+  {g:"MeasuringU のツリーテスト（137課題、1,000人）"},
+  {l:"正しかった",v:81,c:"c-ok"},{l:"間違えた",v:14,c:"c-ng"}
+];
+const fcEl=document.getElementById('firstclick');
+if(fcEl){
+  fcEl.innerHTML=FC.map(d=>d.g?`<div class="hgrp">${d.g}</div>`:`<div class="hb ${d.c}"><span class="hl">${d.l}</span><span class="track"><span class="fill" data-w="${d.v}"></span></span><span class="hv">${d.v}%</span></div>`).join('');
+  const fio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');fio.disconnect();}});},{threshold:.3});
+  fio.observe(fcEl);
+}
+
+</script>
+</body>
+</html>

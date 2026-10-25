@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>情報設計シリーズ 00｜全体地図</title>
+<meta name="description" content="情報設計を12カテゴリと10の原理で学ぶための全体地図">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>00 Map</span>
+    <div class="nav-links">
+      <a href="#definition">Definition</a>
+      <a href="#lineage">Lineage</a>
+      <a href="#layers">Layers</a>
+      <a href="#categories">12 Categories</a>
+      <a href="#order">Order</a>
+      <a href="#principles">Principles</a>
+      <a href="#japan">Japan</a>
+      <a href="#caveats">Caveats</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Series Map ／ 情報設計シリーズ 00 全体地図</span>
+    <h1 class="title">情報設計を学ぶための地図。<br>12の入口と、<br>それを貫く10の原理。</h1>
+    <p class="lede">「情報アーキテクチャ」という言葉が公の場で掲げられたのは1976年、アメリカ建築家協会の全国大会だった。Webの登場より15年以上も前の話だ。その後この領域には、図書館の分類学、認知心理学、都市計画、統計グラフィックスの思想が次々に流れ込んだ。サイトマップの描き方を覚えるだけでは、この広がりは見えない。このページは、これから12本に分けて掘っていく情報設計シリーズの目次であり、見取り図である。どこから来て、何でできていて、どの順で学ぶと腑に落ちるのか。それを一枚にまとめた。</p>
+    <div class="src-tag">
+      主な出典：<b>Rosenfeld, Morville &amp; Arango『Information Architecture』第4版（2015）</b><br>
+      Wurman『Information Anxiety』（1989）、Resmini &amp; Rosati「A Brief History of Information Architecture」（2011）ほか ／ 調査日 2026年10月22日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">4<small>系譜</small></div><div class="l">建築・情報デザイン、図書館情報学、認知科学、場所のIA</div></div>
+      <div class="stat"><div class="n">12<small>本</small></div><div class="l">ディープリサーチした12本のカテゴリー</div></div>
+      <div class="stat"><div class="n">6<small>幕</small></div><div class="l">本質から実践、拡張へと進む学習の流れ</div></div>
+      <div class="stat"><div class="n">10<small>原理</small></div><div class="l">全カテゴリーを貫く、情報設計の本質の仮説（⑫で振り返り）</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="definition">
+  <div class="wrap">
+    <span class="sec-no">01 ── Definition</span>
+    <h2>サイト構造の技術、では収まらない</h2>
+    <p class="sec-sub">What information architecture is actually about</p>
+
+    <p>情報設計の教科書を何冊か並べると、定義の言葉がそれぞれ違うことに気づく。Wurman は「複雑なものを明快にすること」と言った。Rosenfeld と Morville は、組織化・ラベリング・ナビゲーション・検索の各システムの設計として説明した。Abby Covert はもっと短く、部分を配置して全体を理解できるようにする方法だと書いている。</p>
+    <p>言い回しは違っても、狙っている場所は同じだ。<strong>人が情報の中で意味を見いだし、迷わずに行動できるように、意味と構造と流れを設計すること。</strong>このシリーズでは、これを作業上の定義として置く。</p>
+    <p>こう定義すると、Webサイトのメニュー構成はその一つの現れにすぎなくなる。駅の案内表示も、社内ナレッジの分類も、生成AIに渡す知識の構造も、同じ問いの別の顔として見えてくる。</p>
+
+    <h3>日本語では三つの言葉が入り混じる</h3>
+    <p>日本で学ぶときに最初につまずくのが用語だ。おおよそ次のように使い分けられている。</p>
+    <div class="three">
+      <div><div class="k">情報アーキテクチャ</div><div class="e">Information Architecture</div><p>Web・アプリの実務で使われる。組織化・ラベリング・ナビゲーション・検索を扱う。ポーラーベア本の系譜。</p></div>
+      <div><div class="k">情報デザイン</div><div class="e">Information Design</div><p>大学やデザイン教育で使われる。図解・可視化・サインなど「見せる」側に重心がある。</p></div>
+      <div><div class="k">情報設計</div><div class="e">umbrella term</div><p>両者をまたぐ日本語の傘。Covert の邦訳書名にも採用された。本シリーズの題名もこれに従う。</p></div>
+    </div>
+    <div class="note"><p><span class="h">本シリーズの射程</span></p><p>中心は UX/Web/デジタルプロダクトのIA。そこに情報デザインと図解、知識組織論（図書館情報学）、認知科学を加える。認知と心理の比重は意図して高くしてある。サイン計画や建築そのものは、必要な範囲でだけ触れる。</p></div>
+  </div>
+</section>
+
+<section id="lineage">
+  <div class="wrap">
+    <span class="sec-no">02 ── Lineage</span>
+    <h2>四つの川が、一つの領域に流れ込んだ</h2>
+    <p class="sec-sub">Four lineages and one critical margin</p>
+
+    <p>情報設計の歴史を一本の線で語ろうとすると、どこかで無理が出る。実際には、出自の違う四つの伝統が、Webの普及をきっかけに一つの職能へ合流した。そこにもう一つ、分類の倫理を問う批判的な周縁が寄り添っている。</p>
+
+    <div class="dom-grid">
+      <div class="dom"><span class="sw cA"></span><div class="dn">A 建築・情報デザイン</div><div class="de">making the complex clear</div><div class="dq">Wurman、Neurath と Isotype、Tufte、Bertin。情報を「理解できる形」に置き換える系譜。</div></div>
+      <div class="dom"><span class="sw cB"></span><div class="dn">B 図書館情報学</div><div class="de">organize · label · find</div><div class="dq">Ranganathan のファセット分類から、図書館員出身の Rosenfeld と Morville へ。実務IAの直系。</div></div>
+      <div class="dom"><span class="sw cC"></span><div class="dn">C 認知科学・HCI</div><div class="de">how people think and seek</div><div class="dq">Rosch のプロトタイプ理論、Pirolli と Card の情報採餌理論、Bates、Norman。「なぜ効くか」を説明する層。</div></div>
+      <div class="dom"><span class="sw cD"></span><div class="dn">D 場所・文脈のIA</div><div class="de">place-making · meaning</div><div class="dq">2009年以降の Klyn、Resmini と Rosati、Arango、Covert。IAをWebの外へ、意味の設計へ広げた。</div></div>
+      <div class="dom"><span class="sw cE"></span><div class="dn">E 社会・倫理（周縁）</div><div class="de">sorting is political</div><div class="dq">Bowker と Star『Sorting Things Out』。分類はある視点を立て、別の視点を見えなくすると論じた。</div></div>
+      <div class="dom" style="background:var(--tint);border-color:var(--tint)"><div class="dn">読み方のヒント</div><div class="de">how to use this</div><div class="dq">各カテゴリーがどの川から来たかを意識すると、用語の癖や論者同士のすれ違いが理解しやすくなる。</div></div>
+    </div>
+
+    <h3>年表で見る合流の過程</h3>
+    <p>色は上の系譜に対応している。1990年代末に色が混ざり始め、2009年を境に D の色が増えていくのがわかる。</p>
+    <div class="chart-card">
+      <div class="ct">情報設計の主要な出来事</div>
+      <div class="cs">各系譜の代表的な文献・出来事を抜粋。年は初版・発表年</div>
+      <ul class="tl" id="timeline"></ul>
+      <div class="leg">
+        <span><i class="cA"></i>A 建築・情報デザイン</span>
+        <span><i class="cB"></i>B 図書館情報学</span>
+        <span><i class="cC"></i>C 認知科学・HCI</span>
+        <span><i class="cD"></i>D 場所・文脈のIA</span>
+        <span><i class="cE"></i>E 倫理・その他</span>
+      </div>
+    </div>
+    <div class="note"><p><span class="h">2009年に何があったのか</span></p><p>Jesse James Garrett がIA Summitの閉会講演で「情報アーキテクトなど存在しない、いるのはUXデザイナーだけだ」と宣言し、いわゆる「IA is dead」論争が起きた。同じ年、Dan Klyn は IA を意味・構造・流れの三つで説明する短い映像を発表している。職能としての危機と、概念としての再定義が同時に起きた年だった。詳しくは①で扱う。</p></div>
+  </div>
+</section>
+
+<section id="layers">
+  <div class="wrap">
+    <span class="sec-no">03 ── Layers</span>
+    <h2>抽象から具体まで、八つの層がある</h2>
+    <p class="sec-sub">From philosophy to deliverables</p>
+
+    <p>系譜が「どこから来たか」の地図なら、層は「何でできているか」の地図だ。情報設計の知識は、哲学的な問いから手元の成果物まで、抽象度の違う層に分けて整理できる。</p>
+    <div class="layers">
+      <div class="layer"><div class="ln"><small>Philosophy</small>哲学・理論層</div><div class="lc">意味とは、理解とは、場所とは何か。<span class="cats">Wurman、Klyn の OTC、Arango → ①⑫</span></div></div>
+      <div class="layer cog"><div class="ln"><small>Cognition</small>認知科学層</div><div class="lc">知覚・記憶・分類・探索・意味形成。<span class="cats">Miller、Rosch、Pirolli &amp; Card、Bates、Weick → ②③④</span></div></div>
+      <div class="layer"><div class="ln"><small>Principles</small>原理層</div><div class="lc">組織化の方法は有限である。ファセット。クロスチャネルのヒューリスティクス。<span class="cats">LATCH、PMEST、図書館学の五法則 → ⑤</span></div></div>
+      <div class="layer"><div class="ln"><small>Components</small>構成要素層</div><div class="lc">組織化・ラベリング・ナビゲーション・検索・メタデータ。<span class="cats">ポーラーベア本 第II部 → ⑥⑦⑧⑨</span></div></div>
+      <div class="layer"><div class="ln"><small>Representation</small>表現層</div><div class="lc">構造を見える形にする。図解・可視化・アイソタイプ。<span class="cats">Neurath、Bertin、Tufte → ⑩</span></div></div>
+      <div class="layer"><div class="ln"><small>Methods</small>手法層</div><div class="lc">調べる・確かめる。カードソート、ツリーテスト、コンテンツ監査。<span class="cats">Spencer、Covert、Young → ⑪</span></div></div>
+      <div class="layer"><div class="ln"><small>Deliverables</small>成果物層</div><div class="lc">サイトマップ、ワイヤーフレーム、タクソノミー、コンテンツモデル、概念図。<span class="cats">Garrett「Visual Vocabulary」 → ⑪</span></div></div>
+      <div class="layer"><div class="ln"><small>Context</small>環境・文脈層</div><div class="lc">マルチチャネル、空間、AI、社会。<span class="cats">Resmini &amp; Rosati、Halvorson、Bowker &amp; Star → ⑫</span></div></div>
+    </div>
+    <div class="axis"><span>↑ 抽象（なぜ）</span><span>具体（どうやって）↓</span></div>
+    <p>実務の現場で目に入るのは、下のほうの層だけだ。サイトマップは見えても、その分け方がなぜ人に通じるのかは図には描かれていない。<mark>上の層を知っている人は、下の層で迷ったときに引き返す場所を持っている。</mark>このシリーズで認知の層を厚くしたのは、そのためでもある。</p>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="wrap">
+    <span class="sec-no">04 ── 12 Categories</span>
+    <h2>12本のディープリサーチ、その中身</h2>
+    <p class="sec-sub">The table of contents, grouped into six acts</p>
+
+    <p>系譜と層を踏まえて、今後掘り下げる12本を決めた。12本は六つの「幕」に分かれている。各カテゴリーを開くと、扱う問い、人物、文献、キーワード、他カテゴリーとの関係が見られる。<strong>P1〜P10</strong>は後述する10の原理のうち、そのカテゴリーに深く関わるものだ。</p>
+    <p style="font-size:13px;color:var(--muted)">赤枠の「Cognition」タグは認知・心理を主題にするカテゴリー。各カードの「この回を読む」から本文へ進める。</p>
+    <div id="acts"></div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="wrap">
+    <span class="sec-no">05 ── Order</span>
+    <h2>なぜ、構成要素より先に認知を学ぶのか</h2>
+    <p class="sec-sub">Why the human side comes before the components</p>
+
+    <div class="flow">
+      <div class="f1"><div class="fn">Act 1</div><div class="ft">なぜ・何を</div><div class="fc">①</div></div>
+      <div class="f2"><div class="fn">Act 2</div><div class="ft">人間の側</div><div class="fc">② ③ ④</div></div>
+      <div class="f3"><div class="fn">Act 3</div><div class="ft">構造の理論</div><div class="fc">⑤</div></div>
+      <div class="f4"><div class="fn">Act 4</div><div class="ft">IAの構成要素</div><div class="fc">⑥ ⑦ ⑧ ⑨</div></div>
+      <div class="f5"><div class="fn">Act 5</div><div class="ft">見せる・作る</div><div class="fc">⑩ ⑪</div></div>
+      <div class="f6"><div class="fn">Act 6</div><div class="ft">拡張と再定義</div><div class="fc">⑫ → ①</div></div>
+    </div>
+
+    <p>多くの教科書は、組織化やナビゲーションといった構成要素から入る。手を動かすにはそれが早い。ただ、その順で学ぶと、構成要素は「こう作るもの」というルールの束として頭に入ってしまう。</p>
+    <p>このシリーズでは逆にした。先に人間の側を学ぶ。処理できる量には限りがある（②）。人は典型例を中心にものを分ける（③）。人は手がかりを頼りに少しずつ探す（④）。この三つを知ってから構成要素に進むと、ラベリングもナビゲーションも「人間のどの性質に応えているか」という問いで読めるようになる。</p>
+    <p>⑤の分類理論を⑥の直前に置いたのも同じ理由だ。人が自然に作るカテゴリー（③）と、図書館が何百年もかけて作った人工的な分類（⑤）を続けて読むと、両者が噛み合わないことが見えてくる。<strong>そのずれを調停するのが、IAの仕事の大半だ。</strong></p>
+    <p>最後の⑫で、AIや倫理の話題を通して「IAとは何か」をもう一度問い直す。ここで①へ戻る円環にしてある。</p>
+
+    <div class="note"><p><span class="h">別ルート：図解から入る</span></p><p>図解やビジュアルコミュニケーションの実務経験がある読者なら、⑩を②の直後に読むルートもある。知覚から図解へは自然につながるし、手持ちの経験を入口にできる。ただしシリーズの主題を「構造の設計」に保つため、本流では⑩を後半に置いた。</p></div>
+  </div>
+</section>
+
+<section id="principles">
+  <div class="wrap">
+    <span class="sec-no">06 ── Principles</span>
+    <h2>12本を貫く、10の原理</h2>
+    <p class="sec-sub">A provisional spine for the whole series</p>
+
+    <p>カテゴリーは学ぶ単位で、原理は考える単位だ。12本の調査を進めながら、次の10本を「情報設計の本質」の仮説として持ち歩く。シリーズを読み終えたとき、これらがどう書き換わっているかも見どころになるはずだ。12本を書き終えた時点での振り返りは、⑫の最後に表としてまとめた。</p>
+    <ol class="princ">
+      <li><div><b>意味は、文脈に置かれて初めて成立する</b><span>同じラベルでも、置かれた場所と隣にあるものによって意味が変わる。Klyn は、あらゆるアーキテクチャは「文脈に置かれたオントロジー」として記述できると述べている。</span></div></li>
+      <li><div><b>理解は、内容だけでなく配置から生まれる</b><span>情報は無限でも、組織化の方法は有限だ。Wurman は場所・五十音・時間・カテゴリー・序列の五つ（LATCH）に整理した。</span></div></li>
+      <li><div><b>人の分類はプロトタイプ的で、設計者の分類とずれる</b><span>カテゴリーは必要十分条件ではなく、典型例を中心に広がる（Rosch、Lakoff）。IAの失敗の多くはこのずれから生まれる。</span></div></li>
+      <li><div><b>人間の認知容量には限りがある</b><span>ワーキングメモリと注意の限界が、まとまり（チャンク）や段階的な開示、要素を減らす設計を正当化する。</span></div></li>
+      <li><div><b>人は情報の匂いをたどり、コストと利得で動く</b><span>ユーザーはラベルや要約から先にある価値を見積もり、進むか戻るかを決める（Pirolli &amp; Card）。</span></div></li>
+      <li><div><b>探索は動的で、問いそのものが変わっていく</b><span>情報ニーズは一度の検索では満たされず、拾い集めるうちに形を変える（Bates）。人は知識の欠けを橋渡ししながら意味をつくる（Dervin、Weick）。</span></div></li>
+      <li><div><b>見つけられないものは、存在しないのと同じ</b><span>検索と閲覧、メタデータとファセットは、情報を「たどり着ける状態」に変える仕組みだ（Morville）。</span></div></li>
+      <li><div><b>情報環境は「場所」として経験される</b><span>人は情報空間でも、今どこにいて、どこへ行けるのかを知りたがる（Lynch、Resmini &amp; Rosati、Arango）。</span></div></li>
+      <li><div><b>構造は一つでなくてよい</b><span>単一の階層ではなく複数の切り口を並べることで、違う動機を持つ人それぞれに入口を用意できる（Ranganathan のファセット）。</span></div></li>
+      <li><div><b>分類は中立ではない</b><span>どんな分類も、ある見方を立て、別の見方を見えにくくする。それは避けられないが、選択である以上、倫理的な責任が伴う（Bowker &amp; Star）。</span></div></li>
+    </ol>
+
+    <div class="chart-card">
+      <div class="ct">カテゴリー × 原理の対応表</div>
+      <div class="cs">各カテゴリーが特に深く関わる原理に印を付けた（筆者による割り当て。12本を書き終えた時点で見直した）。赤線は認知・心理のカテゴリー</div>
+      <div class="tbl-wrap"><table class="mx" id="matrix"></table></div>
+    </div>
+    <p>表を縦に読むと、原理ごとの「担当カテゴリー」がわかる。P3（プロトタイプ）は③で生まれ、⑤⑥⑪で試される。P5（情報の匂い）は④で理論を学び、⑦⑧で実装を見る。一つの原理を複数の回で別の角度から照らすように並べてある。</p>
+  </div>
+</section>
+
+<section id="japan">
+  <div class="wrap">
+    <span class="sec-no">07 ── Japan</span>
+    <h2>日本では、編集工学の言葉として入ってきた</h2>
+    <p class="sec-sub">How IA arrived in Japanese</p>
+
+    <p>日本への最初の窓口は、Wurman の『Information Anxiety』の邦訳だった。訳したのは編集工学の松岡正剛で、1990年に『情報選択の時代』として出ている。情報アーキテクチャはまず、Webの技術ではなく「情報をどう編集し、理解させるか」の思想として日本に紹介されたことになる。</p>
+    <div class="tbl-wrap"><table class="tbl">
+      <tr><th>年</th><th>出来事・文献</th></tr>
+      <tr><td>1990</td><td>Wurman『情報選択の時代』（松岡正剛訳、日本実業出版社）。続いて『理解の秘密』（1993）、『それは「情報」ではない。』（2001）</td></tr>
+      <tr><td>1998</td><td>ポーラーベア本初版の邦訳『情報アーキテクチャ入門』</td></tr>
+      <tr><td>2001</td><td>渡辺保史『情報デザイン入門』（平凡社新書）</td></tr>
+      <tr><td>2003</td><td>『Web情報アーキテクチャ 第2版』（篠原稔和監訳、オライリー・ジャパン）</td></tr>
+      <tr><td>2009</td><td>長谷川敦士『IA100』（BNN新社）。IAを体系的にまとめた国内初の書籍をうたう</td></tr>
+      <tr><td>2010</td><td>情報デザインフォーラム編『情報デザインの教室』（丸善）</td></tr>
+      <tr><td>2015</td><td>Covert の邦訳『今日からはじめる情報設計』（安藤幸央訳、長谷川敦士監修、BNN新社）</td></tr>
+      <tr><td>2016</td><td>『情報アーキテクチャ 第4版』（篠原稔和監訳、岡真由美訳、オライリー・ジャパン）</td></tr>
+    </table></div>
+    <p>2000年代にはポーラーベア本の系譜が実務に根づき、2010年代になって Covert の本が「情報設計」という書名で出た。Web専門家の技術から、誰もが使える思考法へ。英語圏で起きた広がりを、日本は十数年遅れでたどったように見える。</p>
+  </div>
+</section>
+
+<section id="caveats">
+  <div class="wrap">
+    <span class="sec-no">08 ── Caveats</span>
+    <h2>どこで線を引くか迷ったか</h2>
+    <p class="sec-sub">Boundaries, alternatives, and open questions</p>
+
+    <h3>境界で迷ったところ</h3>
+    <ul class="clean">
+      <li><b>③と④</b>　メンタルモデルは「心の中の構造」として③に、「探索しながら更新されるもの」として④にも属する。③を静的な構造、④を時間の中の理解として分けた。</li>
+      <li><b>⑤と⑨</b>　シソーラスは図書館情報学の産物だが、実装はメタデータの層にある。⑤を原理と歴史、⑨を現代の実装と機械可読性として切り分けた。</li>
+      <li><b>⑥と⑦</b>　ファセットはいくつもの回にまたがる。⑤で原理と歴史を、⑥でデータベース型の構造としての位置づけを、⑧で検索との組み合わせを扱った。⑦はその構造の中の移動を扱う。</li>
+      <li><b>倫理の扱い</b>　独立の回にはせず、⑤（分類の政治性）と⑫（欺く設計と偏り）に組み込み、①で論点として出した。厚くしたくなったら⑫を「AI・クロスチャネル」と「倫理・社会」に分けて13本にする。</li>
+    </ul>
+
+    <h3>ほかの切り方との比較</h3>
+    <div class="tbl-wrap"><table class="tbl">
+      <tr><th>切り方</th><th>得られるもの</th><th>失うもの</th></tr>
+      <tr><td>時系列</td><td>物語として読みやすい。論争の文脈がわかる</td><td>認知科学のような横断的な理論が分断される</td></tr>
+      <tr><td>層</td><td>抽象から具体への階段が明快。辞書的に引ける</td><td>認知が1本にまとまり、心理の厚みが出にくい</td></tr>
+      <tr><td>問い</td><td>本質志向。読み手の思考を動かす</td><td>人物や文献の系譜が散らばる</td></tr>
+      <tr><td>本案</td><td>問いで幕を立て、中身は層で並べ、歴史は①と⑫に集める</td><td>Wurman やメンタルモデルなど、一部が意図的に重複する</td></tr>
+    </table></div>
+
+    <h3>まだ確かめていないこと</h3>
+    <ul class="limit">
+      <li><b>邦訳の有無</b>　Tufte『The Visual Display of Quantitative Information』と Spencer『Card Sorting』は、⑩⑪の調査でも邦訳を確認できなかった。未訳と断定するには国立国会図書館サーチでの確認が要る。</li>
+      <li><b>書誌の細部</b>　Ranganathan『図書館学の五法則』の邦訳は日本図書館協会（1981）。訳者は、⑤の調査で見た資料では渡辺信一・深井耀子・渋田義行とされているが、奥付では確かめていない。</li>
+      <li><b>AI時代のIA</b>　GraphRAG をきっかけにタクソノミーやオントロジーが見直されているという傾向は、実務でどこまで広がっているか未検証だ。⑫でも信頼できる調査は見つからず、本文でそのことを明記した。</li>
+    </ul>
+
+    <div class="closing">
+      <h3>この地図の使い方</h3>
+      <p>12本を順に読む必要はない。気になったカテゴリーから読んでも、この地図に戻れば全体のどこにいるかがわかるようにしてある。12本はすべて書き上がっている。順に読むなら①「情報設計とは何か」から。Wurman の1976年の大会から2009年の「IA is dead」論争までをたどり、この領域がどう名づけられ、どう自分を定義し直してきたのかを掘る。</p>
+      <a class="pc-link" href="../01-definition/">① 情報設計とは何か へ進む</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Rosenfeld, L., Morville, P. &amp; Arango, J. (2015). <i>Information Architecture: For the Web and Beyond</i> (4th ed.). O'Reilly.（邦訳：オライリー・ジャパン、2016）</li>
+        <li>Wurman, R. S. (1989). <i>Information Anxiety</i>. Doubleday.（邦訳『情報選択の時代』松岡正剛訳、日本実業出版社、1990）</li>
+        <li>Resmini, A. &amp; Rosati, L. (2011). A Brief History of Information Architecture. <i>Journal of Information Architecture</i>, 3(2).</li>
+        <li>Garrett, J. J. (2009). The Memphis Plenary. <a href="https://jjg.net/ia/memphis/" target="_blank" rel="noopener">jjg.net</a></li>
+        <li>The Understanding Group. Explaining Information Architecture. <a href="https://understandinggroup.com/ia-theory/explaining-information-architecture" target="_blank" rel="noopener">understandinggroup.com</a></li>
+        <li>Bowker, G. C. &amp; Star, S. L. (1999). <i>Sorting Things Out: Classification and Its Consequences</i>. MIT Press.</li>
+        <li>Pirolli, P. &amp; Card, S. (1999). Information Foraging. <i>Psychological Review</i>, 106(4).</li>
+        <li>Covert, A. (2014). <i>How to Make Sense of Any Mess</i>.（邦訳『今日からはじめる情報設計』BNN新社、2015）<a href="https://abbycovert.com/make-sense/" target="_blank" rel="noopener">abbycovert.com</a></li>
+        <li>長谷川敦士（2009）『IA100』BNN新社. <a href="https://www.concentinc.jp/news-event/news/2009/10/ia100/" target="_blank" rel="noopener">concentinc.jp</a></li>
+        <li>Edge, D. et al. (2024). From Local to Global: A Graph RAG Approach to Query-Focused Summarization. arXiv:2404.16130.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 00 ── 全体地図：12の入口と10の原理<br>
+    調査・構成 2026年10月22日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const TL = [
+  ["前史", null],
+  ["1931","B","Ranganathan『図書館学の五法則』"],
+  ["1935","A","Neurath のウィーン方式が Isotype に改称"],
+  ["1956","C","Miller「マジカルナンバー7±2」"],
+  ["1960","D","Lynch『都市のイメージ』"],
+  ["1967","A","Bertin『図の記号学』"],
+  ["命名期", null],
+  ["1975","C","Rosch のプロトタイプ理論"],
+  ["1976","A","Wurman、AIA全国大会のテーマを「The Architecture of Information」に"],
+  ["1983","A","Tufte『The Visual Display of Quantitative Information』"],
+  ["1988","C","Norman『The Psychology of Everyday Things』"],
+  ["1989","A","Wurman『Information Anxiety』で整理の五つの方法（のちの LATCH）を提示"],
+  ["1989","C","Bates のベリーピッキング・モデル"],
+  ["1996","A","Wurman『Information Architects』"],
+  ["Webによる制度化", null],
+  ["1998","B","Rosenfeld & Morville『Information Architecture for the World Wide Web』"],
+  ["1999","C","Pirolli & Card「Information Foraging」"],
+  ["1999","E","Bowker & Star『Sorting Things Out』"],
+  ["2002","C","Garrett『The Elements of User Experience』"],
+  ["2005","B","Morville『Ambient Findability』"],
+  ["再定義", null],
+  ["2009","E","Garrett の講演で「IA is dead」論争"],
+  ["2009","D","Klyn、IAを意味・構造・流れで説明"],
+  ["2011","D","Resmini & Rosati『Pervasive Information Architecture』"],
+  ["2014","D","Covert『How to Make Sense of Any Mess』"],
+  ["2015","B","ポーラーベア本 第4版（Arango が共著に）"],
+  ["2018","D","Arango『Living in Information』"],
+  ["AI時代", null],
+  ["2024","E","Microsoft の研究者らが GraphRAG を提案"]
+];
+document.getElementById('timeline').innerHTML = TL.map(r => r[1]===null && r.length===2
+  ? `<li><span class="era">${r[0]}</span></li>`
+  : `<li><span class="y">${r[0]}</span><span class="d c${r[1]}"></span><span>${r[2]}</span></li>`).join('');
+
+const ACTS = [
+  {n:"Act 1", t:"なぜ・何を", q:"何を学んでいるのかを知る", cats:[1]},
+  {n:"Act 2", t:"人間の側", q:"静的な心から、動く行動へ", cats:[2,3,4]},
+  {n:"Act 3", t:"構造の理論", q:"人工的な分類をぶつける", cats:[5]},
+  {n:"Act 4", t:"IAの構成要素", q:"見える層から、見えない層へ", cats:[6,7,8,9]},
+  {n:"Act 5", t:"見せる・作る", q:"理論を手の技法に変える", cats:[10,11]},
+  {n:"Act 6", t:"拡張と再定義", q:"Webの先で、①に戻る", cats:[12]}
+];
+const C = {
+ 1:{t:"情報設計とは何か：定義・系譜・論争", w:"何を学んでいるのかの地図と、この領域の自己認識を得る", u:"../01-definition/",
+   q:"IA、情報デザイン、UX、インタラクションデザインはどう違い、どう重なるのか。Wurman の「理解の建築」とポーラーベア本の「組織化システム」は同じものの別の顔なのか。2009年の「IA is dead」論争は何を問い、何を残したのか。",
+   p:"Richard Saul Wurman、Louis Rosenfeld、Peter Morville、Jesse James Garrett、Dan Klyn、Andrea Resmini、長谷川敦士",
+   b:"Wurman『Information Architects』（1996）／ ポーラーベア本 第4版（2015、邦訳2016）／ Garrett「The Memphis Plenary」（2009）／ Resmini 編『Reframing Information Architecture』（2014）／ 長谷川敦士『IA100』（2009）",
+   k:["making the complex clear","big IA / little IA","UXの5段階","IA is dead","情報設計の日本的受容"],
+   r:"全カテゴリーの入口。⑫で再訪する。", ps:[1,2]},
+ 2:{t:"認知のしくみ I：知覚・注意・記憶・認知負荷", w:"構造がなぜ効くのかを、人間の情報処理の限界から説明できるようになる", cog:true, u:"../02-perception-memory/",
+   q:"人は一度にどれだけの情報を保持し、処理できるのか。まとまりやグルーピングはなぜ理解を助けるのか。近接・類似・閉合といった視覚の性質は、構造の知覚をどう生むのか。",
+   p:"George A. Miller、Nelson Cowan、Alan Baddeley、John Sweller、Max Wertheimer、Anne Treisman、Herbert Simon",
+   b:"Miller「The Magical Number Seven, Plus or Minus Two」（1956）／ Baddeley & Hitch のワーキングメモリ・モデル（1974）／ Sweller の認知負荷理論（1988）／ Cowan「The magical number 4」（2001）／ Treisman & Gelade（1980）／ Ware『Visual Thinking for Design』（2008）",
+   k:["ワーキングメモリ","チャンク化","認知負荷","選択的注意","ゲシュタルト原則","前注意的処理","Hick の法則"],
+   r:"③④⑩の前提。⑦（ナビゲーションの負荷）と⑩（図解の効き目）の理論的な裏付けになる。", ps:[4,2]},
+ 3:{t:"認知のしくみ II：カテゴリー化・概念・メンタルモデル", w:"IAの中心作業である「分ける・名づける」を、人の心の側から理解する", cog:true, u:"../03-categorization/",
+   q:"人はどのようにカテゴリーを作るのか。古典的な定義か、プロトタイプか。なぜ「家具」より「椅子」が自然なのか。ユーザーのメンタルモデルと設計者の概念モデルのずれはどう生まれ、どう埋めるのか。",
+   p:"Eleanor Rosch、Carolyn Mervis、George Lakoff、Ludwig Wittgenstein、Philip Johnson-Laird、Don Norman、Indi Young",
+   b:"Rosch「Cognitive Representations of Semantic Categories」（1975）／ Rosch「Principles of Categorization」（1978）／ Lakoff『Women, Fire, and Dangerous Things』（1987、邦訳『認知意味論』）／ Norman『誰のためのデザイン？』（1988、邦訳1990・増補改訂2015）／ Indi Young『Mental Models』（2008）",
+   k:["プロトタイプ効果","基本レベルカテゴリー","家族的類似","放射状カテゴリー","メンタルモデル","概念モデル","「その他」問題"],
+   r:"⑥（組織化・ラベリング）と⑪（カードソート）を直接支える。⑤の人工的分類と対比して読む。", ps:[3,1]},
+ 4:{t:"人はどう探し、どう意味をつくるか：情報探索とセンスメイキング", w:"ユーザーを「動きながら理解を更新する人」として捉え直す", cog:true, u:"../04-seeking-sensemaking/",
+   q:"情報探索は一回の問いと答えなのか、少しずつの採集なのか。人はどの手がかりで進むか引き返すかを決めるのか。「わからない」という欠けを、人はどう橋渡しするのか。",
+   p:"Jaime Teevan、Marcia J. Bates、Robert Taylor、Nicholas Belkin、Peter Pirolli、Stuart Card、Carol Kuhlthau、Brenda Dervin、Karl Weick、Gary Marchionini",
+   b:"Bates「The Design of Browsing and Berrypicking Techniques…」（1989）／ Taylor「Question-Negotiation and Information Seeking in Libraries」（1968）／ Pirolli & Card「Information Foraging」（1999）／ Russell ほか「The Cost Structure of Sensemaking」（1993）／ Weick『Sensemaking in Organizations』（1995）／ Marchionini「Exploratory Search」（2006）",
+   k:["ベリーピッキング","情報採餌","情報の匂い","ASK","ギャップと橋渡し","センスメイキング","探索的検索"],
+   r:"⑦⑧の行動理論。Covert の言うセンスメイキングと、⑫の会話型UI・AI検索をつなぐ。", ps:[5,6]},
+ 5:{t:"分類と知識組織化：図書館情報学の遺産", w:"IAの道具立ての起源と論理を知り、車輪の再発明を避ける", u:"../05-knowledge-organization/",
+   q:"列挙型の分類とファセット分類はどう違うのか。Ranganathan の PMEST は何を可能にしたのか。統制語彙やシソーラスの関係（同義・上位下位・関連）は、なぜ見つけやすさを高めるのか。",
+   p:"Melvil Dewey、S. R. Ranganathan、Paul Otlet、E. Wyndham Hulme、Elaine Svenonius、Geoffrey Bowker、Susan Leigh Star",
+   b:"Dewey の十進分類法（1876）／ Ranganathan『図書館学の五法則』（1931）／ 同『Colon Classification』（1933）／ Hulme「Principles of Book Classification」（1911）／ ANSI/NISO Z39.19 ／ Bowker & Star『Sorting Things Out』（1999）",
+   k:["列挙型分類","ファセット","PMEST","五法則","統制語彙","シソーラス BT/NT/RT","literary warrant / user warrant"],
+   r:"⑥⑧⑨の直接の祖先。③と対で読むと、人工的分類と心理的分類の緊張が見える。", ps:[9,3,10]},
+ 6:{t:"組織化システムとラベリング：分ける・名づける", w:"実務の核心である「どう束ね、どう呼ぶか」の原理を手にする", u:"../06-organization-labeling/",
+   q:"五十音や時系列のような正確な分け方と、トピックやタスクのような曖昧な分け方は、いつ使い分けるのか。階層・ハイパーテキスト・データベース型の構造はそれぞれ何に強いのか。ラベルはどうすれば「ユーザーの言葉」になるのか。",
+   p:"Richard Saul Wurman、Louis Rosenfeld、Peter Morville、Gerry McGovern、George Furnas",
+   b:"ポーラーベア本 第4版 6章・7章 ／ Wurman『Information Anxiety』（1989）／ Furnas ほか「The Vocabulary Problem in Human-System Communication」（1987）／ McGovern のトップタスク",
+   k:["LATCH","組織化スキーム","組織化構造","ポリヒエラルキー","トップタスク","ラベルの一貫性","語彙の不一致"],
+   r:"③の応用であり、⑤の実務版。⑪のカードソートで確かめる。", ps:[2,3,5,9]},
+ 7:{t:"ナビゲーション・ウェイファインディング・場所の感覚", w:"情報空間を「場所」として設計し、迷いをなくす", u:"../07-navigation-wayfinding/",
+   q:"人はなぜ「今どこにいるか」を知る必要があるのか。パス・エッジ・ディストリクト・ノード・ランドマークという都市の読みやすさは、デジタルに移せるのか。グローバル、ローカル、文脈、補助のナビゲーションはどう役割を分けるのか。",
+   p:"Kevin Lynch、Romedi Passini、Steve Krug、Paul Dourish、Andrea Resmini、Luca Rosati、Jorge Arango",
+   b:"Lynch『都市のイメージ』（1960）／ Passini『Wayfinding in Architecture』（1984）／ ポーラーベア本 第4版 8章 ／ Krug『Don't Make Me Think』のトランクテスト ／ Harrison & Dourish「Re-Place-ing Space」（1996）／ Arango『Living in Information』（2018）",
+   k:["ウェイファインディング","レジビリティ","認知地図","パンくず","トランクテスト","隠れたナビゲーション","プレイスメイキング"],
+   r:"②（認知負荷）と④（情報の匂い）が理論の支え。⑫の Pervasive IA へ直結する。", ps:[8,5,4]},
+ 8:{t:"検索システムとファインダビリティ", w:"見つけられないものは存在しない、という現実に向き合う", u:"../08-search-findability/",
+   q:"検索と閲覧は、どんな条件で使い分けられるのか。ファセット検索はなぜ強いのか。スニペットや並び順、絞り込みといった結果の見せ方は、ユーザーの理解をどう変えるのか。",
+   p:"David Blair、M. E. Maron、Peter Morville、Cyril Cleverdon、Marti Hearst、Ben Shneiderman、Louis Rosenfeld",
+   b:"Blair & Maron（1985）／ Morville『アンビエント・ファインダビリティ』（2005）／ Hearst『Search User Interfaces』（2009）／ Shneiderman の情報探索マントラ（1996）／ Rosenfeld『Search Analytics for Your Site』（2011）",
+   k:["ファインダビリティ","再現率と適合率","ファセット検索","ゼロ件結果","ベストベット","検索ログ"],
+   r:"④の応用。⑤⑨のメタデータが前提。⑫のAI検索・RAGの直前に置く。", ps:[7,5,6,9]},
+ 9:{t:"メタデータ・タクソノミー・オントロジー・ナレッジグラフ", w:"構造を画面から切り離し、機械とも共有できる意味の層として設計する", u:"../09-metadata-knowledge-graph/",
+   q:"タクソノミー、シソーラス、オントロジー、ナレッジグラフは何が違うのか。言葉の管理は、どの段階まで作り込めばいいのか。構造を画面から切り離して持つと、何ができるようになるのか。",
+   p:"David Weinberger、Heather Hedden、Thomas Gruber、Thomas Vander Wal、Tim Berners-Lee、Dan Klyn",
+   b:"Weinberger『Everything Is Miscellaneous』（2007）／ Gruber「A Translation Approach to Portable Ontology Specifications」（1993）／ Hedden『The Accidental Taxonomist』（2010）／ Berners-Lee ほか「The Semantic Web」（2001）／ W3C SKOS（2009）／ Atherton & Hane『Designing Connected Content』（2017）",
+   k:["メタデータ","タクソノミー","オントロジー","フォークソノミー","SKOS","ナレッジグラフ","ドメインモデル"],
+   r:"⑤の現代版で、⑥⑧を下支えする。⑫のAI時代のIAに最も深く関わる。", ps:[1,7,9]},
+ 10:{t:"情報デザインと図解：構造を見せる", w:"構造を見える形に翻訳する技法と思想を学ぶ", u:"../10-information-design/",
+   q:"図はなぜ文章より理解を速めることがあるのか。位置・大きさ・色・形といった視覚変数は、どう情報を運ぶのか。Tufte のデータ・インクと、絵を取り入れたグラフは、どちらが正しいのか。",
+   p:"Harry Beck、Otto Neurath、Marie Neurath、Gerd Arntz、Jacques Bertin、William Cleveland、Edward Tufte、Barbara Tversky、杉浦康平",
+   b:"M. Neurath & Kinross『The Transformer』（2009）／ Larkin & Simon「Why a Diagram is (Sometimes) Worth Ten Thousand Words」（1987）／ Bertin『図の記号学』（1967）／ Cleveland & McGill「Graphical Perception」（1984）／ Tufte『The Visual Display of Quantitative Information』（1983）／ 杉浦康平ほか『時間のヒダ、空間のシワ』（2014）",
+   k:["Isotype","トランスフォーマー","視覚変数","知覚の精度","データ・インク比","チャートジャンク","時間地図"],
+   r:"②の知覚を前提にする。⑪の成果物としての図とも連続する。図解の実務者は②の直後に読んでもよい。", ps:[2,4]},
+ 11:{t:"リサーチ・評価・成果物：IAの実践プロセス", w:"理論を「調べる・作る・確かめる・伝える」のプロセスに落とす", u:"../11-research-deliverables/",
+   q:"コンテンツ・文脈・ユーザーの三つをどう調べるのか。オープン／クローズドのカードソートとツリーテストは、何を確かめられて、何を確かめられないのか。サイトマップやワイヤーフレームは、誰に何を伝えるためのものか。",
+   p:"Donna Spencer、Kristina Halvorson、Tom Tullis、Jesse James Garrett、Abby Covert",
+   b:"Spencer『Card Sorting』（2009）／ Tullis & Wood（2004）／ Halvorson『Content Strategy for the Web』（2009）／ Garrett「Visual Vocabulary」（2000）／ Covert『今日からはじめる情報設計』（2015）／ ポーラーベア本（三つの円）",
+   k:["コンテンツ監査","カードソート","ツリーテスト","ファーストクリック","サイトマップ","ワイヤーフレーム","合意の図"],
+   r:"③④の理論と⑥〜⑨の構成要素を実務でまとめる場。⑩の図解技法が成果物の質を左右する。", ps:[3,2]},
+ 12:{t:"拡張する情報空間：クロスチャネル・コンテンツ・AI・倫理", w:"IAが「Webの先」で何を問われているかを知り、自分の立ち位置を決める", u:"../12-expanding-space/",
+   q:"物理とデジタルにまたがる体験の一貫性をどう設計するのか。コンテンツ戦略とIAはどう分業するのか。LLMやRAG、会話型UIの時代に、タクソノミーやオントロジーは要らなくなるのか、むしろ重要になるのか。分類が誰かを見えなくするとき、設計者はどう責任を負うのか。",
+   p:"Andrea Resmini、Luca Rosati、Daniel Jacobson、Erika Hall、Patrick Lewis、Darren Edge、Safiya Umoja Noble、Harry Brignull",
+   b:"Resmini & Rosati『Pervasive Information Architecture』（2011）／ Hall『Conversational Design』（2018）／ Lewis ほか「Retrieval-Augmented Generation…」（2020）／ Edge ほか「From Local to Global: A Graph RAG Approach…」（2024）／ Noble『Algorithms of Oppression』（2018）／ Pew Research Center（2025）",
+   k:["AI の要約","クロスチャネル","プレイスメイキング","構造化コンテンツ","会話の設計","GraphRAG","分類の政治性","ダークパターン"],
+   r:"全カテゴリーの応用。最後に①へ戻り、「IAとは何か」を問い直す。", ps:[10,8,1,6,7,9]}
+};
+const num = n => "①②③④⑤⑥⑦⑧⑨⑩⑪⑫"[n-1];
+document.getElementById('acts').innerHTML = ACTS.map(a => `
+  <div class="act">
+    <div class="act-h"><span class="an">${a.n}</span><span class="at">${a.t}</span><span class="aq">${a.q}</span></div>
+    ${a.cats.map(i => { const c = C[i]; return `
+    <details class="cat"${c.next?' open':''}>
+      <summary><span class="cn">${String(i).padStart(2,'0')}</span>
+        <span class="ctit">${c.t}${c.cog?'<span class="tag">Cognition</span>':''}${c.next?'<span class="tag next">Next</span>':''}<span class="cwhy">${c.w}</span></span>
+        <span class="tog">+</span></summary>
+      <div class="cbody">
+        <p class="q">${c.q}</p>
+        <dl>
+          <dt>People</dt><dd>${c.p}</dd>
+          <dt>Readings</dt><dd>${c.b}</dd>
+          <dt>Keywords</dt><dd class="kw">${c.k.map(x=>`<span>${x}</span>`).join('')}</dd>
+          <dt>Relations</dt><dd>${c.r}</dd>
+          <dt>Principles</dt><dd class="ps">${c.ps.map(x=>`<span>P${x}</span>`).join('')}</dd>
+        </dl>
+        ${c.u?`<a class="pc-link" href="${c.u}">この回を読む</a>`:''}
+      </div>
+    </details>`;}).join('')}
+  </div>`).join('');
+
+/* matrix */
+const short = {1:"定義・系譜",2:"知覚・記憶",3:"カテゴリー化",4:"探索・意味形成",5:"分類と知識組織化",6:"組織化・ラベル",7:"ナビ・場所",8:"検索",9:"メタデータ",10:"情報デザイン・図解",11:"リサーチ・成果物",12:"拡張・AI・倫理"};
+let h = '<tr><th class="rl"></th>' + [...Array(10)].map((_,i)=>`<th>P${i+1}</th>`).join('') + '</tr>';
+for (let i=1;i<=12;i++){
+  const c = C[i];
+  h += `<tr class="${c.cog?'cog':''}"><th class="rl">${num(i)} ${short[i]}</th>` +
+    [...Array(10)].map((_,j)=>`<td>${c.ps.includes(j+1)?'<i></i>':''}</td>`).join('') + '</tr>';
+}
+document.getElementById('matrix').innerHTML = h;
+
+/* active nav */
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+</script>
+</body>
+</html>

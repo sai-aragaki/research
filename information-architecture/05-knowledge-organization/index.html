@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>分類表を、組み立ておもちゃに変えた人がいた｜情報設計シリーズ 05</title>
+<meta name="description" content="図書館情報学が積み上げてきた分類と知識組織化の道具を、情報設計の側から読み直す。Dewey、Ranganathan、シソーラス、文献的根拠、分類の政治性。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+/* --- article 01 extras --- */
+.planes{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.plane{display:grid;grid-template-columns:96px 1fr;align-items:stretch;border:1px solid var(--line)}
+.plane .pn{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px;border-right:1px solid var(--line);display:flex;align-items:center}
+.plane .pc{display:grid;grid-template-columns:1fr 1fr}
+.plane .pc div{padding:10px 12px;font-size:13px;line-height:1.6}
+.plane .pc div + div{border-left:1px dashed var(--line-strong)}
+.plane .pc .full{grid-column:1/-1}
+.plane.hl{border-color:var(--ink)}
+.plane.hl .pn{color:var(--ink);font-weight:600}
+.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
+.pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-cols span{padding-left:12px}
+
+.tmodel svg{width:100%;height:auto;display:block}
+.tmodel text{font-family:var(--jp)}
+
+.deftl{list-style:none;padding:0;margin:8px 0 0}
+.deftl li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.deftl li:last-child{border-bottom:none}
+.deftl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:14px}
+.deftl .who{display:block;font-size:12px;color:var(--muted)}
+.deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
+.deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
+.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
+.quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
+.quad .qn{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quad .qt{font-weight:700;color:var(--ink);font-size:15px;margin:2px 0 4px}
+.quad p{font-size:13px;margin:0;line-height:1.7}
+.quad .hot{border-color:var(--ink)}
+
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 8px}
+.gear{background:var(--white);border:1px solid var(--line);padding:16px;text-align:left;position:relative}
+.gear::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.gear.o::before{background:var(--coral)}.gear.t::before{background:var(--teal)}.gear.c::before{background:var(--deep-teal)}
+.gear .ge{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gear .gj{font-weight:700;color:var(--ink);font-size:17px;margin:2px 0 6px}
+.gear p{font-size:13px;line-height:1.7;margin:0}
+.gear .ex{display:block;font-size:12px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line-strong);padding-top:8px}
+
+@media (max-width:680px){
+  .plane{grid-template-columns:70px 1fr}
+  .plane .pn{font-size:9.5px;padding:10px 8px}
+  .pl-cols{grid-template-columns:70px 1fr 1fr}
+  .quad,.gears{grid-template-columns:1fr}
+  .deftl li{grid-template-columns:48px 1fr}
+}
+
+/* --- article 02 extras --- */
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
+.hb .hl{color:var(--ink);line-height:1.4}
+.hb .track{height:14px;background:var(--tint);position:relative}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb.avg .fill{background:var(--ink)}
+.hb.avg .hl{font-weight:700}
+.hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
+.hb .hv small{color:var(--muted);font-size:11px;margin-left:4px}
+
+.gdemo,.sdemo{display:grid;gap:14px}
+.gdemo{grid-template-columns:repeat(3,1fr)}
+.sdemo{grid-template-columns:1fr 1fr}
+.gdemo figure,.sdemo figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.gdemo svg,.sdemo svg{display:block;width:100%;height:auto}
+.gdemo figcaption,.sdemo figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.gdemo figcaption b,.sdemo figcaption b{display:block;color:var(--ink);font-size:13px}
+.chart-card .mini{margin:12px 0 0}
+.chart-card button.pc-link{background:none;font-family:var(--jp);cursor:pointer}
+
+.loadfig{display:flex;flex-direction:column;gap:12px}
+.lrow{display:grid;grid-template-columns:168px 1fr;align-items:center;gap:12px}
+.lk{font-size:12.5px;color:var(--ink);line-height:1.5}
+.lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
+.lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.lbar .in{background:rgba(79,124,135,.55);color:#fff}
+.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .fr{color:var(--muted)}
+
+@media (max-width:680px){
+  .hb{grid-template-columns:96px 1fr;row-gap:2px}
+  .hb .hv{grid-column:2}
+  .gdemo{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .gdemo figcaption{font-size:11px;padding:6px 8px}
+  .sdemo{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr;gap:4px}
+  .lbar i{font-size:10.5px;padding:0 5px}
+}
+
+/* --- article 03 extras --- */
+.catfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.catfig figure,.mfig{margin:0}
+.catfig figure{border:1px solid var(--line);background:var(--paper)}
+.catfig svg,.mfig svg{display:block;width:100%;height:auto}
+.catfig svg text,.mfig svg text{font-family:var(--jp)}
+.catfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.catfig figcaption b{display:block;color:var(--ink);font-size:13px}
+
+.lv{display:flex;flex-direction:column;gap:6px}
+.lvr{display:grid;grid-template-columns:56px 132px 1fr;align-items:center;gap:12px;border:1px solid var(--line);padding:12px 14px;background:var(--white)}
+.lvr .lvn{font-size:11.5px;color:var(--muted)}
+.lvr b{font-size:16px}
+.lvr .lvd{font-size:13px;line-height:1.7}
+.lvr.hl{border-color:var(--ink);background:rgba(98,184,160,.12)}
+.lvr.hl .lvn{color:var(--ink);font-weight:700}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.two > div{padding:18px 16px}
+.two > div + div{border-left:1px solid var(--line)}
+.two .k{font-weight:700;color:var(--ink);font-size:15px}
+.two .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.two p{font-size:13px;line-height:1.8;margin:0}
+
+@media (max-width:680px){
+  .catfig{grid-template-columns:1fr}
+  .lvr{grid-template-columns:44px 1fr;row-gap:2px}
+  .lvr .lvd{grid-column:2}
+  .two{grid-template-columns:1fr}
+  .two > div + div{border-left:none;border-top:1px solid var(--line)}
+  .mfig{overflow-x:auto}
+  .mfig svg{min-width:520px}
+}
+
+/* --- article 04 extras --- */
+.bfig svg,.ispfig svg{display:block;width:100%;height:auto}
+.bfig svg text,.ispfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .bfig,.ispfig{overflow-x:auto}
+  .bfig svg,.ispfig svg{min-width:540px}
+}
+
+/* --- article 05 extras --- */
+.ffig svg{display:block;width:100%;height:auto}
+.ffig svg text{font-family:var(--jp)}
+.thfig{display:flex;flex-direction:column;gap:6px}
+.thc{align-self:flex-start;font-weight:700;color:var(--ink);font-size:16px;border:1px solid var(--ink);padding:6px 16px;margin-bottom:6px}
+.thr{display:grid;grid-template-columns:48px 76px 1fr 190px;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:10px 12px;font-size:13px;line-height:1.6}
+.thr .thk{font-weight:700;color:var(--ink)}
+.thr .thl{font-family:var(--en);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.thr .thw{font-size:12px;color:var(--muted);border-left:1px dashed var(--line-strong);padding-left:12px}
+.thr.eq{border-left:3px solid var(--yellow)}.thr.hi{border-left:3px solid var(--teal)}.thr.as{border-left:3px solid var(--coral)}
+@media (max-width:680px){
+  .ffig{overflow-x:auto}
+  .ffig svg{min-width:560px}
+  .thr{grid-template-columns:40px 1fr;row-gap:2px}
+  .thr .thl{grid-column:2;grid-row:1}
+  .thr .thv,.thr .thw{grid-column:1/-1}
+  .thr .thw{border-left:none;padding-left:0}
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>05 Organization</span>
+    <div class="nav-links">
+      <a href="#shelf">Shelf</a>
+      <a href="#enumerate">Enumerate</a>
+      <a href="#meccano">Meccano</a>
+      <a href="#facet">Facet</a>
+      <a href="#laws">Laws</a>
+      <a href="#thesaurus">Thesaurus</a>
+      <a href="#warrant">Warrant</a>
+      <a href="#politics">Politics</a>
+      <a href="#carry">Carry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究 ── 情報設計シリーズ 05</span>
+    <h1 class="title" style="font-size:clamp(28px,6vw,40px)">分類表を、<br>組み立ておもちゃに<br>変えた人がいた。</h1>
+    <p class="lede">1924年、ロンドン。インドから留学していた図書館員 S. R. Ranganathan は、百貨店でおもちゃの実演販売に足を止めた。メカノという、金属の板とボルトとナットの組み立てセットだ。販売員は同じ部品の箱から、クレーンを作り、車を作り、また別のものを作ってみせた。Ranganathan はそこで、分類のやり方を思いついたと伝えられている。世の中のあらゆる主題をあらかじめ一覧に並べておくのではなく、少数の部品を組み合わせて、その都度主題を組み立てればいい。こうして生まれたファセット分類は、70年後、ECサイトの左側に並ぶ絞り込みとして、私たちの毎日の買い物の中に入ってきた。②〜④で人の頭の側を見てきたこのシリーズは、ここから構造の側に回る。最初に訪ねるのは、Web よりずっと前から「どう分ければ見つかるか」に取り組んできた図書館だ。</p>
+    <div class="src-tag">
+      主な出典：<b>Ranganathan『The Five Laws of Library Science』（1931）、同『Colon Classification』（1933）</b><br>
+      Dewey（1876）、Hulme（1911）、ANSI/NISO Z39.19、Hearst ほか（2002）、Bowker &amp; Star（1999）ほか ／ 調査日 2026年10月22日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">1876</div><div class="l">デューイが、本の置き場所を棚の番号から主題に移した年</div></div>
+      <div class="stat"><div class="n">1924</div><div class="l">Ranganathan がメカノの実演を見て、ファセットを思いついた年</div></div>
+      <div class="stat"><div class="n">88<small>/100</small></div><div class="l">デューイの「宗教」の番号のうち、キリスト教に割り当てられた数</div></div>
+      <div class="stat"><div class="n">5<small>年半</small></div><div class="l">米議会図書館が一つの件名を変えると発表してから、実際に変わるまでの年月</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="shelf">
+  <div class="wrap">
+    <span class="sec-no">01 ── Shelf</span>
+    <h2>本の住所が、棚の番号から主題に移った</h2>
+    <p class="sec-sub">Melvil Dewey and relative location</p>
+
+    <p>前回、Marcia Bates が挙げた探し方の一つに「書架で目当ての本の両隣を眺める」があった。私たちには当たり前のこの行動は、実はそれほど古くからできたわけではない。</p>
+    <p>19世紀の多くの図書館では、本は置かれた場所で番号を付けられていた。何番の書架の何段目の何冊目。受け入れた順や、本の大きさで並べる館もあった。この「固定配架」では、同じ主題の本でも、買った時期が違えば別々の棚に散らばる。新しい本は空いた場所に入れるしかない。</p>
+    <p>1876年、アマースト大学の図書館で働いていた Melvil Dewey は、44ページの小冊子で別のやり方を示した。知識を10の大きな類に分け、それを10ずつ細かく分けていく十進の番号を主題に与える。本はその番号の順に並べる。番号が表しているのは棚の位置ではなく主題なので、新しい本が来ても、主題の合う位置に差し込める。棚全体が少しずつずれていくだけだ。これが「相対配架」で、主題の言葉から番号を引ける「相対索引」と組み合わせて使われた。</p>
+    <p><mark>同じ主題のものが隣り合うから、隣を眺めることに意味が生まれる。</mark>Bates のブラウジングも、Web のカテゴリーページも、Dewey が本の住所を主題に移したところから始まっている。</p>
+    <div class="note"><p><span class="h">日本十進分類法（NDC）</span></p><p>日本の図書館の多くが使う NDC は、1929年に森清が個人の仕事として刊行したのが始まりで、のちに日本図書館協会が改訂を引き継いだ。十進の記号法はデューイにならっているが、類の並び順は、同時代の Charles Cutter の展開分類法に着想を得ているとされる。</p></div>
+  </div>
+</section>
+
+<section id="enumerate">
+  <div class="wrap">
+    <span class="sec-no">02 ── Enumerate</span>
+    <h2>あらゆる主題を、先に並べておくという発想</h2>
+    <p class="sec-sub">Enumerative classification and its limits</p>
+
+    <p>デューイの分類は「列挙型」と呼ばれる。考えられる主題を、上から下へ枝分かれする一本の表として、あらかじめ全部書き出しておくやり方だ。分類する人は、表の中から本に合う番号を探して付ける。</p>
+    <p>主題が単純なうちは、これで困らない。困るのは主題が組み合わさったときだ。「19世紀の日本の農村における女性の労働」という本は、歴史の下に置くのか、日本の下か、農業か、女性か、労働か。表のどこかに、この組み合わせにちょうど合う番号が用意されていなければ、分類者はいちばん近そうな枝を選び、残りの要素は番号から落ちる。</p>
+    <p>Ranganathan はここを突いた。列挙型の分類は、本の主題と同じ広さの番号（彼の言葉で言えば「同延の」番号）を、複合的な主題にはほとんど与えられない。デューイの表は、主題が一本の線で並ぶ19世紀の文献には合っていたが、学問が分かれて交わる20世紀の文献には合わなくなっている、と彼は考えた。</p>
+    <p>サイトのカテゴリー階層は、ほとんどが列挙型だ。そして同じ問題を抱えている。「在宅ワーク向けの、小さな部屋に置ける折りたたみデスク」は、「デスク」の下か、「在宅ワーク」特集か、「省スペース家具」か。どこか一か所に置けば、ほかの入り口から来た人には見つからない。</p>
+  </div>
+</section>
+
+<section id="meccano">
+  <div class="wrap">
+    <span class="sec-no">03 ── Meccano</span>
+    <h2>分類を、部品の組み合わせにする</h2>
+    <p class="sec-sub">Ranganathan's Colon Classification and PMEST</p>
+
+    <p>メカノの実演を見てから9年後の1933年、Ranganathan はマドラス図書館協会から『コロン分類法』を出した。名前は、主題の部品どうしをコロン（:）でつなぐ記号法から来ている。</p>
+    <p>やり方はこうだ。まず主題を、性質の違ういくつかの面（ファセット）に分解する。それぞれの面について、短い部品の表を用意しておく。本に番号を付けるときは、各面から部品を一つずつ選び、決まった順序でつなぐ。部品の表は小さくても、組み合わせの数は掛け算で増える。あらかじめ書き出しておく必要がない。</p>
+
+    <div class="chart-card">
+      <div class="ct">列挙型の木と、ファセットの組み合わせ</div>
+      <div class="cs">概念図。筆者作図</div>
+      <div class="ffig">
+        <svg viewBox="0 0 640 250" role="img" aria-label="左は一本の木構造で、複合主題はどれか一つの枝にしか置けない。右は四つの面から部品を一つずつ選んで組み合わせる">
+          <text x="150" y="22" font-size="13" font-weight="700" fill="#111" text-anchor="middle">列挙型：一本の木</text>
+          <g stroke="#CCCCCC" fill="none">
+            <path d="M150 44 L70 100 M150 44 L150 100 M150 44 L230 100"/>
+            <path d="M70 118 L40 170 M70 118 L100 170 M150 118 L130 170 M150 118 L170 170 M230 118 L210 170 M230 118 L250 170"/>
+          </g>
+          <g font-size="11.5" fill="#333" text-anchor="middle">
+            <rect x="110" y="30" width="80" height="20" fill="#FFF" stroke="#CCCCCC"/><text x="150" y="44">家具</text>
+            <text x="70" y="114">デスク</text><text x="150" y="114">収納</text><text x="230" y="114">椅子</text>
+            <text x="40" y="186">木製</text><text x="100" y="186">昇降</text><text x="130" y="186">棚</text><text x="170" y="186">箱</text><text x="210" y="186">事務</text><text x="250" y="186">座椅子</text>
+          </g>
+          <rect x="28" y="206" width="244" height="30" fill="rgba(235,101,132,.12)" stroke="none"/>
+          <text x="150" y="226" font-size="11.5" fill="#111" text-anchor="middle">「在宅用の小さな折りたたみデスク」はどこへ？</text>
+          <line x1="312" y1="10" x2="312" y2="240" stroke="#EEEEEE"/>
+          <text x="476" y="22" font-size="13" font-weight="700" fill="#111" text-anchor="middle">ファセット：部品を組み合わせる</text>
+          <g font-size="11" fill="#808080"><text x="336" y="54">種類</text><text x="336" y="98">機能</text><text x="336" y="142">用途</text><text x="336" y="186">サイズ</text></g>
+          <g font-size="11.5" text-anchor="middle">
+            <rect x="380" y="40" width="60" height="22" fill="rgba(98,184,160,.35)" stroke="#62B8A0"/><text x="410" y="56" fill="#111">デスク</text>
+            <rect x="448" y="40" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="474" y="56" fill="#808080">椅子</text>
+            <rect x="508" y="40" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="534" y="56" fill="#808080">収納</text>
+            <rect x="380" y="84" width="76" height="22" fill="rgba(98,184,160,.35)" stroke="#62B8A0"/><text x="418" y="100" fill="#111">折りたたみ</text>
+            <rect x="464" y="84" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="490" y="100" fill="#808080">昇降</text>
+            <rect x="524" y="84" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="550" y="100" fill="#808080">固定</text>
+            <rect x="380" y="128" width="60" height="22" fill="rgba(98,184,160,.35)" stroke="#62B8A0"/><text x="410" y="144" fill="#111">在宅</text>
+            <rect x="448" y="128" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="474" y="144" fill="#808080">事務所</text>
+            <rect x="508" y="128" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="534" y="144" fill="#808080">子ども</text>
+            <rect x="380" y="172" width="60" height="22" fill="rgba(98,184,160,.35)" stroke="#62B8A0"/><text x="410" y="188" fill="#111">小</text>
+            <rect x="448" y="172" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="474" y="188" fill="#808080">中</text>
+            <rect x="508" y="172" width="52" height="22" fill="#FFF" stroke="#CCCCCC"/><text x="534" y="188" fill="#808080">大</text>
+          </g>
+          <text x="476" y="226" font-size="11.5" fill="#111" text-anchor="middle">デスク ＋ 折りたたみ ＋ 在宅 ＋ 小</text>
+        </svg>
+      </div>
+    </div>
+
+    <p>同じころ、ベルギーの Paul Otlet も、デューイの番号をもとにした国際十進分類法（UDC、1904〜07年）で、番号どうしを「+」や「:」でつなぎ、主題の組み合わせを表せるようにしていた。複合主題の問題には、図書館の世界のあちこちで手が打たれはじめていたわけだ。その中で、組み合わせそのものを分類の原理に据えたのが Ranganathan だった。</p>
+
+    <h3>五つの基本カテゴリー</h3>
+    <p>Ranganathan はのちに、どんな主題も五つの基本的な面で分解できると主張した。頭文字を取って PMEST と呼ばれる。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>面</th><th>何を表すか</th><th>図書館での例</th><th>Web での例</th></tr></thead>
+      <tbody>
+        <tr><td>P 個性</td><td>その主題の中心となる「もの」</td><td>肺、米、子ども</td><td>デスク、スニーカー</td></tr>
+        <tr><td>M 素材</td><td>材料や性質</td><td>木材、鉄</td><td>素材、色</td></tr>
+        <tr><td>E 活動</td><td>はたらき、作用、過程</td><td>治療、栽培、教育</td><td>用途、機能</td></tr>
+        <tr><td>S 空間</td><td>場所</td><td>インド、農村</td><td>地域、店舗</td></tr>
+        <tr><td>T 時間</td><td>時代、時期</td><td>1950年代</td><td>発売年、季節</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>この五つが本当に宇宙のあらゆる知識の基本カテゴリーなのかについては、当時から議論があった。PMEST という名前自体も、コロン分類法の版を重ねる中でついたものだ。ただ、主題を一本の木の枝に押し込むのをやめ、性質の違う面に分けて組み合わせる、という発想そのものは、その後の分類の考え方を根本から変えた。</p>
+  </div>
+</section>
+
+<section id="facet">
+  <div class="wrap">
+    <span class="sec-no">04 ── Facet</span>
+    <h2>ファセットは、ECサイトの左側にいる</h2>
+    <p class="sec-sub">From library classification to faceted navigation</p>
+
+    <p>図書館の書架では、一冊の本は一か所にしか置けない。だからコロン分類法でも、部品をつなぐ順序を決め、その順序で並べる必要があった。ファセットの力が本当に解き放たれたのは、本が棚から離れ、データになってからだ。</p>
+    <p>2002年、カリフォルニア大学バークレー校の Marti Hearst らは「Flamenco」というプロジェクトの成果を発表した。美術や建築の画像のような大きなコレクションに、複数の階層をもつファセット（年代、地域、素材、主題…）のメタデータを付け、画面にそれを並べて、利用者が好きな順序で絞り込んだり戻したりできるようにした。目標として掲げたのは、大きな情報空間の中を、迷った感覚なしに自由に動けることだった。</p>
+    <p>今のECサイトの、左側（スマホなら「絞り込み」ボタンの奥）に並ぶブランド、価格帯、サイズ、色の選択肢は、この系譜にある。どの面から入ってもいい。価格から入る人も、色から入る人も、同じ商品にたどり着ける。③の目的由来のカテゴリーや、④の「問いは探すうちに変わる」を思い出すと、ファセットがなぜ効くのかが分かる。ユーザーごと、その時々ごとに、まず気になる面が違うからだ。</p>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>構造は、一つでなくていい</h4>
+      <p>列挙型の階層は、作り手が決めた一つの順序で世界を並べる。ファセットは、順序をユーザーに渡す。どの面が先かを作り手が決めなくてよくなったことが、ファセットの最大の発明だ。</p>
+    </div>
+    <p>もちろん、代わりに要るものもある。ファセットは、すべての品物に、すべての面の値がきちんと付いていて初めて働く。値が抜けている品物は、絞り込むと消える。値の表記が揺れていれば（「ネイビー」「紺」「NAVY」）、同じ色が三つの選択肢に割れる。ファセットの使い勝手は画面より手前、メタデータの質で決まっていて、この話は⑨で戻ってくる。</p>
+  </div>
+</section>
+
+<section id="laws">
+  <div class="wrap">
+    <span class="sec-no">05 ── Laws</span>
+    <h2>「読者の時間を節約せよ」</h2>
+    <p class="sec-sub">The five laws of library science as design principles</p>
+
+    <p>Ranganathan のもう一つの仕事は、図書館という営みの目的を、五つの短い文にまとめたことだ。1931年の『図書館学の五法則』（邦訳は日本図書館協会、1981）。</p>
+    <p>かつての図書館では、本が鎖で書架につながれていることも珍しくなかった。本は盗まれないように守るもので、図書館はそれを保存する場所だった。五法則は、この考え方をひっくり返すところから始まる。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>法則</th><th>情報設計の言葉に置き換えると</th></tr></thead>
+      <tbody>
+        <tr><td>本は利用するためのものである</td><td>コンテンツは、置いてあるだけでは価値を生まない。見つけられ、使われて初めて意味を持つ</td></tr>
+        <tr><td>いずれの読者にもすべて、その人の本を</td><td>どのユーザーにも、その人に合う情報への道がある。一つの入り口だけでは足りない</td></tr>
+        <tr><td>いずれの本にもすべて、その読者を</td><td>どのコンテンツにも、それを必要とする人がいる。埋もれさせない（関連、推薦、検索）</td></tr>
+        <tr><td>読者の時間を節約せよ</td><td>探す手間、迷う時間、戻る回数を減らす。④の採餌理論の「手間あたりの収穫」と同じ方向を向いている</td></tr>
+        <tr><td>図書館は成長する有機体である</td><td>情報空間は完成しない。増え続けることを前提に構造を作る</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>90年以上前の文が、ほとんど言い換えなしに今の情報設計の原則として読める。とくに四つめと五つめは、Web の実務でいまも毎日ぶつかる問題だ。サイトの構造はたいてい、リニューアルの時点のコンテンツ量に合わせて作られ、3年後には「その他」が膨れ上がる。成長する有機体として最初から設計されていないからだ。デューイの相対配架が「新しい本を主題の位置に差し込める」ことを売りにしていたのも、同じ問題への答えだった。</p>
+  </div>
+</section>
+
+<section id="thesaurus">
+  <div class="wrap">
+    <span class="sec-no">06 ── Thesaurus</span>
+    <h2>同じものに、名前はいくつもある</h2>
+    <p class="sec-sub">Controlled vocabularies and thesaurus relationships</p>
+
+    <p>分類が「どこに置くか」の技術だとすれば、図書館がもう一つ磨いてきたのが「何と呼ぶか」の技術だ。同じ主題を、人によって違う言葉で探す。自転車、チャリ、バイク、サイクル。一つの言葉が、別のものを指す。「バイク」はオートバイのこともある。</p>
+    <p>そこで図書館は、主題を表す言葉を一つに決め（優先語）、ほかの言い方をそこへ案内する「統制語彙」を作ってきた。言葉どうしの関係まで記述したものがシソーラスで、米国の規格 ANSI/NISO Z39.19 では、関係は大きく三種類に整理されている。</p>
+    <div class="chart-card">
+      <div class="ct">シソーラスの三つの関係</div>
+      <div class="cs">ANSI/NISO Z39.19 の関係の種類をもとに、筆者が例を作成</div>
+      <div class="thfig">
+        <div class="thc">自転車</div>
+        <div class="thr eq"><span class="thk">等価</span><span class="thl">USE / UF</span><span class="thv">チャリ、サイクル、バイシクル → 自転車を使う</span><span class="thw">検索の同義語、表記ゆれの吸収</span></div>
+        <div class="thr hi"><span class="thk">階層</span><span class="thl">BT / NT</span><span class="thv">上位：車両　下位：ロードバイク、電動アシスト自転車</span><span class="thw">カテゴリーの親子、パンくずリスト</span></div>
+        <div class="thr as"><span class="thk">連想</span><span class="thl">RT</span><span class="thv">サイクリング、ヘルメット、駐輪場</span><span class="thw">関連リンク、「あわせて見る」</span></div>
+      </div>
+    </div>
+    <p>等価の関係（USE/UF）は、言い方の違いを一つに束ねる。階層の関係（BT/NT）は、広い言葉と狭い言葉をつなぐ。連想の関係（RT）は、上下ではないが一緒に知りたくなりそうな言葉をつなぐ。</p>
+    <p>情報設計の画面要素の多くは、この三つのどれかの実装になっている。サイト内検索が「チャリ」で自転車を返すのは等価関係、パンくずリストは階層関係、記事の下の関連リンクは連想関係だ。③の基本レベルの話とつなげると、優先語をどの言葉にするかは、作り手の専門用語ではなく、ユーザーが最初に口にする言葉から選ぶのがいい、ということになる。</p>
+    <div class="note"><p><span class="h">シソーラスは、⑨で現代の姿に</span></p><p>統制語彙とシソーラスは、のちにタクソノミー、オントロジー、ナレッジグラフへと発展していく。その現代の実装は⑨で扱う。</p></div>
+  </div>
+</section>
+
+<section id="warrant">
+  <div class="wrap">
+    <span class="sec-no">07 ── Warrant</span>
+    <h2>分類の根拠を、どこに置くか</h2>
+    <p class="sec-sub">Literary warrant and user warrant</p>
+
+    <p>分類の項目は、何を根拠に立てればいいのか。19世紀の分類表の多くは、哲学者の知識の体系を手本にしていた。フランシス・ベーコンの学問の分類（記憶・理性・想像）を下敷きにした分類表もあった。世界はこういう順序でできているはずだから、本もその順に並べよう、という考え方だ。</p>
+    <p>1911年、英国の図書館員 E. Wyndham Hulme はこれに異を唱えた。分類の項目は、哲学の体系からではなく、実際に存在する文献の調査と測定から立てるべきだ。ある主題の本がまとまって存在して初めて、その項目を立てる根拠ができる。これを「文献的根拠（literary warrant）」と呼ぶ。</p>
+    <p>この考え方はのちに枝分かれし、利用者が実際に使う言葉や問い合わせを根拠にする「利用者的根拠（user warrant）」も論じられるようになった。</p>
+    <p>情報設計の実務に置き換えると、この区別はそのまま使える。コンテンツの棚卸し（インベントリ）から構造を立てるのは文献的根拠、検索ログやカードソートから立てるのは利用者的根拠だ。そして、会社の組織図や事業部の区分から構造を立てるのは、19世紀の哲学的な分類にいちばん近い。作り手の頭の中にある「世界の正しい順序」に、中身を合わせようとしているからだ。</p>
+  </div>
+</section>
+
+<section id="politics">
+  <div class="wrap">
+    <span class="sec-no">08 ── Politics</span>
+    <h2>分類は、中立ではいられない</h2>
+    <p class="sec-sub">Bias, invisibility, and the consequences of classification</p>
+
+    <p>デューイの分類で「宗教」に割り当てられたのは200番台、100の番号だった。そのうち201から287までの88がキリスト教に使われ、仏教もイスラム教も、残りのわずかな番号に押し込まれた。19世紀の米国の大学図書館で「宗教」と言えばキリスト教のことだった、というだけの話だが、その前提は番号の配分という形で表に固定され、世界中の図書館に輸出された。後の版で手直しは重ねられてきたものの、表の骨組みに埋め込まれた偏りは簡単には抜けない。</p>
+    <h3>件名を一つ変えるのに、5年半かかった</h3>
+    <p>言葉の側でも同じことが起きる。2016年3月、米国議会図書館は、件名標目「Illegal aliens（不法な外国人）」を廃止し、「Noncitizens（非市民）」と「Unauthorized immigration（無許可の移民）」に置き換えると発表した。ダートマス大学の学生たちが、この言葉は人を貶めるものだとして変更を求めてきた結果だった。</p>
+    <p>反発はすぐに来た。同年6月、下院は連邦法の用語に合わせて従来の言葉を使い続けるよう図書館に命じる条項を、237対170で可決した。変更は棚上げになり、最終的に「Noncitizens」と「Illegal immigration」に置き換えられたのは、2021年11月のことだった。学生たちの運動は『Change the Subject』というドキュメンタリー映画にもなっている。</p>
+    <p>分類の項目名一つが、議会の採決にまでなる。ふだんは誰も気にしない目録の言葉が、それだけの重みを持っていたことになる。</p>
+
+    <h3>分類は、壊れたときにだけ見える</h3>
+    <p>1999年、Geoffrey Bowker と Susan Leigh Star は『Sorting Things Out』で、国際疾病分類（ICD）や、アパルトヘイト下の南アフリカの人種分類などを調べ、分類が人の生活にどう効いてくるかを描いた。人種の分類が、住める場所や就ける仕事を決めていた。分類とは、ある見方を前に出し、別の見方を見えなくする装置で、うまく働いているあいだは誰にも意識されない。意識されるのは、分類が壊れたときか、分類から漏れた人が声を上げたときだ。</p>
+    <p>アルゼンチンの作家ボルヘスは1942年のエッセイで、ある中国の百科事典が動物を「皇帝に属するもの」「この分類自体に含まれるもの」「遠くから見ると蠅に似ているもの」などに分けている、という架空の分類を紹介した。Michel Foucault は『言葉と物』の序文で、これを読んで長いあいだ笑った、と書いている。笑ったあとに残ったのは、私たちが当たり前だと思っている分類の順序も、別の文化から見ればこのように見えうる、という居心地の悪さだった。③で見たジルバル語の「女と火と危険なもの」と同じ居心地の悪さだ。</p>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>サイトの分類も、誰かの見方を固定している</h4>
+      <p>性別の選択肢をいくつ用意するか、「その他」に何を入れるか、どの国を先頭に並べるか。情報設計者が決める分類は、規模こそ違え、デューイや議会図書館と同じ種類の判断を含んでいる。中立な分類はない、という前提に立って、誰が見えなくなるかを確かめる。</p>
+    </div>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <span class="sec-no">09 ── Carry</span>
+    <h2>この回から、次の回へ持っていくもの</h2>
+    <p class="sec-sub">What this chapter hands to the rest of the series</p>
+
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>図書館は、IA の道具立てをほぼ先に作っていた</h4>
+      <p>主題で並べる（相対配架）、面に分けて組み合わせる（ファセット）、呼び方を束ねる（統制語彙）、言葉の関係を記述する（シソーラス）。パンくずも、絞り込みも、関連リンクも、この延長にある。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>人工的な分類と、頭の中の分類は別物</h4>
+      <p>③で見た人のカテゴリーは、中心と周辺があり、境界は動く。図書館の分類は、境界をはっきり引いて、すべてを一度だけ置く。情報設計の仕事は、この二つのあいだを、ラベル、ファセット、検索の同義語でつなぐことだと言える。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 05</span>
+      <h4>構造の根拠は、中身と使い手に置く</h4>
+      <p>文献的根拠（何があるか）と利用者的根拠（どう探されるか）。組織図や作り手の「正しい順序」から構造を立てると、19世紀の哲学的分類と同じ失敗をする。</p>
+    </div>
+
+    <div class="closing">
+      <h3>次回：分け方と名づけ方の、実務の原理</h3>
+      <p>この回で見た道具を、サイトやアプリの設計でどう使うか。次回⑥では、正確な分け方（アルファベット順、地理、時系列）とあいまいな分け方（主題、タスク、利用者）の違い、階層とハイパーテキストとデータベースという構造の型、そしてラベルの書き方を扱う。Rosenfeld と Morville の「組織化システム」と「ラベリングシステム」が中心になる。</p>
+      <a class="pc-link" href="../06-organization-labeling/">⑥ 組織化システムとラベリング へ進む</a>
+      <a class="pc-link" href="../00-map/">全体地図に戻る</a>
+      <a class="pc-link" href="../04-seeking-sensemaking/">前回 ④ 情報探索とセンスメイキング</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Dewey, M. (1876). <i>A Classification and Subject Index for Cataloguing and Arranging the Books and Pamphlets of a Library</i>. Amherst. <a href="https://www.gutenberg.org/ebooks/12513" target="_blank" rel="noopener">Project Gutenberg</a> ／ <a href="https://en.wikipedia.org/wiki/Dewey_Decimal_Classification" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>日本十進分類法. <a href="https://kotobank.jp/word/十進分類法" target="_blank" rel="noopener">コトバンク</a> ／ <a href="https://www.asahi-net.or.jp/~AX2S-KMTN/ref/classification.html" target="_blank" rel="noopener">解説</a></li>
+        <li>Ranganathan, S. R. (1931). <i>The Five Laws of Library Science</i>. Madras Library Association.（邦訳『図書館学の五法則』日本図書館協会、1981）<a href="https://en.wikipedia.org/wiki/Five_laws_of_library_science" target="_blank" rel="noopener">Wikipedia</a> ／ <a href="https://current.ndl.go.jp/e1611" target="_blank" rel="noopener">カレントアウェアネス E1611</a></li>
+        <li>Ranganathan, S. R. (1933). <i>Colon Classification</i>. Madras Library Association. <a href="https://isko.org/cyclo/colon_classification" target="_blank" rel="noopener">ISKO Encyclopedia</a> ／ <a href="https://en.wikipedia.org/wiki/Colon_classification" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Hearst, M. et al. (2002). Finding the flow in web site search. <i>Communications of the ACM</i>, 45(9), 42–49. <a href="https://flamenco.berkeley.edu/" target="_blank" rel="noopener">The Flamenco Project</a></li>
+        <li>ANSI/NISO Z39.19-2005 (R2010). Guidelines for the Construction, Format, and Management of Monolingual Controlled Vocabularies. 解説：<a href="https://marciazeng.metadataetc.org/Z3919/4relationship.htm" target="_blank" rel="noopener">Marcia Zeng</a></li>
+        <li>Hulme, E. W. (1911). Principles of Book Classification. 解説：<a href="https://arkiv.iva.ku.dk/kolifeboat/CONCEPTS/literary_warrant.htm" target="_blank" rel="noopener">KO Lifeboat</a></li>
+        <li>Svenonius, E. (2000). <i>The Intellectual Foundation of Information Organization</i>. MIT Press.</li>
+        <li>Library of Congress. Illegal aliens (subject heading). <a href="https://en.wikipedia.org/wiki/Illegal_aliens_(Library_of_Congress_Subject_Heading)" target="_blank" rel="noopener">Wikipedia</a> ／ <a href="https://americanlibrariesmagazine.org/blogs/the-scoop/library-of-congress-changes-illegal-aliens-subject-heading" target="_blank" rel="noopener">American Libraries</a> ／ <a href="https://www.libraryjournal.com/story/library-of-congress-drops-illegal-alien-subject-heading-provokes-backlash-legislation" target="_blank" rel="noopener">Library Journal</a></li>
+        <li>Bowker, G. C. &amp; Star, S. L. (1999). <i>Sorting Things Out: Classification and Its Consequences</i>. MIT Press. <a href="https://acawiki.org/Sorting_things_out:_classification_and_its_consequences" target="_blank" rel="noopener">AcaWiki</a></li>
+        <li>Borges, J. L. (1942). El idioma analítico de John Wilkins. ／ Foucault, M. (1966). <i>Les Mots et les choses</i>, Préface. <a href="https://en.wikipedia.org/wiki/Celestial_Emporium_of_Benevolent_Knowledge" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Otlet, P. Universal Decimal Classification / Mundaneum. <a href="https://www.britannica.com/biography/Paul-Otlet" target="_blank" rel="noopener">Britannica</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 05 ── 分類表を、組み立ておもちゃに変えた人がいた<br>
+    調査・執筆 2026年10月22日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+</script>
+</body>
+</html>

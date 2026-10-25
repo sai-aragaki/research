@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI の要約が出ると、リンクを押す人は半分になった｜情報設計シリーズ 12</title>
+<meta name="description" content="最終回。クロスチャネル、構造化コンテンツ、会話の入り口、RAG と GraphRAG、分類とダークパターンの倫理。情報設計の舞台が Web の外へ広がった今をたどり、①へ戻る。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+/* --- article 01 extras --- */
+.planes{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.plane{display:grid;grid-template-columns:96px 1fr;align-items:stretch;border:1px solid var(--line)}
+.plane .pn{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px;border-right:1px solid var(--line);display:flex;align-items:center}
+.plane .pc{display:grid;grid-template-columns:1fr 1fr}
+.plane .pc div{padding:10px 12px;font-size:13px;line-height:1.6}
+.plane .pc div + div{border-left:1px dashed var(--line-strong)}
+.plane .pc .full{grid-column:1/-1}
+.plane.hl{border-color:var(--ink)}
+.plane.hl .pn{color:var(--ink);font-weight:600}
+.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
+.pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-cols span{padding-left:12px}
+
+.tmodel svg{width:100%;height:auto;display:block}
+.tmodel text{font-family:var(--jp)}
+
+.deftl{list-style:none;padding:0;margin:8px 0 0}
+.deftl li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.deftl li:last-child{border-bottom:none}
+.deftl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:14px}
+.deftl .who{display:block;font-size:12px;color:var(--muted)}
+.deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
+.deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
+.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
+.quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
+.quad .qn{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quad .qt{font-weight:700;color:var(--ink);font-size:15px;margin:2px 0 4px}
+.quad p{font-size:13px;margin:0;line-height:1.7}
+.quad .hot{border-color:var(--ink)}
+
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 8px}
+.gear{background:var(--white);border:1px solid var(--line);padding:16px;text-align:left;position:relative}
+.gear::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.gear.o::before{background:var(--coral)}.gear.t::before{background:var(--teal)}.gear.c::before{background:var(--deep-teal)}
+.gear .ge{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gear .gj{font-weight:700;color:var(--ink);font-size:17px;margin:2px 0 6px}
+.gear p{font-size:13px;line-height:1.7;margin:0}
+.gear .ex{display:block;font-size:12px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line-strong);padding-top:8px}
+
+@media (max-width:680px){
+  .plane{grid-template-columns:70px 1fr}
+  .plane .pn{font-size:9.5px;padding:10px 8px}
+  .pl-cols{grid-template-columns:70px 1fr 1fr}
+  .quad,.gears{grid-template-columns:1fr}
+  .deftl li{grid-template-columns:48px 1fr}
+}
+
+/* --- article 02 extras --- */
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
+.hb .hl{color:var(--ink);line-height:1.4}
+.hb .track{height:14px;background:var(--tint);position:relative}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb.avg .fill{background:var(--ink)}
+.hb.avg .hl{font-weight:700}
+.hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
+.hb .hv small{color:var(--muted);font-size:11px;margin-left:4px}
+
+.gdemo,.sdemo{display:grid;gap:14px}
+.gdemo{grid-template-columns:repeat(3,1fr)}
+.sdemo{grid-template-columns:1fr 1fr}
+.gdemo figure,.sdemo figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.gdemo svg,.sdemo svg{display:block;width:100%;height:auto}
+.gdemo figcaption,.sdemo figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.gdemo figcaption b,.sdemo figcaption b{display:block;color:var(--ink);font-size:13px}
+.chart-card .mini{margin:12px 0 0}
+.chart-card button.pc-link{background:none;font-family:var(--jp);cursor:pointer}
+
+.loadfig{display:flex;flex-direction:column;gap:12px}
+.lrow{display:grid;grid-template-columns:168px 1fr;align-items:center;gap:12px}
+.lk{font-size:12.5px;color:var(--ink);line-height:1.5}
+.lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
+.lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.lbar .in{background:rgba(79,124,135,.55);color:#fff}
+.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .fr{color:var(--muted)}
+
+@media (max-width:680px){
+  .hb{grid-template-columns:96px 1fr;row-gap:2px}
+  .hb .hv{grid-column:2}
+  .gdemo{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .gdemo figcaption{font-size:11px;padding:6px 8px}
+  .sdemo{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr;gap:4px}
+  .lbar i{font-size:10.5px;padding:0 5px}
+}
+
+/* --- article 03 extras --- */
+.catfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.catfig figure,.mfig{margin:0}
+.catfig figure{border:1px solid var(--line);background:var(--paper)}
+.catfig svg,.mfig svg{display:block;width:100%;height:auto}
+.catfig svg text,.mfig svg text{font-family:var(--jp)}
+.catfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.catfig figcaption b{display:block;color:var(--ink);font-size:13px}
+
+.lv{display:flex;flex-direction:column;gap:6px}
+.lvr{display:grid;grid-template-columns:56px 132px 1fr;align-items:center;gap:12px;border:1px solid var(--line);padding:12px 14px;background:var(--white)}
+.lvr .lvn{font-size:11.5px;color:var(--muted)}
+.lvr b{font-size:16px}
+.lvr .lvd{font-size:13px;line-height:1.7}
+.lvr.hl{border-color:var(--ink);background:rgba(98,184,160,.12)}
+.lvr.hl .lvn{color:var(--ink);font-weight:700}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.two > div{padding:18px 16px}
+.two > div + div{border-left:1px solid var(--line)}
+.two .k{font-weight:700;color:var(--ink);font-size:15px}
+.two .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.two p{font-size:13px;line-height:1.8;margin:0}
+
+@media (max-width:680px){
+  .catfig{grid-template-columns:1fr}
+  .lvr{grid-template-columns:44px 1fr;row-gap:2px}
+  .lvr .lvd{grid-column:2}
+  .two{grid-template-columns:1fr}
+  .two > div + div{border-left:none;border-top:1px solid var(--line)}
+  .mfig{overflow-x:auto}
+  .mfig svg{min-width:520px}
+}
+
+/* --- article 04 extras --- */
+.bfig svg,.ispfig svg{display:block;width:100%;height:auto}
+.bfig svg text,.ispfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .bfig,.ispfig{overflow-x:auto}
+  .bfig svg,.ispfig svg{min-width:540px}
+}
+
+/* --- article 05 extras --- */
+.ffig svg{display:block;width:100%;height:auto}
+.ffig svg text{font-family:var(--jp)}
+.thfig{display:flex;flex-direction:column;gap:6px}
+.thc{align-self:flex-start;font-weight:700;color:var(--ink);font-size:16px;border:1px solid var(--ink);padding:6px 16px;margin-bottom:6px}
+.thr{display:grid;grid-template-columns:48px 76px 1fr 190px;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:10px 12px;font-size:13px;line-height:1.6}
+.thr .thk{font-weight:700;color:var(--ink)}
+.thr .thl{font-family:var(--en);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+.thr .thw{font-size:12px;color:var(--muted);border-left:1px dashed var(--line-strong);padding-left:12px}
+.thr.eq{border-left:3px solid var(--yellow)}.thr.hi{border-left:3px solid var(--teal)}.thr.as{border-left:3px solid var(--coral)}
+@media (max-width:680px){
+  .ffig{overflow-x:auto}
+  .ffig svg{min-width:560px}
+  .thr{grid-template-columns:40px 1fr;row-gap:2px}
+  .thr .thl{grid-column:2;grid-row:1}
+  .thr .thv,.thr .thw{grid-column:1/-1}
+  .thr .thw{border-left:none;padding-left:0}
+}
+
+/* --- article 06 extras --- */
+.latch{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.latch > div{background:var(--white);border:1px solid var(--line);padding:14px 12px}
+.latch b{display:block;font-family:var(--en);font-size:28px;font-weight:500;color:var(--ink);line-height:1}
+.latch .ln{display:block;font-size:11.5px;color:var(--muted);margin:6px 0 8px}
+.latch p{font-size:12.5px;line-height:1.7;margin:0 0 8px;color:var(--ink)}
+.latch .lq{display:block;font-size:11.5px;line-height:1.6;color:var(--text);border-top:1px dashed var(--line-strong);padding-top:8px}
+.sfig{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sfig figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.sfig svg{display:block;width:100%;height:auto}
+.sfig svg text{font-family:var(--jp)}
+.sfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.sfig figcaption b{display:block;color:var(--ink);font-size:13px}
+.lbfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lbcol{border:1px solid var(--line);background:var(--white);padding:16px}
+.lbcol.good{border-color:var(--ink)}
+.lbh{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lbcol ul{list-style:none;padding:0;margin:10px 0 12px;display:flex;flex-wrap:wrap;gap:6px}
+.lbcol li{font-size:13px;border:1px solid var(--line-strong);padding:3px 10px;color:var(--ink)}
+.lbcol.bad li{background:rgba(235,101,132,.08)}
+.lbcol.good li{background:rgba(98,184,160,.14)}
+.lbcol p{font-size:12.5px;line-height:1.7;margin:0}
+@media (max-width:680px){
+  .latch{grid-template-columns:1fr 1fr}
+  .latch > div:last-child{grid-column:1/-1}
+  .sfig{grid-template-columns:1fr}
+  .lbfig{grid-template-columns:1fr}
+}
+
+/* --- article 07 extras --- */
+.hbars .hgrp{font-size:12px;color:var(--muted);margin:6px 0 -2px}
+.hb.c-hide .fill{background:var(--coral)}
+.hb.c-show .fill{background:var(--deep-teal)}
+.hb.c-combo .fill{background:var(--teal)}
+.trunk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 28px}
+.trunk > div{background:var(--white);border:1px solid var(--line);padding:12px 14px}
+.trunk b{font-family:var(--en);font-weight:500;font-size:20px;color:var(--ink)}
+.trunk p{font-size:14px;font-weight:700;color:var(--ink);margin:2px 0 4px;line-height:1.5}
+.trunk span{font-size:12px;color:var(--muted)}
+@media (max-width:680px){.trunk{grid-template-columns:1fr 1fr}}
+
+/* --- article 08 extras --- */
+.prfig svg,.zfig svg{display:block;width:100%;height:auto}
+.prfig svg text,.zfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .prfig,.zfig{overflow-x:auto}
+  .prfig svg,.zfig svg{min-width:560px}
+}
+
+/* --- article 09 extras --- */
+.ladder{display:flex;flex-direction:column-reverse;gap:6px}
+.ld{width:var(--w);min-width:340px;display:grid;grid-template-columns:118px 1fr;gap:2px 12px;background:var(--white);border:1px solid var(--line);border-left:3px solid var(--teal);padding:10px 12px}
+.ld b{font-size:14px;color:var(--ink);grid-row:1/3;align-self:center}
+.ld span{font-size:12.5px;color:var(--text);line-height:1.6}
+.ld i{font-style:normal;font-size:11.5px;color:var(--muted)}
+.ld.hl{border-color:var(--ink);border-left-color:var(--ink);background:rgba(98,184,160,.12)}
+.kgfig svg{display:block;width:100%;height:auto}
+.kgfig svg text{font-family:var(--jp)}
+@media (max-width:680px){
+  .ld{width:100%;min-width:0;grid-template-columns:1fr}
+  .ld b{grid-row:auto}
+  .kgfig{overflow-x:auto}
+  .kgfig svg{min-width:540px}
+}
+
+/* --- article 10 extras --- */
+.beckfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.beckfig figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.beckfig svg{display:block;width:100%;height:auto}
+.beckfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.beckfig figcaption b{display:block;color:var(--ink);font-size:13px}
+.rank{display:flex;flex-direction:column;gap:6px}
+.rank > div{display:grid;grid-template-columns:34px 1fr 1fr;gap:12px;align-items:center;border:1px solid var(--line);background:var(--white);padding:9px 12px}
+.rank > div:first-child{border-color:var(--ink);background:rgba(98,184,160,.14)}
+.rank b{font-family:var(--en);font-weight:500;font-size:18px;color:var(--ink)}
+.rank span{font-size:13.5px;font-weight:700;color:var(--ink)}
+.rank i{font-style:normal;font-size:12px;color:var(--muted)}
+.marks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.marks > div{background:var(--white);border:1px solid var(--line);padding:12px;text-align:center}
+.marks svg{display:block;width:100%;height:auto;max-height:60px}
+.marks b{display:block;font-size:14px;color:var(--ink);margin-top:6px}
+.marks p{font-size:12px;line-height:1.6;margin:2px 0 0;color:var(--text)}
+@media (max-width:680px){
+  .beckfig{grid-template-columns:1fr}
+  .rank > div{grid-template-columns:28px 1fr}
+  .rank i{grid-column:2}
+  .marks{grid-template-columns:1fr 1fr}
+}
+
+/* --- article 11 extras --- */
+.hb.c-ok .fill{background:var(--deep-teal)}
+.hb.c-ng .fill{background:var(--coral)}
+.circfig svg{display:block;width:100%;height:auto}
+.circfig svg text{font-family:var(--jp)}
+.ctfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctfig > div{border:1px solid var(--line);background:var(--white);padding:16px}
+.ctfig b{display:block;font-size:15px;color:var(--ink);margin:6px 0}
+.ctfig p{font-size:13px;line-height:1.7;margin:0}
+@media (max-width:680px){
+  .circfig{overflow-x:auto}
+  .circfig svg{min-width:520px}
+  .ctfig{grid-template-columns:1fr}
+}
+
+/* --- article 12 extras --- */
+.hb.c-ai .fill{background:var(--coral)}
+.hb.c-no .fill{background:var(--deep-teal)}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>12 Beyond</span>
+    <div class="nav-links">
+      <a href="#answer">Answer</a>
+      <a href="#channels">Channels</a>
+      <a href="#cope">COPE</a>
+      <a href="#conversation">Conversation</a>
+      <a href="#retrieval">Retrieval</a>
+      <a href="#ethics">Ethics</a>
+      <a href="#return">Return</a>
+      <a href="#principles">Principles</a>
+      <a href="#carry">Carry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究 ── 情報設計シリーズ 12</span>
+    <h1 class="title" style="font-size:clamp(28px,6vw,40px)">AI の要約が出ると、<br>リンクを押す人は<br>半分になった。</h1>
+    <p class="lede">2025年7月、米国の調査機関 Pew Research Center は、900人の米国人が3月に行った約6万9千回の Google 検索の記録を分析した結果を公表した。検索結果の上に AI による要約が表示されたとき、その下の通常の検索結果のリンクが押されたのは8%。要約が出なかったときの15%の、ほぼ半分だった。要約の中に示された出典のリンクが押されたのは、わずか1%。何も押さずに Google を離れた人は、要約が出たときには26%で、出なかったときの16%より多かった。ユーザーは、サイトを訪れる前に答えを受け取りはじめている。シリーズの最終回は、情報設計の舞台が Web のページの外へ広がった今を扱う。いくつもの場所にまたがる体験、どこにでも出せるように作る中身、会話という新しい入り口、AI が答えを持ってくる仕組み、そして分類と設計が人に及ぼす影響。最後に、①で見た Garrett の言葉に戻る。</p>
+    <div class="src-tag">
+      主な出典：<b>Pew Research Center（2025）、Resmini &amp; Rosati『Pervasive Information Architecture』（2011）</b><br>
+      Hall『Conversational Design』（2018）、Lewis ほか（2020）、Edge ほか（2024）、Bowker &amp; Star（1999）、Noble（2018）、EU デジタルサービス法 ほか ／ 調査日 2026年10月25日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">8<small>%</small></div><div class="l">AI の要約が出たとき、通常の検索結果が押された割合（出ないときは15%）</div></div>
+      <div class="stat"><div class="n">1<small>%</small></div><div class="l">要約の中の出典リンクが押された割合</div></div>
+      <div class="stat"><div class="n">2010</div><div class="l">利用者を欺く設計に「ダークパターン」の名が付いた年</div></div>
+      <div class="stat"><div class="n">2024</div><div class="l">EU で、欺くインターフェースの禁止が適用された年</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="answer">
+  <div class="wrap">
+    <span class="sec-no">01 ── Answer</span>
+    <h2>答えが、サイトより先に来る</h2>
+    <p class="sec-sub">AI summaries and the changing shape of findability</p>
+
+    <div class="chart-card">
+      <div class="ct">AI の要約があるときと、ないときの行動</div>
+      <div class="cs">Pew Research Center（2025年7月）。米国成人900人の2025年3月の閲覧データから</div>
+      <div class="hbars" id="pew"></div>
+      <div class="leg"><span><i style="background:var(--coral)"></i>AI の要約あり</span><span><i style="background:var(--deep-teal)"></i>要約なし</span></div>
+    </div>
+    <p>⑧では、Morville のファインダビリティを手がかりに、見つけられないものは存在しないのと同じだと見た。この調査は、そこに新しい意味を加える。見つけられても、訪れてもらえるとは限らない。検索エンジンや AI のアシスタントが、サイトの中身を読み、要約し、答えとしてユーザーに渡す。ユーザーはサイトの構造を一度も通らずに、中身だけを受け取る。</p>
+    <p>情報設計にとって、これは二つのことを意味する。一つは、サイトの中身を読み、要約する新しい読み手（機械）が現れたこと。その読み手は、⑨で見た Schema.org の記述や、意味の層の整い方に左右される。もう一つは、要約された答えが、ユーザーが自分で構造をたどって探すときに得ていた文脈（周りに何があり、ほかに何があるか）を落としてしまうことだ。④で見たように、人は探しながら問いそのものを変えていく。答えだけを受け取る人は、その機会を失う。</p>
+    <div class="note"><p><span class="h">この調査が示していること</span></p><p>Pew の調査は行動の記録の比較で、要約が出たことがクリックの減少を引き起こしたとまでは言えない。要約が出やすい検索の種類が、もともとクリックされにくい種類だった可能性もある。</p></div>
+  </div>
+</section>
+
+<section id="channels">
+  <div class="wrap">
+    <span class="sec-no">02 ── Channels</span>
+    <h2>一つの体験が、いくつもの場所にまたがる</h2>
+    <p class="sec-sub">Pervasive, cross-channel information architecture</p>
+
+    <p>①で見たように、2011年、Andrea Resmini と Luca Rosati は『Pervasive Information Architecture』で、Web のサイトの中に閉じた「クラシックな」情報設計と、いくつもの経路にまたがる「パーベイシブな」情報設計を区別した。</p>
+    <p>アプリで注文して店で受け取る。店頭で見た商品をあとでサイトで買う。電話で問い合わせた内容を、チャットで続きから話す。利用者にとっては一つの体験だが、作り手の側では、アプリ、Web、店舗、コールセンターが、別々の部署、別々のシステム、別々の分類と言葉で動いていることが多い。アプリの「お気に入り」と店頭の「取り置き」とサイトの「ほしいものリスト」は、利用者から見れば同じものかもしれない。</p>
+    <p>Resmini と Rosati は、こうした環境を設計するための原則を挙げ、その一つに、⑦で見た「プレイスメイキング（場所づくり）」を置いた。いくつもの経路をまたいでも、利用者が「同じ場所にいる」と感じられること。そのためには、⑥の言葉と⑨の意味の層が、経路をまたいでそろっていなければならない。画面ごとにメニューを作っていては、経路の数だけ分類が増える。</p>
+    <div class="note"><p><span class="h">原則の一覧について</span></p><p>Resmini と Rosati が挙げた原則の全体（名前と数）は、今回の調査では原典で確認できなかった。ここではプレイスメイキングのみを取り上げている。</p></div>
+  </div>
+</section>
+
+<section id="cope">
+  <div class="wrap">
+    <span class="sec-no">03 ── COPE</span>
+    <h2>一度作って、どこにでも出す</h2>
+    <p class="sec-sub">Structured content and COPE</p>
+
+    <p>経路が増えると、中身の作り方も変わる。よく引かれる例が、米国の公共ラジオ NPR だ。NPR のデジタル部門を率いた Daniel Jacobson は、2008年、NPR の記事や音声を外部の開発者も使えるように API で公開した。同じ考え方で、NPR は自社の Web サイトも、ラジオのプレーヤーも、スマートフォンのアプリも、外部のサイトも、一つの中身の倉庫から API を通して配信する仕組みを作った。この考え方は「COPE（Create Once, Publish Everywhere：一度作って、どこにでも出す）」と呼ばれる。</p>
+    <p>COPE の前提は、中身を「ページ」として作らないことだ。記事を、見出し、要約、本文、写真、音声、関連する人物、といった部品に分けて保存しておけば、Web では全部を並べ、スマートウォッチでは見出しだけを出し、音声スピーカーでは要約を読み上げる、という出し分けができる。⑨で見た「構造を画面から切り離す」話を、中身の作り方の側から実現したものだと言える。</p>
+    <p>ここで、情報設計とコンテンツ戦略の分担が見えてくる。⑪で見た Halvorson らのコンテンツ戦略は、どんな中身を、誰のために、誰が作り、誰が保ち続けるかを決める。情報設計は、その中身をどんな部品に分け、どう名づけ、どうつなぐかを決める。中身の部品の設計（コンテンツモデル）は、その二つが重なる場所にある。</p>
+  </div>
+</section>
+
+<section id="conversation">
+  <div class="wrap">
+    <span class="sec-no">04 ── Conversation</span>
+    <h2>会話は、メニューの代わりになるか</h2>
+    <p class="sec-sub">Conversational interfaces and their limits</p>
+
+    <p>AI のアシスタントの広がりで、情報空間の新しい入り口として「会話」が戻ってきた。メニューをたどる代わりに、知りたいことをそのまま言葉で尋ねる。</p>
+    <p>2018年、デザイナーの Erika Hall は『Conversational Design』で、会話こそ人間中心のシステムを作るための最良のモデルだと論じた。人は何万年も、会話で情報をやり取りしてきた。システムが人に合わせて、会話のように振る舞えばいい。ただし Hall は、刊行から5年後の振り返りで釘を刺している。会話のように見えたり聞こえたりするものが、会話として機能するとは限らない。リンクを押すより簡単だとも限らない。</p>
+    <p>このシリーズで見てきたことに照らすと、会話の入り口の強みと弱みははっきりしている。④の Taylor の言葉で言えば、会話は、まだ言葉になりきっていない Q1〜Q3 のニーズを受け止めるのが得意だ。「こういう状況なんだけど、何から調べればいい？」と尋ねられる。一方で、②の「再生より再認」から見ると、会話は再生に頼る入り口だ。メニューは、何があるかを見せてくれる。会話の入り口は、何を尋ねればいいかを、ユーザーが自分で思い出さなければならない。何ができるのかが見えない。</p>
+    <p>Nielsen Norman Group が、AI と検索の使い分けを9人の参加者で観察した調査では、参加者の多くはまず Google を開き、同じ話題について AI の対話と通常の検索を併用し、互いの答えを確かめ合っていた。AI の答えだけに頼った人はいなかった。会話はメニューと検索の代わりというより、そこに加わった三つ目の入り口として使われている。</p>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>会話の入り口にも、見える構造が要る</h4>
+      <p>会話は言葉になりきらないニーズを受け止めるが、何ができるかを見せない。よく尋ねられることの例、話題のカテゴリー、次に尋ねられることの候補。会話の横にも、②の再認を助ける構造を置く。</p>
+    </div>
+  </div>
+</section>
+
+<section id="retrieval">
+  <div class="wrap">
+    <span class="sec-no">05 ── Retrieval</span>
+    <h2>AI は、どこから答えを持ってくるのか</h2>
+    <p class="sec-sub">RAG, GraphRAG, and the return of structure</p>
+
+    <p>AI のアシスタントが社内の文書やサイトの中身について答えるとき、多くの場合、答える前に関係のありそうな文書を探してくる。2020年、Facebook AI の Patrick Lewis らは、この仕組みを「検索拡張生成（RAG）」として示した。言語モデルが学習で身につけた知識（モデルの中の記憶）に、外部の文書の索引（モデルの外の記憶）を組み合わせ、探してきた文書をもとに答えを作る。</p>
+    <p>ここで、⑥⑧で見た問題がそのまま戻ってくる。探してくる段階が、⑥の語彙の問題（同じものを違う言葉で書いた文書）に弱ければ、関係のある文書が拾われない。そして⑧の Blair と Maron の弁護士たちと同じで、拾われなかった文書は、AI の答えにも、それを読むユーザーにも見えない。AI の答えがもっともらしいほど、漏れは見えにくくなる。</p>
+
+    <h3>グラフが、もう一度呼ばれている</h3>
+    <p>2024年、Microsoft Research の Darren Edge らは、文書を探してくるだけの RAG は「この資料群の主なテーマは何か」のような、資料全体に向けた問いに弱いと指摘し、別のやり方を示した。言語モデルを使って、文書から「もの」と関係と主張を抜き出し、⑨で見たナレッジグラフを組み立てる。グラフを、つながりの密な塊（コミュニティ）に分け、それぞれの塊の要約をあらかじめ作っておく。全体への問いには、その要約を束ねて答える。彼らはこれを「GraphRAG」と呼んだ。</p>
+    <p><mark>AI の時代にはタクソノミーやオントロジーは要らなくなる、という見方もある。</mark>だが少なくとも研究の現場では、AI に正しく答えさせるために、「もの」と関係の構造がもう一度呼び戻されている。⑨の意味の層を整えておくことは、人のためだけでなく、AI という新しい読み手のための情報設計にもなる。</p>
+    <div class="note"><p><span class="h">GraphRAG の普及度について</span></p><p>シリーズの目次の時点から保留していた「GraphRAG の実務での普及度」は、今回の調査でも信頼できる調査を見つけられなかった。正答率の比較などの数字は出回っているが、多くは製品を売る側の資料によるもので、ここでは採らない。</p></div>
+  </div>
+</section>
+
+<section id="ethics">
+  <div class="wrap">
+    <span class="sec-no">06 ── Ethics</span>
+    <h2>構造は、人を見えなくし、人を動かす</h2>
+    <p class="sec-sub">Classification, bias, and deceptive design</p>
+
+    <p>⑤で、分類は中立ではいられないことを見た。デューイの宗教の番号の偏り、米議会図書館の件名をめぐる5年半の争い、Bowker と Star が描いた、分類が人の生活を決めてしまう例。この問題は、情報空間が広がるにつれて大きくなる。</p>
+    <p>2018年、情報学者の Safiya Umoja Noble は『Algorithms of Oppression』で、ある体験から議論を始めた。2011年、義理の娘と姪たちを楽しませる話題を探そうと Google で「black girls（黒人の女の子たち）」と検索すると、最初のページにポルノのサイトが並んだ。Noble は、少数の検索エンジンが市場を独占し、その私的な利益が並び順を決めていることが、白人を優遇し、有色人種の女性を貶める偏りを生んでいると論じた。⑧で見た「並び順が、そのまま答えになる」は、誰がどう描かれるかの問題でもある。</p>
+
+    <h3>欺く設計には、名前と法律ができた</h3>
+    <p>構造は、人を見えなくするだけでなく、人を動かしもする。2010年、英国の UX デザイナー Harry Brignull は、利用者を欺いて、望んでいない行動を取らせるインターフェースの手口を集め、「ダークパターン」と名づけた。解約の入り口を深い階層に隠す。断る選択肢の文言で利用者を恥じ入らせる（たとえば「いいえ、私は得をしたくありません」）。⑦のナビゲーションと⑥のラベルの技法は、そのまま、迷わせる技法にもなる。</p>
+    <p>EU のデジタルサービス法（2022年採択）は、第25条で、オンラインのプラットフォームが、利用者を欺いたり操ったりするようにインターフェースを設計することを禁じ、2024年2月から適用されている。情報設計の判断が、法律の対象になる時代が来ている。</p>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>情報設計の技法は、そのまま反対向きにも使える</h4>
+      <p>見つけやすくする技法は、見つけにくくする技法でもある。匂いを強めるラベルは、誤った匂いを撒くこともできる。誰を見えなくし、誰をどこへ動かそうとしているのか。①の Garrett が IA の共同体に向けた「倫理に向き合っていない」という批判は、今も有効だ。</p>
+    </div>
+  </div>
+</section>
+
+<section id="return">
+  <div class="wrap">
+    <span class="sec-no">07 ── Return</span>
+    <h2>認知と感情へ、もう一度</h2>
+    <p class="sec-sub">Back to the Memphis plenary</p>
+
+    <p>シリーズの①で、2009年にメンフィスで行われた Jesse James Garrett の講演を見た。「情報アーキテクトなど存在しない」という宣告は有名になったが、講演の後半で彼は、情報設計の行き先は、人の認知と感情にあると述べていた。考えることと感じることが分かちがたく絡み合った領域を、彼は「thinkfeel」と呼んだ。</p>
+    <p>このシリーズは、その方向をたどってきたことになる。②で、人が一度に頭に置けるのは4前後だと知り、③で、人のカテゴリーには中心と周辺があると知り、④で、人は探しながら問いを変え、途中で不安になると知った。⑤から⑨では、その人の頭に合わせるための構造の道具を、図書館の目録から Web のナレッジグラフまでたどった。⑩⑪では、構造を見せ、確かめ、伝える方法を見た。</p>
+    <p>そしてこの回で、構造を読む相手に AI が加わり、情報空間が画面の外へ広がり、設計の判断が人を見えなくも動かしもすることを見た。それでも、問いの中心は変わっていない。①の Wurman の言葉を借りれば、理解できないとはどういうことかを理解すること。人が情報の中で意味を見いだし、迷わずに行動できるように、意味と構造と流れを設計すること。相手が人でも、人の代わりに読む機械でも、その機械の答えを受け取る人でも。</p>
+  </div>
+</section>
+
+<section id="principles">
+  <div class="wrap">
+    <span class="sec-no">08 ── Principles</span>
+    <h2>このシリーズの10の原理を、振り返る</h2>
+    <p class="sec-sub">The ten principles, revisited</p>
+
+    <p>全体地図では、シリーズを貫く10の原理を、暫定のものとして掲げていた。12回を終えて、それぞれがどの回で確かめられたかを並べ直しておく。「主な回」は、地図のカテゴリー×原理の対応表と同じ割り当てにしてある。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>原理</th><th>内容</th><th>主な回（地図の対応表）</th><th>この回での現れ方</th></tr></thead>
+      <tbody>
+        <tr><td>P1</td><td>意味は文脈に置かれて成立する</td><td>①③⑨⑫</td><td>AI の要約は、答えの周りの文脈を落とす</td></tr>
+        <tr><td>P2</td><td>理解は配置から生まれる</td><td>①②⑥⑩⑪</td><td>会話の入り口にも、見える配置が要る</td></tr>
+        <tr><td>P3</td><td>人の分類はプロトタイプ的で、設計者とずれる</td><td>③⑤⑥⑪</td><td>経路ごとに分類と言葉がずれる</td></tr>
+        <tr><td>P4</td><td>認知容量は有限</td><td>②⑦⑩</td><td>会話は再生に頼り、作業台を使う</td></tr>
+        <tr><td>P5</td><td>情報の匂いと、コストと利得</td><td>④⑥⑦⑧</td><td>要約が出ると、リンクを押す人が減る</td></tr>
+        <tr><td>P6</td><td>探索は動的で、問いが変わる</td><td>④⑧⑫</td><td>答えだけを受け取ると、問いを変える機会を失う</td></tr>
+        <tr><td>P7</td><td>見つけられないものは存在しない</td><td>⑧⑨⑫</td><td>AI に拾われなかった文書は、答えにも現れない</td></tr>
+        <tr><td>P8</td><td>情報環境は場所である</td><td>⑦⑫</td><td>経路をまたいでも同じ場所にいると感じられるか</td></tr>
+        <tr><td>P9</td><td>構造は一つでなくてよい</td><td>⑤⑥⑧⑨⑫</td><td>一度作って、どこにでも出す</td></tr>
+        <tr><td>P10</td><td>分類は中立ではない</td><td>⑤⑫</td><td>並び順と設計が、人を見えなくし、動かす</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <span class="sec-no">09 ── Carry</span>
+    <h2>シリーズを閉じて、持ち帰るもの</h2>
+    <p class="sec-sub">What the series hands back to you</p>
+
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>読み手が増えても、設計する層は同じ</h4>
+      <p>人、検索エンジン、AI のアシスタント。読み手が増えるほど、画面ではなく、意味と構造の層を整えることの効き目が大きくなる。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>新しい入り口は、古い入り口に加わる</h4>
+      <p>会話はメニューと検索に取って代わるのではなく、三つ目の入り口として加わる。それぞれの入り口が得意な探し方を見極め、組み合わせる。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 05</span>
+      <h4>構造には、責任が伴う</h4>
+      <p>分類も、並び順も、ナビゲーションの深さも、誰かを見えなくし、誰かを動かす。技法を知ることは、その技法が反対向きに使われたときに気づけるようになることでもある。</p>
+    </div>
+
+    <div class="closing">
+      <h3>①へ戻る</h3>
+      <p>このシリーズは、「情報設計とは何か」という問いから始まった。12回を通して見えてきた答えは、①で見た定義の歴史と同じく、一つには決まらない。ただ、この問いを、自分が今向き合っている情報空間に当てはめて考えるための道具は、一通りそろったはずだ。どの回から読み返してもいいように、全体地図に戻れるようにしておく。</p>
+      <a class="pc-link" href="../00-map/">全体地図に戻る</a>
+      <a class="pc-link" href="../01-definition/">① 情報設計とは何か へ戻る</a>
+      <a class="pc-link" href="../11-research-deliverables/">前回 ⑪ リサーチ・評価・成果物</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Pew Research Center (2025, July 22). Google users are less likely to click on links when an AI summary appears in the results. <a href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/" target="_blank" rel="noopener">pewresearch.org</a></li>
+        <li>Resmini, A. &amp; Rosati, L. (2011). <i>Pervasive Information Architecture: Designing Cross-Channel User Experiences</i>. Morgan Kaufmann. <a href="https://shop.elsevier.com/books/pervasive-information-architecture/resmini/978-0-12-382094-5" target="_blank" rel="noopener">elsevier.com</a></li>
+        <li>NPR COPE（Create Once, Publish Everywhere）. 講演資料：<a href="https://www.slideshare.net/slideshow/adapting-ourselves-to-adaptive-content-12133365/12133365" target="_blank" rel="noopener">SlideShare</a> ／ <a href="https://niemanreports.org/tag/api" target="_blank" rel="noopener">Nieman Reports</a></li>
+        <li>Halvorson, K. (2009). <i>Content Strategy for the Web</i>. New Riders.</li>
+        <li>Hall, E. (2018). <i>Conversational Design</i>. A Book Apart. <a href="https://abookapart.com/products/conversational-design" target="_blank" rel="noopener">abookapart.com</a> ／ <a href="https://abookapart.com/blogs/press/erika-hall-reflects-on-5-years-of-conversational-design" target="_blank" rel="noopener">5年後の振り返り</a></li>
+        <li>Nielsen Norman Group. AI と検索の使い分けに関する調査. 紹介：<a href="https://searchengineland.com/ai-hasnt-killed-search-study-460931" target="_blank" rel="noopener">Search Engine Land</a></li>
+        <li>Lewis, P. et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. <i>NeurIPS 2020</i>. <a href="https://arxiv.org/abs/2005.11401v4" target="_blank" rel="noopener">arXiv</a></li>
+        <li>Edge, D. et al. (2024). From Local to Global: A Graph RAG Approach to Query-Focused Summarization. <a href="https://arxiv.org/abs/2404.16130v2" target="_blank" rel="noopener">arXiv</a> ／ <a href="https://www.microsoft.com/en-us/research/project/graphrag/publications/" target="_blank" rel="noopener">Microsoft Research</a></li>
+        <li>Bowker, G. C. &amp; Star, S. L. (1999). <i>Sorting Things Out</i>. MIT Press.</li>
+        <li>Noble, S. U. (2018). <i>Algorithms of Oppression: How Search Engines Reinforce Racism</i>. NYU Press. <a href="https://en.wikipedia.org/wiki/Algorithms_of_Oppression" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Brignull, H. Dark patterns / Deceptive design. 解説：<a href="https://arxiv.org/pdf/2402.16760" target="_blank" rel="noopener">Integrating Dark Pattern Taxonomies（arXiv）</a></li>
+        <li>Regulation (EU) 2022/2065（Digital Services Act）, Article 25. 解説：<a href="https://cris.maastrichtuniversity.nl/en/publications/dark-patterns-and-the-eu-digital-services-act-mapping-autonomy-vi/" target="_blank" rel="noopener">Maastricht University</a></li>
+        <li>Garrett, J. J. (2009). The Memphis Plenary. <a href="https://jjg.net/ia/memphis/" target="_blank" rel="noopener">jjg.net</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 12 ── AI の要約が出ると、リンクを押す人は半分になった<br>
+    調査・執筆 2026年10月25日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+// Pew Research Center (2025): behavior with / without AI summary
+const PEW=[
+  {g:"通常の検索結果のリンクを押した"},
+  {l:"要約あり",v:8,c:"c-ai"},{l:"要約なし",v:15,c:"c-no"},
+  {g:"何も押さずに Google を離れた"},
+  {l:"要約あり",v:26,c:"c-ai"},{l:"要約なし",v:16,c:"c-no"},
+  {g:"要約の中の出典リンクを押した"},
+  {l:"要約あり",v:1,c:"c-ai"}
+];
+const pewEl=document.getElementById('pew');
+if(pewEl){
+  const max=100;
+  pewEl.innerHTML=PEW.map(d=>d.g?`<div class="hgrp">${d.g}</div>`:`<div class="hb ${d.c}"><span class="hl">${d.l}</span><span class="track"><span class="fill" data-w="${(d.v/max*100).toFixed(1)}"></span></span><span class="hv">${d.v}%</span></div>`).join('');
+  const pio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');pio.disconnect();}});},{threshold:.3});
+  pio.observe(pewEl);
+}
+
+</script>
+</body>
+</html>

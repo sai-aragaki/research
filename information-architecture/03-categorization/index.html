@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>電話は、家具の60番目だった｜情報設計シリーズ 03</title>
+<meta name="description" content="カテゴリー化とメンタルモデルの研究から、人がどこで世界を切り分け、どんな名前で呼んでいるのかをたどる。Rosch、Wittgenstein、Lakoff、Barsalou、Norman。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+/* --- article 01 extras --- */
+.planes{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.plane{display:grid;grid-template-columns:96px 1fr;align-items:stretch;border:1px solid var(--line)}
+.plane .pn{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px;border-right:1px solid var(--line);display:flex;align-items:center}
+.plane .pc{display:grid;grid-template-columns:1fr 1fr}
+.plane .pc div{padding:10px 12px;font-size:13px;line-height:1.6}
+.plane .pc div + div{border-left:1px dashed var(--line-strong)}
+.plane .pc .full{grid-column:1/-1}
+.plane.hl{border-color:var(--ink)}
+.plane.hl .pn{color:var(--ink);font-weight:600}
+.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
+.pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-cols span{padding-left:12px}
+
+.tmodel svg{width:100%;height:auto;display:block}
+.tmodel text{font-family:var(--jp)}
+
+.deftl{list-style:none;padding:0;margin:8px 0 0}
+.deftl li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.deftl li:last-child{border-bottom:none}
+.deftl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:14px}
+.deftl .who{display:block;font-size:12px;color:var(--muted)}
+.deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
+.deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
+.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
+.quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
+.quad .qn{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quad .qt{font-weight:700;color:var(--ink);font-size:15px;margin:2px 0 4px}
+.quad p{font-size:13px;margin:0;line-height:1.7}
+.quad .hot{border-color:var(--ink)}
+
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 8px}
+.gear{background:var(--white);border:1px solid var(--line);padding:16px;text-align:left;position:relative}
+.gear::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.gear.o::before{background:var(--coral)}.gear.t::before{background:var(--teal)}.gear.c::before{background:var(--deep-teal)}
+.gear .ge{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gear .gj{font-weight:700;color:var(--ink);font-size:17px;margin:2px 0 6px}
+.gear p{font-size:13px;line-height:1.7;margin:0}
+.gear .ex{display:block;font-size:12px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line-strong);padding-top:8px}
+
+@media (max-width:680px){
+  .plane{grid-template-columns:70px 1fr}
+  .plane .pn{font-size:9.5px;padding:10px 8px}
+  .pl-cols{grid-template-columns:70px 1fr 1fr}
+  .quad,.gears{grid-template-columns:1fr}
+  .deftl li{grid-template-columns:48px 1fr}
+}
+
+/* --- article 02 extras --- */
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
+.hb .hl{color:var(--ink);line-height:1.4}
+.hb .track{height:14px;background:var(--tint);position:relative}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb.avg .fill{background:var(--ink)}
+.hb.avg .hl{font-weight:700}
+.hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
+.hb .hv small{color:var(--muted);font-size:11px;margin-left:4px}
+
+.gdemo,.sdemo{display:grid;gap:14px}
+.gdemo{grid-template-columns:repeat(3,1fr)}
+.sdemo{grid-template-columns:1fr 1fr}
+.gdemo figure,.sdemo figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.gdemo svg,.sdemo svg{display:block;width:100%;height:auto}
+.gdemo figcaption,.sdemo figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.gdemo figcaption b,.sdemo figcaption b{display:block;color:var(--ink);font-size:13px}
+.chart-card .mini{margin:12px 0 0}
+.chart-card button.pc-link{background:none;font-family:var(--jp);cursor:pointer}
+
+.loadfig{display:flex;flex-direction:column;gap:12px}
+.lrow{display:grid;grid-template-columns:168px 1fr;align-items:center;gap:12px}
+.lk{font-size:12.5px;color:var(--ink);line-height:1.5}
+.lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
+.lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.lbar .in{background:rgba(79,124,135,.55);color:#fff}
+.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .fr{color:var(--muted)}
+
+@media (max-width:680px){
+  .hb{grid-template-columns:96px 1fr;row-gap:2px}
+  .hb .hv{grid-column:2}
+  .gdemo{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .gdemo figcaption{font-size:11px;padding:6px 8px}
+  .sdemo{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr;gap:4px}
+  .lbar i{font-size:10.5px;padding:0 5px}
+}
+
+/* --- article 03 extras --- */
+.catfig{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.catfig figure,.mfig{margin:0}
+.catfig figure{border:1px solid var(--line);background:var(--paper)}
+.catfig svg,.mfig svg{display:block;width:100%;height:auto}
+.catfig svg text,.mfig svg text{font-family:var(--jp)}
+.catfig figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.catfig figcaption b{display:block;color:var(--ink);font-size:13px}
+
+.lv{display:flex;flex-direction:column;gap:6px}
+.lvr{display:grid;grid-template-columns:56px 132px 1fr;align-items:center;gap:12px;border:1px solid var(--line);padding:12px 14px;background:var(--white)}
+.lvr .lvn{font-size:11.5px;color:var(--muted)}
+.lvr b{font-size:16px}
+.lvr .lvd{font-size:13px;line-height:1.7}
+.lvr.hl{border-color:var(--ink);background:rgba(98,184,160,.12)}
+.lvr.hl .lvn{color:var(--ink);font-weight:700}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.two > div{padding:18px 16px}
+.two > div + div{border-left:1px solid var(--line)}
+.two .k{font-weight:700;color:var(--ink);font-size:15px}
+.two .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.two p{font-size:13px;line-height:1.8;margin:0}
+
+@media (max-width:680px){
+  .catfig{grid-template-columns:1fr}
+  .lvr{grid-template-columns:44px 1fr;row-gap:2px}
+  .lvr .lvd{grid-column:2}
+  .two{grid-template-columns:1fr}
+  .two > div + div{border-left:none;border-top:1px solid var(--line)}
+  .mfig{overflow-x:auto}
+  .mfig svg{min-width:520px}
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>03 Categories</span>
+    <div class="nav-links">
+      <a href="#box">Box</a>
+      <a href="#typical">Typical</a>
+      <a href="#basic">Basic</a>
+      <a href="#expert">Expert</a>
+      <a href="#goal">Goal</a>
+      <a href="#radial">Radial</a>
+      <a href="#model">Model</a>
+      <a href="#gap">Gap</a>
+      <a href="#carry">Carry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究 ── 情報設計シリーズ 03</span>
+    <h1 class="title" style="font-size:clamp(28px,6vw,40px)">電話は、家具の<br>60番目だった。</h1>
+    <p class="lede">1975年、カリフォルニア大学バークレー校の Eleanor Rosch は、およそ200人の学生に、60個の品物がどれくらい「家具らしい」かを7段階で答えてもらった。一番は椅子とソファ。最下位は電話だった。電話を家具に含めるかどうかで議論になることは、まずない。それでも人は、同じカテゴリーの中に「いかにもそれらしいもの」と「いちおう入るもの」の差をはっきり感じている。サイトマップの箱は、中に入ったものをすべて同じ資格で扱う。人の頭の中のカテゴリーは、そうなっていない。前回は、まとまりを作ることが人の頭を助けると見た。この回では、人がどこで世界を切り分け、どんな名前でそのまとまりを呼んでいるのかを、カテゴリー化とメンタルモデルの研究からたどる。</p>
+    <div class="src-tag">
+      主な出典：<b>Rosch「Cognitive Representations of Semantic Categories」（1975）、Rosch ほか「Basic Objects in Natural Categories」（1976）</b><br>
+      Lakoff『Women, Fire, and Dangerous Things』（1987）、Barsalou（1983）、Kempton（1986）、Norman（1983, 1988）ほか ／ 調査日 2026年10月22日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">60<small>位</small></div><div class="l">家具らしさの評定で、電話が置かれた順位（Rosch 1975）</div></div>
+      <div class="stat"><div class="n">1976</div><div class="l">「基本レベル」という水準が見つかった年（Rosch ほか）</div></div>
+      <div class="stat"><div class="n">4<small>つ</small></div><div class="l">ジルバル語の名詞の分類数。女・火・危険なものが同じ一つに入る</div></div>
+      <div class="stat"><div class="n">25〜50<small>%</small></div><div class="l">サーモスタットを「蛇口」だと思っている米国人の割合の推定（Kempton 1986）</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="box">
+  <div class="wrap">
+    <span class="sec-no">01 ── Box</span>
+    <h2>分類とは、箱に入れることだと思っていた</h2>
+    <p class="sec-sub">The classical view of categories</p>
+
+    <p>前回の最後に、二つの現象を残しておいた。チェスの名人に見えている駒のかたまりが、初心者には見えない。社内の部署名で切ったメニューが、外の人には通じない。どちらも、作り手にとって自明なまとまりが、受け手にはまとまりに見えていない現象だった。</p>
+    <p>では、人はそもそもどうやってまとまりを作っているのか。長いあいだ有力だった答えは、アリストテレスにまでさかのぼる。あるカテゴリーには、それに属するための条件がいくつかあり、条件をすべて満たすものはメンバーで、一つでも欠ければメンバーではない。「独身男性」なら「男性である」「結婚していない」「成人である」。境界ははっきりしていて、メンバーはみな同じ資格で属している。</p>
+    <p>これは「古典的カテゴリー観」と呼ばれる。データベースのテーブル、フォルダの階層、サイトマップの箱。コンピュータで情報を整理する道具の多くは、この見方を前提に作られている。ある記事は「お知らせ」か「プレスリリース」のどちらかに入り、入った以上はどれも同じ一件として並ぶ。</p>
+    <p>道具としては、それで困らない。困るのは、ユーザーがその箱を外から眺めて、目当てのものがどの箱に入っているかを推測するときだ。推測するのは人間の頭で、人間の頭のカテゴリーは、箱とはだいぶ違う形をしている。</p>
+  </div>
+</section>
+
+<section id="typical">
+  <div class="wrap">
+    <span class="sec-no">02 ── Typical</span>
+    <h2>電話も家具だが、椅子ほど家具ではない</h2>
+    <p class="sec-sub">Prototypes, fuzzy boundaries, and family resemblance</p>
+
+    <p>Rosch が1970年代に行った一連の実験は、古典的な見方では説明できない現象を次々に示した。</p>
+    <p>一つは典型性の勾配だ。リード文の家具の評定のように、人は同じカテゴリーの中にも「らしさ」の段階を感じる。鳥ならコマドリが典型的で、ペンギンやダチョウは周辺にいる。典型的なメンバーほど、「これは鳥か」と聞かれたときに速く答えられ、子どもも早く覚える。Rosch はカテゴリーの中心にあるこの典型を「プロトタイプ」と呼んだ。</p>
+
+    <div class="chart-card">
+      <div class="ct">箱としてのカテゴリーと、中心のあるカテゴリー</div>
+      <div class="cs">概念図。右の配置は Rosch（1975）の家具らしさ評定の両端（椅子・ソファが最上位、電話が最下位）をもとに、中間を概略で置いたもの</div>
+      <div class="catfig">
+        <figure>
+          <svg viewBox="0 0 260 200" role="img" aria-label="四角い枠の中に家具が等間隔に並ぶ図">
+            <rect x="20" y="20" width="220" height="160" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+            <g font-size="12" fill="#333333" text-anchor="middle">
+              <text x="70" y="65">椅子</text><text x="130" y="65">ソファ</text><text x="190" y="65">テーブル</text>
+              <text x="70" y="115">ランプ</text><text x="130" y="115">たんす</text><text x="190" y="115">時計</text>
+              <text x="100" y="160">花びん</text><text x="160" y="160">電話</text>
+            </g>
+          </svg>
+          <figcaption><b>古典的カテゴリー</b>境界は一本の線。中に入れば、どれも同じ資格</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 260 200" role="img" aria-label="中心に椅子とソファ、外側に向かって電話までが並ぶ同心円の図">
+            <circle cx="130" cy="100" r="92" fill="rgba(79,124,135,.07)" stroke="#CCCCCC" stroke-dasharray="3 4"/>
+            <circle cx="130" cy="100" r="62" fill="rgba(79,124,135,.12)" stroke="none"/>
+            <circle cx="130" cy="100" r="30" fill="rgba(79,124,135,.28)" stroke="none"/>
+            <g font-size="12" text-anchor="middle">
+              <text x="130" y="96" fill="#111111" font-weight="700">椅子</text>
+              <text x="130" y="112" fill="#111111" font-weight="700">ソファ</text>
+              <text x="78" y="72" fill="#333333">テーブル</text>
+              <text x="184" y="132" fill="#333333">たんす</text>
+              <text x="186" y="64" fill="#333333">ランプ</text>
+              <text x="62" y="146" fill="#808080">時計</text>
+              <text x="210" y="178" fill="#808080">花びん</text>
+              <text x="40" y="190" fill="#808080">電話</text>
+            </g>
+          </svg>
+          <figcaption><b>プロトタイプのあるカテゴリー</b>中心ほど「らしい」。境界はぼやけている</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h3>境界は、文脈で動く</h3>
+    <p>二つめは境界のぼやけ方だ。社会言語学者の William Labov は1973年、形の少しずつ違う容器の絵を見せて、それが「カップ」か「マグ」か「ボウル」かを答えてもらった。幅と深さの比が変わると呼び名は連続的に移り、しかも、中に何が入っていると想像させるかでも答えが変わった。同じ器でも、コーヒーを入れる場面と、料理を盛る場面とでは、呼び名の境界がずれる。</p>
+    <p>境界の位置は、物の形だけでなく、使う場面によっても動いているわけだ。</p>
+
+    <h3>共通点がなくても、一つの言葉でまとまる</h3>
+    <p>三つめは、Rosch より前に哲学者が指摘していた。Ludwig Wittgenstein は『哲学探究』で、ボードゲーム、カードゲーム、球技、オリンピックの競技をすべて「ゲーム」と呼ぶとき、それらすべてに共通する特徴はあるのか、と問うた。勝ち負けのないゲームもあり、技術のいらないゲームもあり、一人でやるゲームもある。共通点を探す代わりに、彼は読者にこう言う。</p>
+    <div class="pull"><p>考えるな、見よ！<span class="by">── Wittgenstein『哲学探究』第66節（独語原文 denk nicht, sondern schau!）</span></p></div>
+    <p>見ると、そこにあるのは全員に共通する特徴ではなく、部分的に重なり合う類似の網だった。親子や兄弟で、体つきや目の色や歩き方が少しずつ似ているのと同じだ。Wittgenstein はこれを「家族的類似」と呼んだ。Rosch と Carolyn Mervis は1975年、典型的なメンバーほど他のメンバーと共通する特徴を多く持っていることを実験で確かめ、この考えを心理学の側から裏付けた。</p>
+    <div class="note"><p><span class="h">典型性がある＝境界があいまい、とは限らない</span></p><p>1983年、Armstrong と Gleitman 夫妻は、「奇数」のように定義がはっきりしているカテゴリーでも、人は「7は典型的な奇数だ」と感じ、典型性の勾配が出ることを示した。典型性の感じ方と、カテゴリーの境界が実際にどう決まっているかは、別に考える必要がある。プロトタイプ理論を「人の分類はすべてあいまいだ」と読むのは行き過ぎだ。</p></div>
+  </div>
+</section>
+
+<section id="basic">
+  <div class="wrap">
+    <span class="sec-no">03 ── Basic</span>
+    <h2>「家具」より先に「椅子」が出てくる</h2>
+    <p class="sec-sub">The basic level of categorization</p>
+
+    <p>Rosch のもう一つの発見は、カテゴリーの「深さ」に関するものだった。1976年、彼女と同僚は「家具 ─ 椅子 ─ キッチンチェア」のような上下関係のある分類を使い、どの水準が人にとって特別なのかを調べた。</p>
+    <p>参加者に、それぞれの水準のメンバーに共通する特徴を書き出してもらうと、上位の「家具」ではほとんど何も出てこない。椅子とテーブルとたんすに共通するものを挙げろと言われても、困るだけだ。中間の「椅子」になると、脚がある、背もたれがある、座る、と一気に増える。下位の「キッチンチェア」まで降りても、そこからはあまり増えない。</p>
+
+    <div class="chart-card">
+      <div class="ct">基本レベルは、どこにあるか</div>
+      <div class="cs">Rosch ほか（1976）の知見をもとに筆者が整理。数値ではなく、各水準で何ができるかを示す</div>
+      <div class="lv">
+        <div class="lvr"><span class="lvn">上位</span><b>家具</b><span class="lvd">共通する特徴がほとんどない。形を一つに思い描けない。扱い方も決まらない</span></div>
+        <div class="lvr hl"><span class="lvn">基本</span><b>椅子</b><span class="lvd">共通する特徴が一気に増える。形が思い描け、座るという動作が決まる。最初に口をつく名前</span></div>
+        <div class="lvr"><span class="lvn">下位</span><b>キッチンチェア</b><span class="lvd">特徴はわずかに増えるだけ。区別には知識が要る</span></div>
+      </div>
+    </div>
+    <p>この中間の水準を、Rosch は「基本レベル」と呼んだ。基本レベルは、メンバーが多くの特徴を共有し、似た動作で扱え、形を一つ思い描ける、もっとも包括的な水準だ。物を見せて「これは何？」と聞くと、人はまず基本レベルの名前を答える。子どもが最初に覚えるのも基本レベルの名前で、写真を見て分類する速さも基本レベルが一番速い。</p>
+    <p>Rosch は1978年の論文で、これを二つの原理から説明している。一つは認知の経済性で、カテゴリーは少ない手間でできるだけ多くの情報を与えるものがいい。もう一つは、世界の側にすでにある構造で、羽は毛皮よりも翼と一緒に現れることが多いように、特徴はかたまって現れる。基本レベルは、この二つがちょうど釣り合う水準だと考えられた。</p>
+
+    <h3>上位カテゴリーのラベルは、中身を予想させにくい</h3>
+    <p>情報設計に引きつけると、グローバルナビやトップの分類は、たいてい上位の水準に置かれる。「サービス」「ソリューション」「製品情報」「ライフスタイル」。網羅のためには上位の言葉が要る。だがこの水準の言葉は、家具と同じで、中に何が入っているかを思い描かせる力が弱い。</p>
+    <p><mark>ユーザーが探しているのは、たいてい基本レベルの何かだ。</mark>「椅子」を探している人が「家具」の下を開くのは推測が働くが、「インテリア」「暮らし」「リビング」と上位の言葉が並ぶと、どれを開けばいいかの見当がつかない。上位ラベルの下に代表的な基本レベルの例を添える、メガメニューで基本レベルの項目まで見せる、といった定番の手法が効くのはこのためだ。</p>
+  </div>
+</section>
+
+<section id="expert">
+  <div class="wrap">
+    <span class="sec-no">04 ── Expert</span>
+    <h2>設計者は、いつも専門家の側に立っている</h2>
+    <p class="sec-sub">How expertise moves the basic level</p>
+
+    <p>基本レベルは、人によって動く。1991年、James Tanaka と Marjorie Taylor は、鳥の専門家（野鳥観察歴の長い人）と犬の専門家に、鳥と犬の写真を分類したり名づけたりしてもらった。</p>
+    <p>専門家は、自分の専門の領域では、下位の水準を基本レベルと同じように扱った。鳥の専門家は鳥の写真を見て「鳥」ではなく「スズメ」や種名で答え、その速さは基本レベルで答えるときと変わらなかった。専門外の犬の写真を見せると、彼らも「犬」と答えた。経験を積むと、その人にとっての基本レベルが一段下へ降りていく。</p>
+    <p>ここに情報設計の構造的な問題がある。サイトやアプリの分類を決めるのは、その商品やサービスを毎日扱っている人たちで、彼らにとっての基本レベルは、ユーザーより一段か二段低い場所にある。社内では「法人向けプランB」と「スタンダード」の違いは自明でも、外の人にとっては両方とも「料金」の一部でしかない。</p>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>作り手の分類は、専門家の分類になりやすい</h4>
+      <p>作り手がまじめに整理すればするほど、分類は作り手の基本レベルで細かく切られていく。毎日その領域に触れていれば、誰の認知でも自然にそうなる。だから、ユーザーに分けてもらう手続きが要る。</p>
+    </div>
+
+    <h3>カードソートで「外れ値」が出る理由</h3>
+    <p>ユーザーにカードを分けてもらうカードソートを実施すると、どのグループにもうまく収まらないカードが必ず出てくる。Nielsen Norman Group はこの外れ値について、ユーザーのカテゴリーの境界が家族的類似でできている以上、周辺的なメンバーが出るのは自然なことだと説明している。対処として勧めているのは、外れ値のためだけに小さなサブカテゴリーを作るより、近いメインのカテゴリーに残して、検索やファセットで見つけやすくすることだ。</p>
+    <p>外れ値は、分類の失敗の印ではない。人のカテゴリーに中心と周辺があることの、ごく当たり前の表れだ。</p>
+  </div>
+</section>
+
+<section id="goal">
+  <div class="wrap">
+    <span class="sec-no">05 ── Goal</span>
+    <h2>「ガレージセールで売るもの」も、カテゴリーである</h2>
+    <p class="sec-sub">Ad hoc and goal-derived categories</p>
+
+    <p>ここまでのカテゴリーは、家具、鳥、容器と、世の中にもともとありそうなものばかりだった。1983年、Lawrence Barsalou は別の種類のカテゴリーに目を向けた。「ガレージセールで売るもの」「旅行のかばんに詰めるもの」「ダイエット中に食べるもの」。その場の目的のために、頭の中でその場で作られるカテゴリーだ。</p>
+    <p>かばんに詰めるものには、服も歯ブラシも本も入る。どれも互いに似ていない。それでも人は、このカテゴリーにもはっきりした典型性を感じる。Barsalou によれば、典型性を決めていたのはメンバー同士の似かたではなく、目的に照らした「理想」への近さだった。ダイエット中に食べるものなら、カロリーゼロに近いほど典型的。実際にゼロの食べ物はほとんどないのに、人はその理想を物差しにしている。</p>
+
+    <h3>目的で切るナビゲーション</h3>
+    <p>この発見は、情報設計がよく使う二つの切り方の違いをうまく説明する。一つは物の種類で切る分類（テーブル、椅子、照明）。もう一つは目的や場面で切る分類（新生活をはじめる、在宅ワーク、来客の準備）。後者は Barsalou の言う目的由来のカテゴリーで、メンバーは種類の分類をまたいで集まってくる。</p>
+    <p>目的で切った分類は、ユーザーの「今の目的」と一致したときには強い。けれど目的は人と時によって変わるので、それだけで全体を組むと、目的がはっきりしない人が入れない。種類の分類を骨組みにして、目的の分類を入り口や特集として重ねる。多くのECサイトがそうしているのは、二つのカテゴリーの性質がもともと違うからだ。</p>
+  </div>
+</section>
+
+<section id="radial">
+  <div class="wrap">
+    <span class="sec-no">06 ── Radial</span>
+    <h2>女と火と危険なもの</h2>
+    <p class="sec-sub">Lakoff's radial categories and the motivation behind odd groupings</p>
+
+    <p>オーストラリア北東部の先住民の言語、ジルバル語では、名詞が四つのクラスのどれかに属する。言語学者 R. M. W. Dixon の1972年の記述によれば、そのうちの一つ「バラン（balan）」には、女性、水、火、戦いにかかわるものなどが入る。</p>
+    <p>George Lakoff は1987年の著書の題に、このクラスを使った。『Women, Fire, and Dangerous Things』（邦訳『認知意味論』紀伊國屋書店、1993）。女と火と危険なものが同じクラスに入るのは、女性が燃えやすいとか危険だとか考えられているからではない。神話や連想の連鎖をたどると、中心にあるメンバーから、ひとつずつ理由のあるつながりで周辺へ広がっていく。メンバー全員に共通する特徴はないが、どのメンバーにもそこにいる理由がある。</p>
+    <p>Lakoff はこうした形のカテゴリーを「放射状カテゴリー」と呼んだ。中心があり、そこから理由のある枝が伸びる。外から見るとばらばらでも、内側の人には筋が通っている。</p>
+
+    <h3>「その他」に入っていくもの</h3>
+    <p>サイトの分類にも、外から見るとばらばらな箱がある。「その他」「お役立ち情報」「サポート」。中を見ると、作り手には入れた理由がそれぞれあったと分かる。問い合わせが多かったから、置き場所がなかったから、去年のキャンペーンの名残だから。どの項目にも理由はあるが、その理由は組織の歴史の中にあって、ユーザーの側からはたどれない。</p>
+    <p>放射状カテゴリーが言語の中で機能するのは、話し手たちが同じ神話や文化を共有しているからだ。ユーザーは作り手の社内の歴史を共有していない。<mark class="c">理由のあるつながりも、共有されていなければ、受け手にはただの寄せ集めに見える。</mark></p>
+
+    <h3>まとまりを支えているのは、似ていることではない</h3>
+    <p>1985年、Gregory Murphy と Douglas Medin は、この問題をもう一段掘り下げた。カテゴリーのまとまりを、メンバー同士の似かただけで説明することはできない。何をもって「似ている」とするかを決めているのは、その人が背景に持っている理論や説明だからだ。「燃える」という特徴は木の概念には含まれるが、紙幣の概念にはまず入らない。紙幣も燃えるのに。木が人の暮らしの中でどう使われてきたかという説明が、どの特徴を数えるかを決めている。</p>
+    <p>人がカテゴリーを作るとき、その下にはいつも「これはこういうものだ」という小さな理論がある。その理論が、次節のメンタルモデルだ。</p>
+  </div>
+</section>
+
+<section id="model">
+  <div class="wrap">
+    <span class="sec-no">07 ── Model</span>
+    <h2>頭の中のサーモスタットは、蛇口の形をしている</h2>
+    <p class="sec-sub">Folk theories and the properties of mental models</p>
+
+    <p>寒い部屋に帰ってきて、早く暖まってほしいとき、エアコンや暖房の設定温度を高めに上げるだろうか。</p>
+    <p>1986年、人類学者の Willett Kempton は、ミシガン州の住民に自宅の暖房について詳しく話を聞き、人がサーモスタットについて二つの異なる「理論」を持っていることを報告した。</p>
+    <div class="two">
+      <div><div class="k">バルブ理論</div><div class="e">Valve theory</div><p>サーモスタットは蛇口のようなもの。設定を高くするほど、たくさんの熱が出る。だから早く暖めたいときは高めに設定し、暑くなったら下げる。</p></div>
+      <div><div class="k">フィードバック理論</div><div class="e">Feedback theory</div><p>サーモスタットは自動のスイッチ。室温が設定より低いあいだ暖房を入れ、達したら切る。暖房の強さは一定で、設定を上げても速くは暖まらない。</p></div>
+    </div>
+    <p>工学的に正しいのはフィードバック理論のほうで、Kempton は米国人の25〜50%がバルブ理論を持っていると見積もった。面白いのはその先で、彼は、バルブ理論は間違っているにもかかわらず、日々の使い方としてはかなりうまく機能している可能性があると書いている。暑すぎたら下げ、寒すぎたら上げる。正しいかどうかとは別に、使い手の行動を導く道具としては役に立っていた。</p>
+    <div class="note"><p><span class="h">この評価には異論もある</span></p><p>バルブ理論が正しい理論と同じくらい役に立つという Kempton の主張は、十分に裏付けられていないという批判がある。暖房技術も当時とは違う。ここでは、人が誤った理論でも日常をこなしている、という観察として受け取っておく。</p></div>
+
+    <h3>メンタルモデルは、不完全で、不安定で、迷信的</h3>
+    <p>人が物事のしくみについて頭の中に持っている、こうした小さな理論を「メンタルモデル」と呼ぶ。この言葉自体は1943年の Kenneth Craik にさかのぼり、1983年には Philip Johnson-Laird の同名の著書と、Dedre Gentner と Albert Stevens 編の論文集『Mental Models』が出て、認知科学の中心的な概念になった。</p>
+    <p>その論文集に、Don Norman は「Some Observations on Mental Models」という短い章を寄せている。電卓やコンピュータを使う人を観察して彼が書き出したメンタルモデルの性質は、身も蓋もない。不完全である。動かしてみることができない部分がある。不安定で、しばらく使わないと細部を忘れる。境界がはっきりせず、似た機器のモデルと混ざる。そして迷信的で、意味がないと分かっていても念のためにやる操作が残る（電卓のクリアボタンを二度押す、など）。</p>
+    <p>情報設計の側から見ると、ここから分かるのは、ユーザーのメンタルモデルを「正しく」することを目標にしても仕方がない、ということだ。人はサーモスタットの正しい理論を知らなくても暖房を使えている。目標にできるのは、ユーザーがすでに持っているモデルのままでも迷わない構造を作ることと、モデルがずれたときに画面が気づかせてくれることだろう。</p>
+  </div>
+</section>
+
+<section id="gap">
+  <div class="wrap">
+    <span class="sec-no">08 ── Gap</span>
+    <h2>設計者の頭の中は、画面を通してしか届かない</h2>
+    <p class="sec-sub">Design model, user's model, and the system image</p>
+
+    <p>Norman は1988年の『The Psychology of Everyday Things』（のちの『誰のためのデザイン？』）で、この問題を三つのモデルの関係として描いた。</p>
+    <div class="chart-card">
+      <div class="ct">三つのモデル</div>
+      <div class="cs">Norman（1988）の図式をもとに筆者作図。情報設計の要素は筆者による対応づけ</div>
+      <div class="mfig">
+        <svg viewBox="0 0 640 230" role="img" aria-label="設計者のモデルからシステムイメージへ、システムイメージからユーザーのモデルへ矢印がある図">
+          <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#111111"/></marker></defs>
+          <rect x="16" y="56" width="168" height="96" fill="#FFFFFF" stroke="#CCCCCC"/>
+          <text x="100" y="92" font-size="14" font-weight="700" fill="#111" text-anchor="middle">設計者のモデル</text>
+          <text x="100" y="116" font-size="11.5" fill="#808080" text-anchor="middle">Design model</text>
+          <text x="100" y="136" font-size="11.5" fill="#333" text-anchor="middle">分類の意図・用語の意味</text>
+          <rect x="236" y="40" width="168" height="128" fill="rgba(98,184,160,.16)" stroke="#62B8A0"/>
+          <text x="320" y="72" font-size="14" font-weight="700" fill="#111" text-anchor="middle">システムイメージ</text>
+          <text x="320" y="94" font-size="11.5" fill="#808080" text-anchor="middle">System image</text>
+          <text x="320" y="120" font-size="11.5" fill="#333" text-anchor="middle">ラベル・ナビの構造</text>
+          <text x="320" y="138" font-size="11.5" fill="#333" text-anchor="middle">画面の振る舞い・説明</text>
+          <rect x="456" y="56" width="168" height="96" fill="#FFFFFF" stroke="#CCCCCC"/>
+          <text x="540" y="92" font-size="14" font-weight="700" fill="#111" text-anchor="middle">ユーザーのモデル</text>
+          <text x="540" y="116" font-size="11.5" fill="#808080" text-anchor="middle">User's model</text>
+          <text x="540" y="136" font-size="11.5" fill="#333" text-anchor="middle">「たぶんここにある」</text>
+          <line x1="186" y1="104" x2="232" y2="104" stroke="#111" stroke-width="1.5" marker-end="url(#ah)"/>
+          <line x1="406" y1="104" x2="452" y2="104" stroke="#111" stroke-width="1.5" marker-end="url(#ah)"/>
+          <path d="M100 154 Q100 210 320 210 Q540 210 540 154" fill="none" stroke="#CCCCCC" stroke-dasharray="4 4"/>
+          <text x="320" y="202" font-size="11.5" fill="#808080" text-anchor="middle">直接の通り道はない</text>
+        </svg>
+      </div>
+    </div>
+    <p>設計者は頭の中に、そのシステムがどう成り立っているかのモデルを持っている。ユーザーも、使いながら自分なりのモデルを作る。ところが二人が直接話す機会はない。ユーザーがモデルを作る材料は、画面に現れたもの、つまりラベル、ボタン、構造、振る舞い、説明文だけだ。Norman はこれを「システムイメージ」と呼び、設計者はシステムイメージを通じてしか語れないと書いた。</p>
+    <p>情報設計の成果物は、ほとんどがこのシステムイメージの一部だ。サイトマップそのものはユーザーに見えないが、グローバルナビの並びとラベルは、設計者の分類の意図をユーザーに伝える唯一の手段になっている。ラベルが社内の言葉で書かれていれば、伝わるのは社内のモデルだ。</p>
+
+    <h3>ずれを、見える形で並べる</h3>
+    <p>2008年、Indi Young は『Mental Models』で、このずれを一枚の図にする方法を示した。ユーザーへのインタビューから、人がある目的のために何を考え、何をし、何を気にしているかを短い単位で書き出し、目的ごとに縦の塔（タワー）にまとめて横に並べる。その下に、自社の機能やコンテンツを、対応する塔の真下に揃えて置く。</p>
+    <p>そうすると、ユーザーの塔があるのに下に何もない場所と、機能はあるのに上に塔がない場所が、目で見えるようになる。設計者のモデルとユーザーのモデルを、システムイメージを介さずに一度だけ直接並べてみる手続き、と言ってもいい。</p>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>分類は、設計者のモデルをユーザーに伝える文面</h4>
+      <p>ナビゲーションの構造とラベルは、情報を入れておく箱であると同時に、「このサービスはこういうものです」と伝える文面でもある。その文面がユーザーのモデルの言葉で書かれているかどうかを確かめる手段が、カードソートであり、メンタルモデル図だ。</p>
+    </div>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <span class="sec-no">09 ── Carry</span>
+    <h2>この回から、次の回へ持っていくもの</h2>
+    <p class="sec-sub">What this chapter hands to the rest of the series</p>
+
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>人のカテゴリーには、中心と周辺と、ちょうどいい深さがある</h4>
+      <p>典型的なメンバーとそうでないメンバーがあり、境界は文脈で動き、一番扱いやすいのは基本レベルの水準。サイトマップの箱は、このどれも表していない。ラベルと例示と配置で補う必要がある。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>作り手の基本レベルは、ユーザーより低い</h4>
+      <p>専門家ほど細かい水準を自然な単位として扱う。作り手が自分の感覚だけで分類すると、ユーザーには細かすぎる、または意味の分からない切り方になる。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 05</span>
+      <h4>まとまりの下には、いつも小さな理論がある</h4>
+      <p>カテゴリーを支えているのは似かたより背景の説明で、その説明がメンタルモデルだ。メンタルモデルは不完全で迷信的でかまわない。設計にできるのは、そのモデルのままでも迷わない構造を作ることだ。</p>
+    </div>
+
+    <div class="closing">
+      <h3>次回：人は、どうやって探し、途中で何を考えているのか</h3>
+      <p>この回では、人が世界をどう切り分けているかを、止まった状態で見てきた。だが実際のユーザーは、メニューを開き、違ったら戻り、検索語を変え、そのあいだに探しているもの自体が変わっていく。次回④では、Marcia Bates の「ベリーピッキング」、Peter Pirolli と Stuart Card の「情報採餌理論」と情報の匂い、Brenda Dervin のセンスメイキングを通して、ユーザーを動きながら理解を更新していく人として捉え直す。</p>
+      <a class="pc-link" href="../04-seeking-sensemaking/">④ 情報探索とセンスメイキング へ進む</a>
+      <a class="pc-link" href="../00-map/">全体地図に戻る</a>
+      <a class="pc-link" href="../02-perception-memory/">前回 ② 知覚・注意・記憶・認知負荷</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Rosch, E. (1975). Cognitive representations of semantic categories. <i>Journal of Experimental Psychology: General</i>, 104(3), 192–233. 家具の評定の扱い：<a href="https://arxiv.org/pdf/2105.02987" target="_blank" rel="noopener">arXiv 2105.02987</a></li>
+        <li>Rosch, E. &amp; Mervis, C. B. (1975). Family resemblances: Studies in the internal structure of categories. <i>Cognitive Psychology</i>, 7, 573–605. <a href="https://courses.grainger.illinois.edu/cs440/fa2023/Quizzes/grad-readings/rosch-and-mervis.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Rosch, E., Mervis, C. B., Gray, W. D., Johnson, D. M. &amp; Boyes-Braem, P. (1976). Basic objects in natural categories. <i>Cognitive Psychology</i>, 8, 382–439. <a href="https://www.cns.nyu.edu/~msl/courses/2223/Readings/Rosch-CogPsych1976.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Rosch, E. (1978). Principles of Categorization. In Rosch &amp; Lloyd (eds.), <i>Cognition and Categorization</i>. 解説：<a href="https://thereitis.org/principles-of-categorization/" target="_blank" rel="noopener">thereitis.org</a></li>
+        <li>Wittgenstein, L. (1953). <i>Philosophical Investigations</i>, §§66–67. <a href="https://en.wikipedia.org/wiki/Family_resemblance" target="_blank" rel="noopener">Family resemblance（Wikipedia）</a></li>
+        <li>Labov, W. (1973). The boundaries of words and their meanings. In Bailey &amp; Shuy (eds.), <i>New Ways of Analyzing Variation in English</i>. <a href="https://en.wikipedia.org/wiki/Referential_indeterminacy" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Armstrong, S. L., Gleitman, L. R. &amp; Gleitman, H. (1983). What some concepts might not be. <i>Cognition</i>, 13(3), 263–308. <a href="https://philpapers.org/rec/ARMWSC" target="_blank" rel="noopener">philpapers.org</a></li>
+        <li>Tanaka, J. W. &amp; Taylor, M. (1991). Object categories and expertise: Is the basic level in the eye of the beholder? <i>Cognitive Psychology</i>, 23, 457–482. <a href="https://www.ece.uvic.ca/~bctill/papers/learning/Tanaka_Taylor_1991.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Nielsen Norman Group. Outliers in Card Sorting / IA category outliers. <a href="https://www.nngroup.com/articles/ia-category-outliers/" target="_blank" rel="noopener">nngroup.com</a></li>
+        <li>Barsalou, L. W. (1983). Ad hoc categories. <i>Memory &amp; Cognition</i>, 11(3), 211–227. <a href="https://oecs.mit.edu/pub/lug9d2y7" target="_blank" rel="noopener">Open Encyclopedia of Cognitive Science</a></li>
+        <li>Lakoff, G. (1987). <i>Women, Fire, and Dangerous Things</i>. University of Chicago Press.（邦訳『認知意味論』池上嘉彦ほか訳、紀伊國屋書店、1993）<a href="https://en.wikipedia.org/wiki/Women,_Fire,_and_Dangerous_Things" target="_blank" rel="noopener">Wikipedia</a> ／ <a href="https://ci.nii.ac.jp/ncid/BN11452462" target="_blank" rel="noopener">CiNii</a></li>
+        <li>Murphy, G. L. &amp; Medin, D. L. (1985). The role of theories in conceptual coherence. <i>Psychological Review</i>, 92(3), 289–316. <a href="https://api.philpapers.org/rec/MARWIC" target="_blank" rel="noopener">philpapers.org</a></li>
+        <li>Kempton, W. (1986). Two Theories of Home Heat Control. <i>Cognitive Science</i>, 10, 75–90. <a href="https://gwern.net/doc/science/physics/1986-kempton.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Norman, D. A. (1983). Some Observations on Mental Models. In Gentner &amp; Stevens (eds.), <i>Mental Models</i>. 解説：<a href="https://ixdf.org/literature/book/the-glossary-of-human-computer-interaction/mental-models" target="_blank" rel="noopener">IxDF</a></li>
+        <li>Norman, D. A. (1988). <i>The Psychology of Everyday Things</i>.（改題『The Design of Everyday Things』、邦訳『誰のためのデザイン？』新曜社）</li>
+        <li>Young, I. (2008). <i>Mental Models: Aligning Design Strategy with Human Behavior</i>. Rosenfeld Media. <a href="https://rosenfeldmedia.com/books/mental-models/" target="_blank" rel="noopener">rosenfeldmedia.com</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 03 ── 電話は、家具の60番目だった<br>
+    調査・執筆 2026年10月22日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+</script>
+</body>
+</html>

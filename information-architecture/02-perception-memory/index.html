@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>「メニューは7項目まで」の根拠は、二重にまちがっている｜情報設計シリーズ 02</title>
+<meta name="description" content="知覚・注意・記憶・認知負荷の研究から、構造が人の頭の中で何をしているのかをたどる。Miller、Cowan、ゲシュタルト、Treisman、Sweller。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA;--white:#FFFFFF;--tint:#F5F5F5;--ink:#111111;--text:#333333;--muted:#808080;
+  --line:#EEEEEE;--line-strong:#CCCCCC;--footer:#EEEEEE;
+  --teal:#62B8A0;--yellow:#F2C94C;--coral:#EB6584;--deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+  --maxw:720px;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(to bottom,rgba(250,250,250,.96) 0%,rgba(250,250,250,.92) 30%,rgba(250,250,250,.8) 55%,rgba(250,250,250,.6) 78%,rgba(250,250,250,.42) 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:22px 26px 14px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.brand b{color:var(--muted);font-weight:400}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+.nav-links a.on{font-weight:600}
+
+.hero{padding:150px 0 0}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+.hero .wrap::after{content:"";display:block}
+.eyebrow{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+h1.title{font-family:var(--jp);font-weight:700;font-size:44px;line-height:1.38;color:var(--ink);margin:0 0 28px;letter-spacing:-.005em}
+.lede{font-size:16px;line-height:2;color:var(--text);margin:0 0 28px}
+.src-tag{font-size:12.5px;line-height:1.8;color:var(--muted);border-left:1px solid var(--line-strong);padding-left:14px;margin:0 0 36px}
+.src-tag b{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.stat .n{font-family:var(--en);font-weight:500;font-size:36px;line-height:1.1;color:var(--ink)}
+.stat .n small{font-family:var(--jp);font-size:13px;font-weight:500;margin-left:4px;color:var(--text)}
+.stat .l{font-size:12px;line-height:1.6;color:var(--muted);margin-top:8px}
+
+section{padding:72px 0}
+.sec-no{display:block;font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h2{font-family:var(--jp);font-weight:700;font-size:27px;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:13.5px;color:var(--muted);margin:0 0 32px;font-family:var(--en);letter-spacing:.02em}
+h3{font-weight:700;font-size:18px;line-height:1.6;color:var(--ink);margin:44px 0 12px}
+p{margin:0 0 1.2em}
+
+ul.clean{list-style:none;padding:0;margin:0 0 1.6em}
+ul.clean li{position:relative;padding:10px 0 10px 20px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+ul.clean li:last-child{border-bottom:none}
+
+.dom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 32px}
+.dom{background:var(--white);border:1px solid var(--line);padding:18px 16px}
+.dom .dn{font-weight:700;color:var(--ink);font-size:15px;line-height:1.5}
+.dom .de{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:4px 0 10px}
+.dom .dq{font-size:13px;line-height:1.8}
+.dom .sw{display:block;height:3px;margin:-18px -16px 14px}
+
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:24px 26px;margin:36px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.pull .by{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:10px}
+
+.note{background:var(--white);border:1px solid var(--line);padding:20px 24px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note p{margin:0 0 .6em}.note p:last-child{margin:0}
+.note .h{font-weight:700;color:var(--ink)}
+.note.sand{border-left:2px solid var(--ink)}
+
+.insight{background:var(--white);border:1px solid var(--line);padding:22px 24px;margin:16px 0}
+.insight .ik{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.insight h4{font-size:16px;color:var(--ink);margin:6px 0 8px;line-height:1.6}
+.insight p{font-size:14px;margin:0}
+
+.chart-card{background:var(--white);border:1px solid var(--line);padding:24px;margin:32px 0}
+.chart-card .ct{font-weight:700;color:var(--ink);font-size:15px}
+.chart-card .cs{font-size:12px;color:var(--muted);margin:2px 0 18px}
+.leg{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted);margin-top:14px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.75;margin:20px 0 32px;background:var(--white)}
+table.tbl th{font-family:var(--en);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+table.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td:first-child{font-weight:700;color:var(--ink);white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin:0 -2px}
+
+ul.limit{list-style:none;padding:0;margin:0 0 1.6em}
+ul.limit li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:14px}
+ul.limit li::before{content:"!";position:absolute;left:0;top:13px;width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;font-family:var(--en);font-size:11px;font-weight:600;line-height:16px;text-align:center;color:var(--ink)}
+
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:80px 0 0}
+.closing h3{margin-top:0}
+
+.pc-link{display:inline-block;border:1px solid var(--ink);border-radius:48px;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 18px;margin:4px 6px 4px 0;transition:.15s}
+.pc-link:hover{background:var(--ink);color:#fff}
+
+.refs{border-top:1px solid var(--ink);margin-top:120px;padding-top:28px}
+.refs h3{margin-top:0;font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.refs ol{padding-left:20px;font-size:12.5px;line-height:1.8;color:var(--text)}
+.refs li{margin-bottom:6px}
+.refs a{color:var(--text);word-break:break-all}
+
+footer{background:var(--footer);padding:48px 24px;margin-top:80px;font-size:12.5px;color:var(--muted);line-height:1.9}
+footer .wrap{padding:0}
+
+@media (max-width:680px){
+  section{padding:44px 0}
+  h1.title{font-size:31px}
+  h2{font-size:22px}
+  .hero{padding-top:128px}
+  .hero::after{width:100%;margin-left:0}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dom-grid{grid-template-columns:1fr 1fr}
+  .nav-inner{flex-wrap:wrap;padding:16px 18px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0}
+  .closing{padding:28px 22px;margin:56px 0 0}
+  .pull p{font-size:16px}
+}
+@media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+mark{background:linear-gradient(transparent 58%,rgba(98,184,160,.34) 58%);color:inherit;padding:0 1px}
+mark.c{background:linear-gradient(transparent 58%,rgba(235,101,132,.28) 58%)}
+
+/* --- map page extras --- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:var(--white);margin:24px 0 32px}
+.three > div{padding:18px 16px;border-right:1px solid var(--line)}
+.three > div:last-child{border-right:none}
+.three .k{font-weight:700;color:var(--ink);font-size:15px}
+.three .e{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+.three p{font-size:13px;line-height:1.8;margin:0}
+
+.tl{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:6px;bottom:6px;width:1px;background:var(--line-strong)}
+.tl li{display:grid;grid-template-columns:48px 22px 1fr;align-items:start;padding:5px 0;font-size:13.5px;line-height:1.7}
+.tl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:13px;padding-top:1px}
+.tl .d{width:9px;height:9px;border-radius:50%;margin:7px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white)}
+.tl .era{grid-column:1/-1;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:18px 0 4px 80px}
+.cA{background:var(--yellow)}.cB{background:var(--teal)}.cC{background:var(--coral)}.cD{background:var(--deep-teal)}.cE{background:var(--muted)}
+
+.layers{margin:24px 0 32px;border:1px solid var(--line);background:var(--white)}
+.layer{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer .ln{padding:14px 16px;font-weight:700;color:var(--ink);font-size:14px;border-right:1px solid var(--line);position:relative}
+.layer .ln small{display:block;font-family:var(--en);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.layer .lc{padding:14px 16px;font-size:13px;line-height:1.75}
+.layer .lc .cats{display:block;font-family:var(--en);font-size:11.5px;color:var(--muted);margin-top:4px}
+.layer.cog .ln::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral)}
+.axis{display:flex;justify-content:space-between;font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:-22px 0 32px}
+
+.act{margin:48px 0 0}
+.act-h{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.act-h .an{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.act-h .at{font-weight:700;color:var(--ink);font-size:17px}
+.act-h .aq{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right}
+details.cat{border-bottom:1px solid var(--line);background:transparent}
+details.cat summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 18px;gap:10px;align-items:start;padding:16px 0}
+details.cat summary::-webkit-details-marker{display:none}
+details.cat .cn{font-family:var(--en);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink)}
+details.cat .ctit{font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.55}
+details.cat .cwhy{display:block;font-weight:400;font-size:13px;color:var(--muted);margin-top:2px}
+details.cat .tog{font-family:var(--en);font-size:18px;color:var(--muted);line-height:1.2;transition:transform .2s}
+details.cat[open] .tog{transform:rotate(45deg)}
+details.cat .tag{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--coral);color:var(--ink);padding:0 6px;margin-left:8px;vertical-align:2px}
+details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:#fff}
+.cbody{padding:0 0 22px 54px;font-size:13.5px;line-height:1.85}
+.cbody .q{margin:0 0 14px}
+.cbody dl{display:grid;grid-template-columns:96px 1fr;gap:6px 14px;margin:0}
+.cbody dt{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.cbody dd{margin:0}
+.cbody .kw span{display:inline-block;background:var(--tint);padding:0 8px;margin:0 4px 4px 0;font-size:12.5px}
+.cbody .ps{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.cbody .ps span{font-family:var(--en);font-size:11px;border:1px solid var(--line-strong);padding:0 7px}
+
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:24px 0 8px}
+.flow > div{background:var(--white);border:1px solid var(--line);padding:12px 8px 10px;text-align:center;position:relative}
+.flow > div::before{content:"";position:absolute;left:0;right:0;top:0;height:3px}
+.flow .f1::before{background:var(--muted)}.flow .f2::before{background:var(--coral)}.flow .f3::before{background:var(--teal)}.flow .f4::before{background:var(--deep-teal)}.flow .f5::before{background:var(--yellow)}.flow .f6::before{background:var(--muted)}
+.flow .fn{font-family:var(--en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flow .ft{font-weight:700;color:var(--ink);font-size:13px;line-height:1.4;margin:4px 0}
+.flow .fc{font-family:var(--en);font-size:12px;color:var(--text)}
+
+.princ{counter-reset:p;list-style:none;padding:0;margin:20px 0 8px}
+.princ li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;padding:14px 0;border-bottom:1px solid var(--line)}
+.princ li::before{content:"P" counter(p);font-family:var(--en);font-weight:500;font-size:13px;color:var(--muted);padding-top:2px}
+.princ b{display:block;font-size:15px}
+.princ span{font-size:13.5px;line-height:1.8}
+
+.mx{border-collapse:collapse;font-size:12px;margin:0 auto}
+.mx th{font-family:var(--en);font-weight:500;font-size:11px;color:var(--muted);padding:4px 0;width:34px;text-align:center}
+.mx th.rl{text-align:left;width:auto;padding-right:12px;font-family:var(--jp);color:var(--ink);font-weight:500;font-size:12.5px;white-space:nowrap}
+.mx td{width:34px;height:28px;text-align:center;border:1px solid var(--line)}
+.mx td i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.mx tr.cog th.rl{box-shadow:inset 3px 0 0 var(--coral);padding-left:10px}
+
+@media (max-width:680px){
+  .three{grid-template-columns:1fr}
+  .three > div{border-right:none;border-bottom:1px solid var(--line)}
+  .three > div:last-child{border-bottom:none}
+  .layer{grid-template-columns:1fr}
+  .layer .ln{border-right:none;border-bottom:1px dashed var(--line)}
+  .act-h{flex-wrap:wrap}.act-h .aq{margin-left:0;text-align:left;width:100%}
+  .cbody{padding-left:0}
+  .cbody dl{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .mx th.rl{font-size:11px}
+  .mx td,.mx th{width:22px}
+}
+
+/* --- article 01 extras --- */
+.planes{margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.plane{display:grid;grid-template-columns:96px 1fr;align-items:stretch;border:1px solid var(--line)}
+.plane .pn{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:12px;border-right:1px solid var(--line);display:flex;align-items:center}
+.plane .pc{display:grid;grid-template-columns:1fr 1fr}
+.plane .pc div{padding:10px 12px;font-size:13px;line-height:1.6}
+.plane .pc div + div{border-left:1px dashed var(--line-strong)}
+.plane .pc .full{grid-column:1/-1}
+.plane.hl{border-color:var(--ink)}
+.plane.hl .pn{color:var(--ink);font-weight:600}
+.plane.hl .ia{background:rgba(98,184,160,.18);font-weight:700;color:var(--ink)}
+.pl-axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:10px}
+.pl-cols{display:grid;grid-template-columns:96px 1fr 1fr;font-family:var(--en);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-cols span{padding-left:12px}
+
+.tmodel svg{width:100%;height:auto;display:block}
+.tmodel text{font-family:var(--jp)}
+
+.deftl{list-style:none;padding:0;margin:8px 0 0}
+.deftl li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.deftl li:last-child{border-bottom:none}
+.deftl .y{font-family:var(--en);font-weight:500;color:var(--ink);font-size:14px}
+.deftl .who{display:block;font-size:12px;color:var(--muted)}
+.deftl .what{font-size:14px;line-height:1.75;color:var(--ink)}
+.deftl .lens{display:inline-block;font-family:var(--en);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 6px;margin-left:6px;vertical-align:2px;color:var(--ink)}
+.l-und{background:rgba(242,201,76,.45)}.l-str{background:rgba(98,184,160,.35)}.l-mea{background:rgba(235,101,132,.28)}.l-pla{background:rgba(79,124,135,.3)}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 4px}
+.quad > div{background:var(--white);border:1px solid var(--line);padding:14px 16px}
+.quad .qn{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.quad .qt{font-weight:700;color:var(--ink);font-size:15px;margin:2px 0 4px}
+.quad p{font-size:13px;margin:0;line-height:1.7}
+.quad .hot{border-color:var(--ink)}
+
+.gears{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 8px}
+.gear{background:var(--white);border:1px solid var(--line);padding:16px;text-align:left;position:relative}
+.gear::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.gear.o::before{background:var(--coral)}.gear.t::before{background:var(--teal)}.gear.c::before{background:var(--deep-teal)}
+.gear .ge{font-family:var(--en);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.gear .gj{font-weight:700;color:var(--ink);font-size:17px;margin:2px 0 6px}
+.gear p{font-size:13px;line-height:1.7;margin:0}
+.gear .ex{display:block;font-size:12px;color:var(--muted);margin-top:8px;border-top:1px dashed var(--line-strong);padding-top:8px}
+
+@media (max-width:680px){
+  .plane{grid-template-columns:70px 1fr}
+  .plane .pn{font-size:9.5px;padding:10px 8px}
+  .pl-cols{grid-template-columns:70px 1fr 1fr}
+  .quad,.gears{grid-template-columns:1fr}
+  .deftl li{grid-template-columns:48px 1fr}
+}
+
+/* --- article 02 extras --- */
+.hbars{display:flex;flex-direction:column;gap:10px}
+.hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
+.hb .hl{color:var(--ink);line-height:1.4}
+.hb .track{height:14px;background:var(--tint);position:relative}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb.avg .fill{background:var(--ink)}
+.hb.avg .hl{font-weight:700}
+.hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
+.hb .hv small{color:var(--muted);font-size:11px;margin-left:4px}
+
+.gdemo,.sdemo{display:grid;gap:14px}
+.gdemo{grid-template-columns:repeat(3,1fr)}
+.sdemo{grid-template-columns:1fr 1fr}
+.gdemo figure,.sdemo figure{margin:0;border:1px solid var(--line);background:var(--paper)}
+.gdemo svg,.sdemo svg{display:block;width:100%;height:auto}
+.gdemo figcaption,.sdemo figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--white)}
+.gdemo figcaption b,.sdemo figcaption b{display:block;color:var(--ink);font-size:13px}
+.chart-card .mini{margin:12px 0 0}
+.chart-card button.pc-link{background:none;font-family:var(--jp);cursor:pointer}
+
+.loadfig{display:flex;flex-direction:column;gap:12px}
+.lrow{display:grid;grid-template-columns:168px 1fr;align-items:center;gap:12px}
+.lk{font-size:12.5px;color:var(--ink);line-height:1.5}
+.lbar{display:flex;height:30px;border:1px solid var(--line-strong);background:var(--tint)}
+.lbar i{font-style:normal;font-size:11.5px;display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;color:var(--ink)}
+.lbar .in{background:rgba(79,124,135,.55);color:#fff}
+.lbar .ex{background:rgba(235,101,132,.4)}
+.lbar .fr{color:var(--muted)}
+
+@media (max-width:680px){
+  .hb{grid-template-columns:96px 1fr;row-gap:2px}
+  .hb .hv{grid-column:2}
+  .gdemo{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .gdemo figcaption{font-size:11px;padding:6px 8px}
+  .sdemo{grid-template-columns:1fr}
+  .lrow{grid-template-columns:1fr;gap:4px}
+  .lbar i{font-size:10.5px;padding:0 5px}
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Information Architecture<b> ／ </b>02 Perception</span>
+    <div class="nav-links">
+      <a href="#seven">Seven</a>
+      <a href="#four">Four</a>
+      <a href="#outside">Outside</a>
+      <a href="#chunk">Chunk</a>
+      <a href="#gestalt">Gestalt</a>
+      <a href="#attention">Attention</a>
+      <a href="#load">Load</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#carry">Carry</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Deep Research ／ 概念探究 ── 情報設計シリーズ 02</span>
+    <h1 class="title" style="font-size:clamp(28px,6vw,40px)">「メニューは7項目まで」の<br>根拠は、二重に<br>まちがっている。</h1>
+    <p class="lede">グローバルナビの項目は7つ前後に収める。UIの現場でよく聞く指針で、根拠には George Miller の1956年の論文「マジカルナンバー7±2」が引かれる。ところが Miller 本人は、7という数字があちこちに現れるのはおそらく偶然だと書いていた。後の研究では、人が頭の中に同時に置いておける量は7よりずっと少なく、4前後だと考えられている。それなら7項目のメニューも多すぎるはずだが、私たちは30項目のカテゴリー一覧を毎日ふつうに使っている。数字も、数字の当てはめ方も、どちらもずれているわけだ。前回、Garrett はIAの行き先を人の認知に見ていた。この回では、知覚・注意・記憶・認知負荷の研究をたどりながら、構造が人の頭の中で何をしているのかを確かめていく。</p>
+    <div class="src-tag">
+      主な出典：<b>Miller「The Magical Number Seven, Plus or Minus Two」（1956）、Cowan「The magical number 4 in short-term memory」（2001）</b><br>
+      Sweller（1988, 2010）、Treisman &amp; Gelade（1980）、Wagemans ほか（2012）、Larson &amp; Czerwinski（1998）ほか ／ 調査日 2026年10月22日
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="n">7</div><div class="l">Miller（1956）が「偶然の一致」と呼んだ数字</div></div>
+      <div class="stat"><div class="n">4<small>前後</small></div><div class="l">リハーサルとまとまりを統制したときの記憶の上限（Cowan 2001）</div></div>
+      <div class="stat"><div class="n">1.5<small>倍</small></div><div class="l">点の間隔の比がこれを超えると、まとまり方はほぼ一つに決まる（Kubovy）</div></div>
+      <div class="stat"><div class="n">約半数</div><div class="l">動画の中を横切るゴリラに気づかなかった人（Simons &amp; Chabris 1999）</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="seven">
+  <div class="wrap">
+    <span class="sec-no">01 ── Seven</span>
+    <h2>Miller は、メニューの話をしていなかった</h2>
+    <p class="sec-sub">What "The Magical Number Seven" actually argued</p>
+
+    <p>1956年、ハーバードの心理学者 George A. Miller は『Psychological Review』に、のちに心理学で最も引用される論文の一つになる文章を載せた。書き出しはこうだ。</p>
+    <div class="pull"><p>I have been persecuted by an integer.<span class="by">── 私はある整数につきまとわれてきた（Miller 1956）</span></p></div>
+    <p>冗談めかした導入のあと、Miller が扱ったのは二種類の実験だった。</p>
+
+    <h3>一つめ：いくつまで区別できるか</h3>
+    <p>一つは「絶対判断」の実験。音を一つ聞かせて、それが何番目の高さかを答えてもらう。選択肢を増やしていくと、ある数を超えたところで正答が頭打ちになる。Miller は当時の情報理論を使い、この上限をビット（二択一回分の情報量）で測った。</p>
+    <div class="chart-card">
+      <div class="ct">一つの次元だけで、人はいくつまで区別できるか</div>
+      <div class="cs">Miller（1956）が紹介した絶対判断の上限。ビット値は論文から、区別できる段階数はそこからの換算（2のビット乗）</div>
+      <div class="hbars" id="bits"></div>
+      <div class="leg"><span>一次元の刺激の平均は約2.6ビット、およそ6〜7段階。複数の次元を組み合わせると上限は伸びるが、伸び方はだんだん鈍る</span></div>
+    </div>
+    <p>平均すると2.6ビット前後、段階にしておよそ6から7。ここで「7」が一度出てくる。</p>
+
+    <h3>二つめ：いくつまで覚えていられるか</h3>
+    <p>もう一つは「記憶範囲」の実験で、数字や単語を聞かせて、すぐに順番どおり言い返してもらう。言い返せるのはだいたい7個前後で、ここでも7が出る。</p>
+    <p>Miller は最初、二つの上限は同じ仕組みから来ているのではないかと考えた。ところがデータは合わなかった。記憶範囲は、情報量（ビット）ではなく、項目の個数で決まっていたのだ。0と1しかない2進数は1桁あたりの情報量が小さく、英単語は大きい。それでも覚えられる個数はあまり変わらない（2進数で9個ほど、単語で5個ほど）。</p>
+    <p>Miller はこの「個」のほうに名前を付けた。<strong>チャンク（chunk、ひとかたまり）</strong>。そして論文の後半を、チャンクをどうやって大きくするかの話に使っている。同僚の Sidney Smith は、2進数の列を3桁ずつ8進数の1文字に読み替える練習をして、40桁ほどの2進数を言い返せるようになった。覚えられるチャンクの数は増えていない。1個のチャンクに詰める中身が増えただけだ。</p>
+
+    <h3>7という数字の扱い</h3>
+    <p>結論部で Miller は、二つの実験にたまたま同じ7が出たことに深い意味を読むのはやめよう、と書く。7があちこちに現れるのは、彼の言葉で言えば「ピタゴラス的な偶然」で、しかも害のあるほうの偶然だった。</p>
+    <p>論文の重心は、7という上限よりも、再符号化（recoding）、つまり材料を読み替えて大きなチャンクにまとめる力のほうにあった。<mark>情報設計の側から見ると、こちらのほうがずっと使える発見だ。</mark>上限の数字は変えられないが、1チャンクに入る中身は、まとめ方しだいで変えられる。</p>
+    <div class="note"><p><span class="h">「7±2」が独り歩きした経路</span></p><p>Miller 自身、7という数字ばかりが引用されることには複雑な思いを持っていたと伝えられている。UIの指針として広まった「メニューは7項目まで」は、記憶範囲の数字を、画面に表示する項目数に当てはめたものだ。ただ、画面に見えている項目は覚えておく必要がない。この食い違いは第3節で扱う。</p></div>
+  </div>
+</section>
+
+<section id="four">
+  <div class="wrap">
+    <span class="sec-no">02 ── Four</span>
+    <h2>本当の上限は、7よりずっと小さかった</h2>
+    <p class="sec-sub">Cowan's magical number four and the working memory model</p>
+
+    <p>2001年、ミズーリ大学の Nelson Cowan は『Behavioral and Brain Sciences』で、短期記憶の容量をもう一度測り直す論文を出した。彼の見立てでは、Miller の7は二つの「水増し」を含んでいた。</p>
+    <p>一つは、心の中での復唱（リハーサル）。電話番号を口の中で繰り返していれば、頭に置いておける時間は延びる。もう一つは、気づかないうちにやっているチャンク化。「1-9-5-6」を年号として覚えれば、4個の数字は1個になる。</p>
+    <p>この二つを実験で封じると、何が残るか。たとえば実験参加者に「ザ、ザ、ザ」と無意味な語を言い続けさせて復唱を妨げる。あるいは、語のペアをあらかじめ学習させておいて、何がチャンクなのかを実験者の側で決めておく。そうして測ると、若い成人が同時に保持できるのは3〜5チャンク、中心はおよそ4だった。単語1個がチャンクでも、学習済みの語のペアがチャンクでも、数はほとんど変わらない。</p>
+
+    <h3>頭の中には、作業台がある</h3>
+    <p>こうした記憶は、いまでは「ワーキングメモリ（作業記憶）」と呼ばれている。貯蔵庫というより、作業台のイメージに近い。1974年に Alan Baddeley と Graham Hitch が出したモデルでは、作業台を仕切る係（中央実行系）の下に、言葉を扱う領域（音韻ループ）と、形や位置を扱う領域（視空間スケッチパッド）があり、2000年にはそれらを一つの場面として束ねる領域（エピソード・バッファ）が足された。</p>
+    <p>言葉と図がある程度別の領域を使うことは、画面の設計にも関わってくる。ラベルを読みながら、そのラベルがどこにあったかの位置も覚えている。どちらか一方だけに負荷を寄せると、もう一方は空いている。</p>
+
+    <h3>4は「欠陥」なのか</h3>
+    <p>Cowan は2010年の総説で、この小ささを弱点とみる説と、むしろ都合がいいとみる説の両方を紹介している。後者によると、記憶の中を探すとき、平均3.5個程度のまとまりに分けておくのが最も効率がいいというシミュレーションがある。同時に活性化している概念が少なければ、それらを混同せずに一つのチャンクに束ねやすい。</p>
+    <p>4という数を「人間の限界」と読むか、「この大きさで束ねるのが具合がいい」と読むか。設計者にとっては後者の読み方のほうが手がかりになる。三つか四つに分けられた構造は、人が自分で物事を整理するときの単位とだいたい釣り合っている。</p>
+    <div class="note"><p><span class="h">「4」も、そのまま画面に当てはめない</span></p><p>Cowan の数字は、手がかりのない状態で頭の中に保持できる量の話だ。メニューを4項目にせよという意味ではない。7を4に取り替えても、第1節で見た当てはめ方の誤りはそのまま残る。</p></div>
+  </div>
+</section>
+
+<section id="outside">
+  <div class="wrap">
+    <span class="sec-no">03 ── Outside</span>
+    <h2>見えているものは、覚えなくていい</h2>
+    <p class="sec-sub">Recognition over recall, and the screen as external memory</p>
+
+    <p>では、上限が4前後なのに、なぜ30項目のカテゴリー一覧を使えるのか。答えは単純で、一覧は画面に出ているからだ。</p>
+    <p>30個を覚えておく必要はない。目で見て、今探しているものに近いかどうかを一つずつ判断すればいい。ここで使っているのは「再生（recall）」ではなく「再認（recognition）」で、見せられたものを知っていると判断するのは、何もないところから思い出すよりずっと軽い。Jakob Nielsen は1994年のユーザビリティ・ヒューリスティクスに「再生より再認」を入れ、ユーザーの記憶の負担を減らすには、物や操作や選択肢を見えるようにせよと書いた。</p>
+    <div class="three">
+      <div><div class="k">再生</div><div class="e">Recall</div><p>手がかりなしに頭から取り出す。パスワード、コマンド名、前のページで見た価格。ワーキングメモリと長期記憶の両方を使う。</p></div>
+      <div><div class="k">再認</div><div class="e">Recognition</div><p>見えているものが目的のものかを判断する。メニュー、一覧、候補の表示。保持の負担はほぼ画面が引き受ける。</p></div>
+      <div><div class="k">持ち越し</div><div class="e">Carry-over</div><p>画面Aで見たものを、画面Bまで頭に入れて運ぶ。比較、絞り込み条件、入力途中の値。4前後の上限が効いてくるのはここ。</p></div>
+    </div>
+
+    <h3>上限が効くのは、画面と画面のあいだ</h3>
+    <p>ワーキングメモリの上限が問題になるのは、見えなくなったものを頭の中で運ばされるときだ。料金プランのページを行き来して三つのプランを比べる。検索結果から詳細ページに入り、戻ったらさっき付けた絞り込みが消えている。設定画面の三つ目の階層で、最初の階層で何を選んだのかを思い出そうとする。</p>
+    <p>こういう場面では、ユーザーは4前後の作業台に情報を載せて運んでいる。比較表、パンくずリスト、絞り込み条件のチップ、最近見た商品。どれも、ユーザーの頭の中から作業台の中身を画面に移す仕掛けだ。</p>
+    <div class="insight">
+      <span class="ik">Insight 01</span>
+      <h4>問うべきは「何個見せるか」より「何を運ばせるか」</h4>
+      <p>メニューの項目数を数えるより先に、ユーザーがある画面から次の画面へ何を頭に入れて運ばされているかを数える。記憶の研究が情報設計に渡しているのは、表示数の上限より、この持ち越しの上限だ。</p>
+    </div>
+    <p>情報視覚化の研究者 Colin Ware は『Visual Thinking for Design』（2008）で、図やインターフェースを、考えるための道具、脳の延長として捉えた。人は図を見るとき、頭の中に答えを組み立てるのではなく、図に向かって問いを投げ、目で答えを拾っている。そう考えると、良い構造とは、ユーザーが自分の作業台を使わずに済むように、作業台の役目を画面に肩代わりさせる構造ということになる。</p>
+  </div>
+</section>
+
+<section id="chunk">
+  <div class="wrap">
+    <span class="sec-no">04 ── Chunk</span>
+    <h2>チェスの名人は、盤面を4つほどのかたまりで見ていた</h2>
+    <p class="sec-sub">Chunking, expertise, and structure as pre-made chunks</p>
+
+    <p>チャンクの大きさが経験で変わることを最もはっきり示したのは、チェスの研究だった。1973年、William Chase と Herbert Simon は、チェスの局面を5秒だけ見せ、それを別の盤に再現してもらう実験をした。</p>
+    <p>実際の対局から取った局面では、名人級のプレイヤーは初心者よりはるかに多くの駒を正しく置いた。一方、同じ駒を盤上にでたらめに並べた局面では、名人も初心者も平均3〜4駒しか再現できなかった。名人の記憶力が特別に大きいわけではない。名人は、実戦で何度も現れる駒の配置を一つのかたまりとして持っていて、盤面をそのかたまりで読んでいた。再現の様子を記録すると、名人は数個の駒を素早く置いては2秒ほど止まり、また数個を置く。その区切りがチャンクの切れ目だと考えられた。のちに Gobet と Simon は、名人が持っているチャンクを5万個ほどと見積もっている。</p>
+
+    <h3>構造は、外から渡されたチャンクである</h3>
+    <p>Sidney Smith が2進数を8進数に読み替えたように、名人は盤面を定跡のかたまりに読み替えていた。どちらも、読み替えの規則を長い訓練で自分の中に作っている。</p>
+    <p>情報設計がやっていることは、この読み替えの規則を、訓練を積んでいない人にも外から手渡すことだと言っていい。200本の記事に「料金」「導入事例」「サポート」とカテゴリー名を付けた時点で、ユーザーは200個を覚える必要がなくなり、3つのかたまりから選べばよくなる。ラベルは、Miller の言う再符号化を、設計者がユーザーの代わりにやっておいたものだ。</p>
+    <p>ただし、チャンクが働くのは、受け手がそのまとまりを「ひとかたまり」として読めるときに限られる。名人の定跡は初心者には駒のばらばらの並びにしか見えない。社内の部署名でメニューを切ったサイトが外の人に使いにくいのも、同じ理由だ。設計者にとって自明なまとまりが、ユーザーにはチャンクとして見えていない。人がどんなまとまりを自然に作るのかは、次回③のカテゴリー化の研究につながる。</p>
+  </div>
+</section>
+
+<section id="gestalt">
+  <div class="wrap">
+    <span class="sec-no">05 ── Gestalt</span>
+    <h2>目は、記憶より先にまとめている</h2>
+    <p class="sec-sub">Gestalt grouping: proximity, similarity, common region</p>
+
+    <p>チャンク化は記憶の中だけで起きるわけではない。もっと手前、ものを見た瞬間に、目はすでに要素をまとめ始めている。</p>
+    <p>1923年、ゲシュタルト心理学者の Max Wertheimer は、ばらばらの点や線がどういう条件でまとまって見えるかを論文にまとめた。近いものはまとまる（近接）。似たものはまとまる（類似）。一緒に動くものはまとまる（共通運命）。ほかにも、なめらかにつながる線（よい連続）や、閉じた形（閉合）が挙げられている。そして見え方は、条件が許すかぎり最も単純でまとまりのよい形に落ち着く（プレグナンツ）。</p>
+
+    <div class="chart-card">
+      <div class="ct">同じ16個の点が、まとめ方で別のものに見える</div>
+      <div class="cs">筆者による作図。左から、等間隔、近接による群化、共通領域による群化</div>
+      <div class="gdemo">
+        <figure><svg viewBox="0 0 120 120" aria-label="等間隔に並んだ4×4の点"><g fill="#4F7C87"><circle cx="24" cy="24" r="6"/><circle cx="48" cy="24" r="6"/><circle cx="72" cy="24" r="6"/><circle cx="96" cy="24" r="6"/><circle cx="24" cy="48" r="6"/><circle cx="48" cy="48" r="6"/><circle cx="72" cy="48" r="6"/><circle cx="96" cy="48" r="6"/><circle cx="24" cy="72" r="6"/><circle cx="48" cy="72" r="6"/><circle cx="72" cy="72" r="6"/><circle cx="96" cy="72" r="6"/><circle cx="24" cy="96" r="6"/><circle cx="48" cy="96" r="6"/><circle cx="72" cy="96" r="6"/><circle cx="96" cy="96" r="6"/></g></svg><figcaption><b>等間隔</b>どうまとまるか決まらない</figcaption></figure>
+        <figure><svg viewBox="0 0 120 120" aria-label="縦の2列ずつ近づけた点"><g fill="#4F7C87"><circle cx="18" cy="24" r="6"/><circle cx="38" cy="24" r="6"/><circle cx="82" cy="24" r="6"/><circle cx="102" cy="24" r="6"/><circle cx="18" cy="48" r="6"/><circle cx="38" cy="48" r="6"/><circle cx="82" cy="48" r="6"/><circle cx="102" cy="48" r="6"/><circle cx="18" cy="72" r="6"/><circle cx="38" cy="72" r="6"/><circle cx="82" cy="72" r="6"/><circle cx="102" cy="72" r="6"/><circle cx="18" cy="96" r="6"/><circle cx="38" cy="96" r="6"/><circle cx="82" cy="96" r="6"/><circle cx="102" cy="96" r="6"/></g></svg><figcaption><b>近接</b>縦長の2つの帯に見える</figcaption></figure>
+        <figure><svg viewBox="0 0 120 120" aria-label="同じ配置の点を横向きの枠で囲んだもの"><g fill="none" stroke="#CCCCCC" stroke-width="1.5"><rect x="8" y="12" width="104" height="24" rx="4"/><rect x="8" y="60" width="104" height="24" rx="4"/></g><g fill="#4F7C87"><circle cx="18" cy="24" r="6"/><circle cx="38" cy="24" r="6"/><circle cx="82" cy="24" r="6"/><circle cx="102" cy="24" r="6"/><circle cx="18" cy="48" r="6"/><circle cx="38" cy="48" r="6"/><circle cx="82" cy="48" r="6"/><circle cx="102" cy="48" r="6"/><circle cx="18" cy="72" r="6"/><circle cx="38" cy="72" r="6"/><circle cx="82" cy="72" r="6"/><circle cx="102" cy="72" r="6"/><circle cx="18" cy="96" r="6"/><circle cx="38" cy="96" r="6"/><circle cx="82" cy="96" r="6"/><circle cx="102" cy="96" r="6"/></g></svg><figcaption><b>共通領域</b>枠に入った横の行が浮き上がる</figcaption></figure>
+      </div>
+    </div>
+
+    <h3>「近い」は、比で決まる</h3>
+    <p>ゲシュタルトの法則は長いあいだ、図を見せて「ほら、こう見えるでしょう」と納得させる種類の知識だった。それを数式にしたのが、Michael Kubovy らの1990年代の研究だ。格子状に並んだ点の縦と横の間隔を少しずつ変え、どちらの向きにまとまって見えるかを大量に答えてもらった。</p>
+    <p>結果ははっきりしていた。まとまり方を決めていたのは、点と点の間隔の絶対値ではなく、競合する二つの向きの間隔の比だった。比がおよそ1.5を超えると、遠いほうの向きにまとまって見えることはほとんどなくなる。近接と類似は足し算のように効き合うことも分かった。</p>
+    <p>画面に置き換えると、グループ内の余白とグループ間の余白の比が、構造の見え方を決めているということになる。見出しと本文の間隔が、本文と次の見出しの間隔と同じなら、見出しがどちらに属しているのか目には分からない。<mark>余白は、構造を目に伝える符号そのものだ。</mark></p>
+
+    <h3>カードの枠は、Wertheimer の一覧になかった</h3>
+    <p>1992年、Stephen Palmer は Wertheimer の一覧にない原理を足した。同じ囲みの中にあるものはまとまって見える、という「共通領域」の原理だ。上の図の右端では、点の間隔は真ん中と同じなのに、枠を付けただけで横の行が浮き上がる。枠が近接に勝っている。</p>
+    <p>Palmer と Irvin Rock は1994年に、線でつながっているものはまとまるという「一様連結性」も提案した（これを群化の最初の段階とみる彼らの主張には、異論も出ている）。カードUI、背景色で区切ったセクション、項目をつなぐ罫線。いまの画面設計で毎日使う道具の多くは、20世紀末になってようやく名前が付いた原理の上に立っている。</p>
+    <div class="note"><p><span class="h">図と地も、まとまりの一部</span></p><p>何が「図」として浮かび、何が「地」として背景に退くかも、同じ知覚のまとまりの問題として研究されてきた。小さい領域、凸の形、囲まれた領域は図になりやすい。モーダルの背後を暗くするのは、図と地の関係をはっきりさせる操作だ。</p></div>
+  </div>
+</section>
+
+<section id="attention">
+  <div class="wrap">
+    <span class="sec-no">06 ── Attention</span>
+    <h2>目立たせたものほど、見落とされることがある</h2>
+    <p class="sec-sub">Pre-attentive pop-out, inattentional blindness, and banner blindness</p>
+
+    <p>まとまって見えたとしても、見えたものすべてが頭に入るわけではない。どれを処理するかを選んでいるのが注意だ。</p>
+    <p>下の二つの枠で、ピンクの丸を探してみてほしい。</p>
+    <div class="chart-card">
+      <div class="ct">探しやすさは、何で区別されているかで変わる</div>
+      <div class="cs">筆者による作図。Treisman &amp; Gelade（1980）の特徴探索と結合探索を模したもの</div>
+      <div class="sdemo">
+        <figure><svg id="feat" viewBox="0 0 200 140" aria-label="青緑の丸の中に一つだけピンクの丸"></svg><figcaption><b>A：色だけで違う</b>一瞬で目に飛び込む</figcaption></figure>
+        <figure><svg id="conj" viewBox="0 0 200 140" aria-label="ピンクの四角と青緑の丸の中に一つだけピンクの丸"></svg><figcaption><b>B：色と形の組み合わせで違う</b>一つずつ確かめることになる</figcaption></figure>
+      </div>
+      <p class="mini"><button type="button" class="pc-link" id="reshuffle">並べ直す</button></p>
+    </div>
+    <p>Aでは、探すつもりになる前にピンクが目に飛び込んでくる。Bでは、ピンクも丸もたくさんあるので、ピンクで丸のものを一つずつ確かめることになる。</p>
+    <p>1980年、Anne Treisman と Garry Gelade はこの差から「特徴統合理論」を組み立てた。色や傾きや大きさといった単純な特徴は、視野全体で同時に（並列に）処理される。だから一つの特徴だけで違うものは、周りに何個あっても同じ速さで見つかる。いわゆるポップアウトだ。それに対して、色と形の組み合わせのように複数の特徴を束ねないと区別できない場合は、注意を一つずつ移して確かめるしかなく、探す時間は項目の数に比例して延びる。注意を向ける前に済んでしまう前者の処理は「前注意的処理」と呼ばれ、200ミリ秒ほどの一瞥で終わる。</p>
+    <p>強調に使える特徴は、一度に一つと考えたほうがいい。新着をピンクにし、セール品もピンクにし、必須項目もピンクにすれば、ピンクはもう何も区別しない。</p>
+
+    <h3>見ているのに、見えていない</h3>
+    <p>注意の選択は、思っているより厳しい。1999年、Daniel Simons と Christopher Chabris は、白いシャツのチームと黒いシャツのチームがバスケットボールをパスし合う動画を見せ、白チームのパスの回数を数えてもらった。動画の途中、ゴリラの着ぐるみを着た人が画面の中央を歩いて横切り、胸をたたいて去っていく。条件によって差はあるものの、全体でおよそ半数がゴリラに気づかなかった。</p>
+    <p>非注意による盲目（inattentional blindness）と呼ばれるこの現象は、目に映ることと、見えることが別だと示している。人はタスクに関係するものに注意を向け、それ以外を通り過ぎる。</p>
+
+    <h3>派手なバナーは、派手だから無視された</h3>
+    <p>Web でこれが起きることを示したのが、1998年にライス大学の Jan Panero Benway と David Lane が報告した実験だ。参加者に、あるサイトでインターネット講座の情報を探してもらう。ページの上には「New! Internet Courses! Click Here」と書かれた大きな動くバナーがあった。目的の情報への最短の入り口だ。ところが多くの参加者はバナーを素通りし、小さなメニューのリンクを探しに行った。</p>
+    <p>彼らはこの現象を「バナーブラインドネス」と名づけた。当時は、明るく目立つものほど見てもらえると考えられていた。結果は逆で、人は経験から「この形と場所のものは広告だ」と学び、目的の情報を探しているあいだは、その形を最初から候補から外していた。</p>
+    <div class="insight">
+      <span class="ik">Insight 02</span>
+      <h4>注意は、目的に合いそうなものに向く</h4>
+      <p>前注意的なポップアウトは確かにある。けれど人がタスクを持って画面に来ているとき、注意を決めるのは目立ち方より、それが今の目的に関係ありそうに見えるかどうかだ。大事な入り口を広告のような見た目にすると、目立たせたこと自体が見落としの原因になる。</p>
+    </div>
+    <div class="note"><p><span class="h">Benway と Lane の原論文について</span></p><p>今回の調査では原論文の本文に当たれず、実験の詳細は二次資料による。バナーの色や関連度を変えても見られ方が変わらなかったという視線計測の追試（2007年の修士論文）もあるが、結果は研究によってばらつく。</p></div>
+  </div>
+</section>
+
+<section id="load">
+  <div class="wrap">
+    <span class="sec-no">07 ── Load</span>
+    <h2>負荷は、減らせば減らすほどいいのか</h2>
+    <p class="sec-sub">Cognitive load theory and the expertise reversal effect</p>
+
+    <p>ここまでの話をまとめて扱う理論が、教育心理学から来た。オーストラリアの John Sweller が1988年に出した「認知負荷理論」だ。</p>
+    <p>出発点は意外なところにあった。数学の問題をたくさん解かせても、問題の解き方がなかなか身につかない。Sweller が調べると、学習者は「今の状態とゴールの差を少しずつ縮める」というやり方（手段目的分析）で問題を解いていた。この方法で解けはするが、差を追いかけるのにワーキングメモリを使い切ってしまい、解き方の型を覚える余裕が残らない。代わりに解き方の例題を読ませると、学習ははるかに進んだ。</p>
+
+    <h3>三つの負荷</h3>
+    <p>この発見から、ワーキングメモリにかかる負荷を種類で分ける考え方が育った。</p>
+    <div class="chart-card">
+      <div class="ct">同じ作業台に、性質の違う負荷が載る</div>
+      <div class="cs">概念図。Sweller（1988, 2010）と Kalyuga ほか（2003）をもとに筆者作図。幅は量の目安で、測定値ではない</div>
+      <div class="loadfig">
+        <div class="lrow"><span class="lk">初心者 ＋ 説明の多い画面</span><div class="lbar"><i class="in" style="width:52%">内在性</i><i class="ex" style="width:22%">外在性</i><i class="fr" style="width:26%">学びに回せる</i></div></div>
+        <div class="lrow"><span class="lk">初心者 ＋ 散らかった画面</span><div class="lbar"><i class="in" style="width:52%">内在性</i><i class="ex" style="width:48%">外在性</i></div></div>
+        <div class="lrow"><span class="lk">熟達者 ＋ 説明の多い画面</span><div class="lbar"><i class="in" style="width:24%">内在性</i><i class="ex" style="width:40%">外在性（重複した説明）</i><i class="fr" style="width:36%">余裕</i></div></div>
+      </div>
+      <div class="leg"><span><i style="background:rgba(79,124,135,.55)"></i>内在性：内容そのものの複雑さ</span><span><i style="background:rgba(235,101,132,.4)"></i>外在性：見せ方が生む負荷</span><span><i style="background:var(--tint);border:1px solid var(--line-strong)"></i>空き</span></div>
+    </div>
+    <p><b>内在性負荷</b>は、扱う内容そのものの複雑さから来る。同時に関係づけて理解しなければならない要素が多いほど重い。保険の補償内容の比較は、どう見せても一定の重さがある。</p>
+    <p><b>外在性負荷</b>は、見せ方から来る。説明と図が離れていて目を往復させる、同じ情報が二か所に違う言葉で書いてある、ラベルが社内用語。こちらは設計で減らせる。情報設計の仕事の多くは、外在性負荷を削ることだと言ってもいい。</p>
+    <p>三つめの<b>学習関連負荷（germane load）</b>は扱いが揺れてきた。当初は、理解の型を作るために使われる「良い負荷」とされていたが、Sweller 自身が2010年の論文で、独立した負荷というより、内在性負荷に振り向けられるワーキングメモリの資源のことだと整理し直している。外在性を減らした分だけ、内容そのものに頭を使える、という言い方のほうが実態に近い。</p>
+
+    <h3>初心者を助けた構造が、熟達者の邪魔をする</h3>
+    <p>認知負荷理論で、情報設計者がいちばん知っておくべき発見はこれかもしれない。2003年、Slava Kalyuga、Paul Ayres、Paul Chandler、Sweller は、初心者によく効いた教え方が、経験を積んだ学習者には効かなくなり、ときには逆効果になることを「熟達化反転効果（expertise reversal effect）」としてまとめた。</p>
+    <p>理由はチェスの名人の話とつながっている。熟達者はすでに自分の中にチャンクと手順を持っている。そこに外から丁寧な説明を重ねると、頭の中の知識と画面の説明を突き合わせる作業が増える。説明が、重複した情報として外在性負荷に変わるのだ。</p>
+    <p>ウィザード形式の設定画面、ステップごとのガイド、すべての項目に付いた説明文。初めての人には頼もしい構造が、毎日使う人には遠回りになる。<mark class="c">「負荷を減らす」は、誰にとっての負荷かを決めないと意味をなさない。</mark>初回だけ案内を出す、熟練者向けのショートカットを残す、詳細を折りたたむ。情報設計がユーザーの熟達度ごとに構造を変えるのには、ちゃんと理論的な裏付けがある。</p>
+  </div>
+</section>
+
+<section id="numbers">
+  <div class="wrap">
+    <span class="sec-no">08 ── Numbers</span>
+    <h2>数字の法則をメニューに当てはめる前に</h2>
+    <p class="sec-sub">Hick's law, breadth versus depth, and what the numbers are about</p>
+
+    <p>認知心理学には、7±2のほかにもUIの指針として引かれる数字がある。代表が「Hick の法則」だ。1952年に William Hick が、翌年に Ray Hyman が示したもので、等しい確率で起こりうる選択肢の中から一つを選ぶ時間は、選択肢の数の対数（log₂n）に比例して増える。選択肢を2倍にしても、時間は2倍にはならず、一定量だけ延びる。</p>
+    <p>この法則は「メニュー項目が多いと選ぶのに時間がかかるから減らせ」という主張の根拠として使われることが多い。だが Hick の実験は、どのランプが点いたら、どのボタンを押すかをすでに覚えている人の反応時間を測ったものだった。グラフィカルなUIが生まれるずっと前の研究で、知らないメニューを上から読んでいく場面は想定していない。メニューを一つずつ読んで探すなら、時間は対数ではなく、項目数にほぼ比例して延びる。項目を減らす効果は、Hick の法則が予測するより大きいこともあれば、構造しだいでほとんどないこともある。</p>
+
+    <h3>広く浅くか、狭く深くか</h3>
+    <p>情報設計の文脈で直接測った研究もある。1998年、Microsoft Research の Kevin Larson と Mary Czerwinski は、同じ512項目を、8×8×8の3階層、16×32と32×16の2階層に組み替えて、目的の項目を探してもらった。結果、階層が深いほど探すのは遅くなり、2階層のうちでも中くらいの広さ（16×32）が、いちばん広く浅い構造より成績がよかった。</p>
+    <p>深い構造が不利なのは、階層を一つ降りるたびに「ここで合っているか」の判断が入り、間違えたときに戻る道も長くなるからだと考えられる。一方で、広ければ広いほどいいわけでもなかった。一画面に並ぶ項目が多すぎれば、読む量が増える。どこでつり合うかは、ラベルがどれだけ先の中身を予想させるかに左右される。Larson らが論文の題に「scent（匂い）」という語を入れたのはそのためで、この匂いの話は④の情報探索で詳しく扱う。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>数字</th><th>何についての数字か</th><th>よくある当てはめ</th></tr></thead>
+      <tbody>
+        <tr><td>7±2</td><td>手がかりなしに頭の中に保持できる項目数の大まかな目安（Miller 1956）。本人は7という数字に意味を読まないよう書いている</td><td>メニュー項目を7つ以下にする。画面に見えている項目には当てはまらない</td></tr>
+        <tr><td>4前後</td><td>リハーサルとチャンク化を統制したときの保持の上限（Cowan 2001）</td><td>画面と画面のあいだで運ばせる情報の量を見積もるのに使える</td></tr>
+        <tr><td>log₂n</td><td>対応を覚えている選択肢から選ぶ反応時間（Hick 1952, Hyman 1953）</td><td>メニュー探索の時間予測。走査が入ると成り立たない</td></tr>
+        <tr><td>1.5倍</td><td>点の間隔の比と群化の向き（Kubovy ほか）</td><td>グループ間の余白をグループ内より十分大きくする根拠になる</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="note"><p><span class="h">Larson &amp; Czerwinski の内訳について</span></p><p>論文の要旨で確認できたのは「深さは成績を下げ、中間の構造が最も広い構造より良かった」という点まで。三つの構造の内訳は二次資料によるもので、各構造の所要時間の数値は確認できていない。</p></div>
+  </div>
+</section>
+
+<section id="carry">
+  <div class="wrap">
+    <span class="sec-no">09 ── Carry</span>
+    <h2>この回から、次の回へ持っていくもの</h2>
+    <p class="sec-sub">What this chapter hands to the rest of the series</p>
+
+    <div class="insight">
+      <span class="ik">Insight 03</span>
+      <h4>上限が効くのは、表示ではなく持ち越し</h4>
+      <p>人が頭の中に置いておけるのは4前後のチャンク。ただし画面に見えているものは覚えなくていい。情報設計が見積もるべきは、画面から画面へユーザーに何を運ばせているかだ。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 04</span>
+      <h4>構造は、設計者があらかじめ作っておくチャンク</h4>
+      <p>カテゴリー名は再符号化を肩代わりし、余白と枠は記憶より先に目にまとまりを渡す。ただしそのまとまりが受け手にとってもまとまりに見えるときだけ、構造は効く。</p>
+    </div>
+    <div class="insight">
+      <span class="ik">Insight 05</span>
+      <h4>負荷を減らす相手を決める</h4>
+      <p>初心者を助ける説明は、熟達者には重複になる。外在性負荷は、ユーザーが何をすでに知っているかによって増えも減りもする。</p>
+    </div>
+
+    <div class="closing">
+      <h3>次回：人は、世界をどう切り分けているのか</h3>
+      <p>この回では、まとまりを作ることが人の頭を助けると見てきた。だが、どこで切ればまとまりになるのかは、まだ答えていない。名人には見えるチャンクが初心者には見えず、部署名のメニューは外の人に通じない。次回③では、Eleanor Rosch のプロトタイプ理論や基本レベルカテゴリーの研究を通して、人が「椅子」と「家具」のどちらを自然な単位として持っているのか、そしてユーザーのメンタルモデルと設計者のモデルのずれがどこから来るのかを考える。</p>
+      <a class="pc-link" href="../03-categorization/">③ カテゴリー化・概念・メンタルモデル へ進む</a>
+      <a class="pc-link" href="../00-map/">全体地図に戻る</a>
+      <a class="pc-link" href="../01-definition/">前回 ① 情報設計とは何か</a>
+    </div>
+
+    <div class="refs">
+      <h3>References</h3>
+      <ol>
+        <li>Miller, G. A. (1956). The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information. <i>Psychological Review</i>, 63(2), 81–97. <a href="https://psychclassics.yorku.ca/Miller/" target="_blank" rel="noopener">psychclassics.yorku.ca</a></li>
+        <li>Cowan, N. (2001). The magical number 4 in short-term memory: A reconsideration of mental storage capacity. <i>Behavioral and Brain Sciences</i>, 24(1), 87–114. <a href="https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/magical-number-4-in-shortterm-memory-a-reconsideration-of-mental-storage-capacity/44023F1147D4A1D44BDC0AD226838496" target="_blank" rel="noopener">cambridge.org</a></li>
+        <li>Cowan, N. (2010). The Magical Mystery Four: How is Working Memory Capacity Limited, and Why? <i>Current Directions in Psychological Science</i>, 19(1), 51–57. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2864034/" target="_blank" rel="noopener">PMC</a></li>
+        <li>Baddeley, A. D. &amp; Hitch, G. (1974). Working Memory. ／ Baddeley's model of working memory. <a href="https://en.wikipedia.org/wiki/Baddeley%27s_model_of_working_memory" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Chase, W. G. &amp; Simon, H. A. (1973). Perception in Chess. <i>Cognitive Psychology</i>, 4(1), 55–81. 解説：<a href="https://www.chessprogramming.org/William_Chase" target="_blank" rel="noopener">chessprogramming.org</a></li>
+        <li>Wagemans, J. et al. (2012). A century of Gestalt psychology in visual perception: I. Perceptual grouping and figure-ground organization. <i>Psychological Bulletin</i>, 138(6). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3482144/" target="_blank" rel="noopener">PMC</a></li>
+        <li>Treisman, A. &amp; Gelade, G. (1980). A feature-integration theory of attention. <i>Cognitive Psychology</i>, 12(1), 97–136. <a href="https://users.cs.utah.edu/~miriah/uncertainty/FeatureIntegrationTheoryOfAttention.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Healey, C. G. &amp; Enns, J. T. (2012). Attention and Visual Memory in Visualization and Computer Graphics. <i>IEEE TVCG</i>. <a href="https://www.csc2.ncsu.edu/faculty/healey/PP/index.html" target="_blank" rel="noopener">Perception in Visualization</a></li>
+        <li>Simons, D. J. &amp; Chabris, C. F. (1999). Gorillas in our midst: Sustained inattentional blindness for dynamic events. <i>Perception</i>, 28, 1059–1074. 解説：<a href="https://livescience.com/6727-invisible-gorilla-test-shows-notice.html" target="_blank" rel="noopener">Live Science</a></li>
+        <li>Benway, J. P. &amp; Lane, D. M. (1998). Banner Blindness: Web Searchers Often Miss "Obvious" Links. <i>Internetworking</i>, 1(3). 解説：<a href="https://bigenc.ru/c/bannernaia-slepota-59a306" target="_blank" rel="noopener">bigenc.ru</a></li>
+        <li>Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science</i>, 12(2), 257–285. 解説：<a href="https://en.wikipedia.org/wiki/Cognitive_load" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Sweller, J. (2010). Element Interactivity and Intrinsic, Extraneous, and Germane Cognitive Load. <i>Educational Psychology Review</i>, 22, 123–138. 解説：<a href="https://www.learningscientists.org/blog/2023/7/6" target="_blank" rel="noopener">The Learning Scientists</a></li>
+        <li>Kalyuga, S., Ayres, P., Chandler, P. &amp; Sweller, J. (2003). The Expertise Reversal Effect. <i>Educational Psychologist</i>, 38(1), 23–31. <a href="https://en.wikipedia.org/wiki/Expertise_reversal_effect" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Hick, W. E. (1952). On the rate of gain of information. ／ Hyman, R. (1953). Stimulus information as a determinant of reaction time. <a href="https://en.wikipedia.org/wiki/Hick%27s_law" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Larson, K. &amp; Czerwinski, M. (1998). Web Page Design: Implications of Memory, Structure and Scent for Information Retrieval. <i>CHI 98</i>, 25–32. <a href="https://www.microsoft.com/en-us/research/publication/web-page-design-implications-memory-structure-scent-information-retrieval/" target="_blank" rel="noopener">microsoft.com</a></li>
+        <li>Nielsen, J. Memory Recognition and Recall in User Interfaces. <a href="https://www.nngroup.com/articles/recognition-and-recall/" target="_blank" rel="noopener">nngroup.com</a></li>
+        <li>Ware, C. (2008). <i>Visual Thinking for Design</i>. Morgan Kaufmann. <a href="https://www.elsevier.com/books/visual-thinking/ware/978-0-12-370896-0" target="_blank" rel="noopener">elsevier.com</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    情報設計シリーズ 02 ──「メニューは7項目まで」の根拠は、二重にまちがっている<br>
+    調査・執筆 2026年10月22日 ／ SAI's DESIGN SYSTEM 準拠
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')===id));}});},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+
+// Miller (1956) absolute judgment: bits from the paper, categories = 2^bits
+const BITS=[
+  {l:"線上の位置",b:3.25},
+  {l:"音の高さ",b:2.5},
+  {l:"音の大きさ",b:2.3},
+  {l:"塩味の濃さ",b:1.9},
+  {l:"一次元の平均",b:2.6,avg:true}
+];
+const bitsEl=document.getElementById('bits');
+if(bitsEl){
+  const max=3.5;
+  bitsEl.innerHTML=BITS.map(d=>`<div class="hb${d.avg?' avg':''}"><span class="hl">${d.l}</span><span class="track"><span class="fill" data-w="${(d.b/max*100).toFixed(1)}"></span></span><span class="hv">${d.b} bit<small>≒${Math.round(2**d.b)}段階</small></span></div>`).join('');
+  const bio=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');bio.disconnect();}});},{threshold:.3});
+  bio.observe(bitsEl);
+}
+
+// Visual search demo (feature vs conjunction)
+const TEAL='#62B8A0',PINK='#EB6584';
+function cell(i){const c=i%8,r=Math.floor(i/8);return [16+c*24+(Math.random()*6-3),16+r*27+(Math.random()*6-3)];}
+function shape(x,y,col,sq){return sq?`<rect x="${(x-6).toFixed(1)}" y="${(y-6).toFixed(1)}" width="12" height="12" fill="${col}"/>`:`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6.5" fill="${col}"/>`;}
+function drawSearch(){
+  const n=40,idx=[...Array(n).keys()].sort(()=>Math.random()-.5).slice(0,28);
+  const t1=idx[0],t2=idx[1];
+  const f=document.getElementById('feat'),c=document.getElementById('conj');
+  if(!f||!c)return;
+  f.innerHTML=idx.map(i=>{const[x,y]=cell(i);return shape(x,y,i===t1?PINK:TEAL,false);}).join('');
+  c.innerHTML=idx.map((i,k)=>{const[x,y]=cell(i);if(i===t2)return shape(x,y,PINK,false);return k%2?shape(x,y,PINK,true):shape(x,y,TEAL,false);}).join('');
+}
+drawSearch();
+document.getElementById('reshuffle')?.addEventListener('click',drawSearch);
+
+</script>
+</body>
+</html>
