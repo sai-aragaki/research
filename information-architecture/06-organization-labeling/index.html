@@ -382,6 +382,8 @@ footer .wrap{padding:0}
   .pull p{font-size:16px}
 }
 @media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+/* theme switch: keep it on the brand row on phones so the nav height does not change */
+@media (max-width:680px){.nav-inner{position:relative}.nav-inner > [data-theme-switch]{position:absolute;top:16px;right:18px}.nav-inner > .brand{padding-right:40px}}
 mark{background:linear-gradient(transparent 58%,rgba(var(--teal-rgb),.34) 58%);color:inherit;padding:0 1px}
 mark.c{background:linear-gradient(transparent 58%,rgba(var(--coral-rgb),.28) 58%)}
 
@@ -526,7 +528,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 .hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
 .hb .hl{color:var(--ink);line-height:1.4}
 .hb .track{height:14px;background:var(--tint);position:relative}
-.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:#4F7C87;transition:width .9s cubic-bezier(.2,.7,.2,1)}
 .hb.avg .fill{background:var(--ink)}
 .hb.avg .hl{font-weight:700}
 .hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
@@ -656,7 +658,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 <body>
 <nav>
   <div class="nav-inner">
-    <span class="brand">Information Architecture<b> ／ </b>06 Organize &amp; Label</span>
+    <span class="brand">Information Architecture<b> ／ </b>06 Labeling</span>
     <div class="nav-links">
       <a href="#five">Five</a>
       <a href="#exact">Exact</a>

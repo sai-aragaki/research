@@ -382,6 +382,8 @@ footer .wrap{padding:0}
   .pull p{font-size:16px}
 }
 @media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+/* theme switch: keep it on the brand row on phones so the nav height does not change */
+@media (max-width:680px){.nav-inner{position:relative}.nav-inner > [data-theme-switch]{position:absolute;top:16px;right:18px}.nav-inner > .brand{padding-right:40px}}
 mark{background:linear-gradient(transparent 58%,rgba(var(--teal-rgb),.34) 58%);color:inherit;padding:0 1px}
 mark.c{background:linear-gradient(transparent 58%,rgba(var(--coral-rgb),.28) 58%)}
 
@@ -526,7 +528,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 .hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
 .hb .hl{color:var(--ink);line-height:1.4}
 .hb .track{height:14px;background:var(--tint);position:relative}
-.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:#4F7C87;transition:width .9s cubic-bezier(.2,.7,.2,1)}
 .hb.avg .fill{background:var(--ink)}
 .hb.avg .hl{font-weight:700}
 .hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
@@ -653,9 +655,9 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 
 /* --- article 07 extras --- */
 .hbars .hgrp{font-size:12px;color:var(--muted);margin:6px 0 -2px}
-.hb.c-hide .fill{background:var(--coral)}
-.hb.c-show .fill{background:var(--deep-teal)}
-.hb.c-combo .fill{background:var(--teal)}
+.hb.c-hide .fill{background:#EB6584}
+.hb.c-show .fill{background:#4F7C87}
+.hb.c-combo .fill{background:#62B8A0}
 .trunk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 28px}
 .trunk > div{background:var(--white);border:1px solid var(--line);padding:12px 14px}
 .trunk b{font-family:var(--en);font-weight:500;font-size:20px;color:var(--ink)}
@@ -712,8 +714,8 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 }
 
 /* --- article 11 extras --- */
-.hb.c-ok .fill{background:var(--deep-teal)}
-.hb.c-ng .fill{background:var(--coral)}
+.hb.c-ok .fill{background:#4F7C87}
+.hb.c-ng .fill{background:#EB6584}
 .circfig svg{display:block;width:100%;height:auto}
 .circfig svg text{font-family:var(--jp)}
 .ctfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -775,7 +777,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
       <div class="ct">最初の一歩が正しいときと、間違えたときの成功率</div>
       <div class="cs">Bailey &amp; Wolfson（2009）、MeasuringU の追試と、同社のツリーテストのデータ（二次資料による）</div>
       <div class="hbars" id="firstclick"></div>
-      <div class="leg"><span><i style="background:var(--deep-teal)"></i>最初の一歩が正しかった</span><span><i style="background:var(--coral)"></i>最初の一歩を間違えた</span></div>
+      <div class="leg"><span><i style="background:#4F7C87"></i>最初の一歩が正しかった</span><span><i style="background:#EB6584"></i>最初の一歩を間違えた</span></div>
     </div>
     <p>三つの数字を並べると、どれも同じ向きを指していることが分かる。最初の一歩を間違えると、成功しにくくなる。ただ、差の大きさはまるで違う。</p>
     <p>実際のサイトで課題をこなしてもらう場合、最初に間違えた人も、画面のほかの手がかりや検索を使って立て直せる。だから差は縮む。ツリーテストでは、画面の見た目も検索もなく、ラベルと階層だけが頼りになる。最初の選択を誤ると立て直す手がかりがほとんどないので、差が大きく出る。数字の違いは、測っているものの違いだ。</p>

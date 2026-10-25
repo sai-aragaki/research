@@ -380,6 +380,8 @@ footer .wrap{padding:0}
   .pull p{font-size:16px}
 }
 @media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+/* theme switch: keep it on the brand row on phones so the nav height does not change */
+@media (max-width:680px){.nav-inner{position:relative}.nav-inner > [data-theme-switch]{position:absolute;top:16px;right:18px}.nav-inner > .brand{padding-right:40px}}
 mark{background:linear-gradient(transparent 58%,rgba(var(--teal-rgb),.34) 58%);color:inherit;padding:0 1px}
 mark.c{background:linear-gradient(transparent 58%,rgba(var(--coral-rgb),.28) 58%)}
 

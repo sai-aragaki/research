@@ -382,6 +382,8 @@ footer .wrap{padding:0}
   .pull p{font-size:16px}
 }
 @media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+/* theme switch: keep it on the brand row on phones so the nav height does not change */
+@media (max-width:680px){.nav-inner{position:relative}.nav-inner > [data-theme-switch]{position:absolute;top:16px;right:18px}.nav-inner > .brand{padding-right:40px}}
 mark{background:linear-gradient(transparent 58%,rgba(var(--teal-rgb),.34) 58%);color:inherit;padding:0 1px}
 mark.c{background:linear-gradient(transparent 58%,rgba(var(--coral-rgb),.28) 58%)}
 
@@ -526,7 +528,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 .hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
 .hb .hl{color:var(--ink);line-height:1.4}
 .hb .track{height:14px;background:var(--tint);position:relative}
-.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:#4F7C87;transition:width .9s cubic-bezier(.2,.7,.2,1)}
 .hb.avg .fill{background:var(--ink)}
 .hb.avg .hl{font-weight:700}
 .hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
@@ -653,9 +655,9 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 
 /* --- article 07 extras --- */
 .hbars .hgrp{font-size:12px;color:var(--muted);margin:6px 0 -2px}
-.hb.c-hide .fill{background:var(--coral)}
-.hb.c-show .fill{background:var(--deep-teal)}
-.hb.c-combo .fill{background:var(--teal)}
+.hb.c-hide .fill{background:#EB6584}
+.hb.c-show .fill{background:#4F7C87}
+.hb.c-combo .fill{background:#62B8A0}
 .trunk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 28px}
 .trunk > div{background:var(--white);border:1px solid var(--line);padding:12px 14px}
 .trunk b{font-family:var(--en);font-weight:500;font-size:20px;color:var(--ink)}
@@ -819,7 +821,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
       <div class="ct">ナビゲーションの見せ方と、使われた割合</div>
       <div class="cs">Nielsen Norman Group（2016）「Hamburger Menus and Hidden Navigation Hurt UX Metrics」より。課題のうちナビゲーションが使われたケースの割合。スマホでは「すべて表示」は比較していない</div>
       <div class="hbars" id="navuse"></div>
-      <div class="leg"><span><i style="background:var(--coral)"></i>隠す（ハンバーガー）</span><span><i style="background:var(--deep-teal)"></i>すべて表示</span><span><i style="background:var(--teal)"></i>組み合わせ（一部表示＋残りを隠す）</span></div>
+      <div class="leg"><span><i style="background:#EB6584"></i>隠す（ハンバーガー）</span><span><i style="background:#4F7C87"></i>すべて表示</span><span><i style="background:#62B8A0"></i>組み合わせ（一部表示＋残りを隠す）</span></div>
     </div>
     <p>デスクトップでは、隠したナビゲーションが使われたのは課題の27%で、見せた場合（48%）や一部だけ見せた場合（50%）の半分ほどだった。スマホでも、隠した場合は57%、一部を見せた場合は86%。サイトの中身を見つけられる割合は、隠すと20%以上下がり、デスクトップでは課題にかかる時間が39%以上延びた。</p>
     <p>理由は②の「再生より再認」と同じだ。見えているメニューは、目に入るだけで「この中にありそうだ」と判断できる。隠れたメニューは、そこに何があるかを思い出すか、開いて確かめるしかない。グローバルナビの役割の一つは、サイトにどんな地区があるかを、いつでも目に入る形で見せておくことだった。それをしまうと、ランドマークを地下に埋めたのと同じことになる。</p>

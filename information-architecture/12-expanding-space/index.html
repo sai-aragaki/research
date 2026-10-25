@@ -382,6 +382,8 @@ footer .wrap{padding:0}
   .pull p{font-size:16px}
 }
 @media (max-width:420px){.dom-grid{grid-template-columns:1fr}}
+/* theme switch: keep it on the brand row on phones so the nav height does not change */
+@media (max-width:680px){.nav-inner{position:relative}.nav-inner > [data-theme-switch]{position:absolute;top:16px;right:18px}.nav-inner > .brand{padding-right:40px}}
 mark{background:linear-gradient(transparent 58%,rgba(var(--teal-rgb),.34) 58%);color:inherit;padding:0 1px}
 mark.c{background:linear-gradient(transparent 58%,rgba(var(--coral-rgb),.28) 58%)}
 
@@ -526,7 +528,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 .hb{display:grid;grid-template-columns:132px 1fr 92px;align-items:center;gap:12px;font-size:13px}
 .hb .hl{color:var(--ink);line-height:1.4}
 .hb .track{height:14px;background:var(--tint);position:relative}
-.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--deep-teal);transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.hb .fill{position:absolute;inset:0 auto 0 0;width:0;background:#4F7C87;transition:width .9s cubic-bezier(.2,.7,.2,1)}
 .hb.avg .fill{background:var(--ink)}
 .hb.avg .hl{font-weight:700}
 .hb .hv{font-family:var(--en);font-size:12.5px;color:var(--text);white-space:nowrap}
@@ -653,9 +655,9 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 
 /* --- article 07 extras --- */
 .hbars .hgrp{font-size:12px;color:var(--muted);margin:6px 0 -2px}
-.hb.c-hide .fill{background:var(--coral)}
-.hb.c-show .fill{background:var(--deep-teal)}
-.hb.c-combo .fill{background:var(--teal)}
+.hb.c-hide .fill{background:#EB6584}
+.hb.c-show .fill{background:#4F7C87}
+.hb.c-combo .fill{background:#62B8A0}
 .trunk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0 28px}
 .trunk > div{background:var(--white);border:1px solid var(--line);padding:12px 14px}
 .trunk b{font-family:var(--en);font-weight:500;font-size:20px;color:var(--ink)}
@@ -712,8 +714,8 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 }
 
 /* --- article 11 extras --- */
-.hb.c-ok .fill{background:var(--deep-teal)}
-.hb.c-ng .fill{background:var(--coral)}
+.hb.c-ok .fill{background:#4F7C87}
+.hb.c-ng .fill{background:#EB6584}
 .circfig svg{display:block;width:100%;height:auto}
 .circfig svg text{font-family:var(--jp)}
 .ctfig{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -727,8 +729,8 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
 }
 
 /* --- article 12 extras --- */
-.hb.c-ai .fill{background:var(--coral)}
-.hb.c-no .fill{background:var(--deep-teal)}
+.hb.c-ai .fill{background:#EB6584}
+.hb.c-no .fill{background:#4F7C87}
 
 </style>
 </head>
@@ -779,7 +781,7 @@ details.cat .tag.next{border-color:var(--ink);background:var(--ink);color:var(--
       <div class="ct">AI の要約があるときと、ないときの行動</div>
       <div class="cs">Pew Research Center（2025年7月）。米国成人900人の2025年3月の閲覧データから</div>
       <div class="hbars" id="pew"></div>
-      <div class="leg"><span><i style="background:var(--coral)"></i>AI の要約あり</span><span><i style="background:var(--deep-teal)"></i>要約なし</span></div>
+      <div class="leg"><span><i style="background:#EB6584"></i>AI の要約あり</span><span><i style="background:#4F7C87"></i>要約なし</span></div>
     </div>
     <p>⑧では、Morville のファインダビリティを手がかりに、見つけられないものは存在しないのと同じだと見た。この調査は、そこに新しい意味を加える。見つけられても、訪れてもらえるとは限らない。検索エンジンや AI のアシスタントが、サイトの中身を読み、要約し、答えとしてユーザーに渡す。ユーザーはサイトの構造を一度も通らずに、中身だけを受け取る。</p>
     <p>情報設計にとって、これは二つのことを意味する。一つは、サイトの中身を読み、要約する新しい読み手（機械）が現れたこと。その読み手は、⑨で見た Schema.org の記述や、意味の層の整い方に左右される。もう一つは、要約された答えが、ユーザーが自分で構造をたどって探すときに得ていた文脈（周りに何があり、ほかに何があるか）を落としてしまうことだ。④で見たように、人は探しながら問いそのものを変えていく。答えだけを受け取る人は、その機会を失う。</p>
