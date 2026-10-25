@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>親になることを学ぶ3年間</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAFA; --white:#FFFFFF; --tint:#F5F5F5; --ink:#111111; --text:#333333; --muted:#808080;
+  --line:#EEEEEE; --line-strong:#CCCCCC; --footer:#EEEEEE;
+  --teal:#62B8A0; --yellow:#F2C94C; --coral:#EB6584; --deep-teal:#4F7C87;
+  --stripe:repeating-linear-gradient(135deg,var(--yellow) 0 14px,var(--teal) 14px 28px,#FFF 28px 42px,var(--deep-teal) 42px 56px,#FFF 56px 70px);
+  --en:"Work Sans","Helvetica Neue",Arial,sans-serif;
+  --jp:"Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--jp);font-size:15px;line-height:1.9;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+b,strong{color:var(--ink);font-weight:700}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50}
+nav::before{content:"";position:absolute;inset:0 0 -56px 0;z-index:-1;
+  background:linear-gradient(to bottom,rgba(250,250,250,.94) 0%,rgba(250,250,250,.90) 22%,rgba(250,250,250,.78) 42%,rgba(250,250,250,.58) 60%,rgba(250,250,250,.34) 76%,rgba(250,250,250,.14) 90%,rgba(250,250,250,0) 100%);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 34%,rgba(0,0,0,.72) 54%,rgba(0,0,0,.4) 70%,rgba(0,0,0,.16) 84%,rgba(0,0,0,.04) 94%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 34%,rgba(0,0,0,.72) 54%,rgba(0,0,0,.4) 70%,rgba(0,0,0,.16) 84%,rgba(0,0,0,.04) 94%,transparent 100%)}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:22px;padding:30px 24px 18px}
+.brand{font-family:var(--en);font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.nav-links{display:flex;gap:22px;margin-left:auto;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:pan-x}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;white-space:nowrap;transition:color .18s,border-color .18s}
+.nav-links a:hover,.nav-links a.on{color:var(--ink);border-bottom-color:var(--ink)}
+
+.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+.wide{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* hero */
+.hero{padding:170px 0 0}
+.eyebrow{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1.title{font-size:44px;font-weight:700;line-height:1.35;letter-spacing:.01em;color:var(--ink);margin:18px 0 28px}
+.lede{font-size:16px;line-height:2}
+.src-tag{font-size:12px;color:var(--muted);line-height:1.7;margin-top:28px}
+.hero .wrap::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:56px;width:calc(100% + 120px);margin-left:-60px}
+
+/* section */
+section{padding:80px 0}
+.sec-no{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block}
+h2{font-size:26px;font-weight:700;line-height:1.5;color:var(--ink);margin:10px 0 8px}
+.sec-sub{font-size:14px;color:var(--muted);margin:0 0 32px}
+h3{font-size:18px;font-weight:700;line-height:1.6;color:var(--ink);margin:48px 0 12px}
+p{margin:0 0 1.2em}
+
+/* lists */
+ul.clean{list-style:none;padding:0;margin:20px 0 28px}
+ul.clean li{position:relative;padding:12px 0 12px 22px;border-bottom:1px dashed var(--line-strong)}
+ul.clean li::before{content:"";position:absolute;left:4px;top:24px;width:6px;height:6px;border-radius:50%;background:var(--ink)}
+
+/* domain grid */
+.dom-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:28px 0}
+.dom{background:var(--white);border:1px solid var(--line);padding:20px 20px 18px;min-width:0}
+.dom .dk{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.dom .dn{font-size:16px;font-weight:700;color:var(--ink);margin:4px 0 8px}
+.dom .dq{font-size:13.5px;line-height:1.8}
+.dom .chip{display:inline-block;font-size:11px;padding:2px 10px;border-radius:48px;color:var(--ink);margin-top:10px}
+.c-teal{background:rgba(98,184,160,.14)} .c-coral{background:rgba(235,101,132,.14)} .c-yellow{background:rgba(242,201,76,.22)} .c-deep{background:rgba(79,124,135,.14)}
+
+/* pull & note */
+.pull{background:var(--white);border:1px solid var(--line);border-left:2px solid var(--ink);padding:22px 26px;margin:32px 0}
+.pull p{font-size:18px;font-weight:700;line-height:1.7;color:var(--ink);margin:0}
+.note{background:var(--white);border:1px solid var(--line);padding:18px 22px;margin:28px 0;font-size:13.5px;line-height:1.85}
+.note.sand{border-left:2px solid var(--ink)}
+.note .h{font-weight:700;color:var(--ink)}
+.note p:last-child{margin-bottom:0}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;margin:24px 0 32px;font-size:13.5px;line-height:1.75;background:var(--white)}
+.tbl th,.tbl td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top}
+.tbl th{font-weight:700;color:var(--ink);background:var(--tint);white-space:nowrap}
+.tbl td.num{font-family:var(--en);white-space:nowrap}
+.tbl-wrap{overflow-x:auto}
+
+/* book list */
+.books{margin:20px 0 32px;border-top:1px solid var(--ink)}
+.book{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.book .tag{font-family:var(--en);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.book .bt{font-weight:700;color:var(--ink)}
+.book .ba{font-size:12px;color:var(--muted)}
+.book .bd{font-size:13.5px;margin-top:4px}
+
+/* plan (band) */
+.band{background:var(--tint);padding:96px 0}
+.year-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.year{background:var(--white);border-radius:16px;padding:28px 24px;min-width:0}
+.year .yk{font-family:var(--en);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.year .yn{font-size:19px;font-weight:700;color:var(--ink);margin:6px 0 4px}
+.year .yp{font-family:var(--en);font-size:12px;color:var(--muted);margin-bottom:16px}
+.year ul{padding-left:18px;margin:0;font-size:13.5px;line-height:1.85}
+.year li{margin-bottom:6px}
+.year .out{border-top:1px solid var(--line);margin-top:16px;padding-top:12px;font-size:13px}
+
+/* keywords */
+.kw-group{margin:36px 0 0}
+.kw-group h3{margin:0 0 6px}
+.kw-group .kg{font-size:13px;color:var(--muted);margin-bottom:12px}
+.kw{display:flex;flex-wrap:wrap;gap:8px}
+.kw span{border:1px solid var(--ink);border-radius:48px;padding:5px 14px;font-size:12.5px;font-weight:500;color:var(--ink);line-height:1.5;background:transparent}
+.kw span i{font-style:normal;font-family:var(--en);font-weight:400;color:var(--muted);font-size:11px;margin-left:6px}
+
+/* closing */
+.closing{background:var(--tint);border-radius:16px;padding:40px 44px;margin:24px 0 0}
+.closing h3{margin-top:0}
+.closing ol{padding-left:20px;margin:0}
+.closing li{margin-bottom:10px}
+
+/* refs */
+.refs{margin-top:96px;border-top:1px solid var(--ink);padding-top:24px}
+.refs h3{margin-top:0;font-size:15px}
+.refs ol{padding-left:20px;font-size:12px;line-height:1.8;color:var(--muted)}
+.refs a{color:var(--muted)}
+footer{background:var(--footer);padding:48px 24px;margin-top:96px;font-size:12px;color:var(--muted);line-height:1.8}
+
+@media (max-width:768px){
+  .nav-inner{flex-wrap:wrap;padding:16px 20px 10px;gap:8px}
+  .brand{width:100%}
+  .nav-links{width:100%;margin-left:0;-webkit-mask-image:linear-gradient(to right,#000 85%,transparent);mask-image:linear-gradient(to right,#000 85%,transparent)}
+  .year-grid{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .wrap,.wide{padding:0 16px}
+  .hero{padding-top:140px}
+  h1.title{font-size:30px}
+  h2{font-size:22px}
+  section{padding:56px 0}
+  .band{padding:64px 0}
+  .hero .wrap::after{width:100%;margin-left:0}
+  .dom-grid{grid-template-columns:1fr}
+  .book{grid-template-columns:1fr;gap:4px}
+  .closing{padding:28px 22px}
+  .tbl{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="brand">3-Year Learning Plan</span>
+    <div class="nav-links">
+      <a href="#premise">Premise</a>
+      <a href="#map">Map</a>
+      <a href="#child">Child</a>
+      <a href="#parent">Parent</a>
+      <a href="#couple">Couple</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#practice">Practice</a>
+      <a href="#books">Books</a>
+      <a href="#plan">Plan</a>
+      <a href="#keywords">Keywords</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Strategy Note ／ 学びの設計</span>
+    <h1 class="title">子どもの発達だけでなく、<br>親が「親になる」過程を学ぶ3年間</h1>
+    <p class="lede">日本の全国調査では、産後1年未満の父親のうち<b>11.0%</b>がメンタル不調のリスクありと判定された。母親は10.8%で、ほぼ変わらない。子育て支援の情報は子どもの発達に偏りがちだが、揺らいでいるのは親の側でもある。2029年秋に「育児・発達 × コーチング」のサービスを出すまでの3年間を、何に使うか。1歳半の子を育てるコーチが、自分の迷いと調べた研究をもとに考えた学びの計画である。</p>
+    <div class="src-tag">
+      前提：平日0.5時間・週末2時間／大学院・海外資格は使わない／保育士資格は取る<br>
+      作成：2026-10-25
+    </div>
+  </div>
+</header>
+
+<!-- 01 -->
+<section id="premise">
+  <div class="wrap">
+    <span class="sec-no">01 ── Premise</span>
+    <h2>自分の迷いを並べると、4つに分かれた</h2>
+    <p class="sec-sub">Where the questions came from</p>
+    <p>子育てをしていて引っかかったことを書き出すと、そのまま学ぶ領域の候補になった。分けるとこうなる。</p>
+    <ul class="clean">
+      <li><b>子どもとの関わり方と、自分のアイデンティティのバランス</b>　親としての自分と、それ以外の自分。親という役割に縛られすぎて苦しむ人は、上の世代にも多かったように思う。</li>
+      <li><b>年齢に応じて、どこまで指摘・注意・見守りをするか</b>　発達段階ごとに、子どもに何ができて何ができないかという知識の問題。</li>
+      <li><b>教育論が多すぎて、どれを信じていいか分からない</b>　研究をどう読むかの問題。知識の量を増やしても片づかない。</li>
+      <li><b>夫婦の関係性</b>　子どもが生まれると、親子の関係と同時に夫婦の関係も組み直しになる。</li>
+    </ul>
+    <p>サービスの形として惹かれるのは、1対1・夫婦向け・親子ワークショップの3つ。支えたいのは「揺らいでいる親」と「働く母親」と「方針に迷う親」。この組み合わせを見ると、新サービスの中心は<b>子どもの発達そのものより、親と家族の発達</b>に置くほうが自然だと思う。子どもの発達の知識はなくてはならないが、それは信頼されるための前提で、差別化はたぶん親の側から生まれる。</p>
+    <div class="note">
+      <p><span class="h">時間の見積もり</span></p>
+      <p>週末2時間を1日あたりと読むと週6.5時間、土日合計と読むと週4.5時間。1年で約230〜340時間、3年で約700〜1,000時間になる。家族の事情で数か月止まる時期が出る前提で、計画には余裕を残してある。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="map">
+  <div class="wrap">
+    <span class="sec-no">02 ── Map</span>
+    <h2>学ぶ領域は4つ。そこに「研究の読み方」が横から刺さる</h2>
+    <p class="sec-sub">Four domains and one literacy</p>
+    <p>方向性を閉じないよう、領域は広めに取った。上の2つが知識、下の2つが支援の技術にあたる。</p>
+    <div class="dom-grid">
+      <div class="dom">
+        <div class="dk">Domain A</div>
+        <div class="dn">子どもの発達</div>
+        <div class="dq">アタッチメント、実行機能、言葉と遊び、身体と健康。保育士試験がちょうど入口になる。</div>
+        <span class="chip c-teal">保育士で8割カバー</span>
+      </div>
+      <div class="dom">
+        <div class="dk">Domain B</div>
+        <div class="dn">親の発達とアイデンティティ</div>
+        <div class="dq">マトレセンス、親になることによる人格発達、親のバーンアウト。今回いちばん厚く取りたい領域。</div>
+        <span class="chip c-coral">差別化の中心</span>
+      </div>
+      <div class="dom">
+        <div class="dk">Domain C</div>
+        <div class="dn">夫婦・家族システム</div>
+        <div class="dq">親への移行期の夫婦関係、コペアレンティング（親同士の協力関係）、家事育児の分担。</div>
+        <span class="chip c-yellow">夫婦セッションの根拠</span>
+      </div>
+      <div class="dom">
+        <div class="dk">Domain D</div>
+        <div class="dn">親子支援の技法</div>
+        <div class="dq">エビデンスのある親子プログラム、ワークショップの組み方、医療・相談機関につなぐ判断。</div>
+        <span class="chip c-deep">既存のコーチングに足す</span>
+      </div>
+    </div>
+    <p>横から刺さるのは<b>エビデンス・リテラシー</b>、つまり研究の強さを見分ける力。これは「情報が多すぎて信頼性がわからない」という悩みへの直接の答えになる。サービスを出したときに、他の育児コーチとの違いを説明する言葉にもなる。</p>
+    <p>PCC 認定コーチとしての対話の技術はすでにある。3年間で新しく作るのは、対話の中身として持ち込む発達の知識と、家族を一組の単位として見る目のほうだ。</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="child">
+  <div class="wrap">
+    <span class="sec-no">03 ── Domain A ／ Child</span>
+    <h2>「どこまで見守るか」の答えは、アタッチメント研究にある</h2>
+    <p class="sec-sub">Attachment, serve and return, executive function</p>
+    <p>指摘と見守りの線引きで迷うのは、子どもに何を求めていいかの物差しがないからだ。アタッチメント研究はこの物差しをかなり具体的に持っている。日本でも実施されている「安心感の輪」子育てプログラム（Circle of Security Parenting）は、親を<b>安全基地</b>（子どもが探索に出ていく出発点）と<b>安全な避難所</b>（困ったら戻ってくる場所）の2つの役割で説明する。子どもが外へ出ていくときは見守り、戻ってきたら受け止める。注意や指摘は、その循環が回っていることを前提にして初めて効く。</p>
+    <p>ハーバード大学の Center on the Developing Child が中心概念に置く<b>サーブ・アンド・リターン</b>（子どもの働きかけに大人が応じるやりとり）も同じ方向を指している。脳の発達を進めるのは教材ではなく、往復のやりとりだという主張だ。子どもと一緒に遊んで成長を見る時間は、親にとって楽しいだけでなく、研究から見てもいちばん効いている時間だ。</p>
+    <h3>保育士試験でカバーできる範囲</h3>
+    <p>筆記は9科目。保育の心理学、子どもの保健、子どもの食と栄養、子ども家庭福祉、社会的養護、保育原理、教育原理、社会福祉、保育実習理論。発達心理、健康、制度、保育の思想が一通り入っている。子どもの発達という領域の地図を手に入れる方法として、かなり効率がいい。</p>
+    <p>足りないのは、研究の最前線と、1対1の関わりの細かさ。そこは次の3つを本で補う。</p>
+    <ul class="clean">
+      <li><b>アタッチメント理論</b>　保育の心理学で触れる範囲より一段深く。「安心感の輪」の考え方まで。</li>
+      <li><b>実行機能と自己制御</b>　「知性的に育ってほしい」の中身。IQ より、気持ちや行動をコントロールする力のほうが研究が厚い。</li>
+      <li><b>マインド・マインデッドネス</b>（子どもを心を持った存在として扱い、その心について語る傾向）　メタ分析では、子どもの実行機能・言語・社会的認知と緩やかに関連するとされる。コーチングの「相手の内面に関心を向ける」技術と直接つながる概念で、新サービスに持ち込みやすい。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 04 -->
+<section id="parent">
+  <div class="wrap">
+    <span class="sec-no">04 ── Domain B ／ Parent</span>
+    <h2>親になることは、思春期に似た「発達」だと考える研究者がいる</h2>
+    <p class="sec-sub">Matrescence and the parent's identity</p>
+    <p>コロンビア大学の臨床心理学者オーレリー・アサン（Aurélie Athan）は、1970年代に人類学者ダナ・ラファエルが作った<b>マトレセンス</b>（matrescence、母になる過程）という言葉を2008年に掘り起こした。身体、心理、社会関係、価値観にわたる変化を、思春期（adolescence）になぞらえて「発達」として捉える。狙いは、母親の揺らぎを病理として扱わず、普通の発達として扱うことにある。2025年にはこの考え方を使った母親向け教育プログラムのパイロット研究も出ている。</p>
+    <p>精神分析と乳児研究の両方に足場を持つダニエル・スターン（Daniel Stern）は、もっと早く1995年に<b>母性のコンステレーション</b>（motherhood constellation）という概念を出していた。母親になると心の中に3つの対話が同時に走る、という考え方だ。自分の母親との対話、自分自身との対話、赤ちゃんとの対話。子どもが生まれると、自分がどう育てられたかという記憶が前面に出てくる。</p>
+    <div class="pull">
+      <p>親になると、自分がどう育てられたかが前に出てくる。親のアイデンティティを扱うなら、親自身の親との関係も視野に入る。</p>
+    </div>
+    <p>日本では柏木惠子が、親になることで親自身の人格がどう変わるかを調べてきた。<b>「親になること」と「親をすること」を分ける</b>見方は、親のアイデンティティを扱うコーチングの言葉としてそのまま使える。</p>
+    <p>もう1つ押さえておきたいのが<b>親のバーンアウト</b>だ。42か国・約1万7千人の親を調べた2021年の研究では、個人主義の強い国ほどバーンアウトの割合が高かった。経済格差や子どもの数より、文化の影響のほうが大きかったという。「良い親は一人で全部やるもの」という規範が親を追い詰めている、とも読める。日本は欧米ほど個人主義ではないが、母親に役割が集中するという別の形の圧力がある。</p>
+    <div class="note sand">
+      <p><span class="h">父親の側の研究はまだ薄い</span></p>
+      <p>マトレセンスは母親の研究として始まった。父親版の議論（patrescence）もあるが、研究の量は少ない。冒頭の「父親11.0%」は、K6（心理的苦痛の簡易尺度）でのスクリーニング結果で、診断の数字ではない。それでも、父親であり、母親を支えたいと考えている立場から見ると、手つかずに近い領域が残っているのは事実だ。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section id="couple">
+  <div class="wrap">
+    <span class="sec-no">05 ── Domain C ／ Couple</span>
+    <h2>夫婦の満足度が落ちるかどうかは、生まれる前に分かれていた</h2>
+    <p class="sec-sub">The transition to parenthood</p>
+    <p>カリフォルニア大学のコーワン夫妻（Carolyn &amp; Philip Cowan）は、妊娠中から子どもの就学まで夫婦を追いかけた。<i>When Partners Become Parents</i>（2000）にまとめられた結論は、平均すると子どもの誕生後に夫婦の満足度は下がる、ただしその低下の大部分は「なんとなく親になった」「子どもを持つことで意見が割れていた」夫婦によるものだ、というもの。計画して、二人とも望んでいた夫婦では、満足度は保たれるか、上がることもあった。その後のメタ分析（Mitnick ら, 2009）でも、満足度の低下は小さいが確かにある、と確認されている。</p>
+    <p>介入の研究もある。ゴットマン夫妻の <b>Bringing Baby Home</b> は、妊娠中の夫婦向けのワークショップで、ランダム化比較試験（RCT）がいくつか行われている。136組を対象にした試験では、参加した父親は育児への関与が増え、分担への満足度が上がり、妻から感謝されていると感じる割合も高かった。</p>
+    <p>夫婦向けのセッションは、この領域の研究から見ても筋がいい。親子のサービスで夫婦を扱うところはまだ少なく、コーチングとの相性もいい。<b>個人の価値観を扱うコーチ</b>が、<b>二人の価値観のすり合わせ</b>を扱う。BCDP の「ベストコア」の考え方を、夫婦単位に広げる形になる。</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section id="evidence">
+  <div class="wrap">
+    <span class="sec-no">06 ── Evidence Literacy</span>
+    <h2>有名な実験ほど、あとから小さくなっている</h2>
+    <p class="sec-sub">How to read parenting science</p>
+    <p>マシュマロ・テストは「我慢できた子は将来成功する」という話で広まった。2018年に Watts らが約900人の別データで追試すると、関連は元の研究よりずっと小さく、家庭の背景をそろえるとさらに弱まった。我慢する力そのものより、家庭環境の差を測っていた可能性がある。同じデータを別の方法で分析し直した研究もあって、解釈はいまも割れている。</p>
+    <p>エビデンスがあるとされるプログラムにも、読み方の注意がある。世界で広く使われている子育てプログラム Triple P のメタ分析では、母親が報告した効果は中程度（効果量0.61）だった。父親の報告では統計的に意味のある差が出ず、2歳未満の子どもを対象にした研究は1本もなかった。「エビデンスあり」の一言の中に、誰が、何歳の子で、何と比べたか、が全部畳まれている。</p>
+    <p>コーチング資格についても同じことが言える。米軍保健システムのレビューは、コーチングの認定資格に「これが最良」と言える根拠は見つからなかったとしている。資格は学ぶ範囲を決める手段としては便利だが、効果の保証にはならない。</p>
+    <h3>本を読むときに確かめる4つの問い</h3>
+    <ul class="clean">
+      <li><b>誰を調べたか</b>　国、所得層、母親だけか父親もいるか。</li>
+      <li><b>何と比べたか</b>　何もしない群か、別の支援を受けた群か。</li>
+      <li><b>追試されているか</b>　1本の研究か、メタ分析か。</li>
+      <li><b>誰が書いているか</b>　プログラムの開発者自身が評価していないか。</li>
+    </ul>
+    <p>経済学者エミリー・オスター（Emily Oster）の <i>Cribsheet</i> は、まさにこの読み方で育児の定説を一つずつ検証した本で、手本としてちょうどいい。</p>
+  </div>
+</section>
+
+<!-- 07 -->
+<section id="practice">
+  <div class="wrap">
+    <span class="sec-no">07 ── Practice</span>
+    <h2>本と資格だけで足りるか。足りないのは「他の家族」だ</h2>
+    <p class="sec-sub">Credentials and field experience</p>
+    <p>本と資格で手に入るのは知識の地図だ。足りなくなるのは、自分の家族以外の親子を見た経験と、自分のサービスを小さく試した経験の2つ。どちらも、週数時間の中で無理なく足せる。</p>
+    <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>種類</th><th>中身</th><th>コスト感</th><th>位置づけ</th></tr>
+      <tr><td><b>保育士</b>（国家資格）</td><td>筆記9科目＋実技2分野。合格率は令和6年度で26.3%。科目合格は3年間有効。前期の筆記は4月（令和8年は4月18・19日）</td><td class="num">100〜150h目安</td><td>1年目の中心。地図づくり</td></tr>
+      <tr><td><b>安心感の輪</b>子育てプログラム ファシリテーター</td><td>アタッチメントに基づく親向けグループプログラム。日本でも研修と大学での効果研究がある</td><td>研修数日</td><td>2年目の候補。親子ワークショップの型になる</td></tr>
+      <tr><td><b>Bringing Baby Home</b> エデュケーター</td><td>ゴットマン研究所の妊娠中〜産後の夫婦向けワークショップ。RCT あり。オンライン研修</td><td>英語・有料</td><td>夫婦セッションを本気でやるなら候補。英語が負担なら書籍で代替</td></tr>
+      <tr><td><b>ファミリー・サポート・センター</b> 提供会員</td><td>自治体の有償ボランティア。講習を受けて登録し、他の家庭の子どもを預かる。性別は問わない自治体が多い</td><td>講習1日〜数日</td><td>「他の家族」に触れる現場。保育士の勉強と同時期が理想</td></tr>
+      <tr><td><b>モニターセッション</b></td><td>知人の親や BCDP の関係者に、無料で親向け・夫婦向けセッションを試す</td><td>月1〜2回</td><td>2年目の後半から。サービス設計の材料を集める</td></tr>
+    </table>
+    </div>
+    <p>個人的に勧めたいのは、もう1つ。<b>わが子の観察メモ</b>を、学んだ概念と結びつけて書くこと。週1回、5分でいい。「今日の後追いは安全基地の確認だった」のように、本で読んだ言葉で目の前の出来事を説明してみる。知識が自分の言葉に変わるし、3年後には、他の親に語れる具体的な場面がたまっている。</p>
+    <div class="note sand">
+      <p><span class="h">コーチングで扱わない線を先に決めておく</span></p>
+      <p>親向けのサービスでは、産後うつや発達の遅れの相談が必ず混ざる。医療・心理の専門職に引き継ぐ判断の基準（たとえば EPDS などのスクリーニング尺度の存在と、地域の相談窓口）は、2年目のうちに押さえておきたい。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 -->
+<section id="books">
+  <div class="wrap">
+    <span class="sec-no">08 ── Books</span>
+    <h2>古典は読む価値がある。ただし、教科書とセットで</h2>
+    <p class="sec-sub">Classics, textbooks, and contemporary research</p>
+    <p>厚い名著を腰を据えて読みたい、という感覚は正しいと思う。古典には、その分野の<b>まなざし</b>、つまり子どもや親をどう見るかの角度が詰まっている。ただ、古典には実証的には古くなった部分もある。たとえばボウルビィの初期の主張は、のちのアタッチメント研究でかなり修正された。古典だけを読むと、古い結論をそのまま信じてしまう。</p>
+    <p>勧めたい読み方は、<b>教科書1冊・古典1冊・現代の研究書1冊</b>を1セットにして、同じテーマを3方向から読むこと。教科書で現在の定説を知り、古典で考え方の出どころを知り、研究書で最前線を知る。</p>
+    <div class="books">
+      <div class="book"><div class="tag">Textbook</div><div><div class="bt">保育士試験の基本テキスト（特に「保育の心理学」「子ども家庭福祉」）</div><div class="bd">1年目は教科書として使う。発達段階の定説を一通り押さえる。</div></div></div>
+      <div class="book"><div class="tag">Textbook</div><div><div class="bt">『入門 アタッチメント理論』</div><div class="ba">遠藤利彦 編／日本評論社, 2021</div><div class="bd">アタッチメントの現在の到達点を、臨床と実践まで含めて学べる。</div></div></div>
+      <div class="book"><div class="tag">Classic</div><div><div class="bt">『母子関係の理論』（全3巻）</div><div class="ba">J. ボウルビィ／岩崎学術出版社</div><div class="bd">アタッチメント理論の原典。教科書と並べて、何が引き継がれ何が修正されたかを見ながら読む。</div></div></div>
+      <div class="book"><div class="tag">Classic</div><div><div class="bt">『遊ぶことと現実』</div><div class="ba">D. W. ウィニコット／岩崎学術出版社</div><div class="bd">「ほどよい母親」（good enough mother）の考え方。完璧でない親を肯定する言葉の出どころ。</div></div></div>
+      <div class="book"><div class="tag">Classic</div><div><div class="bt">『幼児期と社会』</div><div class="ba">E. H. エリクソン／みすず書房</div><div class="bd">生涯発達とアイデンティティの古典。子どもだけでなく、親の側の「発達課題」を考える出発点。</div></div></div>
+      <div class="book"><div class="tag">Classic</div><div><div class="bt">『乳児の対人世界』</div><div class="ba">D. N. スターン／岩崎学術出版社</div><div class="bd">乳児と養育者の情動調律（気持ちを合わせるやりとり）。母性のコンステレーションの前提になる仕事。</div></div></div>
+      <div class="book"><div class="tag">Research</div><div><div class="bt">『子どもという価値』</div><div class="ba">柏木惠子／中公新書, 2001</div><div class="bd">日本で親であることの意味を問う。薄いが、親のアイデンティティを日本の文脈で考えるのに欠かせない。</div></div></div>
+      <div class="book"><div class="tag">Research</div><div><div class="bt">『思いどおりになんて育たない　反ペアレンティングの科学』</div><div class="ba">A. ゴプニック／森北出版</div><div class="bd">親を「大工」ではなく「庭師」にたとえる。子どもを作品のように仕上げるのではなく、安全で豊かな環境を整える。「どこまで介入するか」の考え方を変えてくれる。</div></div></div>
+      <div class="book"><div class="tag">Research</div><div><div class="bt"><i>When Partners Become Parents</i></div><div class="ba">C. P. Cowan &amp; P. A. Cowan, 2000（英語）</div><div class="bd">親への移行期の夫婦研究の古典。夫婦セッションを作るなら一度は通りたい。</div></div></div>
+      <div class="book"><div class="tag">Research</div><div><div class="bt"><i>Cribsheet</i></div><div class="ba">E. Oster, 2019（英語）</div><div class="bd">育児の定説をデータで検証する手本。エビデンスの読み方を身につけるために。</div></div></div>
+      <div class="book"><div class="tag">Research</div><div><div class="bt">『幼児教育の経済学』</div><div class="ba">J. J. ヘックマン／東洋経済新報社</div><div class="bd">非認知能力が注目されるきっかけの一冊。批判と合わせて読むと、エビデンスの使われ方も学べる。</div></div></div>
+    </div>
+    <p>1冊を2〜3か月かけて読むペースなら、3年でこのリストはおおむね読み切れる。英語の2冊は、邦訳がないか、あっても手に入りにくい。最初は要約や書評で全体をつかみ、気になる章だけ原文で読めば十分だと思う。</p>
+  </div>
+</section>
+
+<!-- 09 -->
+<section id="plan" class="band">
+  <div class="wide">
+    <span class="sec-no">09 ── Plan</span>
+    <h2>3年を「地図」「深掘り」「形にする」に分ける</h2>
+    <p class="sec-sub">November 2026 – October 2029</p>
+    <p style="max-width:720px">1年ごとに、終わったときに手元に残るものを決めておく。家族の事情で止まる時期が出たら、その年の計画を半年後ろへずらす。</p>
+    <div class="year-grid">
+      <div class="year">
+        <div class="yk">Year 1</div>
+        <div class="yn">子どもの発達の地図をつくる</div>
+        <div class="yp">2026.11 – 2027.10</div>
+        <ul>
+          <li>保育士：2027年4月の前期で筆記5〜6科目、10月の後期で残りと実技</li>
+          <li>アタッチメントの3冊セット（教科書・ボウルビィ・遠藤）</li>
+          <li>ファミリー・サポート・センターに登録</li>
+          <li>わが子の観察メモを週1回</li>
+        </ul>
+        <div class="out"><b>残るもの</b>　保育士資格、観察メモ1年分</div>
+      </div>
+      <div class="year">
+        <div class="yk">Year 2</div>
+        <div class="yn">親と夫婦の発達を深掘りする</div>
+        <div class="yp">2027.11 – 2028.10</div>
+        <ul>
+          <li>マトレセンス、スターン、柏木惠子、親のバーンアウトを読む</li>
+          <li>コーワン夫妻、Bringing Baby Home で夫婦の移行期を学ぶ</li>
+          <li>安心感の輪の研修を受けるか検討</li>
+          <li>後半から、知人の親・夫婦にモニターセッション</li>
+        </ul>
+        <div class="out"><b>残るもの</b>　自分の言葉の「親の発達」モデル、モニター5組の記録</div>
+      </div>
+      <div class="year">
+        <div class="yk">Year 3</div>
+        <div class="yn">サービスの形にする</div>
+        <div class="yp">2028.11 – 2029.10</div>
+        <ul>
+          <li>1対1・夫婦・ワークショップのどれを最初に出すか決める</li>
+          <li>UX デザインの経験を使って、体験とファネルを設計</li>
+          <li>観察メモと学びを note で発信し始める</li>
+          <li>BCDP への導線を設計</li>
+        </ul>
+        <div class="out"><b>残るもの</b>　ブランド名、最初のプログラム、発信の蓄積</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="keywords">
+  <div class="wrap">
+    <span class="sec-no">10 ── Keywords</span>
+    <h2>アンテナとして持っておく言葉</h2>
+    <p class="sec-sub">Search terms for Google Scholar, J-STAGE, and bookstores</p>
+    <p>本や論文を探すとき、ニュースを読むときに引っかかってほしい言葉を、領域ごとに並べた。英語は Google Scholar で、日本語は J-STAGE や CiNii で検索するときに使える。</p>
+
+    <div class="kw-group">
+      <h3>A. 子どもの発達</h3>
+      <div class="kg">保育士の勉強と並行して、深めたいときに</div>
+      <div class="kw">
+        <span>アタッチメント<i>attachment</i></span>
+        <span>安全基地<i>secure base</i></span>
+        <span>安心感の輪<i>Circle of Security</i></span>
+        <span>サーブ・アンド・リターン<i>serve and return</i></span>
+        <span>実行機能<i>executive function</i></span>
+        <span>自己制御<i>self-regulation</i></span>
+        <span>情動調律<i>affect attunement</i></span>
+        <span>マインド・マインデッドネス<i>mind-mindedness</i></span>
+        <span>非認知能力<i>non-cognitive skills</i></span>
+        <span>気質<i>temperament</i></span>
+        <span>発達の最近接領域<i>ZPD</i></span>
+        <span>遊び<i>play-based learning</i></span>
+        <span>ACEs<i>adverse childhood experiences</i></span>
+      </div>
+    </div>
+
+    <div class="kw-group">
+      <h3>B. 親の発達とアイデンティティ</h3>
+      <div class="kg">新サービスの差別化に直結する言葉</div>
+      <div class="kw">
+        <span>マトレセンス<i>matrescence</i></span>
+        <span>パトレセンス<i>patrescence</i></span>
+        <span>母性のコンステレーション<i>motherhood constellation</i></span>
+        <span>親になることによる発達<i>parental development</i></span>
+        <span>親アイデンティティ<i>parental identity</i></span>
+        <span>ほどよい母親<i>good enough mother</i></span>
+        <span>親のバーンアウト<i>parental burnout</i></span>
+        <span>省察機能<i>reflective functioning</i></span>
+        <span>世代間伝達<i>intergenerational transmission</i></span>
+        <span>集約的母性<i>intensive mothering</i></span>
+        <span>役割葛藤<i>work-family conflict</i></span>
+        <span>産後うつ<i>perinatal depression</i></span>
+      </div>
+    </div>
+
+    <div class="kw-group">
+      <h3>C. 夫婦・家族システム</h3>
+      <div class="kg">夫婦向けセッションを作るときに</div>
+      <div class="kw">
+        <span>親への移行<i>transition to parenthood</i></span>
+        <span>コペアレンティング<i>coparenting</i></span>
+        <span>夫婦関係満足度<i>relationship satisfaction</i></span>
+        <span>家族システム論<i>family systems theory</i></span>
+        <span>ゲートキーピング<i>maternal gatekeeping</i></span>
+        <span>父親の関与<i>father involvement</i></span>
+        <span>家事育児分担<i>division of labor</i></span>
+        <span>Bringing Baby Home</span>
+      </div>
+    </div>
+
+    <div class="kw-group">
+      <h3>D. 支援の技法とエビデンス</h3>
+      <div class="kg">研究を読む・サービスを作るときに</div>
+      <div class="kw">
+        <span>ペアレンティング・プログラム<i>parenting program</i></span>
+        <span>ペアレント・トレーニング<i>parent training</i></span>
+        <span>ペアレント・コーチング<i>parent coaching</i></span>
+        <span>Triple P</span>
+        <span>ランダム化比較試験<i>RCT</i></span>
+        <span>メタ分析<i>meta-analysis</i></span>
+        <span>効果量<i>effect size</i></span>
+        <span>再現性<i>replication</i></span>
+        <span>ポピュレーション・アプローチ<i>universal prevention</i></span>
+        <span>EPDS<i>Edinburgh Postnatal Depression Scale</i></span>
+      </div>
+    </div>
+
+    <div class="closing">
+      <h3>最初の一か月でやること</h3>
+      <ol>
+        <li><b>2027年前期の保育士試験の申込期間を確かめる。</b>前期の申込は例年冬なので、全国保育士養成協議会の公式サイトで日程を確認し、受ける科目を決める。</li>
+        <li><b>保育士テキストを1冊決めて、「保育の心理学」から読み始める。</b>アタッチメントの章に付箋を貼っておくと、2冊目の『入門 アタッチメント理論』につなげやすい。</li>
+        <li><b>観察メモを始める。</b>フォーマットは自由。「今日の場面」と「本で読んだ言葉」の2行で足りる。</li>
+      </ol>
+    </div>
+
+    <div class="refs">
+      <h3>主な出典</h3>
+      <ol>
+        <li>国立成育医療研究センター「父親の産後うつ」に関するプレスリリース（Takehara et al., 2020, 国民生活基礎調査2016の分析）<a href="https://www.ncchd.go.jp/press/2020/pr_20200827.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Trinko, Sarewitz &amp; Athan (2025) Matrescence education pilot study, <i>Maternal Health, Neonatology and Perinatology</i>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12220242" target="_blank" rel="noopener">PMC</a></li>
+        <li>Motherhood constellation（D. Stern, 1995）概要 <a href="https://en.wikipedia.org/wiki/Motherhood_constellation" target="_blank" rel="noopener">Wikipedia</a></li>
+        <li>Roskam, Mikolajczak et al. (2021) Parental Burnout Around the Globe: a 42-Country Study, <i>Affective Science</i>. <a href="https://research.tilburguniversity.edu/en/publications/parental-burnout-around-the-globe-a-42-country-study/" target="_blank" rel="noopener">Tilburg Univ.</a></li>
+        <li>Cowan &amp; Cowan の研究についての解説 <a href="https://greatergood.berkeley.edu/article/item/will_kids_ruin_your_marriage" target="_blank" rel="noopener">Greater Good</a> ／ <a href="https://stephaniecoontz.com/node/407" target="_blank" rel="noopener">S. Coontz</a></li>
+        <li>Bringing Baby Home の効果研究（136組の RCT）<a href="https://journals.sagepub.com/doi/full/10.1177/0033294119829436" target="_blank" rel="noopener">Psychological Reports</a></li>
+        <li>Watts, Duncan &amp; Quan (2018) マシュマロ・テストの追試 <a href="https://www.psychologicalscience.org/publications/observer/obsonline/a-new-approach-to-the-marshmallow-test-yields-complex-findings.html" target="_blank" rel="noopener">APS</a></li>
+        <li>Wilson et al. (2012) Triple P の系統的レビューとメタ分析 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3532197/" target="_blank" rel="noopener">PMC</a></li>
+        <li>Military Health System, Executive Coaching Evidence Summary (2021) <a href="https://health.mil/Reference-Center/Publications/2021/04/21/PHCoE-Executive-Coaching_Summary_508" target="_blank" rel="noopener">health.mil</a></li>
+        <li>マインド・マインデッドネスと関連概念のレビュー（Medrea &amp; Benga, 2021）<a href="https://cbbjournal.ro/index.php/en/2021/134-25-1/681-parental-mentalization-a-critical-literature-review-of-mind-mindedness-parental-insightfulness-and-parental-reflective-functioning" target="_blank" rel="noopener">CBB Journal</a></li>
+        <li>「安心感の輪」子育てプログラムの案内（筑波大学）<a href="https://www.human.tsukuba.ac.jp/counseling/w/wp-content/uploads/2023/04/333e311f6fb8b0dab98d8ebf3581de11.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>保育士試験の難易度と合格率（令和6年度 26.3%）<a href="https://www.agaroot.jp/hoikushi/column/difficulty/" target="_blank" rel="noopener">アガルート</a> ／ 令和8年の日程 <a href="https://www.agaroot.jp/hoikushi/column/result-publication/" target="_blank" rel="noopener">アガルート</a></li>
+        <li>ファミリー・サポート・センター提供会員の講習（広島市）<a href="https://www.city.hiroshima.lg.jp/living/kosodate/1021253/1025911/1053473.html" target="_blank" rel="noopener">広島市</a></li>
+        <li>A. Gopnik, <i>The Gardener and the Carpenter</i> 書評 <a href="https://publishersweekly.com/9780374229702" target="_blank" rel="noopener">Publishers Weekly</a></li>
+        <li>柏木惠子『親と子の愛情と戦略』 <a href="https://www.kodansha.co.jp/book/products/0000210576" target="_blank" rel="noopener">講談社</a></li>
+      </ol>
+      <p style="font-size:12px;color:var(--muted)">保育士試験の日程・申込期間・合格率は予備校サイトからの情報を含む。受験前に全国保育士養成協議会の公式発表で確認すること。書籍の版元・邦題は購入時に確認を。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    子どもの発達だけでなく、親が「親になる」過程を学ぶ3年間<br>
+    Sai Aragaki ・ 2026-10-25
+  </div>
+</footer>
+
+<script>
+const links=[...document.querySelectorAll('.nav-links a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(l=>{const on=l.getAttribute('href')===id;l.classList.toggle('on',on);if(on&&window.innerWidth<=768){l.scrollIntoView({block:'nearest',inline:'center'})}})}})},{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
