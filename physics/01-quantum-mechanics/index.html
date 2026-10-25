@@ -43,8 +43,10 @@
   --r-band-card: 16px;  /* 一段大きいカード */
   --bw: 1px;            /* カードの枠線幅 */
   --r-scale: 1;         /* 角丸の倍率。値が散っているページ（research-sai）はこれで一括調整する */
-  --card-line: var(--rule);
-  --input-line: var(--rule-strong);
+  /* ページによって罫線トークンの名前が違う（sai-works系は --rule、research系は --line）。
+     var() のフォールバックで両方に対応する。 */
+  --card-line: var(--rule, var(--line));
+  --input-line: var(--rule-strong, var(--line-strong));
 
   /* ページごとに既定が違うトークン（--paper-rgb / --ls-display）は
      ここに書かない。各ページの :root で定義し、テーマ側は
@@ -393,13 +395,13 @@ nav,.gnav,nav.gnav{background:linear-gradient(to bottom,rgba(var(--paper-rgb),.9
 a{color:var(--ink);}
 mark,mark.c{background:var(--panel);color:var(--ink);padding:0 .2em;}
 .note,.caution,.insight,.pull,.mini,.need,.stat,.chart-card,.dom,.effects,.meter,.continuum,.stop,.closing,.why,.sources,.refs,.entry,.reader-frame,.reader-empty,.search input,.stat-grid > *,.minis > *,.needs > *{border-radius:var(--r-card)!important;box-shadow:none!important;}
-.note,.caution,.insight,.pull,.mini,.need,.chart-card,.dom,.stat{background:var(--white)!important;border:1px solid var(--line)!important;}
+.note,.caution,.insight,.pull,.mini,.need,.chart-card,.dom,.stat{background:var(--white)!important;border:var(--bw) solid var(--card-line)!important;}
 .note.sand,.caution{border-left:2px solid var(--ink)!important;}
 .note .h,.note .n-title,.caution .c-label,.insight h4{color:var(--ink)!important;}
-.stage-badge,.div-tag,.chip,.tagn,.mini .tagn,.need .nn{border-radius:var(--r-pill)!important;border:1px solid var(--ink)!important;background:transparent!important;color:var(--ink)!important;}
+.stage-badge,.div-tag,.chip,.tagn,.mini .tagn,.need .nn{border-radius:var(--r-pill)!important;border:var(--bw) solid var(--ink)!important;background:transparent!important;color:var(--ink)!important;}
 .chip.active,.chip.flag-chip.active{background:var(--ink)!important;color:var(--white)!important;}
 .chip .c,.count{color:inherit!important;}
-.search input{border:1px solid var(--line-strong)!important;border-radius:var(--r-input)!important;background:var(--white)!important;}
+.search input{border:var(--bw) solid var(--input-line)!important;border-radius:var(--r-input)!important;background:var(--white)!important;}
 .search input:focus{border-color:var(--ink)!important;box-shadow:none!important;}
 .entry.is-active{background:var(--white)!important;border-left:2px solid var(--ink)!important;}
 .entry:hover{background:var(--panel)!important;}
@@ -408,7 +410,7 @@ table{border-collapse:collapse;}
 th{font-family:var(--en),var(--jp)!important;font-size:11px!important;letter-spacing:.12em!important;text-transform:uppercase;color:var(--muted)!important;font-weight:500!important;border-bottom:1px solid var(--ink)!important;background:transparent!important;}
 td{border-bottom:1px solid var(--line)!important;}
 .bar > i,.bar-fill,.efbar > i,.meter-top,.range-fill,.div-fill{border-radius:var(--r-card)!important;}
-.src-tag{border-radius:var(--r-card)!important;border:1px solid var(--line)!important;background:var(--white)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:12px!important;color:var(--muted)!important;}
+.src-tag{border-radius:var(--r-card)!important;border:var(--bw) solid var(--card-line)!important;background:var(--white)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:12px!important;color:var(--muted)!important;}
 .src-tag b{color:var(--ink)!important;}
 .fade{opacity:1!important;transform:none!important;transition:none!important;}
 .sources,.refs{border-top:1px solid var(--ink);}
