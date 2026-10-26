@@ -88,6 +88,11 @@
   --chip-g-bg: rgba(98, 184, 160, .14);
   --chip-b-bg: rgba(79, 124, 135, .14);
   --mosaic: #62B8A0, #F2C94C, #EB6584, #4F7C87, #FFFFFF, #FFFFFF, #F5F5F5;
+  /* 記事ページの節の交互の帯 */
+  --sec-bg: var(--white);                /* 奇数番目の節の背景 */
+  --sec-alt-bg: #F6F6F6;                 /* 偶数番目の節の背景（薄いテーマカラー） */
+  --sec-pad-y: 48px;                     /* main 直下の節の上下余白 */
+  --bleed: 100vw;                        /* 画面幅いっぱいに広げるときの幅（帯・ストライプ） */
 }
 
 /* --- theme: bold（黒と黄・2pxの枠線・影なし）--- */
@@ -175,7 +180,28 @@ html[data-theme="bold"] {
   --chip-g-bg: rgba(227, 225, 67, .34);
   --chip-b-bg: rgba(27, 27, 27, .08);
   --mosaic: #E3E143, #1B1B1B, #F9F8D9, #FFFFFF, #FFFFFF, #F2F1E2, #E3E143;
+  --sec-alt-bg: #F9F8DE;
 }
+
+/* --- 記事ページ：節ごとに背景を交互に変える（全テーマ共通） ---
+   奇数番目の節は白、偶数番目は薄いテーマカラー（--sec-alt-bg）。
+   帯は画面幅いっぱいに広げる（box-shadow + clip-path で左右だけ伸ばす）。
+   節は body 直下のページと main 直下のページがある。 */
+/* 対象は research の記事ページ（ナビに .nav-inner / .gnav-inner がある）だけ。
+   sai-works・LP・デザインシステムのページには効かせない。 */
+body:has(.nav-inner, .gnav-inner) { overflow-x: clip; }
+body:has(.nav-inner, .gnav-inner) > section,
+body:has(.nav-inner, .gnav-inner) > main > section { background: var(--sec-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-bg); clip-path: inset(0 calc(var(--bleed) * -1)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even),
+body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--sec-alt-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-alt-bg); }
+body:has(.nav-inner, .gnav-inner) > main > section[id^="sec-"] { padding-top: var(--sec-pad-y); padding-bottom: var(--sec-pad-y); }
+/* 最後の節とフッターの間に紙の色の隙間を作らない */
+body:has(.nav-inner, .gnav-inner) section ~ footer,
+body:has(.nav-inner, .gnav-inner) main ~ footer { margin-top: 0 !important; }
+
+/* ヘッダー下のストライプも画面幅いっぱいに（帯の左右の端と揃える） */
+body:has(.nav-inner, .gnav-inner) .hero .wrap::after { width: var(--bleed) !important; max-width: none; margin-left: calc(50% - var(--bleed) / 2) !important; }
+html.in-frame body:has(.nav-inner, .gnav-inner) .hero .wrap::after { width: 100% !important; margin-left: 0 !important; }
 
 /* =========================================================
    切り替えボタン（.ts- 接頭辞。ページ側のCSSと衝突させない）
