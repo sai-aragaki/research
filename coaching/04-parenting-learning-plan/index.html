@@ -407,9 +407,9 @@ footer{background:var(--footer);padding:48px 24px;margin-top:96px;font-size:12px
 .shelf-head p{margin:0;font-size:13.5px;line-height:1.85;max-width:720px}
 .track{display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
 .track::-webkit-scrollbar{display:none}
-.bk{flex:0 0 272px;scroll-snap-align:start;background:var(--white);border:var(--bw) solid var(--card-line);display:flex;flex-direction:column;min-width:0}
-.bk .cv{position:relative;height:256px;background:var(--tint);border-bottom:1px solid var(--ink);display:flex;align-items:flex-end;justify-content:center;padding:24px 16px 0}
-.bk .cv img{display:block;max-width:100%;max-height:232px;width:auto;height:auto}
+.bk{flex:0 0 308px;scroll-snap-align:start;background:var(--white);border:var(--bw) solid var(--card-line);display:flex;flex-direction:column;min-width:0}
+.bk .cv{position:relative;height:232px;background:var(--tint);border-bottom:1px solid var(--ink);display:flex;align-items:flex-end;justify-content:center;padding:24px 16px 0}
+.bk .cv img{display:block;max-width:100%;max-height:208px;width:auto;height:auto}
 .bk .cv .no{position:absolute;left:14px;top:12px;font-family:var(--en);font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--ink)}
 .bk .cv .no.rel{font-family:var(--jp);font-size:11px;letter-spacing:.06em;color:var(--muted);border:var(--bw) solid var(--card-line);border-radius:calc(48px * var(--r-scale));padding:0 10px;background:var(--white)}
 .bk .cv.noimg{align-items:center;text-align:center;font-weight:700;font-size:14px;color:var(--ink);line-height:1.6}
@@ -420,7 +420,9 @@ footer{background:var(--footer);padding:48px 24px;margin-top:96px;font-size:12px
 .bk .lv{font-size:11px;padding:2px 10px;border-radius:calc(48px * var(--r-scale));color:var(--ink)}
 .bk h4{margin:10px 0 4px;font-size:14.5px;font-weight:700;line-height:1.6;color:var(--ink)}
 .bk .bm{margin:0 0 10px;font-size:12px;line-height:1.7;color:var(--muted)}
-.bk .bo{margin:0 0 8px;font-size:13px;line-height:1.85}
+.bk .bo{margin:0 0 8px;font-size:13px;line-height:1.8}
+.bk .bs{margin:0 0 8px;font-size:12.5px;line-height:1.8}
+.bk .bs b{display:block;font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--muted);margin-bottom:1px}
 .bk .bn{margin:0 0 8px;font-size:12px;line-height:1.75;color:var(--muted)}
 .bk .kc{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
 .bk .kc span{border:var(--bw) solid var(--ink);border-radius:calc(48px * var(--r-scale));padding:1px 10px;font-size:11px;font-weight:500;color:var(--ink);line-height:1.7}
@@ -623,7 +625,7 @@ details.kwidx[open] summary::after{content:"－"}
       <li><b>追試されているか</b>　1本の研究か、メタ分析か。</li>
       <li><b>誰が書いているか</b>　プログラムの開発者自身が評価していないか。</li>
     </ul>
-    <p>経済学者エミリー・オスター（Emily Oster）の『世界標準の子育て大全』（原題 <i>Cribsheet</i>）は、まさにこの読み方で育児の定説を一つずつ検証した本で、手本としてちょうどいい。</p>
+    <p>経済学者エミリー・オスター（Emily Oster）の <i>Cribsheet</i>（英語。日本語版は見つからなかった）は、まさにこの読み方で育児の定説を一つずつ検証した本で、手本としてちょうどいい。日本語で読めるものでは、第08章の『科学的根拠（エビデンス）で子育て』が近い。</p>
   </div>
 </section>
 
@@ -656,21 +658,20 @@ details.kwidx[open] summary::after{content:"－"}
 <section id="books">
   <div class="wrap">
     <span class="sec-no">08 ── Books</span>
-    <h2>日本語で読める23冊を、キーワードから選ぶ</h2>
+    <h2>日本語で読める22冊を、キーワードから選ぶ</h2>
     <p class="sec-sub">A bookshelf linked to the keywords</p>
-    <p>古典は外した。ボウルビィやウィニコットの考え方は、いまの入門書や教科書が引き継いでいる。原典が必要になったら、そのとき読めばいい。代わりに、次の条件で絞った。</p>
-    <ul class="clean">
-      <li><b>日本語で読める</b>　翻訳書を含む。英語の原典は、必要になった章だけ後で当たる。</li>
-      <li><b>刊行は2011年以降</b>　大半は2016年以降。教科書、新書、研究者の本を中心にして、ハウツー本は入れていない。</li>
-      <li><b>キーワードに結びつく</b>　1冊ごとに、第10章のキーワードとの関係を示した。</li>
-    </ul>
-    <p>おすすめ度は3段階。<b>★★★</b>はそのテーマで最初に読む本、<b>★★☆</b>は深めたいとき、<b>★☆☆</b>は余力があれば。難しさは「入門」「標準」「専門」で示した。週4.5〜6.5時間の学びなら、新書は1冊1〜2週間、専門書は1か月が目安になる。</p>
+    <p>古典は外した。ボウルビィやウィニコットの考え方は、いまの入門書や教科書が引き継いでいる。原典が必要になったら、そのとき読めばいい。</p>
+    <h3 class="kwh" style="margin-top:48px">選び方の基準と、確かめられたこと</h3>
+    <p>人気や売れ行き、レビューの評価は基準にしていない。候補はまず「日本語で読める」「刊行は2011年以降」「ハウツー本ではない」で集め、そのうえで下の6つの基準で当たった。確かめたのは、著者の経歴、目次、出版社の紹介、大学や学会での使われ方、書評や批判の有無までで、<b>本文は読んでいない</b>。読んだあとに評価が変わることはありうる。</p>
+    <div class="tbl-wrap"><table class="tbl"><tr><th>基準</th><th>見ること</th><th>確かめられたこと</th></tr><tr><th scope="row">著者</th><td>その分野の研究者か、研究にもとづく実務者か</td><td>全冊で確認（出版社・書店の著者紹介）</td></tr><tr><th scope="row">根拠の示し方</th><td>調査や研究にもとづく章立てか。限界に触れているか</td><td>目次と紹介文で確認。本文は読んでいない</td></tr><tr><th scope="row">学界での扱い</th><td>大学の教科書や入試で使われているか。学術誌の書評があるか</td><td>確認できたのは数冊のみ。書評は多くが見つからなかった</td></tr><tr><th scope="row">批判への態度</th><td>反論や限界を書いているか。外部の批判はあるか</td><td>中室牧子『科学的根拠で子育て』の最終章など、一部のみ確認</td></tr><tr><th scope="row">版歴・新しさ</th><td>改訂されているか。刊行は2011年以降か</td><td>全冊で確認</td></tr><tr><th scope="row">学習効果</th><td>概念と用語が手に入り、次の文献へ進めるか</td><td>目次から判断。本文を読むまで確定しない</td></tr></table></div>
+    <details class="kwidx"><summary>候補にして外した5冊と、その理由</summary><ul class="clean"><li><b>愛着の子育て（シーゲル、大和書房）</b>　一般向けの実践書で、脳科学の根拠の強さを本の紹介文以外で確認できなかった。同じ領域で、著者の専門と章立てを確認できる本を優先した。</li><li><b>ワンオペ育児（藤田結子、毎日新聞出版）</b>　雑誌連載をもとにした本で、調査の方法が示されていなかった。構造を論じる『仕事と家族』に替えた。</li><li><b>世界標準の子育て大全（オスター、PHP研究所）</b>　対象は5〜12歳の子の意思決定で、乳幼児向けではなかった。乳幼児向けの『Cribsheet』は日本語版が見つからなかった。</li><li><b>子どもから大人が生まれるとき（森口佑介、日本評論社）</b>　15のテーマで子どもの認知を紹介する本で、キーワードとの結びつきが弱く、同じ著者の2冊と重なる。</li><li><b>子どもの遊びを考える（佐伯胖編、北大路書房）</b>　遊びの前提を問い直す理論書で、今の目的には難度が高い。</li></ul></details>
+    <p>おすすめ度は3段階。<b>★★★</b>はそのテーマで最初に読む本、<b>★★☆</b>は深めたいとき、<b>★☆☆</b>は余力があるとき、または批判を知ったうえで読む本。難しさは「入門」「標準」「専門」で示した。週4.5〜6.5時間の学びなら、新書は1冊1〜2週間、専門書は1か月が目安になる。</p>
   </div>
   <div class="wide">
 <div class="shelf-block carousel" id="c-starter" role="region" aria-roledescription="carousel" aria-label="まず読む5冊">
   <div class="shelf-head">
     <div class="sk">Start here</div>
-    <div><h3>まず読む5冊</h3><p>保育士の勉強と並行して、この順で。アタッチメントの全体像、養育観、親自身の育ち、エビデンスの読み方、夫婦の順に、5つの悩みに1冊ずつ当てた。</p></div>
+    <div><h3>まず読む5冊</h3><p>保育士の勉強と並行して、この順で。見守りの線引き、親としての育ち、情報の信頼性、夫婦、「知性的に」の中身に、1冊ずつ当てた。</p></div>
   </div>
   <div class="track" tabindex="-1">
 <article class="bk" id="s-attach-wakaru">
@@ -678,59 +679,64 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>アタッチメントがわかる本 「愛着」が心の力を育む</h4>
-    <p class="bm">遠藤利彦 監修 ／ 講談社（健康ライブラリー） ／ 2022年</p>
-    <p class="bo">図解中心の100ページほどで、アタッチメントの全体像をつかめる。まず用語と地図がほしいときの最初の一冊。</p>
+    <p class="bm">遠藤利彦 監修 ／ 講談社（健康ライブラリー） ／ 2022年 ／ 100ページ</p>
+    <p class="bo">図解中心で、アタッチメントの全体像をつかめる。まず用語と地図がほしいときの最初の一冊。</p>
+    <p class="bs"><b>選んだ理由</b>監修者は東京大学教授（発達保育実践政策学センター長）。入口用の100ページで、深い議論は後続の本に任せる。</p>
     
     <div class="kc"><span>アタッチメント</span><span>安全基地</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/406528919X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
-<article class="bk" id="s-gopnik">
-  <div class="cv" data-t="思いどおりになんて育たない"><span class="no">02</span><img src="https://m.media-amazon.com/images/I/419t5LcDAsL._SL500_.jpg" alt="思いどおりになんて育たない 反ペアレンティングの科学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+<article class="bk" id="s-katei-shien">
+  <div class="cv" data-t="エピソードで学ぶ子ども家庭支援の心理学"><span class="no">02</span><img src="https://m.media-amazon.com/images/I/41xDfco7RYL._SL500_.jpg" alt="エピソードで学ぶ子ども家庭支援の心理学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
-    <h4>思いどおりになんて育たない 反ペアレンティングの科学</h4>
-    <p class="bm">アリソン・ゴプニック／渡会圭子 訳 ／ 森北出版 ／ 2019年</p>
-    <p class="bo">親を、子どもを作る「大工」ではなく、育つ環境を整える「庭師」にたとえる。「どこまで介入するか」の考え方が変わる。</p>
-    
-    <div class="kc"><span>集約的母性</span><span>遊び</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4627854315" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="s-showing-up">
-  <div class="cv" data-t="愛着の子育て"><span class="no">03</span><img src="https://m.media-amazon.com/images/I/51Uerk-K9pL._SL500_.jpg" alt="生き抜く力をはぐくむ 愛着の子育ての表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
-    <h4>生き抜く力をはぐくむ 愛着の子育て</h4>
-    <p class="bm">ダニエル・J・シーゲル、ティナ・ペイン・ブライソン／桐谷知未 訳 ／ 大和書房 ／ 2022年</p>
-    <p class="bo">子どもが「安全・見守られている・安心できる・安定している」と感じる関わりを軸に考える。親自身の育ちが関わり方に出てくる点まで扱う。</p>
-    <p class="bn">実践書の形だが、神経科学者と心理療法家の共著で、根拠の説明がある。</p>
-    <div class="kc"><span>アタッチメント</span><span>世代間伝達</span><span>省察機能</span><span>安全基地</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4479785183" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
+    <h4>エピソードで学ぶ子ども家庭支援の心理学</h4>
+    <p class="bm">小原敏郎、小林佐知子 編 ／ ミネルヴァ書房 ／ 2024年 ／ 200ページ</p>
+    <p class="bo">生涯発達と家庭支援、家族・家庭の理解、子育て家庭の現状、子どもの心の健康の4章。「親としての育ち」を扱う節がある。</p>
+    <p class="bs"><b>選んだ理由</b>保育士養成課程の科目「子ども家庭支援の心理学」の教科書。親になる過程を、日本語の教科書の水準で学べる数少ない本。</p>
+    <p class="bn">※ 「親になること」だけの章はなく、節の一つとして扱われる。</p>
+    <div class="kc"><span>親になることによる発達</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4623096661" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="s-chumuro-ev">
-  <div class="cv" data-t="科学的根拠で子育て"><span class="no">04</span><img src="https://m.media-amazon.com/images/I/51Cs0PD7pQL._SL500_.jpg" alt="科学的根拠（エビデンス）で子育て 教育経済学の最前線の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="cv" data-t="科学的根拠で子育て"><span class="no">03</span><img src="https://m.media-amazon.com/images/I/51Cs0PD7pQL._SL500_.jpg" alt="科学的根拠（エビデンス）で子育て 教育経済学の最前線の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>科学的根拠（エビデンス）で子育て 教育経済学の最前線</h4>
-    <p class="bm">中室牧子 ／ ダイヤモンド社 ／ 2024年</p>
-    <p class="bo">子育ての「定説」を、因果を調べた研究で検証する。エビデンスの読み方を日本語でまず身につけるならこの一冊。</p>
-    
-    <div class="kc"><span>因果推論</span><span>ランダム化比較試験</span><span>非認知能力</span></div>
+    <p class="bm">中室牧子 ／ ダイヤモンド社 ／ 2024年 ／ 312ページ</p>
+    <p class="bo">全10章。非認知能力の伸ばし方、親は子育てに時間を割くべきか、勉強できない子は変えられるか、そして「エビデンスはいつも必ず正しいのか？」。</p>
+    <p class="bs"><b>選んだ理由</b>著者は教育経済学者（刊行時は慶應義塾大学教授）。最終章のテーマが「エビデンスはいつも必ず正しいのか？」で、限界まで論じる構成。</p>
+    <p class="bn">※ 教育経済学の視点で書かれている。発達心理学の知見とは補い合う。</p>
+    <div class="kc"><span>因果推論</span><span>ランダム化比較試験</span><span>非認知能力</span><span>効果量</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4478121095" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="s-fuufu">
-  <div class="cv" data-t="夫と妻の生涯発達心理学"><span class="no">05</span><img src="https://m.media-amazon.com/images/I/41x3fWyz6dL._SL500_.jpg" alt="夫と妻の生涯発達心理学 関係性の危機と成熟の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="cv" data-t="夫と妻の生涯発達心理学"><span class="no">04</span><img src="https://m.media-amazon.com/images/I/41x3fWyz6dL._SL500_.jpg" alt="夫と妻の生涯発達心理学 関係性の危機と成熟の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>夫と妻の生涯発達心理学 関係性の危機と成熟</h4>
-    <p class="bm">宇都宮博、神谷哲司 編著 ／ 福村出版 ／ 2016年</p>
-    <p class="bo">結婚から老年期まで、夫婦関係の変化を追う。妊娠・出産期の夫婦、男性の育児参加、コペアレンティング、仕事と家庭の多重役割の章がある。</p>
-    <p class="bn">章ごとに執筆者が違う専門書。気になる章から読める。</p>
+    <p class="bm">宇都宮博、神谷哲司 編著 ／ 福村出版 ／ 2016年 ／ 312ページ</p>
+    <p class="bo">恋愛・結婚から死別まで、夫婦のライフイベントを心理学で扱う。妊娠・出産、男性の育児参加、仕事と家庭の多重役割、コペアレンティングの章がある。</p>
+    <p class="bs"><b>選んだ理由</b>編者は立命館大学教授と東北大学准教授（刊行時）。全章が研究者による執筆で、章立てが夫婦支援の論点に重なる。</p>
+    <p class="bn">※ 章ごとに執筆者が違う専門書。気になる章から読める。</p>
     <div class="kc"><span>コペアレンティング</span><span>親への移行</span><span>父親の関与</span><span>役割葛藤</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4571230559" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="s-jikosei">
+  <div class="cv" data-t="自分をコントロールする力"><span class="no">05</span><img src="https://m.media-amazon.com/images/I/41cXwRjYsBL._SL500_.jpg" alt="自分をコントロールする力 非認知スキルの心理学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
+    <h4>自分をコントロールする力 非認知スキルの心理学</h4>
+    <p class="bm">森口佑介 ／ 講談社現代新書 ／ 2019年 ／ 232ページ</p>
+    <p class="bo">全8章が実行機能に一貫している。実行機能とは何か、どう育ち、どう育てられるか、青年期に何が起きるかまで。</p>
+    <p class="bs"><b>選んだ理由</b>著者は実行機能を専門とする発達心理学者（刊行時は京都大学准教授）。新書として読みやすく、章立てから範囲が明確。</p>
+    
+    <div class="kc"><span>実行機能</span><span>自己制御</span><span>非認知能力</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/406517919X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
   </div>
@@ -746,7 +752,7 @@ details.kwidx[open] summary::after{content:"－"}
 <div class="shelf-block carousel" id="c-attach" role="region" aria-roledescription="carousel" aria-label="アタッチメント・安全基地">
   <div class="shelf-head">
     <div class="sk">Keyword 01 ／ Attachment</div>
-    <div><h3>アタッチメント・安全基地</h3><p>どこまで見守り、どこで手を差し伸べるか。その線引きの物差しになる領域。図解、入門講座、標準テキストの順に読むと、用語から根拠まで一本につながる。</p></div>
+    <div><h3>アタッチメント・安全基地</h3><p>どこまで見守り、どこで手を差し伸べるか。その線引きの物差しになる領域。図解、親向けの入門講座、実践者向けの入門書、標準テキストの順に読むと、用語から根拠まで一本につながる。</p></div>
   </div>
   <div class="track" tabindex="-1">
 <article class="bk" id="attach-wakaru">
@@ -754,8 +760,9 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>アタッチメントがわかる本 「愛着」が心の力を育む</h4>
-    <p class="bm">遠藤利彦 監修 ／ 講談社（健康ライブラリー） ／ 2022年</p>
-    <p class="bo">図解中心の100ページほどで、アタッチメントの全体像をつかめる。まず用語と地図がほしいときの最初の一冊。</p>
+    <p class="bm">遠藤利彦 監修 ／ 講談社（健康ライブラリー） ／ 2022年 ／ 100ページ</p>
+    <p class="bo">図解中心で、アタッチメントの全体像をつかめる。まず用語と地図がほしいときの最初の一冊。</p>
+    <p class="bs"><b>選んだ理由</b>監修者は東京大学教授（発達保育実践政策学センター長）。入口用の100ページで、深い議論は後続の本に任せる。</p>
     
     <div class="kc"><span>アタッチメント</span><span>安全基地</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/406528919X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
@@ -766,11 +773,25 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>安心感が子どもの心を育む 親と保育者のためのアタッチメント入門講座</h4>
-    <p class="bm">遠藤利彦 ／ 小学館 ／ 2025年</p>
-    <p class="bo">親と保育者に向けて、アタッチメントを講座形式で解説する。2025年刊で、いちばん新しい入門書。</p>
-    <p class="bn">刊行が新しく、読者の評価はまだ少ない。</p>
-    <div class="kc"><span>アタッチメント</span><span>安全基地</span></div>
+    <p class="bm">遠藤利彦 ／ 小学館 ／ 2025年 ／ 288ページ</p>
+    <p class="bo">全6講。アタッチメントの基礎、「安心感の輪」で育つ子どもの心、保育の実践、子どもの個性と関わり方まで。</p>
+    <p class="bs"><b>選んだ理由</b>著者は東京大学教授。目次に「安心感の輪」の講があり、親と保育者に向けて書かれている。</p>
+    <p class="bn">※ 2025年9月刊で、読者の評価はまだ少ない。</p>
+    <div class="kc"><span>アタッチメント</span><span>安全基地</span><span>安心感の輪</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4098402513" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="attach-manabou">
+  <div class="cv" data-t="アタッチメントを学ぼう"><img src="https://m.media-amazon.com/images/I/41a9ZkjmqjL._SL500_.jpg" alt="アタッチメントを学ぼう エピソードでつなぐ関係性の理解と支援の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
+    <h4>アタッチメントを学ぼう エピソードでつなぐ関係性の理解と支援</h4>
+    <p class="bm">北川恵 ／ 日本評論社 ／ 2025年 ／ 192ページ</p>
+    <p class="bo">全12章。個人差、養育者に必要な関わり、各年代、喪失、病理、親子関係支援、心理療法、文化まで。エピソードで理解を進める。</p>
+    <p class="bs"><b>選んだ理由</b>著者は甲南大学教授で臨床心理士・公認心理師。養育者の関わり（第3章）と親子関係支援（第10章）の章がある。親を支える側に立つ人向け。</p>
+    <p class="bn">※ 2025年4月刊で、書評はまだ見つけられなかった。</p>
+    <div class="kc"><span>アタッチメント</span><span>安心感の輪</span><span>ペアレンティング・プログラム</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4535985448" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="attach-nyumon">
@@ -778,23 +799,12 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
     <h4>入門 アタッチメント理論 臨床・実践への架け橋</h4>
-    <p class="bm">遠藤利彦 編 ／ 日本評論社 ／ 2021年</p>
-    <p class="bo">理論の基礎から臨床・実践まで、複数の研究者が分担して書いた標準的な入門書。図解の次に、根拠まで読みたいとき。</p>
-    
-    <div class="kc"><span>アタッチメント</span><span>安全基地</span><span>世代間伝達</span></div>
+    <p class="bm">遠藤利彦 編 ／ 日本評論社 ／ 2021年 ／ 256ページ</p>
+    <p class="bo">理論史、胎児期から成人期までの研究、臨床・虐待・保育への応用の3部構成。根拠まで読みたいときの標準的な入門書。</p>
+    <p class="bs"><b>選んだ理由</b>編者は東京大学教授。複数の研究者が分担して書く学術寄りの入門書。</p>
+    <p class="bn">※ 公開されている目次では、世代間伝達を扱う章は確認できなかった。</p>
+    <div class="kc"><span>アタッチメント</span><span>安全基地</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4535984794" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="showing-up">
-  <div class="cv" data-t="愛着の子育て"><img src="https://m.media-amazon.com/images/I/51Uerk-K9pL._SL500_.jpg" alt="生き抜く力をはぐくむ 愛着の子育ての表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
-    <h4>生き抜く力をはぐくむ 愛着の子育て</h4>
-    <p class="bm">ダニエル・J・シーゲル、ティナ・ペイン・ブライソン／桐谷知未 訳 ／ 大和書房 ／ 2022年</p>
-    <p class="bo">子どもが「安全・見守られている・安心できる・安定している」と感じる関わりを軸に考える。親自身の育ちが関わり方に出てくる点まで扱う。</p>
-    <p class="bn">実践書の形だが、神経科学者と心理療法家の共著で、根拠の説明がある。</p>
-    <div class="kc"><span>アタッチメント</span><span>世代間伝達</span><span>省察機能</span><span>安全基地</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4479785183" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="hatsutatsu-q">
@@ -802,11 +812,25 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>問いからはじめる発達心理学〔改訂版〕 生涯にわたる育ちの科学</h4>
-    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年</p>
-    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。青年・成人期の章は全面改訂で、「大人の発達」も読める。</p>
-    <p class="bn">改訂版は2024年10月刊。</p>
-    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>親になることによる発達</span></div>
+    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年 ／ 260ページ</p>
+    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。言語と遊び、自己、成人期の章がある。</p>
+    <p class="bs"><b>選んだ理由</b>公認心理師カリキュラムに対応した大学教科書。出版社の紹介では累計2万5000部で、2024年に10年ぶりに改訂された。</p>
+    
+    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>言語発達</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4641151296" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="katei-shien">
+  <div class="cv" data-t="エピソードで学ぶ子ども家庭支援の心理学"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/41xDfco7RYL._SL500_.jpg" alt="エピソードで学ぶ子ども家庭支援の心理学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
+    <h4>エピソードで学ぶ子ども家庭支援の心理学</h4>
+    <p class="bm">小原敏郎、小林佐知子 編 ／ ミネルヴァ書房 ／ 2024年 ／ 200ページ</p>
+    <p class="bo">生涯発達と家庭支援、家族・家庭の理解、子育て家庭の現状、子どもの心の健康の4章。「親としての育ち」を扱う節がある。</p>
+    <p class="bs"><b>選んだ理由</b>保育士養成課程の科目「子ども家庭支援の心理学」の教科書。親になる過程を、日本語の教科書の水準で学べる数少ない本。</p>
+    <p class="bn">※ 「親になること」だけの章はなく、節の一つとして扱われる。</p>
+    <div class="kc"><span>親になることによる発達</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4623096661" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="hoiku-text">
@@ -814,22 +838,24 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>福祉教科書 保育士 完全合格テキスト 上・下 2027年版</h4>
-    <p class="bm">翔泳社 ／ 2026年</p>
-    <p class="bo">上下2冊で保育士試験の筆記9科目をカバー。発達・保健・栄養・福祉・制度を一通り学べる。1年目の中心になる本。</p>
-    <p class="bn">年版もの。受ける試験の年に合わせて買う（2027年4月の前期なら2027年版）。ほかにユーキャンの速習テキストなども定番。</p>
-    <div class="kc"><span>アタッチメント</span><span>気質</span><span>遊び</span></div>
+    <p class="bm">翔泳社 ／ 2026年 ／ 上416／下392ページ</p>
+    <p class="bo">上下2冊で保育士試験の筆記をカバーする。発達・保健・栄養・福祉・制度を一通り学べる。1年目の中心になる本。</p>
+    <p class="bs"><b>選んだ理由</b>保育士試験の対策テキスト（2027年版）。学術書ではないが、試験範囲を一通り学べる。</p>
+    <p class="bn">※ 年版もの。受ける試験の年に合わせて買う。ほかにユーキャンの速習テキストなどがある。</p>
+    <div class="kc"><span>アタッチメント</span><span>遊び</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4798197831" target="_blank" rel="noopener">上巻 <i>→</i></a><a class="amz" href="https://www.amazon.co.jp/dp/479819784X" target="_blank" rel="noopener">下巻 <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="shishin">
   <div class="cv" data-t="保育所保育指針解説"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/415ZPokDWNL._SL500_.jpg" alt="保育所保育指針解説の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
+    <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-yellow">標準</span></div>
     <h4>保育所保育指針解説</h4>
-    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年</p>
-    <p class="bo">保育の考え方を定めた指針の公式解説。保育の心理学で習う発達の見方が、現場の言葉でどう書かれているかがわかる。</p>
-    <p class="bn">現行の指針（平成29年告示）の解説。</p>
-    <div class="kc"><span>遊び</span><span>非認知能力</span><span>アタッチメント</span></div>
+    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年 ／ 472ページ</p>
+    <p class="bo">保育の考え方を定めた指針の公式解説。保育の現場が前提にしている発達観を、現場の言葉で確かめられる。</p>
+    <p class="bs"><b>選んだ理由</b>国の指針の公式解説で、一次資料にあたる。通読向きではなく、保育士の勉強の途中で必要な箇所を引く本。</p>
+    
+    <div class="kc"><span>遊び</span><span>アタッチメント</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/457781448X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
@@ -843,19 +869,20 @@ details.kwidx[open] summary::after{content:"－"}
 <div class="shelf-block carousel" id="c-parent" role="region" aria-roledescription="carousel" aria-label="親になる移行・親のアイデンティティ">
   <div class="shelf-head">
     <div class="sk">Keyword 02 ／ Becoming a parent</div>
-    <div><h3>親になる移行・親のアイデンティティ</h3><p>役割と自分のバランスを扱う、いちばん厚くしたい領域。日本語の良書は多くないので、親自身の育ち、母親の声、父親の発達、夫婦の本を組み合わせて読む。</p></div>
+    <div><h3>親になる移行・親のアイデンティティ</h3><p>役割と自分のバランスを扱う、いちばん厚くしたい領域。日本語の良書は多くないので、保育士養成の教科書を軸に、母親の声、父親の発達、夫婦の本を組み合わせて読む。</p></div>
   </div>
   <div class="track" tabindex="-1">
-<article class="bk" id="showing-up">
-  <div class="cv" data-t="愛着の子育て"><img src="https://m.media-amazon.com/images/I/51Uerk-K9pL._SL500_.jpg" alt="生き抜く力をはぐくむ 愛着の子育ての表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+<article class="bk" id="katei-shien">
+  <div class="cv" data-t="エピソードで学ぶ子ども家庭支援の心理学"><img src="https://m.media-amazon.com/images/I/41xDfco7RYL._SL500_.jpg" alt="エピソードで学ぶ子ども家庭支援の心理学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
-    <h4>生き抜く力をはぐくむ 愛着の子育て</h4>
-    <p class="bm">ダニエル・J・シーゲル、ティナ・ペイン・ブライソン／桐谷知未 訳 ／ 大和書房 ／ 2022年</p>
-    <p class="bo">子どもが「安全・見守られている・安心できる・安定している」と感じる関わりを軸に考える。親自身の育ちが関わり方に出てくる点まで扱う。</p>
-    <p class="bn">実践書の形だが、神経科学者と心理療法家の共著で、根拠の説明がある。</p>
-    <div class="kc"><span>アタッチメント</span><span>世代間伝達</span><span>省察機能</span><span>安全基地</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4479785183" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
+    <h4>エピソードで学ぶ子ども家庭支援の心理学</h4>
+    <p class="bm">小原敏郎、小林佐知子 編 ／ ミネルヴァ書房 ／ 2024年 ／ 200ページ</p>
+    <p class="bo">生涯発達と家庭支援、家族・家庭の理解、子育て家庭の現状、子どもの心の健康の4章。「親としての育ち」を扱う節がある。</p>
+    <p class="bs"><b>選んだ理由</b>保育士養成課程の科目「子ども家庭支援の心理学」の教科書。親になる過程を、日本語の教科書の水準で学べる数少ない本。</p>
+    <p class="bn">※ 「親になること」だけの章はなく、節の一つとして扱われる。</p>
+    <div class="kc"><span>親になることによる発達</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4623096661" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="kokai">
@@ -863,9 +890,10 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
     <h4>母親になって後悔してる</h4>
-    <p class="bm">オルナ・ドーナト／鹿田昌美 訳 ／ 新潮文庫 ／ 2025年</p>
-    <p class="bo">母親になったことを後悔している女性たちへの聞き取りにもとづく研究。「母になれば幸せ」という前提を外して、母親の声を聴く。</p>
-    <p class="bn">内容は重い。原著はイスラエルの調査（単行本は2022年、文庫は2025年）。</p>
+    <p class="bm">オルナ・ドーナト／鹿田昌美 訳 ／ 新潮文庫 ／ 2025年 ／ 400ページ</p>
+    <p class="bo">母親になったことを後悔している23人の女性へのインタビュー。「母になれば幸せ」という前提を外して、母親の声を聴く。</p>
+    <p class="bs"><b>選んだ理由</b>著者はイスラエルの社会学者（テルアビブ大学で博士号）。母親の役割規範を研究の対象にした、学術的な調査にもとづく。</p>
+    <p class="bn">※ 少人数の質的調査なので、母親の経験を知る本として読み、一般化はしない。内容は重い。</p>
     <div class="kc"><span>親アイデンティティ</span><span>集約的母性</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4102407413" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -875,9 +903,10 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-teal">入門</span></div>
     <h4>父親になる、父親をする 家族心理学の視点から</h4>
-    <p class="bm">柏木惠子 ／ 岩波ブックレット ／ 2011年</p>
-    <p class="bo">「父親になる」ことと「父親をする」ことは別、という整理を短く読める。父親の側から親の発達を考える入口。</p>
-    <p class="bn">ブックレットで薄い。2011年刊で、この分野の日本語の入門書としては数少ない。</p>
+    <p class="bm">柏木惠子 ／ 岩波ブックレット ／ 2011年 ／ 72ページ</p>
+    <p class="bo">「父親になること、父親をすること」「日本の父親の現状」「父親として育つとき」を、家族心理学の研究成果から短くまとめる。</p>
+    <p class="bs"><b>選んだ理由</b>著者は発達心理学者の柏木惠子（東京女子大学名誉教授）。父親の発達という論点を、72ページで押さえられる。</p>
+    <p class="bn">※ 2011年刊で、データは古い。日本語で同じ論点を扱う本が少ないために入れた。</p>
     <div class="kc"><span>親になることによる発達</span><span>パトレセンス</span><span>父親の関与</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/400270811X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -887,9 +916,10 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>夫と妻の生涯発達心理学 関係性の危機と成熟</h4>
-    <p class="bm">宇都宮博、神谷哲司 編著 ／ 福村出版 ／ 2016年</p>
-    <p class="bo">結婚から老年期まで、夫婦関係の変化を追う。妊娠・出産期の夫婦、男性の育児参加、コペアレンティング、仕事と家庭の多重役割の章がある。</p>
-    <p class="bn">章ごとに執筆者が違う専門書。気になる章から読める。</p>
+    <p class="bm">宇都宮博、神谷哲司 編著 ／ 福村出版 ／ 2016年 ／ 312ページ</p>
+    <p class="bo">恋愛・結婚から死別まで、夫婦のライフイベントを心理学で扱う。妊娠・出産、男性の育児参加、仕事と家庭の多重役割、コペアレンティングの章がある。</p>
+    <p class="bs"><b>選んだ理由</b>編者は立命館大学教授と東北大学准教授（刊行時）。全章が研究者による執筆で、章立てが夫婦支援の論点に重なる。</p>
+    <p class="bn">※ 章ごとに執筆者が違う専門書。気になる章から読める。</p>
     <div class="kc"><span>コペアレンティング</span><span>親への移行</span><span>父親の関与</span><span>役割葛藤</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4571230559" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -899,33 +929,36 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>問いからはじめる発達心理学〔改訂版〕 生涯にわたる育ちの科学</h4>
-    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年</p>
-    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。青年・成人期の章は全面改訂で、「大人の発達」も読める。</p>
-    <p class="bn">改訂版は2024年10月刊。</p>
-    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>親になることによる発達</span></div>
+    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年 ／ 260ページ</p>
+    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。言語と遊び、自己、成人期の章がある。</p>
+    <p class="bs"><b>選んだ理由</b>公認心理師カリキュラムに対応した大学教科書。出版社の紹介では累計2万5000部で、2024年に10年ぶりに改訂された。</p>
+    
+    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>言語発達</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4641151296" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
-<article class="bk" id="wanope">
-  <div class="cv" data-t="ワンオペ育児"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/51n1ViINaHL._SL500_.jpg" alt="ワンオペ育児 わかってほしい休めない日常の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+<article class="bk" id="ikumen">
+  <div class="cv" data-t="「育メン」現象の社会学"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/41g+GoRGPUL._SL500_.jpg" alt="「育メン」現象の社会学 育児・子育て参加への希望を叶えるためにの表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
-    <h4>ワンオペ育児 わかってほしい休めない日常</h4>
-    <p class="bm">藤田結子 ／ 毎日新聞出版 ／ 2017年</p>
-    <p class="bo">共働きの母親が一人で担う育児を、取材から描く。母親の負担を「個人の問題」にしない見方が身につく。</p>
-    
-    <div class="kc"><span>役割葛藤</span><span>家事育児分担</span><span>親のバーンアウト</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4620324469" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
+    <h4>「育メン」現象の社会学 育児・子育て参加への希望を叶えるために</h4>
+    <p class="bm">石井クンツ昌子 ／ ミネルヴァ書房 ／ 2013年 ／ 312ページ</p>
+    <p class="bo">どんな環境や意識があれば、父親は育児にかかわれるのか。歴史・社会・文化、育メンになる過程、育メンがもたらすものを国際比較も含めて論じる。</p>
+    <p class="bs"><b>選んだ理由</b>著者は家族社会学者（刊行時はお茶の水女子大学教授）。父親の育児参加を研究の対象にした日本語の学術書として選んだ。</p>
+    <p class="bn">※ 2013年刊で、制度の記述は古い部分がある。</p>
+    <div class="kc"><span>父親の関与</span><span>パトレセンス</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4623066088" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="gopnik">
   <div class="cv" data-t="思いどおりになんて育たない"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/419t5LcDAsL._SL500_.jpg" alt="思いどおりになんて育たない 反ペアレンティングの科学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
+    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
     <h4>思いどおりになんて育たない 反ペアレンティングの科学</h4>
-    <p class="bm">アリソン・ゴプニック／渡会圭子 訳 ／ 森北出版 ／ 2019年</p>
-    <p class="bo">親を、子どもを作る「大工」ではなく、育つ環境を整える「庭師」にたとえる。「どこまで介入するか」の考え方が変わる。</p>
-    
+    <p class="bm">アリソン・ゴプニック／渡会圭子 訳 ／ 森北出版 ／ 2019年 ／ 336ページ</p>
+    <p class="bo">親を、子どもを作る「大工」ではなく、育つ環境を整える「庭師」にたとえる。進化と学習の研究から、子育ての「べき論」を疑う。遊びの役割の章もある。</p>
+    <p class="bs"><b>選んだ理由</b>著者はカリフォルニア大学バークレー校の心理学教授で、心の理論研究の創始者の一人。森口佑介が解説を書いている。</p>
+    <p class="bn">※ 研究者による一般書で、主張には論の飛躍もある。英語圏では、米国への一般化に疑問を呈す書評があった。</p>
     <div class="kc"><span>集約的母性</span><span>遊び</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4627854315" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -940,7 +973,7 @@ details.kwidx[open] summary::after{content:"－"}
 <div class="shelf-block carousel" id="c-couple" role="region" aria-roledescription="carousel" aria-label="夫婦・共働き・役割分担">
   <div class="shelf-head">
     <div class="sk">Keyword 03 ／ Couple and coparenting</div>
-    <div><h3>夫婦・共働き・役割分担</h3><p>子どもが生まれると、夫婦の関係も組み直しになる。研究の地図（夫と妻の生涯発達心理学）、実践の語彙（ゴットマン）、現場の声（ワンオペ育児）の3方向から。</p></div>
+    <div><h3>夫婦・共働き・役割分担</h3><p>子どもが生まれると、夫婦の関係も組み直しになる。研究の地図（夫と妻の生涯発達心理学）、父親の育児参加の研究、社会の構造、実践の語彙（ゴットマン）の4方向から。</p></div>
   </div>
   <div class="track" tabindex="-1">
 <article class="bk" id="fuufu">
@@ -948,45 +981,62 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>夫と妻の生涯発達心理学 関係性の危機と成熟</h4>
-    <p class="bm">宇都宮博、神谷哲司 編著 ／ 福村出版 ／ 2016年</p>
-    <p class="bo">結婚から老年期まで、夫婦関係の変化を追う。妊娠・出産期の夫婦、男性の育児参加、コペアレンティング、仕事と家庭の多重役割の章がある。</p>
-    <p class="bn">章ごとに執筆者が違う専門書。気になる章から読める。</p>
+    <p class="bm">宇都宮博、神谷哲司 編著 ／ 福村出版 ／ 2016年 ／ 312ページ</p>
+    <p class="bo">恋愛・結婚から死別まで、夫婦のライフイベントを心理学で扱う。妊娠・出産、男性の育児参加、仕事と家庭の多重役割、コペアレンティングの章がある。</p>
+    <p class="bs"><b>選んだ理由</b>編者は立命館大学教授と東北大学准教授（刊行時）。全章が研究者による執筆で、章立てが夫婦支援の論点に重なる。</p>
+    <p class="bn">※ 章ごとに執筆者が違う専門書。気になる章から読める。</p>
     <div class="kc"><span>コペアレンティング</span><span>親への移行</span><span>父親の関与</span><span>役割葛藤</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4571230559" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="ikumen">
+  <div class="cv" data-t="「育メン」現象の社会学"><img src="https://m.media-amazon.com/images/I/41g+GoRGPUL._SL500_.jpg" alt="「育メン」現象の社会学 育児・子育て参加への希望を叶えるためにの表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
+    <h4>「育メン」現象の社会学 育児・子育て参加への希望を叶えるために</h4>
+    <p class="bm">石井クンツ昌子 ／ ミネルヴァ書房 ／ 2013年 ／ 312ページ</p>
+    <p class="bo">どんな環境や意識があれば、父親は育児にかかわれるのか。歴史・社会・文化、育メンになる過程、育メンがもたらすものを国際比較も含めて論じる。</p>
+    <p class="bs"><b>選んだ理由</b>著者は家族社会学者（刊行時はお茶の水女子大学教授）。父親の育児参加を研究の対象にした日本語の学術書として選んだ。</p>
+    <p class="bn">※ 2013年刊で、制度の記述は古い部分がある。</p>
+    <div class="kc"><span>父親の関与</span><span>パトレセンス</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4623066088" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="tsutsui">
+  <div class="cv" data-t="仕事と家族"><img src="https://m.media-amazon.com/images/I/41ZdiI9HgIL._SL500_.jpg" alt="仕事と家族 日本はなぜ働きづらく、産みにくいのかの表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
+    <h4>仕事と家族 日本はなぜ働きづらく、産みにくいのか</h4>
+    <p class="bm">筒井淳也 ／ 中公新書 ／ 2015年 ／ 209ページ</p>
+    <p class="bo">日本の男性中心の働き方が、女性の働き方と出生率に与える影響を、歴史と国際比較（スウェーデン・米国）から論じる。</p>
+    <p class="bs"><b>選んだ理由</b>著者は家族社会学・計量社会学が専門（刊行時は立命館大学教授）。共働き夫婦の悩みを、個人ではなく構造から見る視点が手に入る。</p>
+    
+    <div class="kc"><span>役割葛藤</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4121023226" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="gottman">
   <div class="cv" data-t="結婚生活を成功させる七つの原則"><img src="https://m.media-amazon.com/images/I/41sC7GLJ1uL._SL500_.jpg" alt="結婚生活を成功させる七つの原則の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
+    <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-teal">入門</span></div>
     <h4>結婚生活を成功させる七つの原則</h4>
-    <p class="bm">ジョン・M・ゴットマン ／ 第三文明社 ／ 2017年</p>
+    <p class="bm">ジョン・M・ゴットマン ／ 第三文明社 ／ 2017年 ／ 300ページ</p>
     <p class="bo">長年の夫婦研究にもとづく、関係を保つ7つの原則。夫婦向けのセッションで使う語彙が手に入る。</p>
-    <p class="bn">原著は1999年刊（のち改訂）。子どもの誕生が中心の本ではない。</p>
-    <div class="kc"><span>夫婦関係満足度</span><span>Bringing Baby Home</span></div>
+    <p class="bs"><b>選んだ理由</b>夫婦支援の現場で最も参照される枠組みの一つなので選んだ。質の保証ではなく、現場で出会う前提知識として。</p>
+    <p class="bn">※ 離婚の予測精度は、検証の方法をめぐって批判されている（Heyman &amp; Slep, 2001）。原著は1999年刊。</p>
+    <div class="kc"><span>夫婦関係満足度</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4476140165" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
-<article class="bk" id="wanope">
-  <div class="cv" data-t="ワンオペ育児"><img src="https://m.media-amazon.com/images/I/51n1ViINaHL._SL500_.jpg" alt="ワンオペ育児 わかってほしい休めない日常の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
-    <h4>ワンオペ育児 わかってほしい休めない日常</h4>
-    <p class="bm">藤田結子 ／ 毎日新聞出版 ／ 2017年</p>
-    <p class="bo">共働きの母親が一人で担う育児を、取材から描く。母親の負担を「個人の問題」にしない見方が身につく。</p>
-    
-    <div class="kc"><span>役割葛藤</span><span>家事育児分担</span><span>親のバーンアウト</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4620324469" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
 <article class="bk" id="chichi">
-  <div class="cv" data-t="父親になる、父親をする"><img src="https://m.media-amazon.com/images/I/412PX8RnpsL._SL500_.jpg" alt="父親になる、父親をする 家族心理学の視点からの表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="cv" data-t="父親になる、父親をする"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/412PX8RnpsL._SL500_.jpg" alt="父親になる、父親をする 家族心理学の視点からの表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
     <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-teal">入門</span></div>
     <h4>父親になる、父親をする 家族心理学の視点から</h4>
-    <p class="bm">柏木惠子 ／ 岩波ブックレット ／ 2011年</p>
-    <p class="bo">「父親になる」ことと「父親をする」ことは別、という整理を短く読める。父親の側から親の発達を考える入口。</p>
-    <p class="bn">ブックレットで薄い。2011年刊で、この分野の日本語の入門書としては数少ない。</p>
+    <p class="bm">柏木惠子 ／ 岩波ブックレット ／ 2011年 ／ 72ページ</p>
+    <p class="bo">「父親になること、父親をすること」「日本の父親の現状」「父親として育つとき」を、家族心理学の研究成果から短くまとめる。</p>
+    <p class="bs"><b>選んだ理由</b>著者は発達心理学者の柏木惠子（東京女子大学名誉教授）。父親の発達という論点を、72ページで押さえられる。</p>
+    <p class="bn">※ 2011年刊で、データは古い。日本語で同じ論点を扱う本が少ないために入れた。</p>
     <div class="kc"><span>親になることによる発達</span><span>パトレセンス</span><span>父親の関与</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/400270811X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -996,9 +1046,10 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
     <h4>母親になって後悔してる</h4>
-    <p class="bm">オルナ・ドーナト／鹿田昌美 訳 ／ 新潮文庫 ／ 2025年</p>
-    <p class="bo">母親になったことを後悔している女性たちへの聞き取りにもとづく研究。「母になれば幸せ」という前提を外して、母親の声を聴く。</p>
-    <p class="bn">内容は重い。原著はイスラエルの調査（単行本は2022年、文庫は2025年）。</p>
+    <p class="bm">オルナ・ドーナト／鹿田昌美 訳 ／ 新潮文庫 ／ 2025年 ／ 400ページ</p>
+    <p class="bo">母親になったことを後悔している23人の女性へのインタビュー。「母になれば幸せ」という前提を外して、母親の声を聴く。</p>
+    <p class="bs"><b>選んだ理由</b>著者はイスラエルの社会学者（テルアビブ大学で博士号）。母親の役割規範を研究の対象にした、学術的な調査にもとづく。</p>
+    <p class="bn">※ 少人数の質的調査なので、母親の経験を知る本として読み、一般化はしない。内容は重い。</p>
     <div class="kc"><span>親アイデンティティ</span><span>集約的母性</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4102407413" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -1021,8 +1072,9 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>自分をコントロールする力 非認知スキルの心理学</h4>
-    <p class="bm">森口佑介 ／ 講談社現代新書 ／ 2019年</p>
-    <p class="bo">実行機能と自己制御が幼児期にどう育つかを、発達の研究から語る。「知性的に」の中身を考える入口になる。</p>
+    <p class="bm">森口佑介 ／ 講談社現代新書 ／ 2019年 ／ 232ページ</p>
+    <p class="bo">全8章が実行機能に一貫している。実行機能とは何か、どう育ち、どう育てられるか、青年期に何が起きるかまで。</p>
+    <p class="bs"><b>選んだ理由</b>著者は実行機能を専門とする発達心理学者（刊行時は京都大学准教授）。新書として読みやすく、章立てから範囲が明確。</p>
     
     <div class="kc"><span>実行機能</span><span>自己制御</span><span>非認知能力</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/406517919X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
@@ -1033,23 +1085,12 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
     <h4>子どもの発達格差 将来を左右する要因は何か</h4>
-    <p class="bm">森口佑介 ／ PHP新書 ／ 2021年</p>
-    <p class="bo">家庭環境や幼児期の経験が、発達の差にどうつながるかを研究で整理した新書。</p>
+    <p class="bm">森口佑介 ／ PHP新書 ／ 2021年 ／ 256ページ</p>
+    <p class="bo">実行機能と向社会的行動に、幼児期から格差が生じつつあると指摘し、実態と是正策を整理する。</p>
+    <p class="bs"><b>選んだ理由</b>同じ著者。「非認知能力を批判的に整理する」章があり、言葉の流行を疑う視点が得られる。</p>
     
     <div class="kc"><span>実行機能</span><span>非認知能力</span><span>教育格差</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4569849784" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="otona">
-  <div class="cv" data-t="子どもから大人が生まれるとき"><img src="https://m.media-amazon.com/images/I/41-kh7z3WNL._SL500_.jpg" alt="子どもから大人が生まれるとき 発達科学が解き明かす子どもの心の世界の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
-    <h4>子どもから大人が生まれるとき 発達科学が解き明かす子どもの心の世界</h4>
-    <p class="bm">森口佑介 ／ 日本評論社 ／ 2023年</p>
-    <p class="bo">発達科学の知見で、子どもの心の世界をたどる一冊。著者は実行機能の研究者。</p>
-    
-    <div class="kc"><span>実行機能</span><span>自己制御</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4535564191" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="hininchi">
@@ -1057,9 +1098,10 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-coral">専門</span></div>
     <h4>非認知能力 概念・測定と教育の可能性</h4>
-    <p class="bm">小塩真司 編著 ／ 北大路書房 ／ 2021年</p>
-    <p class="bo">「非認知能力」という言葉を、概念・測り方・教育への応用から整理した研究書。言葉の中身を確かめたいとき。</p>
-    <p class="bn">専門書寄り。先に森口佑介の新書を読むと入りやすい。</p>
+    <p class="bm">小塩真司 編著 ／ 北大路書房 ／ 2021年 ／ 320ページ</p>
+    <p class="bo">誠実性、グリット、好奇心、批判的思考、レジリエンスなど15の心理特性を、研究者が分担して整理した研究書。</p>
+    <p class="bs"><b>選んだ理由</b>名古屋大学の2024年度大学院入試で出典に使われた。編著者は続編で、この言葉が一種の流行になっていると自ら書いている。</p>
+    <p class="bn">※ 専門書寄り。先に森口佑介の新書を読むと入りやすい。</p>
     <div class="kc"><span>非認知能力</span><span>自己制御</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4762831646" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -1069,23 +1111,12 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>科学的根拠（エビデンス）で子育て 教育経済学の最前線</h4>
-    <p class="bm">中室牧子 ／ ダイヤモンド社 ／ 2024年</p>
-    <p class="bo">子育ての「定説」を、因果を調べた研究で検証する。エビデンスの読み方を日本語でまず身につけるならこの一冊。</p>
-    
-    <div class="kc"><span>因果推論</span><span>ランダム化比較試験</span><span>非認知能力</span></div>
+    <p class="bm">中室牧子 ／ ダイヤモンド社 ／ 2024年 ／ 312ページ</p>
+    <p class="bo">全10章。非認知能力の伸ばし方、親は子育てに時間を割くべきか、勉強できない子は変えられるか、そして「エビデンスはいつも必ず正しいのか？」。</p>
+    <p class="bs"><b>選んだ理由</b>著者は教育経済学者（刊行時は慶應義塾大学教授）。最終章のテーマが「エビデンスはいつも必ず正しいのか？」で、限界まで論じる構成。</p>
+    <p class="bn">※ 教育経済学の視点で書かれている。発達心理学の知見とは補い合う。</p>
+    <div class="kc"><span>因果推論</span><span>ランダム化比較試験</span><span>非認知能力</span><span>効果量</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4478121095" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="shishin">
-  <div class="cv" data-t="保育所保育指針解説"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/415ZPokDWNL._SL500_.jpg" alt="保育所保育指針解説の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
-    <h4>保育所保育指針解説</h4>
-    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年</p>
-    <p class="bo">保育の考え方を定めた指針の公式解説。保育の心理学で習う発達の見方が、現場の言葉でどう書かれているかがわかる。</p>
-    <p class="bn">現行の指針（平成29年告示）の解説。</p>
-    <div class="kc"><span>遊び</span><span>非認知能力</span><span>アタッチメント</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/457781448X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="kyoiku-kakusa">
@@ -1093,11 +1124,25 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
     <h4>教育格差 階層・地域・学歴</h4>
-    <p class="bm">松岡亮二 ／ ちくま新書 ／ 2019年</p>
-    <p class="bo">家庭や地域による教育の差を、データで示す。育児の研究が「誰を調べたのか」を読む目が育つ。</p>
-    
+    <p class="bm">松岡亮二 ／ ちくま新書 ／ 2019年 ／ 384ページ</p>
+    <p class="bo">親の学歴や地域による教育の差を、データで示す。育児の研究が「誰を調べたのか」を読む目が育つ。</p>
+    <p class="bs"><b>選んだ理由</b>教育社会学者の松岡亮二が、階層・地域・学歴ごとの差を量的データで論じる。刊行時に広く議論された。</p>
+    <p class="bn">※ 学術誌の書評は確認できなかった。</p>
     <div class="kc"><span>教育格差</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4480072373" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="shishin">
+  <div class="cv" data-t="保育所保育指針解説"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/415ZPokDWNL._SL500_.jpg" alt="保育所保育指針解説の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-yellow">標準</span></div>
+    <h4>保育所保育指針解説</h4>
+    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年 ／ 472ページ</p>
+    <p class="bo">保育の考え方を定めた指針の公式解説。保育の現場が前提にしている発達観を、現場の言葉で確かめられる。</p>
+    <p class="bs"><b>選んだ理由</b>国の指針の公式解説で、一次資料にあたる。通読向きではなく、保育士の勉強の途中で必要な箇所を引く本。</p>
+    
+    <div class="kc"><span>遊び</span><span>アタッチメント</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/457781448X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
   </div>
@@ -1110,7 +1155,7 @@ details.kwidx[open] summary::after{content:"－"}
 <div class="shelf-block carousel" id="c-play" role="region" aria-roledescription="carousel" aria-label="ことば・遊び">
   <div class="shelf-head">
     <div class="sk">Keyword 05 ／ Language and play</div>
-    <div><h3>ことば・遊び</h3><p>一緒に遊ぶ時間は、研究から見てもいちばん効いている時間。ことばの発達は新書で、遊びは理論書で深める。遊びの入門書は、日本語ではまだ絞り切れていない。</p></div>
+    <div><h3>ことば・遊び</h3><p>一緒に遊ぶ時間は、研究から見てもいちばん効いている時間。ことばの発達は新書で、遊びは関連書の該当章で押さえる。遊びだけを主題にした入門書は、基準を満たすものを日本語で見つけられなかった。</p></div>
   </div>
   <div class="track" tabindex="-1">
 <article class="bk" id="kotoba">
@@ -1118,23 +1163,25 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>ことばの発達の謎を解く</h4>
-    <p class="bm">今井むつみ ／ ちくまプリマー新書 ／ 2013年</p>
-    <p class="bo">子どもがことばを身につける仕組みを、認知科学で解き明かす。新書で読みやすく、日々の声かけの見方が変わる。</p>
+    <p class="bm">今井むつみ ／ ちくまプリマー新書 ／ 2013年 ／ 239ページ</p>
+    <p class="bo">子どもが単語、動詞、色や位置の名前をどう学ぶかを、子どもを対象にした実験から解き明かす。最後は「言語が思考をつくる」。</p>
+    <p class="bs"><b>選んだ理由</b>著者は認知科学・発達心理学の研究者（刊行時は慶應義塾大学教授）。実験にもとづく6章の構成。</p>
     
     <div class="kc"><span>言語発達</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4480688935" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
-<article class="bk" id="asobi">
-  <div class="cv" data-t="子どもの遊びを考える"><img src="https://m.media-amazon.com/images/I/41sV5zIARlL._SL500_.jpg" alt="子どもの遊びを考える 「いいこと思いついた！」から見えてくることの表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+<article class="bk" id="gopnik">
+  <div class="cv" data-t="思いどおりになんて育たない"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/419t5LcDAsL._SL500_.jpg" alt="思いどおりになんて育たない 反ペアレンティングの科学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-coral">専門</span></div>
-    <h4>子どもの遊びを考える 「いいこと思いついた！」から見えてくること</h4>
-    <p class="bm">佐伯胖 編著 ／ 北大路書房 ／ 2023年</p>
-    <p class="bo">「遊び＝自発的な活動」という前提そのものを問い直す理論書。遊びの見方を一段深めたい人向け。</p>
-    <p class="bn">理論寄りで、すぐ使える遊び方の本ではない。</p>
-    <div class="kc"><span>遊び</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4762832294" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
+    <h4>思いどおりになんて育たない 反ペアレンティングの科学</h4>
+    <p class="bm">アリソン・ゴプニック／渡会圭子 訳 ／ 森北出版 ／ 2019年 ／ 336ページ</p>
+    <p class="bo">親を、子どもを作る「大工」ではなく、育つ環境を整える「庭師」にたとえる。進化と学習の研究から、子育ての「べき論」を疑う。遊びの役割の章もある。</p>
+    <p class="bs"><b>選んだ理由</b>著者はカリフォルニア大学バークレー校の心理学教授で、心の理論研究の創始者の一人。森口佑介が解説を書いている。</p>
+    <p class="bn">※ 研究者による一般書で、主張には論の飛躍もある。英語圏では、米国への一般化に疑問を呈す書評があった。</p>
+    <div class="kc"><span>集約的母性</span><span>遊び</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4627854315" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="hatsutatsu-q">
@@ -1142,47 +1189,25 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>問いからはじめる発達心理学〔改訂版〕 生涯にわたる育ちの科学</h4>
-    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年</p>
-    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。青年・成人期の章は全面改訂で、「大人の発達」も読める。</p>
-    <p class="bn">改訂版は2024年10月刊。</p>
-    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>親になることによる発達</span></div>
+    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年 ／ 260ページ</p>
+    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。言語と遊び、自己、成人期の章がある。</p>
+    <p class="bs"><b>選んだ理由</b>公認心理師カリキュラムに対応した大学教科書。出版社の紹介では累計2万5000部で、2024年に10年ぶりに改訂された。</p>
+    
+    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>言語発達</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4641151296" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="shishin">
   <div class="cv" data-t="保育所保育指針解説"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/415ZPokDWNL._SL500_.jpg" alt="保育所保育指針解説の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
+    <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-yellow">標準</span></div>
     <h4>保育所保育指針解説</h4>
-    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年</p>
-    <p class="bo">保育の考え方を定めた指針の公式解説。保育の心理学で習う発達の見方が、現場の言葉でどう書かれているかがわかる。</p>
-    <p class="bn">現行の指針（平成29年告示）の解説。</p>
-    <div class="kc"><span>遊び</span><span>非認知能力</span><span>アタッチメント</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/457781448X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="hoiku-text">
-  <div class="cv" data-t="保育士 完全合格テキスト"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/51wgx7JjDbL._SL500_.jpg" alt="福祉教科書 保育士 完全合格テキスト 上・下 2027年版の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
-    <h4>福祉教科書 保育士 完全合格テキスト 上・下 2027年版</h4>
-    <p class="bm">翔泳社 ／ 2026年</p>
-    <p class="bo">上下2冊で保育士試験の筆記9科目をカバー。発達・保健・栄養・福祉・制度を一通り学べる。1年目の中心になる本。</p>
-    <p class="bn">年版もの。受ける試験の年に合わせて買う（2027年4月の前期なら2027年版）。ほかにユーキャンの速習テキストなども定番。</p>
-    <div class="kc"><span>アタッチメント</span><span>気質</span><span>遊び</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4798197831" target="_blank" rel="noopener">上巻 <i>→</i></a><a class="amz" href="https://www.amazon.co.jp/dp/479819784X" target="_blank" rel="noopener">下巻 <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="gopnik">
-  <div class="cv" data-t="思いどおりになんて育たない"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/419t5LcDAsL._SL500_.jpg" alt="思いどおりになんて育たない 反ペアレンティングの科学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
-    <h4>思いどおりになんて育たない 反ペアレンティングの科学</h4>
-    <p class="bm">アリソン・ゴプニック／渡会圭子 訳 ／ 森北出版 ／ 2019年</p>
-    <p class="bo">親を、子どもを作る「大工」ではなく、育つ環境を整える「庭師」にたとえる。「どこまで介入するか」の考え方が変わる。</p>
+    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年 ／ 472ページ</p>
+    <p class="bo">保育の考え方を定めた指針の公式解説。保育の現場が前提にしている発達観を、現場の言葉で確かめられる。</p>
+    <p class="bs"><b>選んだ理由</b>国の指針の公式解説で、一次資料にあたる。通読向きではなく、保育士の勉強の途中で必要な箇所を引く本。</p>
     
-    <div class="kc"><span>集約的母性</span><span>遊び</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4627854315" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+    <div class="kc"><span>遊び</span><span>アタッチメント</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/457781448X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
   </div>
@@ -1195,42 +1220,19 @@ details.kwidx[open] summary::after{content:"－"}
 <div class="shelf-block carousel" id="c-evidence" role="region" aria-roledescription="carousel" aria-label="子育て論とエビデンスの読み方">
   <div class="shelf-head">
     <div class="sk">Keyword 06 ／ Evidence literacy</div>
-    <div><h3>子育て論とエビデンスの読み方</h3><p>情報が多すぎて、信頼性がわからない。その悩みへの直接の答え。養育観を変える一冊、定説をデータで検証する二冊、研究の読み方の基本書、研究が誰を調べたかを疑う一冊。</p></div>
+    <div><h3>子育て論とエビデンスの読み方</h3><p>情報が多すぎて、信頼性がわからない。その悩みへの直接の答え。親向けの検証書、研究の読み方の基本書、研究が誰を調べたかを疑う一冊、養育観を問い直す一冊。</p></div>
   </div>
   <div class="track" tabindex="-1">
-<article class="bk" id="gopnik">
-  <div class="cv" data-t="思いどおりになんて育たない"><img src="https://m.media-amazon.com/images/I/419t5LcDAsL._SL500_.jpg" alt="思いどおりになんて育たない 反ペアレンティングの科学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
-    <h4>思いどおりになんて育たない 反ペアレンティングの科学</h4>
-    <p class="bm">アリソン・ゴプニック／渡会圭子 訳 ／ 森北出版 ／ 2019年</p>
-    <p class="bo">親を、子どもを作る「大工」ではなく、育つ環境を整える「庭師」にたとえる。「どこまで介入するか」の考え方が変わる。</p>
-    
-    <div class="kc"><span>集約的母性</span><span>遊び</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4627854315" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="oster">
-  <div class="cv" data-t="世界標準の子育て大全"><img src="https://m.media-amazon.com/images/I/51T2bMsgwqL._SL500_.jpg" alt="世界標準の子育て大全 ブラウン大学経済学者で二児の母が実証したの表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
-    <h4>世界標準の子育て大全 ブラウン大学経済学者で二児の母が実証した</h4>
-    <p class="bm">エミリー・オスター ／ PHP研究所 ／ 2024年</p>
-    <p class="bo">母乳、睡眠、しつけなどの定説を、データで検証した約500ページ。研究の強さをどう見分けるかの手本になる。</p>
-    <p class="bn">分厚いので、気になる章から読んでよい。原書は米国の研究が中心。</p>
-    <div class="kc"><span>ランダム化比較試験</span><span>因果推論</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4569857272" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
 <article class="bk" id="chumuro-ev">
   <div class="cv" data-t="科学的根拠で子育て"><img src="https://m.media-amazon.com/images/I/51Cs0PD7pQL._SL500_.jpg" alt="科学的根拠（エビデンス）で子育て 教育経済学の最前線の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>科学的根拠（エビデンス）で子育て 教育経済学の最前線</h4>
-    <p class="bm">中室牧子 ／ ダイヤモンド社 ／ 2024年</p>
-    <p class="bo">子育ての「定説」を、因果を調べた研究で検証する。エビデンスの読み方を日本語でまず身につけるならこの一冊。</p>
-    
-    <div class="kc"><span>因果推論</span><span>ランダム化比較試験</span><span>非認知能力</span></div>
+    <p class="bm">中室牧子 ／ ダイヤモンド社 ／ 2024年 ／ 312ページ</p>
+    <p class="bo">全10章。非認知能力の伸ばし方、親は子育てに時間を割くべきか、勉強できない子は変えられるか、そして「エビデンスはいつも必ず正しいのか？」。</p>
+    <p class="bs"><b>選んだ理由</b>著者は教育経済学者（刊行時は慶應義塾大学教授）。最終章のテーマが「エビデンスはいつも必ず正しいのか？」で、限界まで論じる構成。</p>
+    <p class="bn">※ 教育経済学の視点で書かれている。発達心理学の知見とは補い合う。</p>
+    <div class="kc"><span>因果推論</span><span>ランダム化比較試験</span><span>非認知能力</span><span>効果量</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4478121095" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
@@ -1239,8 +1241,9 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
     <h4>「原因と結果」の経済学 データから真実を見抜く思考法</h4>
-    <p class="bm">中室牧子、津川友介 ／ ダイヤモンド社 ／ 2017年</p>
+    <p class="bm">中室牧子、津川友介 ／ ダイヤモンド社 ／ 2017年 ／ 208ページ</p>
     <p class="bo">相関と因果の違い、ランダム化比較試験の考え方を学べる。育児の研究記事を読むときの基本書。</p>
+    <p class="bs"><b>選んだ理由</b>因果推論の考え方を日本語で学べる入門書。研究が「何と何を比べたか」を読む力になる。</p>
     
     <div class="kc"><span>因果推論</span><span>ランダム化比較試験</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/447803947X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
@@ -1251,11 +1254,25 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
     <h4>教育格差 階層・地域・学歴</h4>
-    <p class="bm">松岡亮二 ／ ちくま新書 ／ 2019年</p>
-    <p class="bo">家庭や地域による教育の差を、データで示す。育児の研究が「誰を調べたのか」を読む目が育つ。</p>
-    
+    <p class="bm">松岡亮二 ／ ちくま新書 ／ 2019年 ／ 384ページ</p>
+    <p class="bo">親の学歴や地域による教育の差を、データで示す。育児の研究が「誰を調べたのか」を読む目が育つ。</p>
+    <p class="bs"><b>選んだ理由</b>教育社会学者の松岡亮二が、階層・地域・学歴ごとの差を量的データで論じる。刊行時に広く議論された。</p>
+    <p class="bn">※ 学術誌の書評は確認できなかった。</p>
     <div class="kc"><span>教育格差</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4480072373" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="gopnik">
+  <div class="cv" data-t="思いどおりになんて育たない"><img src="https://m.media-amazon.com/images/I/419t5LcDAsL._SL500_.jpg" alt="思いどおりになんて育たない 反ペアレンティングの科学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
+    <h4>思いどおりになんて育たない 反ペアレンティングの科学</h4>
+    <p class="bm">アリソン・ゴプニック／渡会圭子 訳 ／ 森北出版 ／ 2019年 ／ 336ページ</p>
+    <p class="bo">親を、子どもを作る「大工」ではなく、育つ環境を整える「庭師」にたとえる。進化と学習の研究から、子育ての「べき論」を疑う。遊びの役割の章もある。</p>
+    <p class="bs"><b>選んだ理由</b>著者はカリフォルニア大学バークレー校の心理学教授で、心の理論研究の創始者の一人。森口佑介が解説を書いている。</p>
+    <p class="bn">※ 研究者による一般書で、主張には論の飛躍もある。英語圏では、米国への一般化に疑問を呈す書評があった。</p>
+    <div class="kc"><span>集約的母性</span><span>遊び</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4627854315" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="kakusa">
@@ -1263,23 +1280,12 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-teal">入門</span></div>
     <h4>子どもの発達格差 将来を左右する要因は何か</h4>
-    <p class="bm">森口佑介 ／ PHP新書 ／ 2021年</p>
-    <p class="bo">家庭環境や幼児期の経験が、発達の差にどうつながるかを研究で整理した新書。</p>
+    <p class="bm">森口佑介 ／ PHP新書 ／ 2021年 ／ 256ページ</p>
+    <p class="bo">実行機能と向社会的行動に、幼児期から格差が生じつつあると指摘し、実態と是正策を整理する。</p>
+    <p class="bs"><b>選んだ理由</b>同じ著者。「非認知能力を批判的に整理する」章があり、言葉の流行を疑う視点が得られる。</p>
     
     <div class="kc"><span>実行機能</span><span>非認知能力</span><span>教育格差</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4569849784" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="jikosei">
-  <div class="cv" data-t="自分をコントロールする力"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/41cXwRjYsBL._SL500_.jpg" alt="自分をコントロールする力 非認知スキルの心理学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
-    <h4>自分をコントロールする力 非認知スキルの心理学</h4>
-    <p class="bm">森口佑介 ／ 講談社現代新書 ／ 2019年</p>
-    <p class="bo">実行機能と自己制御が幼児期にどう育つかを、発達の研究から語る。「知性的に」の中身を考える入口になる。</p>
-    
-    <div class="kc"><span>実行機能</span><span>自己制御</span><span>非認知能力</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/406517919X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="hininchi">
@@ -1287,9 +1293,10 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-coral">専門</span></div>
     <h4>非認知能力 概念・測定と教育の可能性</h4>
-    <p class="bm">小塩真司 編著 ／ 北大路書房 ／ 2021年</p>
-    <p class="bo">「非認知能力」という言葉を、概念・測り方・教育への応用から整理した研究書。言葉の中身を確かめたいとき。</p>
-    <p class="bn">専門書寄り。先に森口佑介の新書を読むと入りやすい。</p>
+    <p class="bm">小塩真司 編著 ／ 北大路書房 ／ 2021年 ／ 320ページ</p>
+    <p class="bo">誠実性、グリット、好奇心、批判的思考、レジリエンスなど15の心理特性を、研究者が分担して整理した研究書。</p>
+    <p class="bs"><b>選んだ理由</b>名古屋大学の2024年度大学院入試で出典に使われた。編著者は続編で、この言葉が一種の流行になっていると自ら書いている。</p>
+    <p class="bn">※ 専門書寄り。先に森口佑介の新書を読むと入りやすい。</p>
     <div class="kc"><span>非認知能力</span><span>自己制御</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4762831646" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
@@ -1312,10 +1319,11 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>福祉教科書 保育士 完全合格テキスト 上・下 2027年版</h4>
-    <p class="bm">翔泳社 ／ 2026年</p>
-    <p class="bo">上下2冊で保育士試験の筆記9科目をカバー。発達・保健・栄養・福祉・制度を一通り学べる。1年目の中心になる本。</p>
-    <p class="bn">年版もの。受ける試験の年に合わせて買う（2027年4月の前期なら2027年版）。ほかにユーキャンの速習テキストなども定番。</p>
-    <div class="kc"><span>アタッチメント</span><span>気質</span><span>遊び</span></div>
+    <p class="bm">翔泳社 ／ 2026年 ／ 上416／下392ページ</p>
+    <p class="bo">上下2冊で保育士試験の筆記をカバーする。発達・保健・栄養・福祉・制度を一通り学べる。1年目の中心になる本。</p>
+    <p class="bs"><b>選んだ理由</b>保育士試験の対策テキスト（2027年版）。学術書ではないが、試験範囲を一通り学べる。</p>
+    <p class="bn">※ 年版もの。受ける試験の年に合わせて買う。ほかにユーキャンの速習テキストなどがある。</p>
+    <div class="kc"><span>アタッチメント</span><span>遊び</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4798197831" target="_blank" rel="noopener">上巻 <i>→</i></a><a class="amz" href="https://www.amazon.co.jp/dp/479819784X" target="_blank" rel="noopener">下巻 <i>→</i></a></div>
   </div>
 </article>
@@ -1324,22 +1332,37 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
     <h4>問いからはじめる発達心理学〔改訂版〕 生涯にわたる育ちの科学</h4>
-    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年</p>
-    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。青年・成人期の章は全面改訂で、「大人の発達」も読める。</p>
-    <p class="bn">改訂版は2024年10月刊。</p>
-    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>親になることによる発達</span></div>
+    <p class="bm">坂上裕子ほか ／ 有斐閣ストゥディア ／ 2024年 ／ 260ページ</p>
+    <p class="bo">胎児期から老年期まで、発達の全体を問いに沿って学べる大学の教科書。言語と遊び、自己、成人期の章がある。</p>
+    <p class="bs"><b>選んだ理由</b>公認心理師カリキュラムに対応した大学教科書。出版社の紹介では累計2万5000部で、2024年に10年ぶりに改訂された。</p>
+    
+    <div class="kc"><span>遊び</span><span>アタッチメント</span><span>言語発達</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4641151296" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
+  </div>
+</article>
+<article class="bk" id="katei-shien">
+  <div class="cv" data-t="エピソードで学ぶ子ども家庭支援の心理学"><img src="https://m.media-amazon.com/images/I/41xDfco7RYL._SL500_.jpg" alt="エピソードで学ぶ子ども家庭支援の心理学の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
+  <div class="bb">
+    <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-yellow">標準</span></div>
+    <h4>エピソードで学ぶ子ども家庭支援の心理学</h4>
+    <p class="bm">小原敏郎、小林佐知子 編 ／ ミネルヴァ書房 ／ 2024年 ／ 200ページ</p>
+    <p class="bo">生涯発達と家庭支援、家族・家庭の理解、子育て家庭の現状、子どもの心の健康の4章。「親としての育ち」を扱う節がある。</p>
+    <p class="bs"><b>選んだ理由</b>保育士養成課程の科目「子ども家庭支援の心理学」の教科書。親になる過程を、日本語の教科書の水準で学べる数少ない本。</p>
+    <p class="bn">※ 「親になること」だけの章はなく、節の一つとして扱われる。</p>
+    <div class="kc"><span>親になることによる発達</span></div>
+    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4623096661" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
 <article class="bk" id="shishin">
   <div class="cv" data-t="保育所保育指針解説"><img src="https://m.media-amazon.com/images/I/415ZPokDWNL._SL500_.jpg" alt="保育所保育指針解説の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
   <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
+    <div class="rate"><span class="st" title="余力があれば">★☆☆</span><span class="lv c-yellow">標準</span></div>
     <h4>保育所保育指針解説</h4>
-    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年</p>
-    <p class="bo">保育の考え方を定めた指針の公式解説。保育の心理学で習う発達の見方が、現場の言葉でどう書かれているかがわかる。</p>
-    <p class="bn">現行の指針（平成29年告示）の解説。</p>
-    <div class="kc"><span>遊び</span><span>非認知能力</span><span>アタッチメント</span></div>
+    <p class="bm">厚生労働省 ／ フレーベル館 ／ 2018年 ／ 472ページ</p>
+    <p class="bo">保育の考え方を定めた指針の公式解説。保育の現場が前提にしている発達観を、現場の言葉で確かめられる。</p>
+    <p class="bs"><b>選んだ理由</b>国の指針の公式解説で、一次資料にあたる。通読向きではなく、保育士の勉強の途中で必要な箇所を引く本。</p>
+    
+    <div class="kc"><span>遊び</span><span>アタッチメント</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/457781448X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
@@ -1348,8 +1371,9 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>アタッチメントがわかる本 「愛着」が心の力を育む</h4>
-    <p class="bm">遠藤利彦 監修 ／ 講談社（健康ライブラリー） ／ 2022年</p>
-    <p class="bo">図解中心の100ページほどで、アタッチメントの全体像をつかめる。まず用語と地図がほしいときの最初の一冊。</p>
+    <p class="bm">遠藤利彦 監修 ／ 講談社（健康ライブラリー） ／ 2022年 ／ 100ページ</p>
+    <p class="bo">図解中心で、アタッチメントの全体像をつかめる。まず用語と地図がほしいときの最初の一冊。</p>
+    <p class="bs"><b>選んだ理由</b>監修者は東京大学教授（発達保育実践政策学センター長）。入口用の100ページで、深い議論は後続の本に任せる。</p>
     
     <div class="kc"><span>アタッチメント</span><span>安全基地</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/406528919X" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
@@ -1360,23 +1384,12 @@ details.kwidx[open] summary::after{content:"－"}
   <div class="bb">
     <div class="rate"><span class="st" title="そのテーマで最初に読む">★★★</span><span class="lv c-teal">入門</span></div>
     <h4>ことばの発達の謎を解く</h4>
-    <p class="bm">今井むつみ ／ ちくまプリマー新書 ／ 2013年</p>
-    <p class="bo">子どもがことばを身につける仕組みを、認知科学で解き明かす。新書で読みやすく、日々の声かけの見方が変わる。</p>
+    <p class="bm">今井むつみ ／ ちくまプリマー新書 ／ 2013年 ／ 239ページ</p>
+    <p class="bo">子どもが単語、動詞、色や位置の名前をどう学ぶかを、子どもを対象にした実験から解き明かす。最後は「言語が思考をつくる」。</p>
+    <p class="bs"><b>選んだ理由</b>著者は認知科学・発達心理学の研究者（刊行時は慶應義塾大学教授）。実験にもとづく6章の構成。</p>
     
     <div class="kc"><span>言語発達</span></div>
     <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4480688935" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
-  </div>
-</article>
-<article class="bk" id="otona">
-  <div class="cv" data-t="子どもから大人が生まれるとき"><span class="no rel">関連</span><img src="https://m.media-amazon.com/images/I/41-kh7z3WNL._SL500_.jpg" alt="子どもから大人が生まれるとき 発達科学が解き明かす子どもの心の世界の表紙" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()"></div>
-  <div class="bb">
-    <div class="rate"><span class="st" title="深めたいとき">★★☆</span><span class="lv c-yellow">標準</span></div>
-    <h4>子どもから大人が生まれるとき 発達科学が解き明かす子どもの心の世界</h4>
-    <p class="bm">森口佑介 ／ 日本評論社 ／ 2023年</p>
-    <p class="bo">発達科学の知見で、子どもの心の世界をたどる一冊。著者は実行機能の研究者。</p>
-    
-    <div class="kc"><span>実行機能</span><span>自己制御</span></div>
-    <div class="ba"><a class="amz" href="https://www.amazon.co.jp/dp/4535564191" target="_blank" rel="noopener">Amazonで見る <i>→</i></a></div>
   </div>
 </article>
   </div>
@@ -1397,41 +1410,40 @@ details.kwidx[open] summary::after{content:"－"}
 <tbody>
 <tr><th scope="row">アタッチメントがわかる本</th><td class="stc">★★★</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="s">○</td></tr>
 <tr><th scope="row">安心感が子どもの心を育む</th><td class="stc">★★★</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
+<tr><th scope="row">アタッチメントを学ぼう</th><td class="stc">★★☆</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
 <tr><th scope="row">入門 アタッチメント理論</th><td class="stc">★★☆</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
-<tr><th scope="row">愛着の子育て</th><td class="stc">★★★</td><td class="p">●</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
 <tr><th scope="row">問いからはじめる発達心理学</th><td class="stc">★★★</td><td class="s">○</td><td class="s">○</td><td class=""></td><td class=""></td><td class="s">○</td><td class=""></td><td class="p">●</td></tr>
-<tr><th scope="row">保育士 完全合格テキスト</th><td class="stc">★★★</td><td class="s">○</td><td class=""></td><td class=""></td><td class=""></td><td class="s">○</td><td class=""></td><td class="p">●</td></tr>
-<tr><th scope="row">保育所保育指針解説</th><td class="stc">★★☆</td><td class="s">○</td><td class=""></td><td class=""></td><td class="s">○</td><td class="s">○</td><td class=""></td><td class="p">●</td></tr>
+<tr><th scope="row">エピソードで学ぶ子ども家庭支援の心理学</th><td class="stc">★★★</td><td class="s">○</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td></tr>
+<tr><th scope="row">保育士 完全合格テキスト</th><td class="stc">★★★</td><td class="s">○</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td></tr>
+<tr><th scope="row">保育所保育指針解説</th><td class="stc">★☆☆</td><td class="s">○</td><td class=""></td><td class=""></td><td class="s">○</td><td class="s">○</td><td class=""></td><td class="p">●</td></tr>
 <tr><th scope="row">母親になって後悔してる</th><td class="stc">★★☆</td><td class=""></td><td class="p">●</td><td class="s">○</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
-<tr><th scope="row">父親になる、父親をする</th><td class="stc">★☆☆</td><td class=""></td><td class="p">●</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
+<tr><th scope="row">父親になる、父親をする</th><td class="stc">★☆☆</td><td class=""></td><td class="p">●</td><td class="s">○</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
 <tr><th scope="row">夫と妻の生涯発達心理学</th><td class="stc">★★★</td><td class=""></td><td class="p">●</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
-<tr><th scope="row">ワンオペ育児</th><td class="stc">★★☆</td><td class=""></td><td class="s">○</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
-<tr><th scope="row">思いどおりになんて育たない</th><td class="stc">★★★</td><td class=""></td><td class="s">○</td><td class=""></td><td class=""></td><td class="s">○</td><td class="p">●</td><td class=""></td></tr>
-<tr><th scope="row">結婚生活を成功させる七つの原則</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
-<tr><th scope="row">自分をコントロールする力</th><td class="stc">★★★</td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class="s">○</td><td class=""></td></tr>
+<tr><th scope="row">「育メン」現象の社会学</th><td class="stc">★★☆</td><td class=""></td><td class="s">○</td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
+<tr><th scope="row">思いどおりになんて育たない</th><td class="stc">★★☆</td><td class=""></td><td class="s">○</td><td class=""></td><td class=""></td><td class="s">○</td><td class="p">●</td><td class=""></td></tr>
+<tr><th scope="row">仕事と家族</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
+<tr><th scope="row">結婚生活を成功させる七つの原則</th><td class="stc">★☆☆</td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td></tr>
+<tr><th scope="row">自分をコントロールする力</th><td class="stc">★★★</td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class=""></td><td class=""></td></tr>
 <tr><th scope="row">子どもの発達格差</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class="s">○</td><td class=""></td></tr>
-<tr><th scope="row">子どもから大人が生まれるとき</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class=""></td><td class="s">○</td></tr>
 <tr><th scope="row">非認知能力</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class="s">○</td><td class=""></td></tr>
 <tr><th scope="row">科学的根拠で子育て</th><td class="stc">★★★</td><td class=""></td><td class=""></td><td class=""></td><td class="s">○</td><td class=""></td><td class="p">●</td><td class=""></td></tr>
 <tr><th scope="row">教育格差</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class=""></td><td class="s">○</td><td class=""></td><td class="p">●</td><td class=""></td></tr>
 <tr><th scope="row">ことばの発達の謎を解く</th><td class="stc">★★★</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class="s">○</td></tr>
-<tr><th scope="row">子どもの遊びを考える</th><td class="stc">★☆☆</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td><td class=""></td></tr>
-<tr><th scope="row">世界標準の子育て大全</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td></tr>
 <tr><th scope="row">「原因と結果」の経済学</th><td class="stc">★★☆</td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class=""></td><td class="p">●</td><td class=""></td></tr>
 </tbody></table></div>
   </div>
   <div class="wrap">
     <details class="kwidx">
       <summary>細かいキーワードから本を探す（索引）</summary>
-      <div class="kwidx-grid"><div class="ki"><b>アタッチメント</b><p>『アタッチメントがわかる本』<span class="ix">★★★</span>　『安心感が子どもの心を育む』<span class="ix">★★★</span>　『愛着の子育て』<span class="ix">★★★</span>　『問いからはじめる発達心理学』<span class="ix">★★★</span>　『保育士 完全合格テキスト』<span class="ix">★★★</span>　『入門 アタッチメント理論』<span class="ix">★★☆</span>　『保育所保育指針解説』<span class="ix">★★☆</span></p></div><div class="ki"><b>遊び</b><p>『問いからはじめる発達心理学』<span class="ix">★★★</span>　『思いどおりになんて育たない』<span class="ix">★★★</span>　『保育士 完全合格テキスト』<span class="ix">★★★</span>　『保育所保育指針解説』<span class="ix">★★☆</span>　『子どもの遊びを考える』<span class="ix">★☆☆</span></p></div><div class="ki"><b>非認知能力</b><p>『自分をコントロールする力』<span class="ix">★★★</span>　『科学的根拠で子育て』<span class="ix">★★★</span>　『子どもの発達格差』<span class="ix">★★☆</span>　『非認知能力』<span class="ix">★★☆</span>　『保育所保育指針解説』<span class="ix">★★☆</span></p></div><div class="ki"><b>安全基地</b><p>『アタッチメントがわかる本』<span class="ix">★★★</span>　『安心感が子どもの心を育む』<span class="ix">★★★</span>　『愛着の子育て』<span class="ix">★★★</span>　『入門 アタッチメント理論』<span class="ix">★★☆</span></p></div><div class="ki"><b>ランダム化比較試験</b><p>『科学的根拠で子育て』<span class="ix">★★★</span>　『世界標準の子育て大全』<span class="ix">★★☆</span>　『「原因と結果」の経済学』<span class="ix">★★☆</span></p></div><div class="ki"><b>因果推論</b><p>『科学的根拠で子育て』<span class="ix">★★★</span>　『世界標準の子育て大全』<span class="ix">★★☆</span>　『「原因と結果」の経済学』<span class="ix">★★☆</span></p></div><div class="ki"><b>実行機能</b><p>『自分をコントロールする力』<span class="ix">★★★</span>　『子どもの発達格差』<span class="ix">★★☆</span>　『子どもから大人が生まれるとき』<span class="ix">★★☆</span></p></div><div class="ki"><b>自己制御</b><p>『自分をコントロールする力』<span class="ix">★★★</span>　『子どもから大人が生まれるとき』<span class="ix">★★☆</span>　『非認知能力』<span class="ix">★★☆</span></p></div><div class="ki"><b>世代間伝達</b><p>『愛着の子育て』<span class="ix">★★★</span>　『入門 アタッチメント理論』<span class="ix">★★☆</span></p></div><div class="ki"><b>役割葛藤</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span>　『ワンオペ育児』<span class="ix">★★☆</span></p></div><div class="ki"><b>教育格差</b><p>『子どもの発達格差』<span class="ix">★★☆</span>　『教育格差』<span class="ix">★★☆</span></p></div><div class="ki"><b>父親の関与</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span>　『父親になる、父親をする』<span class="ix">★☆☆</span></p></div><div class="ki"><b>親になることによる発達</b><p>『問いからはじめる発達心理学』<span class="ix">★★★</span>　『父親になる、父親をする』<span class="ix">★☆☆</span></p></div><div class="ki"><b>集約的母性</b><p>『思いどおりになんて育たない』<span class="ix">★★★</span>　『母親になって後悔してる』<span class="ix">★★☆</span></p></div><div class="ki"><b>Bringing Baby Home</b><p>『結婚生活を成功させる七つの原則』<span class="ix">★★☆</span></p></div><div class="ki"><b>コペアレンティング</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span></p></div><div class="ki"><b>パトレセンス</b><p>『父親になる、父親をする』<span class="ix">★☆☆</span></p></div><div class="ki"><b>夫婦関係満足度</b><p>『結婚生活を成功させる七つの原則』<span class="ix">★★☆</span></p></div><div class="ki"><b>家事育児分担</b><p>『ワンオペ育児』<span class="ix">★★☆</span></p></div><div class="ki"><b>気質</b><p>『保育士 完全合格テキスト』<span class="ix">★★★</span></p></div><div class="ki"><b>省察機能</b><p>『愛着の子育て』<span class="ix">★★★</span></p></div><div class="ki"><b>親のバーンアウト</b><p>『ワンオペ育児』<span class="ix">★★☆</span></p></div><div class="ki"><b>親への移行</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span></p></div><div class="ki"><b>親アイデンティティ</b><p>『母親になって後悔してる』<span class="ix">★★☆</span></p></div><div class="ki"><b>言語発達</b><p>『ことばの発達の謎を解く』<span class="ix">★★★</span></p></div></div>
+      <div class="kwidx-grid"><div class="ki"><b>アタッチメント</b><p>『アタッチメントがわかる本』<span class="ix">★★★</span>　『安心感が子どもの心を育む』<span class="ix">★★★</span>　『問いからはじめる発達心理学』<span class="ix">★★★</span>　『保育士 完全合格テキスト』<span class="ix">★★★</span>　『アタッチメントを学ぼう』<span class="ix">★★☆</span>　『入門 アタッチメント理論』<span class="ix">★★☆</span>　『保育所保育指針解説』<span class="ix">★☆☆</span></p></div><div class="ki"><b>遊び</b><p>『問いからはじめる発達心理学』<span class="ix">★★★</span>　『保育士 完全合格テキスト』<span class="ix">★★★</span>　『思いどおりになんて育たない』<span class="ix">★★☆</span>　『保育所保育指針解説』<span class="ix">★☆☆</span></p></div><div class="ki"><b>非認知能力</b><p>『自分をコントロールする力』<span class="ix">★★★</span>　『科学的根拠で子育て』<span class="ix">★★★</span>　『子どもの発達格差』<span class="ix">★★☆</span>　『非認知能力』<span class="ix">★★☆</span></p></div><div class="ki"><b>安全基地</b><p>『アタッチメントがわかる本』<span class="ix">★★★</span>　『安心感が子どもの心を育む』<span class="ix">★★★</span>　『入門 アタッチメント理論』<span class="ix">★★☆</span></p></div><div class="ki"><b>父親の関与</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span>　『「育メン」現象の社会学』<span class="ix">★★☆</span>　『父親になる、父親をする』<span class="ix">★☆☆</span></p></div><div class="ki"><b>パトレセンス</b><p>『「育メン」現象の社会学』<span class="ix">★★☆</span>　『父親になる、父親をする』<span class="ix">★☆☆</span></p></div><div class="ki"><b>ランダム化比較試験</b><p>『科学的根拠で子育て』<span class="ix">★★★</span>　『「原因と結果」の経済学』<span class="ix">★★☆</span></p></div><div class="ki"><b>因果推論</b><p>『科学的根拠で子育て』<span class="ix">★★★</span>　『「原因と結果」の経済学』<span class="ix">★★☆</span></p></div><div class="ki"><b>安心感の輪</b><p>『安心感が子どもの心を育む』<span class="ix">★★★</span>　『アタッチメントを学ぼう』<span class="ix">★★☆</span></p></div><div class="ki"><b>実行機能</b><p>『自分をコントロールする力』<span class="ix">★★★</span>　『子どもの発達格差』<span class="ix">★★☆</span></p></div><div class="ki"><b>役割葛藤</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span>　『仕事と家族』<span class="ix">★★☆</span></p></div><div class="ki"><b>教育格差</b><p>『子どもの発達格差』<span class="ix">★★☆</span>　『教育格差』<span class="ix">★★☆</span></p></div><div class="ki"><b>自己制御</b><p>『自分をコントロールする力』<span class="ix">★★★</span>　『非認知能力』<span class="ix">★★☆</span></p></div><div class="ki"><b>親になることによる発達</b><p>『エピソードで学ぶ子ども家庭支援の心理学』<span class="ix">★★★</span>　『父親になる、父親をする』<span class="ix">★☆☆</span></p></div><div class="ki"><b>言語発達</b><p>『問いからはじめる発達心理学』<span class="ix">★★★</span>　『ことばの発達の謎を解く』<span class="ix">★★★</span></p></div><div class="ki"><b>集約的母性</b><p>『思いどおりになんて育たない』<span class="ix">★★☆</span>　『母親になって後悔してる』<span class="ix">★★☆</span></p></div><div class="ki"><b>コペアレンティング</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span></p></div><div class="ki"><b>ペアレンティング・プログラム</b><p>『アタッチメントを学ぼう』<span class="ix">★★☆</span></p></div><div class="ki"><b>効果量</b><p>『科学的根拠で子育て』<span class="ix">★★★</span></p></div><div class="ki"><b>夫婦関係満足度</b><p>『結婚生活を成功させる七つの原則』<span class="ix">★☆☆</span></p></div><div class="ki"><b>親への移行</b><p>『夫と妻の生涯発達心理学』<span class="ix">★★★</span></p></div><div class="ki"><b>親アイデンティティ</b><p>『母親になって後悔してる』<span class="ix">★★☆</span></p></div></div>
     </details>
     <h3 class="kwh">日本語の良書が見つからなかった領域</h3>
     <div class="note sand">
       <p><span class="h">ここは本ではなく、英語の論文や原典に当たる</span></p>
-      <ul class="clean"><li><b>マトレセンス・パトレセンス</b>　親になる過程を「発達」として扱う研究。日本語の入門書は見つからなかった。</li><li><b>コペアレンティング</b>　夫婦が子育てで組む関係。『夫と妻の生涯発達心理学』の一部の章のほか、単独の入門書は見つからなかった。</li><li><b>親のバーンアウト</b>　国際比較の研究はあるが、日本語で読める専門書は見つからなかった。</li><li><b>ペアレンティング・プログラムの評価</b>　Triple P や安心感の輪などの効果検証をまとめた日本語の入門書は見つからなかった。</li></ul>
+      <ul class="clean"><li><b>マトレセンス・パトレセンス</b>　親になる過程を「発達」として扱う研究。日本語の入門書は見つからなかった。</li><li><b>コペアレンティング</b>　夫婦が子育てで組む関係。『夫と妻の生涯発達心理学』の一部の章のほか、単独の入門書は見つからなかった。</li><li><b>親のバーンアウト</b>　国際比較の研究はあるが、日本語で読める専門書は見つからなかった。</li><li><b>親自身の育ちと子育て（世代間伝達）</b>　公開されている目次の範囲では、これを主題にした信頼できる日本語の本を確認できなかった。</li><li><b>遊びの発達</b>　遊びだけを主題にした、基準を満たす日本語の入門書は見つからなかった。</li><li><b>乳幼児期のデータにもとづく育児書</b>　エミリー・オスターの『Cribsheet』（英語）が該当するが、日本語版は見つからなかった。</li><li><b>ペアレンティング・プログラムの評価</b>　Triple P や安心感の輪などの効果検証をまとめた日本語の入門書は見つからなかった。</li></ul>
       <p>裏返すと、日本語で整理されていない領域でもある。サービスの言葉をつくる余地は、こういうところにあるのかもしれない。</p>
     </div>
-    <p class="fn">書誌・表紙は Amazon.co.jp の商品情報（2026-10-26 確認）。リンクは通常の商品ページで、紹介料は発生しない。表紙が表示されないときは、リンク先で確認を。</p>
+    <p class="fn">書誌・表紙・ページ数は Amazon.co.jp の商品情報、目次・著者情報は出版社と書店の掲載（2026-10-26 確認）。リンクは通常の商品ページで、紹介料は発生しない。表紙が表示されないときは、リンク先で確認を。</p>
   </div>
 </section>
 <!-- BOOKS:END -->
@@ -1461,7 +1473,7 @@ details.kwidx[open] summary::after{content:"－"}
         <div class="yn">親と夫婦の発達を深掘りする</div>
         <div class="yp">2027.11 – 2028.10</div>
         <ul>
-          <li>親の発達の本（シーゲル、ドーナト、柏木惠子）を読み、マトレセンスなど英語の研究は論文で補う</li>
+          <li>親の発達の本（『子ども家庭支援の心理学』、ドーナト、柏木惠子）を読み、マトレセンスなど英語の研究は論文で補う</li>
           <li>『夫と妻の生涯発達心理学』とゴットマンで夫婦の移行期を学ぶ（コーワン夫妻らの原典は英語で補う）</li>
           <li>安心感の輪の研修を受けるか検討</li>
           <li>後半から、知人の親・夫婦にモニターセッション</li>
@@ -1508,8 +1520,10 @@ details.kwidx[open] summary::after{content:"－"}
         <span>気質<i>temperament</i></span>
         <span>発達の最近接領域<i>ZPD</i></span>
         <span>言語発達<i>language development</i></span>
+        <span>言語発達<i>language development</i></span>
         <span>遊び<i>play-based learning</i></span>
         <span>ACEs<i>adverse childhood experiences</i></span>
+        <span>教育格差<i>educational inequality</i></span>
         <span>教育格差<i>educational inequality</i></span>
       </div>
     </div>
@@ -1559,6 +1573,7 @@ details.kwidx[open] summary::after{content:"－"}
         <span>ランダム化比較試験<i>RCT</i></span>
         <span>メタ分析<i>meta-analysis</i></span>
         <span>効果量<i>effect size</i></span>
+        <span>因果推論<i>causal inference</i></span>
         <span>因果推論<i>causal inference</i></span>
         <span>再現性<i>replication</i></span>
         <span>ポピュレーション・アプローチ<i>universal prevention</i></span>
