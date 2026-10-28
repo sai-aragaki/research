@@ -85,6 +85,8 @@
   --sec-alt-bg: #F6F6F6;                 /* 偶数番目の節の背景（薄いテーマカラー） */
   --sec-pad-y: 48px;                     /* main 直下の節の上下余白 */
   --bleed: 100vw;                        /* 画面幅いっぱいに広げるときの幅（帯・ストライプ） */
+  --hero-pb: 56px;                       /* ヘッダー（hero）の下余白。ストライプはこの下、節との境目に置く */
+  --stripe-h: 4px;                       /* ヘッダー下のストライプの太さ */
 }
 
 /* --- theme: bold（黒と黄・2pxの枠線・影なし）--- */
@@ -191,9 +193,17 @@ body:has(.nav-inner, .gnav-inner) > main > section[id^="sec-"] { padding-top: va
 body:has(.nav-inner, .gnav-inner) section ~ footer,
 body:has(.nav-inner, .gnav-inner) main ~ footer { margin-top: 0 !important; }
 
-/* ヘッダー下のストライプも画面幅いっぱいに（帯の左右の端と揃える） */
-body:has(.nav-inner, .gnav-inner) .hero .wrap::after { width: var(--bleed) !important; max-width: none; margin-left: calc(50% - var(--bleed) / 2) !important; }
-html.in-frame body:has(.nav-inner, .gnav-inner) .hero .wrap::after { width: 100% !important; margin-left: 0 !important; }
+/* ヘッダー下のストライプは、帯の境目（最初の節の上端）に描く。
+   ページごとに hero の中の位置（.hero::after / .hero .wrap::after）と余白が違い、
+   帯の端とずれていたので、hero 側のストライプは消して節の ::before に一本化する。
+   hero の下余白は --hero-pb に揃え、hero の下罫線はストライプが代わりをするので消す。 */
+body:has(.nav-inner, .gnav-inner) .hero { padding-bottom: var(--hero-pb) !important; border-bottom-width: 0 !important; }
+body:has(.nav-inner, .gnav-inner) .hero::after,
+body:has(.nav-inner, .gnav-inner) .hero .wrap::after { display: none !important; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type { position: relative; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--stripe-h); background: var(--stripe); z-index: 1; }
 
 /* =========================================================
    切り替えボタン（.ts- 接頭辞。ページ側のCSSと衝突させない）
