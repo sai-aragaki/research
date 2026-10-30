@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アンリ・ベルクソンと時間の哲学 — 持続・記憶・自由から、時間論の全体像まで</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<!-- THEMES:BOOT:START -->
+<script>
+  /* 描画前にテーマを確定させる（切り替え時のちらつき防止） */
+  try {
+    var t = localStorage.getItem('design-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+<!-- THEMES:BOOT:END -->
+<style>
+  :root{
+    --ink: #111111; --ink-soft: #333333;
+    --teal: #111111; --teal-deep: #111111; --teal-wash: #F5F5F5;
+    --coral: #333333; --coral-wash: #F5F5F5;
+    --paper: #FAFAFA; --panel: #F5F5F5;
+    --line: #EEEEEE; --line-strong: #CCCCCC; --muted: #808080;
+    --maxw:768px;
+  
+  --paper-rgb: 250, 250, 250;  /* 固定ヘッダーの半透明背景用。--paper と同じ色 */
+  --white: #FFFFFF;
+    --en: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+    --jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    --stripe: repeating-linear-gradient(135deg,#F2C94C 0 14px,#62B8A0 14px 28px,#FFFFFF 28px 42px,#4F7C87 42px 56px,#FFFFFF 56px 70px);}
+/* THEMES:CSS:START */
+/* =========================================================
+   DESIGN THEMES — 共有テーマ定義（正本）
+   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
+   ページ側のHTMLを手で書き換えないこと。
+   ========================================================= */
+
+/* --- 既定テーマ（sai）: ページ側のパレットに足りないトークンを補う --- */
+:root {
+  /* 形 */
+  --r-card: 0px;        /* カード・パネルの角丸 */
+  --r-pill: 48px;       /* チップ・タグ・ピルボタン */
+  --r-input: 4px;       /* 入力欄 */
+  --r-xs: 3px;          /* トースト等の極小要素 */
+  --r-inner: 12px;      /* 吹き出し・入れ子カード */
+  --r-band-card: 16px;  /* 一段大きいカード */
+  --bw: 1px;            /* カードの枠線幅 */
+  --r-scale: 1;         /* 角丸の倍率。値が散っているページ（research-sai）はこれで一括調整する */
+  /* ページによって罫線トークンの名前が違う（sai-works系は --rule、research系は --line）。
+     var() のフォールバックで両方に対応する。 */
+  --card-line: var(--rule, var(--line));
+  --input-line: var(--rule-strong, var(--line-strong));
+
+  /* ページごとに既定が違うトークン（--paper-rgb / --ls-display）は
+     ここに書かない。各ページの :root で定義し、テーマ側は
+     html[data-theme="..."] ブロックでだけ上書きする。 */
+
+  /* 文字 */
+  --fw-display: 300;         /* 大見出しのウェイト */
+  --ls-label: 0.14em;        /* 欧文ラベルの字間 */
+  --label-case: uppercase;   /* 欧文ラベルの大文字化 */
+  --lh-body: 1.9;            /* 本文の行間 */
+
+  /* 影（既定は使わない。浮かせるテーマ用の受け口） */
+  --shadow-card: none;
+  --shadow-pop: none;
+
+  /* アイコン（線画SVGの線の太さ） */
+  --ico-sw: 1.5;
+  --ico-sw-lg: 1.25;
+
+  /* 装飾 */
+  --caution: #c84e6c;                    /* 注意書きのラベル */
+  --track-bg: #dde5e1;                   /* バーの溝 */
+  --track-bg-soft: #eef1ef;              /* バーの溝（淡い方） */
+  --lang-en-bg: #eef1f5;                 /* 言語バッジ（EN） */
+  --lang-en-fg: #5a6b86;
+  --mark-bg: rgba(98, 184, 160, .34);    /* マーカー線（標準） */
+  --mark-c-bg: rgba(235, 101, 132, .28); /* マーカー線（強調） */
+  --accent-band: var(--stripe);
+  --footer-bg: var(--rule);
+  --footer-fg: var(--muted);
+  --chip-g-bg: rgba(98, 184, 160, .14);
+  --chip-b-bg: rgba(79, 124, 135, .14);
+  --mosaic: #62B8A0, #F2C94C, #EB6584, #4F7C87, #FFFFFF, #FFFFFF, #F5F5F5;
+  /* 記事ページの節の交互の帯 */
+  --sec-bg: var(--white);                /* 奇数番目の節の背景 */
+  --sec-alt-bg: #F6F6F6;                 /* 偶数番目の節の背景（薄いテーマカラー） */
+  --sec-pad-y: 48px;                     /* main 直下の節の上下余白 */
+  --bleed: 100vw;                        /* 画面幅いっぱいに広げるときの幅（帯・ストライプ） */
+  --hero-pb: 56px;                       /* ヘッダー（hero）の下余白。ストライプはこの下、節との境目に置く */
+  --stripe-h: 4px;                       /* ヘッダー下のストライプの太さ */
+}
+
+/* --- theme: bold（黒と黄・2pxの枠線・影なし）--- */
+html[data-theme="bold"] {
+  --paper: #FAF9EC;
+  --paper-rgb: 250, 249, 236;
+  --white: #FFFFFF;
+  --ink: #1B1B1B;
+  --text: #1B1B1B;
+  --muted: #6E6B5E;
+  --rule: #E4E2D2;
+  --rule-strong: #1B1B1B;
+  --tint: #F2F1E2;
+  --teal: #1B1B1B;      /* 文字にも背景にも使われるため黒。黄色は --teal-wash 側 */
+  --teal-deep: #1B1B1B;
+  --coral: #6E6A12;     /* 強調テキスト。紙の上で 5.3:1 */
+  --yellow: #E3E143;
+  --deep-teal: #1B1B1B;
+  --deep: #1B1B1B;
+  --en: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --stripe: repeating-linear-gradient(135deg, #E3E143 0 16px, #1B1B1B 16px 18px, #E3E143 18px 34px);
+
+  --r-card: 12px;
+  --r-pill: 999px;
+  --r-input: 12px;
+  --r-xs: 999px;
+  --r-inner: 12px;
+  --r-band-card: 12px;
+  --bw: 2px;
+  --r-scale: 1;
+  --card-line: var(--ink);
+  --input-line: var(--ink);
+
+  --fw-display: 700;
+  --ls-display: 0;
+  --ls-label: 0.08em;
+  --label-case: uppercase;
+  --lh-body: 1.8;
+
+  --shadow-card: none;
+  --shadow-pop: none;
+
+  --ico-sw: 2;
+  --ico-sw-lg: 2;
+
+  /* research-sai 系のトークン名（記事ページはこちらの語彙を使う）
+     --teal は文字色にも背景にも使われるので黒に寄せ、
+     背景専用の --teal-wash に黄色を置く。 */
+  --panel: #F3F1DF;
+  --paper-2: #F3F1DF;
+  --ink-soft: #1B1B1B;
+  --ink-faint: #6E6B5E;
+  --teal-wash: #E3E143;
+  --coral-wash: #F6F4C4;
+  --sand: #6E6A12;
+  --sand-wash: #F6F4C4;
+  --line: #E0DECB;
+  --line-soft: #EDEBD9;
+  --line-strong: #1B1B1B;
+  --paper-warm: #F3F1DF;
+  --card: #FFFFFF;
+  --shadow: none;
+
+  --caution: #9B2C2C;
+  --track-bg: #E0DECB;
+  --track-bg-soft: #EDEBD9;
+  /* 淡い面の上に置く濃い文字色。既定は各ページの :root にある */
+  --teal-ink: #1B1B1B;
+  --sand-ink: #6E6A12;
+  --sand-ink-soft: #6E6A12;
+  --coral-ink: #9B2C2C;
+  --pull-ink: #1B1B1B;
+  --lang-en-bg: #F0EFE2;
+  --lang-en-fg: #5B5848;
+  /* 半透明の下地（alpha はページ側に残し、RGBだけ差し替える） */
+  --teal-rgb: 227, 225, 67;
+  --coral-rgb: 110, 106, 18;
+  --yellow-rgb: 227, 225, 67;
+  --deep-rgb: 27, 27, 27;
+  --mark-bg: rgba(227, 225, 67, .60);
+  --mark-c-bg: rgba(110, 106, 18, .20);
+  --accent-band: #E3E143;
+  --footer-bg: #E3E143;
+  --footer-fg: #1B1B1B;
+  --chip-g-bg: rgba(227, 225, 67, .34);
+  --chip-b-bg: rgba(27, 27, 27, .08);
+  --mosaic: #E3E143, #1B1B1B, #F9F8D9, #FFFFFF, #FFFFFF, #F2F1E2, #E3E143;
+  --sec-alt-bg: #F9F8DE;
+}
+
+/* --- 記事ページ：節ごとに背景を交互に変える（全テーマ共通） ---
+   奇数番目の節は白、偶数番目は薄いテーマカラー（--sec-alt-bg）。
+   帯は画面幅いっぱいに広げる（box-shadow + clip-path で左右だけ伸ばす）。
+   節は body 直下のページと main 直下のページがある。 */
+/* 対象は research の記事ページ（ナビに .nav-inner / .gnav-inner がある）だけ。
+   sai-works・LP・デザインシステムのページには効かせない。 */
+body:has(.nav-inner, .gnav-inner) { overflow-x: clip; }
+body:has(.nav-inner, .gnav-inner) > section,
+body:has(.nav-inner, .gnav-inner) > main > section { background: var(--sec-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-bg); clip-path: inset(0 calc(var(--bleed) * -1)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even),
+body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--sec-alt-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-alt-bg); }
+body:has(.nav-inner, .gnav-inner) > main > section[id^="sec-"] { padding-top: var(--sec-pad-y); padding-bottom: var(--sec-pad-y); }
+/* 最後の節とフッターの間に紙の色の隙間を作らない */
+body:has(.nav-inner, .gnav-inner) section ~ footer,
+body:has(.nav-inner, .gnav-inner) main ~ footer { margin-top: 0 !important; }
+
+/* ヘッダー下のストライプは、帯の境目（最初の節の上端）に描く。
+   ページごとに hero の中の位置（.hero::after / .hero .wrap::after）と余白が違い、
+   帯の端とずれていたので、hero 側のストライプは消して節の ::before に一本化する。
+   hero の下余白は --hero-pb に揃え、hero の下罫線はストライプが代わりをするので消す。 */
+body:has(.nav-inner, .gnav-inner) .hero { padding-bottom: var(--hero-pb) !important; border-bottom-width: 0 !important; }
+body:has(.nav-inner, .gnav-inner) .hero::after,
+body:has(.nav-inner, .gnav-inner) .hero .wrap::after { display: none !important; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type { position: relative; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--stripe-h); background: var(--stripe); z-index: 1; }
+
+/* =========================================================
+   切り替えボタン（.ts- 接頭辞。ページ側のCSSと衝突させない）
+   ページ側は <div data-theme-switch></div> を1つ置くだけ。
+   ========================================================= */
+
+[data-theme-switch] { position: relative; flex: none; line-height: 0; }
+
+/* ヘッダーの無いページ用：右上に浮かせる */
+[data-theme-switch][data-ts-float] { position: fixed; top: 16px; right: 16px; z-index: 300; }
+[data-theme-switch][data-ts-float] .ts-btn { background: var(--white); }
+
+.ts-btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s;
+}
+
+.ts-btn:hover { background: var(--ink); color: var(--white); }
+.ts-btn:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+
+.ts-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ico-sw);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ts-btn svg circle[data-dot] { fill: currentColor; stroke: none; }
+
+.ts-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 290px;
+  background: var(--white);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-pop);
+  padding: 6px;
+  line-height: 1.5;
+  z-index: 200;
+}
+
+.ts-menu[hidden] { display: none; }
+
+.ts-opt {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 9px 10px;
+  border-radius: var(--r-card);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .18s;
+}
+
+.ts-opt:hover { background: var(--tint); }
+.ts-opt:focus-visible { outline: 1px solid var(--ink); outline-offset: -1px; }
+.ts-dots { display: flex; gap: 3px; flex: none; }
+.ts-dots i { display: block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--rule-strong); box-sizing: border-box; }
+.ts-text { flex: 1; min-width: 0; }
+.ts-name { font-family: var(--en); font-size: 12px; font-weight: 500; letter-spacing: .04em; }
+.ts-desc { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 1px; }
+.ts-check { margin-left: auto; flex: none; font-size: 11px; color: var(--ink); opacity: 0; }
+.ts-opt[aria-selected="true"] .ts-check { opacity: 1; }
+
+/* research-sai の細いナビの中では一回り小さく */
+.nav-inner > [data-theme-switch] .ts-btn,
+.gnav-inner > [data-theme-switch] .ts-btn { width: 28px; height: 28px; }
+.nav-inner > [data-theme-switch] .ts-btn svg,
+.gnav-inner > [data-theme-switch] .ts-btn svg { width: 16px; height: 16px; }
+
+@media (max-width: 768px) {
+  .ts-btn { width: 32px; height: 32px; }
+  .ts-btn svg { width: 18px; height: 18px; }
+  .ts-menu { min-width: 264px; }
+}
+/* THEMES:CSS:END */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  .hero{padding:78px 0 50px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{font-family:"Noto Sans JP",serif;font-weight:700;font-size:clamp(27px,5.2vw,40px);line-height:1.42;margin:0 0 24px;}
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:32px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* signature: subjective-objective axis */
+  .sig{margin:42px 0 6px;}
+  .sig svg{width:100%;height:auto;display:block;}
+  .sig-cap{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.7;text-align:center;}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 13px;}
+  h2{font-family:"Noto Sans JP",serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;}
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;} p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* theory blocks */
+  .theory{border:var(--bw) solid var(--card-line);border-radius:calc(14px * var(--r-scale));padding:0;margin:24px 0 0;overflow:hidden;}
+  .theory .th-head{padding:18px 22px;display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);}
+  .theory .th-jp{font-family:"Noto Sans JP",serif;font-weight:700;font-size:18px;}
+  .theory .th-en{font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+  .theory .th-tag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:calc(20px * var(--r-scale));}
+  .theory .th-tag.subj{background:var(--coral-wash);color:var(--caution);}
+  .theory .th-tag.obj{background:var(--teal-wash);color:var(--teal-deep);}
+  .theory .th-body{padding:18px 22px;}
+  .theory .th-body p{font-size:14.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.85;}
+  .theory .th-body p:last-child{margin:0;}
+  .obj-line{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--coral);margin:0 0 6px;}
+  .obj-line.up{color:var(--teal-deep);}
+
+  .meter{margin:24px 0 4px;padding:18px 20px;background:var(--panel);border-radius:calc(11px * var(--r-scale));}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);}
+  .bar{height:7px;border-radius:calc(6px * var(--r-scale));background:var(--track-bg);overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:calc(6px * var(--r-scale));background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7;}
+
+  .caution{margin:20px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 calc(8px * var(--r-scale)) calc(8px * var(--r-scale)) 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--caution);margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+  .caution.muted{background:var(--panel);border-left-color:var(--line-strong);}
+  .caution.muted .c-label{color:var(--ink-soft);}
+
+  .note{background:var(--teal-wash);border-radius:calc(12px * var(--r-scale));padding:24px 26px;margin:20px 0 0;}
+  .note .n-title{font-family:"Noto Sans JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);} .note p:last-child{margin:0;}
+
+  /* mapping table (the payoff) */
+  .map{display:grid;gap:11px;margin:24px 0 0;}
+  .mrow{border:var(--bw) solid var(--card-line);border-radius:calc(12px * var(--r-scale));padding:17px 19px;}
+  .mrow .mh{display:flex;align-items:baseline;gap:10px;margin:0 0 6px;}
+  .mrow .ms{font-family:"Noto Sans JP",serif;font-weight:700;font-size:15.5px;}
+  .mrow .mt{font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 9px;border-radius:calc(14px * var(--r-scale));background:var(--panel);color:var(--ink-soft);}
+  .mrow p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.75;}
+  .mrow p .hl{color:var(--coral);font-weight:700;}
+
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 20px 42px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:27px;height:27px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .app li strong{display:block;margin-bottom:3px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);line-height:1.85;}
+
+  .route-stage{margin:0 0 26px;} .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Sans JP",serif;font-weight:700;font-size:13px;color:var(--white);background:var(--teal-deep);padding:5px 14px;border-radius:calc(20px * var(--r-scale));letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);} .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:calc(5px * var(--r-scale));white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);} .lang.en{background:var(--lang-en-bg);color:var(--lang-en-fg);}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;} .bar>i{transition:none;} html{scroll-behavior:auto;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
+    th,td{padding:9px 8px;font-size:13px;} .theory .th-head{flex-wrap:wrap;gap:6px;} .theory .th-tag{margin-left:0;}
+  }
+
+/* ---- header nav ---- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav.gnav{position:sticky;top:0;z-index:50;background:rgba(var(--paper-rgb),.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.gnav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.gnav-brand{font-family:"Noto Sans JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}
+.gnav-brand b{color:var(--coral)}
+.gnav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.gnav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft,var(--ink-soft));text-decoration:none;padding:6px 11px;border-radius:calc(999px * var(--r-scale));white-space:nowrap;transition:.18s}
+.gnav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+@media(max-width:560px){.gnav-inner{padding:11px 18px}.gnav-brand{display:none}}
+
+</style>
+
+<style id="v2-override">
+/* SAI's DESIGN SYSTEM v2 — 2026-09-16 */
+body{font-family:var(--jp);color:var(--ink-soft);background:var(--paper);letter-spacing:.01em;}
+h1,h2,h3,h4,.title,.lede strong,.reader-title{font-family:var(--jp)!important;color:var(--ink);font-weight:700;letter-spacing:.01em;}
+h1{line-height:1.35;}
+h2{line-height:1.5;}
+.eyebrow,.kicker,.sec-no,.sec-sub,.series,.lang,.stage-badge,.div-tag,.src-tag,.cat,.count,.last-updated,.meta,.meta span,
+.gnav-brand,.gnav-links a,.brand,.nav-links a,nav a,.stat .l,.leg span,.rl,.bl,.mini .tagn,.need .nn,h2 .num,.route-stage,.ef .eflabel,
+.stat .n,.bv,.rv,.dv,.meter-val,.ef .efval{font-family:var(--en),var(--jp)!important;}
+.eyebrow,.kicker,.sec-no,.series,.cat,.gnav-links a,.nav-links a,.stage-badge,.div-tag,.stat .l,.rl{letter-spacing:.12em!important;text-transform:uppercase;font-weight:500!important;font-size:11px!important;color:var(--muted)!important;}
+.eyebrow::before{background:var(--ink)!important;}
+nav,.gnav,nav.gnav{background:linear-gradient(to bottom,rgba(var(--paper-rgb),.96) 0%,rgba(var(--paper-rgb),.92) 30%,rgba(var(--paper-rgb),.8) 55%,rgba(var(--paper-rgb),.6) 78%,rgba(var(--paper-rgb),.42) 100%)!important;backdrop-filter:none;-webkit-backdrop-filter:none;border-color:transparent!important;box-shadow:none!important;}
+.reader-bar,.toolbar,.left-head{background:rgba(var(--paper-rgb),.92)!important;border-color:var(--line)!important;box-shadow:none!important;}
+.gnav-brand,.brand,.gnav-brand b,.brand b{font-family:var(--en)!important;font-weight:600!important;color:var(--ink)!important;letter-spacing:-.01em;}
+.gnav-links a,.nav-links a{color:var(--ink-soft)!important;border-bottom:1px solid transparent;border-radius:var(--r-card)!important;background:transparent!important;padding-left:0!important;padding-right:0!important;}
+.gnav-links a:hover,.nav-links a:hover{color:var(--ink)!important;border-bottom-color:var(--ink);background:transparent!important;}
+.gnav-links,.nav-links{gap:22px!important;}
+.gnav-links a[style*="teal-deep"],.nav-links a[style*="teal-deep"],.gnav-links a.on,.nav-links a.on{color:var(--ink)!important;border-bottom-color:var(--ink)!important;font-weight:600!important;}
+
+#progress{display:none!important;}
+a{color:var(--ink);}
+mark,mark.c{background:var(--panel);color:var(--ink);padding:0 .2em;}
+.note,.caution,.insight,.pull,.mini,.need,.stat,.chart-card,.dom,.effects,.meter,.continuum,.stop,.closing,.why,.sources,.refs,.entry,.reader-frame,.reader-empty,.search input,.stat-grid > *,.minis > *,.needs > *{border-radius:var(--r-card)!important;box-shadow:none!important;}
+.note,.caution,.insight,.pull,.mini,.need,.chart-card,.dom,.stat{background:var(--white)!important;border:var(--bw) solid var(--card-line)!important;}
+.note.sand,.caution{border-left:2px solid var(--ink)!important;}
+.note .h,.note .n-title,.caution .c-label,.insight h4{color:var(--ink)!important;}
+.stage-badge,.div-tag,.chip,.tagn,.mini .tagn,.need .nn{border-radius:var(--r-pill)!important;border:var(--bw) solid var(--ink)!important;background:transparent!important;color:var(--ink)!important;}
+.chip.active,.chip.flag-chip.active{background:var(--ink)!important;color:var(--white)!important;}
+.chip .c,.count{color:inherit!important;}
+.search input{border:var(--bw) solid var(--input-line)!important;border-radius:var(--r-input)!important;background:var(--white)!important;}
+.search input:focus{border-color:var(--ink)!important;box-shadow:none!important;}
+.entry.is-active{background:var(--white)!important;border-left:2px solid var(--ink)!important;}
+.entry:hover{background:var(--panel)!important;}
+.bm.on,.bm.on svg{color:var(--ink)!important;fill:var(--ink)!important;}
+table{border-collapse:collapse;}
+th{font-family:var(--en),var(--jp)!important;font-size:11px!important;letter-spacing:.12em!important;text-transform:uppercase;color:var(--muted)!important;font-weight:500!important;border-bottom:1px solid var(--ink)!important;background:transparent!important;}
+td{border-bottom:1px solid var(--line)!important;}
+.bar > i,.bar-fill,.efbar > i,.meter-top,.range-fill,.div-fill{border-radius:var(--r-card)!important;}
+.src-tag{border-radius:var(--r-card)!important;border:var(--bw) solid var(--card-line)!important;background:var(--white)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:12px!important;color:var(--muted)!important;}
+.src-tag b{color:var(--ink)!important;}
+.fade{opacity:1!important;transform:none!important;transition:none!important;}
+.sources,.refs{border-top:1px solid var(--ink);}
+footer{background:var(--line)!important;border-top:none!important;padding:40px 24px!important;}
+.left-head{border-bottom:4px solid transparent!important;border-image:var(--stripe) 1!important;}
+
+/* ---- v2.1: rhythm ---- */
+html,body{overflow-x:hidden;}
+.hero{position:relative;padding-bottom:56px!important;}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:48px;width:calc(100% + 120px);margin-left:-60px;}
+html.in-frame .hero::after{width:100%;margin-left:0;}
+section{padding-top:16px;}
+h2{margin-top:72px!important;}
+.hero h2,section > h2:first-child{margin-top:0!important;}
+h3{margin-top:40px!important;}
+.closing{background:var(--panel)!important;border:none!important;border-radius:calc(16px * var(--r-scale))!important;padding:40px 44px!important;margin:80px 0!important;}
+.sources,.refs{margin-top:120px!important;padding-top:32px!important;}
+footer{margin-top:0!important;padding:48px 24px!important;}
+@media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
+</style>
+<style id="article-extra">
+  h3{font-family:var(--jp);font-weight:700;font-size:18px;line-height:1.6;margin:40px 0 14px;color:var(--ink);}
+  .table-wrap{overflow-x:auto;margin:24px 0 0;}
+  .table-wrap table{min-width:520px;}
+  .fig{margin:28px 0 8px;padding:20px 18px 16px;background:var(--white);border:var(--bw) solid var(--card-line);border-radius:var(--r-card);}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-size:12.5px;color:var(--muted);line-height:1.75;margin-top:12px;}
+  .f-h{font-family:var(--jp);font-weight:700;font-size:15px;fill:var(--ink);}
+  .f-s{font-family:var(--jp);font-size:11.5px;fill:var(--muted);}
+  .f-lb{font-family:var(--jp);font-weight:700;font-size:12px;fill:var(--ink);}
+  .f-ax{stroke:var(--line-strong);stroke-width:1.5;}
+  .f-pt circle{fill:var(--ink);}
+  .f-wave1{fill:none;stroke:var(--ink);stroke-width:2.2;}
+  .f-wave2{fill:none;stroke:var(--muted);stroke-width:1.6;opacity:.7;}
+  .f-cone{fill:var(--teal-wash);stroke:var(--ink);stroke-width:1.5;}
+  .f-ell{fill:var(--panel);stroke:var(--ink);stroke-width:1.5;}
+  .f-ell2{fill:none;stroke:var(--ink);stroke-width:1;stroke-dasharray:4 4;}
+  .f-plane{fill:var(--panel);stroke:var(--line-strong);stroke-width:1.2;opacity:.9;}
+  .f-dot{fill:var(--ink);}
+  .f-arrow,.f-arrowhead{stroke:var(--muted);stroke-width:1.4;fill:none;}
+  .route-stage .app{margin-top:10px;}
+  .summary{margin:36px 0 0;padding:26px 26px 22px;background:var(--white);border:var(--bw) solid var(--card-line);border-left:3px solid var(--ink);border-radius:var(--r-card);}
+  .sm-label{font-size:13px;font-weight:700;color:var(--ink);margin:0 0 14px;letter-spacing:.04em;}
+  .sm-list{margin:0;padding:0 0 0 1.4em;}
+  .sm-list li{font-size:15px;line-height:1.85;color:var(--ink-soft);margin:0 0 12px;}
+  .sm-list li strong{display:block;color:var(--ink);}
+  .sm-foot{font-size:12.5px;color:var(--muted);margin:6px 0 0;line-height:1.75;}
+  @media(max-width:560px){.summary{padding:20px 18px 16px;}}
+  @media(max-width:560px){.fig{padding:14px 10px 12px;}}
+</style>
+<script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+</head>
+<body>
+<div id="progress"></div>
+<nav class="gnav">
+  <div class="gnav-inner">
+    <span class="gnav-brand">アンリ・ベルクソンと時間の哲学</span>
+    <div class="gnav-links">
+      <a href="#sec-1">地図</a>
+      <a href="#sec-2">人物</a>
+      <a href="#sec-3">持続</a>
+      <a href="#sec-4">自由</a>
+      <a href="#sec-5">記憶</a>
+      <a href="#sec-6">生命</a>
+      <a href="#sec-7">対決</a>
+      <a href="#sec-8">以後</a>
+      <a href="#sec-9">評価</a>
+      <a href="#sec-10">読む</a>
+    </div>
+    <div data-theme-switch></div>
+</div>
+</nav>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow fade">Deep Research ／ 概念探究</p>
+    <h1 class="fade"><span class="accent">アンリ・ベルクソン</span>と<br>時間の哲学</h1>
+    <p class="lede fade">コップの水に砂糖を入れる。溶けきるまで、こちらは待つしかない。アンリ・ベルクソンは『創造的進化』（1907）で、このありふれた出来事を「小さな事実だが、意味をはらんでいる」と書いた。物理学の式に入る <i>t</i> は、伸ばしても縮めても計算が合う。ところが台所で待つ数分は、自分のじれったさと重なっていて、勝手に縮められない。この記事では、その「縮められない時間」を一生かけて考え抜いた哲学者の仕事を、時間をめぐる2500年の議論の中に置き直して、最初から順にたどる。</p>
+    <div class="meta fade">
+      <span><i class="dot"></i>読了 約35分</span>
+      <span><i class="dot"></i>前提知識なし</span>
+      <span><i class="dot"></i>2026-10-30</span>
+    </div>
+    <div class="summary fade">
+      <p class="sm-label">先に要点 ── ベルクソンは時間について何を言ったか</p>
+      <ol class="sm-list">
+        <li><strong>時計の時間は、時間の「影」にすぎない。</strong>時計や物理学は、時間を等しい目盛りに区切って線の上に並べる。これは時間を空間のように扱った姿で、便利だが、時間そのものではない。</li>
+        <li><strong>本当の時間は「持続」である。</strong>メロディのように、前の瞬間が次の瞬間に溶け込み、区切れないまま、いつも新しい質を生みながら進んでいく流れ。これをベルクソンは持続（durée）と呼んだ。</li>
+        <li><strong>過去は消えずに、いまに重なって残り続ける。</strong>脳は記憶の倉庫ではなく、いまの行動に要る過去だけを通すフィルター。思い出すとは、残っている過去全体が、いまに役立つ形に絞られて降りてくること。</li>
+        <li><strong>未来は、まだ書かれていない。</strong>あらゆる可能性が先に用意されているのではなく、時間が新しいものを本当に作り出す。だから人の行為は、人格全体から湧き出たときに自由になり、生命の進化も創造になる。</li>
+        <li><strong>時間は、知性で切り取るより、内側から捉えるもの。</strong>止まった場面をつなぎ合わせる知性（映画のカメラ）では動きそのものは捉えられない。流れの内側に身を置く「直観」が必要だ、とした。</li>
+      </ol>
+      <p class="sm-foot">以下の各節では、この5つを主著ごとに一つずつ開いていく（1→03節、2→03節、3→05節、4→04・06節、5→06節）。ベルクソン以外の時間論は01節と08節で扱う。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="sec-1">
+<div class="wrap">
+  <p class="kicker fade">01 ── 地図</p>
+  <h2 class="fade"><span class="num">01</span>時間について、哲学者は何を言い争ってきたのか</h2>
+  <p class="sub fade">THE MAP · 三つの問いと四つの古典的立場</p>
+  <p class="fade">アウグスティヌスは5世紀初めの『告白』第11巻で、「誰も私に尋ねなければ、時間が何かを私は知っている。尋ねる人に説明しようとすると、知らない」と書いた。時間の哲学はだいたいこの戸惑いから始まる。毎日使っているのに、言葉にしようとすると手からこぼれる。</p>
+  <p class="fade">論点を整理すると、問いはおおむね三つに分かれる。</p>
+  <ol class="app fade">
+    <li><strong>時間は実在するのか</strong><span>私たちが感じる「過ぎていく」感じは世界の側の性質なのか、それとも人間の側の錯覚なのか。</span></li>
+    <li><strong>時間は流れるのか</strong><span>「いま」は特別な一点として動いているのか。それとも過去・現在・未来はすべて同じ資格で並んでいて、「いま」は見る人の位置にすぎないのか。</span></li>
+    <li><strong>時間は心の側にあるのか、世界の側にあるのか</strong><span>時計が刻む時間と、退屈な会議で長く感じる時間は、同じものの二つの見え方なのか、別のものなのか。</span></li>
+  </ol>
+  <p class="fade">ベルクソンが登場するまでに、この三つの問いには代表的な答え方がすでに出そろっていた。押さえておくと、彼が何に反対したのかが見えやすくなる。</p>
+  <div class="map fade">
+    <div class="mrow"><div class="mh"><span class="ms">アリストテレス</span><span class="mt">前4世紀『自然学』第4巻</span></div><p>時間は「前と後に関しての運動の数」。動きがあって、それを数える魂があるところに時間がある。<span class="hl">時間を数えられるものとして捉えた最初の定式</span>で、後世の議論はほぼここから出発する。</p></div>
+    <div class="mrow"><div class="mh"><span class="ms">アウグスティヌス</span><span class="mt">400年頃『告白』第11巻</span></div><p>過去はもう無く、未来はまだ無い。あるのは「過去についての現在（記憶）」「現在についての現在（注意）」「未来についての現在（期待）」だけで、時間とは<span class="hl">魂の延び広がり（distentio animi）</span>だとした。詩篇を暗唱するとき、期待が減って記憶が増えていく、という例を使う。</p></div>
+    <div class="mrow"><div class="mh"><span class="ms">ニュートン</span><span class="mt">1687年『プリンキピア』</span></div><p>絶対時間は、外の何ものとも関係なく、それ自身の本性に従って一様に流れる。<span class="hl">宇宙全体に共通の一本の時計</span>があるという考え方で、近代物理学の前提になった。</p></div>
+    <div class="mrow"><div class="mh"><span class="ms">カント</span><span class="mt">1781年『純粋理性批判』</span></div><p>時間は物そのものの性質ではなく、人間が物事を経験するときの<span class="hl">直観の形式</span>。空間と並べて扱われ、経験を可能にする枠として心の側に置かれた。</p></div>
+  </div>
+  <p class="fade">ここで一つ気づいておきたいのは、立場はばらばらでも、四者とも時間を<em>数えたり、並べたり、枠にしたりできるもの</em>として扱っている点だ。アリストテレスは数え、ニュートンは一様な直線に置き、カントは空間と並ぶ形式にした。ベルクソンはこの共通の前提そのものに疑いをかけた。時間をそうやって扱った瞬間に、時間のいちばん大事な部分が抜け落ちている、と。</p>
+</div>
+</section>
+
+<section id="sec-2">
+<div class="wrap">
+  <p class="kicker fade">02 ── 人物</p>
+  <h2 class="fade"><span class="num">02</span>ブロードウェイを渋滞させた哲学者</h2>
+  <p class="sub fade">LIFE · 1859–1941</p>
+  <p class="fade">1913年2月、ベルクソンがニューヨークのコロンビア大学で講義をしたとき、聴きに来た人の群れでブロードウェイが渋滞したと伝えられている。パリのコレージュ・ド・フランスでの講義も、教室に入りきれない聴衆が廊下や窓の外にあふれた。1910年代、ベルクソンは哲学者というより社会現象だった。英語圏の研究者はこの時期を「ベルクソン・ブーム」と呼ぶ。</p>
+  <p class="fade">生まれは1859年のパリ。ダーウィン『種の起源』と同じ年で、父はポーランド系ユダヤ人の音楽家、母はイギリス出身。1878年に高等師範学校（エコール・ノルマル）に入り、同期には後の社会党指導者ジャン・ジョレスがいた。数学の才能もあり、高校時代に数学の賞をとって、数学者になる道を勧められたという話が残っている。</p>
+  <p class="fade">若いころの彼は、ハーバート・スペンサーの機械論的な進化哲学にすっかり染まっていた。転機になったのは、地方の高校で教えていた1880年代だ。スペンサーの体系の穴を埋めるつもりで力学の基礎概念を調べていくうちに、力学の式に出てくる時間 <i>t</i> が、実は「同時に起きていること」をいくつ数えたかでしかなく、何も<em>流れていない</em>ことに気づいた、と後年の手紙で振り返っている。式の中の時間は、全部を一瞬で並べてしまっても計算が変わらない。では私たちが生きている、待ったり焦ったりする時間はどこへ消えたのか。この問いが、以後50年の仕事を決めた。</p>
+  <div class="table-wrap fade">
+  <table>
+    <thead><tr><th>年</th><th>主著（邦題）</th><th>中心の問い</th></tr></thead>
+    <tbody>
+      <tr><td>1889</td><td><div class="title">時間と自由</div><div class="by">原題『意識に直接与えられたものについての試論』。博士論文</div></td><td class="why">時間を空間のように扱うと、何が失われるか</td></tr>
+      <tr><td>1896</td><td><div class="title">物質と記憶</div><div class="by">失語症研究を大量に読み込んで書かれた</div></td><td class="why">過去はどこに、どうやって残っているか</td></tr>
+      <tr><td>1907</td><td><div class="title">創造的進化</div><div class="by">世界的ベストセラーになる</div></td><td class="why">生命の進化を、時間の側から考えるとどう見えるか</td></tr>
+      <tr><td>1922</td><td><div class="title">持続と同時性</div><div class="by">アインシュタインとの論争の直後に刊行</div></td><td class="why">相対性理論は「一つの時間」を壊したのか</td></tr>
+      <tr><td>1932</td><td><div class="title">道徳と宗教の二源泉</div><div class="by">最後の主著</div></td><td class="why">閉じた社会は、どうやって開かれるか</td></tr>
+      <tr><td>1934</td><td><div class="title">思考と動き</div><div class="by">方法論の論文集。「可能と現実」などを収録</div></td><td class="why">哲学はどんな方法で考えるべきか</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="fade">1900年からコレージュ・ド・フランス教授、1914年にアカデミー・フランセーズ会員、1927年度のノーベル文学賞（授与は翌1928年）。名誉の頂点にいた人の晩年は、しかし穏やかではなかった。1940年、ドイツ占領下のヴィシー政権はユダヤ人の登録を命じた。カトリックに強く惹かれていたベルクソンは、迫害の始まりを前に改宗を見送っていた。政府は高名な彼を適用除外にすると申し出たが、彼はそれを断り、81歳の病身で自ら登録に出向いたとされる。翌1941年1月、パリで亡くなった。</p>
+</div>
+</section>
+
+<section id="sec-3">
+<div class="wrap">
+  <p class="kicker fade">03 ── 持続</p>
+  <h2 class="fade"><span class="num">03</span>時計は、時間を測っていない</h2>
+  <p class="sub fade">DURÉE · 『時間と自由』1889</p>
+  <p class="fade">ベルクソンの議論は、振り子時計を見るところから始まる。「1分たった」と私たちは言う。その意味は、秒を刻む振り子が60回振れた、ということだ。</p>
+  <p class="fade">ここで彼は細かく問い詰める。60回の振れを一度に思い浮かべると、それは一本の線の上に並んだ60個の点になる。点は同時に並んでいるので、そこに「次々と」という感じはもう無い。逆に、振り子をいまこの瞬間の一回だけ見るなら、前の振れはどこにも残っていない。空間は過去の振れの痕跡をとどめないからだ。すると私たちは永遠に現在に閉じ込められて、時間の経過そのものを考えられなくなる。</p>
+  <p class="fade">それでも私たちは1分の経過を感じる。それができるのは、前の振れの記憶がいまの振れの中に溶け込んでいるからだ。ベルクソンはこれをメロディにたとえた。メロディを聴くとき、私たちは音を一つずつ別々に聞いて足し算しているわけではない。前の音が次の音に染み込み、全体が一つの生き物のようにまとまっている。証拠に、一つの音を長く引き延ばしすぎると、私たちは「長さ」ではなく「フレーズ全体の質が変わった」ことでおかしさに気づく。</p>
+  <figure class="fig fade">
+    <svg viewBox="0 0 640 250" role="img" aria-label="空間化された時間（並んだ点）と持続（溶け合う波）の比較図">
+      <text x="20" y="34" class="f-h">空間化された時間</text>
+      <text x="20" y="54" class="f-s">等しい単位に区切られ、外側に並ぶ ── 数えられる多様性</text>
+      <line x1="40" y1="88" x2="600" y2="88" class="f-ax"/>
+      <g class="f-pt">
+        <circle cx="60" cy="88" r="6"/><circle cx="120" cy="88" r="6"/><circle cx="180" cy="88" r="6"/><circle cx="240" cy="88" r="6"/><circle cx="300" cy="88" r="6"/><circle cx="360" cy="88" r="6"/><circle cx="420" cy="88" r="6"/><circle cx="480" cy="88" r="6"/><circle cx="540" cy="88" r="6"/><circle cx="600" cy="88" r="6"/>
+      </g>
+      <text x="20" y="150" class="f-h">持続（durée）</text>
+      <text x="20" y="170" class="f-s">前の状態が次の状態に染み込み、区切れない ── 質的な多様性</text>
+      <path d="M40 212 C 90 180, 130 236, 180 206 S 270 182, 320 208 S 410 230, 460 200 S 560 186, 600 210" class="f-wave1"/>
+      <path d="M40 206 C 100 226, 140 186, 200 210 S 290 236, 340 204 S 430 182, 480 210 S 570 226, 600 204" class="f-wave2"/>
+    </svg>
+    <figcaption>上は時計の時間。振り子の振れを、同じ大きさの点として線上に並べたもの。下はベルクソンが「持続」と呼んだ時間。前の音が次の音に重なり続けるメロディのように、どこで切っても切り口に全体の流れが残る。</figcaption>
+  </figure>
+  <h3 class="fade">二種類の「多い」</h3>
+  <p class="fade">この区別を、ベルクソンは「多様性（multiplicité）」という言葉で整理した。羊が50匹いる、と数えるとき、私たちは羊たちを空間の中に並べ、一匹ずつを同じ単位として扱っている。これが<strong>量的な多様性</strong>で、並べられること・区切れること・同じ単位で足し算できることが条件になる。</p>
+  <p class="fade">一方、悲しみが深まっていくとき、そこにも「たくさんのもの」がある。けれど、それは並んでいない。昨日の悲しみと今日の悲しみは別々の単位ではなく、今日の悲しみの中に昨日のそれが溶け込んで、全体の色合いが変わっている。これが<strong>質的な多様性</strong>で、ベルクソンは意識の生活はこちらでできていると考えた。のちにドゥルーズは、この二種類の多様性の区別こそベルクソンの最も長く残る発明だと評価している。</p>
+  <p class="fade">ここから彼の診断が出てくる。私たちの常識も科学も、時間を考えるとき、知らず知らず空間のイメージを持ち込んでいる。時間を「線」として描き、「長さ」で測り、「点」に区切る。空間化された時間は役に立つ。電車の時刻表も物理学の計算も、それなしには成り立たない。ただしそれは時間の<em>影</em>であって、時間そのものではない。時間そのもの、つまり区切れず、量にならず、いつも新しい質を生みながら進んでいくものを、ベルクソンは<strong>持続（durée）</strong>と呼んだ。</p>
+  <div class="note fade">
+    <p class="n-title">「持続」という訳語について</p>
+    <p>フランス語の durée は日常語で「長さ・期間」を意味する。日本語の「持続」は「同じ状態を保つ」と読まれやすいが、ベルクソンの持続はその逆で、絶えず変わり続けることそのものを指す。「変わり続けながら、ひと続きであること」と読み替えておくと誤解が少ない。</p>
+  </div>
+</div>
+</section>
+
+<section id="sec-4">
+<div class="wrap">
+  <p class="kicker fade">04 ── 自由</p>
+  <h2 class="fade"><span class="num">04</span>自由は、「選択肢の分かれ道」には無い</h2>
+  <p class="sub fade">FREEDOM · 決定論との対決と、ゼノンのパラドックス</p>
+  <p class="fade">『時間と自由』という邦題が示すとおり、この本の目的は自由意志の問題を解くことにあった。持続の議論はそのための準備だ。</p>
+  <p class="fade">決定論者はこう言う。人の行為は、過去の原因からすべて決まっている。自由意志の擁護者はこう返す。分かれ道に立ったとき、人はどちらにも進めた。ベルクソンは、この両者が同じ絵を共有していると指摘した。どちらも、意思決定を<em>分かれ道の図</em>として描いている。道の分岐点があり、選ばれた道と選ばれなかった道が並んでいる。決定論者は「最初から片方に決まっていた」と言い、擁護者は「どちらでもよかった」と言う。</p>
+  <p class="fade">けれど、その図は行為が終わった<em>あと</em>に、たどった跡を空間に描き直したものにすぎない。実際に迷っているあいだ、二つの道は並んでなどいない。迷っている自分そのものが少しずつ変わり、熟し、ある時点で行為が果実のように落ちる。過去の跡を地図にして「ここで別の道もあり得たか」と問うのは、持続を空間と取り違える同じ誤りの繰り返しだ、とベルクソンは考えた。</p>
+  <p class="fade">では自由とは何か。ベルクソンの答えは、行為が自分の<strong>人格全体から湧き出て、それを表現しているとき</strong>に私たちは自由だ、というものだった。作品が作者に似ているように、行為が自分に似ているとき。習慣や社会の決まりごとに反射的に従っている浅い自分は、ほとんど自動機械のように動く。だから彼は、自由な行為は<em>まれ</em>だとも書いている。自由は生まれつき持っている能力というより、ときどき深いところから立ち上がる出来事に近い。</p>
+  <h3 class="fade">アキレスは亀に追いつく</h3>
+  <p class="fade">同じ考え方で、ベルクソンは古代のゼノンのパラドックスにも答えた。足の速いアキレスが亀を追う。アキレスが亀のいた地点に着くと、亀は少し先にいる。そこに着くと、また少し先にいる。この繰り返しは無限に続くので、アキレスは永遠に追いつけない。</p>
+  <p class="fade">ベルクソンの診断は短い。ゼノンは<strong>運動</strong>と、運動が通過した<strong>軌跡</strong>を混同している。軌跡は空間の線なので、いくらでも細かく分けられる。けれど運動そのもの、アキレスの一歩一歩は、分割できないひとまとまりの行為だ。一歩を「半歩と半歩」に分けることは、歩き終えたあとに線の上でならできるが、歩いている最中の一歩はそういう部品でできていない。パラドックスは、動きを止まった点の連なりで組み立て直そうとしたときにだけ生じる。</p>
+  <div class="caution muted fade">
+    <p class="c-label">注意</p>
+    <p>数学者の多くは、ゼノンの問題は収束する無限級数（1/2 + 1/4 + 1/8 + … = 1）で解決済みだと考える。ベルクソンが言いたいのは計算が合うかどうかではなく、計算が「動き」を点の並びとして扱っている以上、動きそのものはまだ説明されていない、という点だ。両者は答えている問いが違う。</p>
+  </div>
+</div>
+</section>
+
+<section id="sec-5">
+<div class="wrap">
+  <p class="kicker fade">05 ── 記憶</p>
+  <h2 class="fade"><span class="num">05</span>過去は、脳の中にしまわれていない</h2>
+  <p class="sub fade">MEMORY · 『物質と記憶』1896</p>
+  <p class="fade">持続が「前の状態が今に染み込んでいる」ことだとすると、次に気になるのは、その過去がどこに残っているのか、だ。ふつうの答えは脳だろう。記憶は脳のどこかに痕跡として保存されている。ベルクソンは失語症の臨床研究を何年も読み込んだうえで、この答えを退けた。</p>
+  <h3 class="fade">二種類の記憶</h3>
+  <p class="fade">彼の出発点は、教科書の一節を暗記するときの観察だ。何度も読み返すうちに、私はその一節をそらで言えるようになる。この「言える」は、自転車に乗れるのと同じ種類の能力で、体に組み込まれた習慣だ。いつ覚えたかという日付はついていない。これが<strong>習慣としての記憶</strong>。</p>
+  <p class="fade">ところが、読み返した一回一回の場面、つまり二回目に読んだときは夕方で窓から光が差していた、というような思い出は、それとはまったく違う。こちらは一度きりの出来事で、日付があり、繰り返しても上手くならない。これが<strong>純粋記憶</strong>だ。</p>
+  <p class="fade">ベルクソンの考えでは、脳が担っているのは前者、つまり知覚を行動につなぐ仕事だけだ。彼は脳を「中央電話交換局」にたとえた。脳は届いた刺激を適切な運動の回路につなぐ交換機であって、映像や思い出を貯める倉庫ではない。失語症で言葉が出なくなるのは、記憶が壊れたのではなく、記憶を行動へ呼び出す通路が損なわれたからだ、と彼は解釈した。</p>
+  <h3 class="fade">記憶の円錐</h3>
+  <p class="fade">では純粋記憶はどこにあるのか。ベルクソンは、過去は<em>それ自体で</em>残り続けると答え、そのありさまを逆さの円錐で描いた。</p>
+  <figure class="fig fade">
+    <svg viewBox="0 0 640 330" role="img" aria-label="ベルクソンの記憶の円錐の図">
+      <polygon points="180,40 460,40 320,260" class="f-cone"/>
+      <ellipse cx="320" cy="40" rx="140" ry="16" class="f-ell"/>
+      <ellipse cx="320" cy="113" rx="93" ry="11" class="f-ell2"/>
+      <ellipse cx="320" cy="186" rx="47" ry="6" class="f-ell2"/>
+      <polygon points="60,258 380,258 580,300 260,300" class="f-plane"/>
+      <circle cx="320" cy="260" r="6" class="f-dot"/>
+      <text x="320" y="13" class="f-lb" text-anchor="middle">AB：過去の全体（純粋記憶）</text>
+      <text x="486" y="118" class="f-s">上の層ほど広く、夢に近い</text>
+      <text x="486" y="190" class="f-s">下の層ほど狭く、行動に近い</text>
+      <text x="334" y="252" class="f-lb">S：いまの身体</text>
+      <text x="74" y="290" class="f-lb">P：行動の平面（いま知覚している世界）</text>
+      <path d="M150 70 L150 220" class="f-arrow"/>
+      <path d="M144 212 L150 224 L156 212" class="f-arrowhead"/>
+      <text x="138" y="150" class="f-s" text-anchor="end">思い出が</text>
+      <text x="138" y="168" class="f-s" text-anchor="end">降りてくる</text>
+    </svg>
+    <figcaption>『物質と記憶』第3章の図を描き直したもの。円錐の頂点 S が、いま行動している身体。それが接している平面 P が知覚している世界。底面 AB に過去の全体がある。思い出すとは、過去全体が、いまの状況に役立つ形へ絞り込まれながら頂点へ降りてくることだ。</figcaption>
+  </figure>
+  <p class="fade">円錐の上の広い層では、過去は細部まで全部そろっているが、行動の役には立たない。夢見がちな人はこの層に住んでいる、とベルクソンは言う。下の狭い層に近づくほど、過去はいまの状況に合わせて圧縮され、使える形になる。反射的に動くだけの人は、頂点ばかりで生きている。健全な精神は、その両極のあいだを状況に応じて行き来できる。</p>
+  <p class="fade">この図の大胆なところは、過去を「消えたもの」ではなく「行動の役に立たなくなっただけで、いまも存在するもの」として扱った点にある。ベルクソンにとって、記憶の問題は「どう保存するか」ではない。ほとんどすべてが残っているのに、なぜ私たちは<em>ほとんど思い出さない</em>のか、が問題になる。答えは、脳が行動に関係ない過去を<strong>締め出すフィルター</strong>として働いているから、というものだった。</p>
+  <div class="caution muted fade">
+    <p class="c-label">現代の神経科学との関係</p>
+    <p>現在の神経科学は、記憶が脳内のシナプス結合の変化として形成されることを示しており、「純粋記憶は脳の外にある」という主張をそのまま受け入れる研究者はほとんどいない。一方で、記憶を「倉庫からの取り出し」ではなく、思い出すたびに現在の目的に合わせて組み立て直す過程として捉える見方は、再固定化や再構成的記憶の研究と響き合う。ベルクソンを読むときは、結論の当否より、問いの立て方の鋭さを取り出すほうが実りが多い。</p>
+  </div>
+</div>
+</section>
+
+<section id="sec-6">
+<div class="wrap">
+  <p class="kicker fade">06 ── 生命</p>
+  <h2 class="fade"><span class="num">06</span>生命は、時間をかけて何かを発明している</h2>
+  <p class="sub fade">CREATIVE EVOLUTION · 『創造的進化』1907 と、その後</p>
+  <p class="fade">冒頭の砂糖水の話は、この本の第1章に出てくる。ベルクソンは続けてこう書く。私が待たなければならない時間は、物質界の歴史全体にそのまま当てはまる数学的な時間ではない。それは<em>考えられたもの</em>ではなく、<em>生きられたもの</em>だ。そして、水も砂糖も溶ける過程も、私の感覚と知性が宇宙全体から切り出した抽象であって、その全体は、意識のように持続しているのではないか、と。</p>
+  <p class="fade">ここで持続は、個人の意識の性質から、世界そのものの性質へと広げられる。宇宙もまた、あらかじめ全部が決まっていて順に再生されていくフィルムではなく、時間をかけて新しいものを作り出している。その最もはっきりした現れが生命だ、というのがこの本の主張になる。</p>
+  <h3 class="fade">エラン・ヴィタール（生命の躍動）</h3>
+  <p class="fade">ベルクソンが例に出すのは目だ。ホタテガイのような軟体動物と、私たち脊椎動物は、進化の系統としてはかなり早くに分かれた。にもかかわらず、両者はよく似た構造の目を独立に持っている。偶然の小さな変異の積み重ね（機械論）では、別々の系統が同じ複雑な器官にたどり着く理由を説明しにくい。かといって、最初から設計図があったと考える目的論は、未来があらかじめ決まっていると言うのと同じで、持続の新しさを否定してしまう。</p>
+  <p class="fade">彼が持ち出したのが<strong>エラン・ヴィタール（élan vital／生命の躍動）</strong>という言葉だった。生命は一つの根源的な勢いとして始まり、物質の抵抗にぶつかりながら、植物・本能の動物・知性の人間へと枝分かれしてきた。枝はどれも同じ勢いから出ているので、別々の系統が似た解決にたどり着くこともある。ただし結果は設計されていない。進化は、問題を解きながら答えをその場で作っていく、本当の意味での創造だ、と。</p>
+  <h3 class="fade">知性は映画のカメラのように考える</h3>
+  <p class="fade">この本の第4章でベルクソンは、知性の癖を映画撮影機にたとえた。映画は、止まった写真を一秒に何十枚も撮り、それを映写機で連続して流すことで動きを再現する。動きそのものは写真のどこにも写っておらず、映写機の回転という外側の仕掛けが動きらしさを足している。</p>
+  <p class="fade">私たちの知性も同じことをしている、と彼は言う。流れていく現実から静止したスナップショットを切り取り、それを概念として並べ、あとから「変化」をつなぎ合わせる。知性は道具を作り、物を操作するために進化したので、固体を扱うのは得意だが、生きて変わり続けるものを捉えるのは苦手だ。これを補う認識のしかたとして、ベルクソンは<strong>直観</strong>を置いた。直観は、対象の外から記号で取り囲む「分析」とは逆に、対象の内側に身を置いて、その動きと一致しようとする共感のような働きだとされる。</p>
+  <h3 class="fade">「可能だったから実現した」のではない</h3>
+  <p class="fade">晩年の論文「可能と現実」（1930）は、この考えをいちばん身近な形で示している。シェイクスピアが『ハムレット』を書く前に、『ハムレット』は「可能」だったか。ベルクソンの答えは、書かれる前には誰もそれを思い描けなかったのだから、可能性はまだ無かった、というものだ。作品が実際に書かれた瞬間に、それが「以前から可能だった」という像が過去へ向かって投影される。可能性が先にあって現実がそれを実現するのではなく、現実が自分の可能性を<em>あとから</em>作る。</p>
+  <p class="fade">これは、未来はまだ書かれていないページだ、という持続の考えを論理の言葉に直したものだと読める。私たちが「どの選択肢を取るか」で人生を考えがちなのは、この錯覚、つまり未来を出来上がった選択肢のカタログとして思い描く癖の表れでもある。</p>
+  <h3 class="fade">閉じた社会と開いた社会</h3>
+  <p class="fade">最後の主著『道徳と宗教の二源泉』（1932）で、ベルクソンは同じ図式を社会に向けた。社会を保つための道徳は、集団の圧力として働き、身内と外の敵を区別する。これが<strong>閉じた道徳</strong>で、それに対応するのが社会の結束を守る<strong>静的宗教</strong>だ。これに対し、ときどき現れる聖人や神秘家のような人は、集団の境界を越えた人類全体への愛を示し、他人を圧力ではなく憧れで動かす。これが<strong>開いた道徳</strong>と<strong>動的宗教</strong>で、閉じた社会はこうした人物を通して少しずつ開かれていく、と彼は考えた。カール・ポパーの「開かれた社会」という言葉は、この本の用語を借りたものだ。</p>
+</div>
+</section>
+
+<section id="sec-7">
+<div class="wrap">
+  <p class="kicker fade">07 ── 対決</p>
+  <h2 class="fade"><span class="num">07</span>「哲学者の時間は存在しない」── 1922年4月6日</h2>
+  <p class="sub fade">EINSTEIN vs BERGSON · パリ、フランス哲学会</p>
+  <p class="fade">1922年4月6日、パリのフランス哲学会に、来仏中のアインシュタインが招かれた。相対性理論をめぐる討論の場で、当初は発言の予定がなかったベルクソンが促されて立ち、短いコメントをした。相対性理論の物理としての正しさには異を唱えない。ただし、そこから「時間について」引き出される哲学的な結論には同意できない、と。</p>
+  <p class="fade">アインシュタインの返答は1分足らずだったという。歴史家ジメナ・カナレスの著書『物理学者と哲学者』（2015）が繰り返し引いているのは、その中の一文だ。「哲学者の時間というものは存在しない。あるのは、物理学者の時間とは異なる心理的な時間だけだ」。</p>
+  <h3 class="fade">何が争われたのか</h3>
+  <p class="fade">特殊相対性理論によれば、互いに動いている観測者のあいだでは「同時」が一致しない。光速に近い速さで旅をして戻ってきた双子の片方は、地球に残った片方より若い（いわゆる双子のパラドックス）。ここから「宇宙全体に共通の一つの時間」というニュートン的な考えは捨てられた。</p>
+  <p class="fade">ベルクソンが同じ年に出した『持続と同時性』の主張をかいつまむと、こうなる。相対性理論が示した多数の時間は、どれも観測者が「もし自分があの座標系にいたら」と<em>計算の上で</em>割り当てた時間であって、実際に誰かが生きている時間ではない。実際に生きられる時間、つまり持続は一つで、相対性理論はそれを否定していない。むしろ私たちが「同時」を語れるのは、まず自分の持続の中で二つの出来事を一度に捉える経験があるからだ、と。</p>
+  <div class="theory fade">
+    <div class="th-head"><span class="th-jp">アインシュタインの側</span><span class="th-en">physicist's time</span></div>
+    <div class="th-body"><p>時間とは時計が測るものであり、時計の読みは観測者の運動状態によって実際に食い違う。双子の年齢差は計算上の約束ではなく、帰ってきて並んだときに確かめられる物理的な事実。心が感じる時間は心理学の対象であって、物理学の時間とは別物にすぎない。</p></div>
+  </div>
+  <div class="theory fade">
+    <div class="th-head"><span class="th-jp">ベルクソンの側</span><span class="th-en">philosopher's time</span></div>
+    <div class="th-body"><p>時計で測れるのは空間化された時間だけ。計測という行為そのものが、まず持続の中で「時計の針と出来事が同時に起きた」と捉える経験を前提にしている。物理学の時間は持続から作られた道具であって、持続を消し去る資格はない。</p></div>
+  </div>
+  <p class="fade" style="margin-top:24px">勝敗の判定は、当時から物理学者の側にほぼ一方的に下された。ベルクソンは双子のパラドックスについて、加速度運動をする側と慣性運動をする側の非対称を十分に扱わなかったと批判され、のちに『持続と同時性』の再版を許さなかったと伝えられる。</p>
+  <p class="fade">それでも、この論争が残した影響は小さくない。アインシュタインのノーベル物理学賞（1921年度）は相対性理論ではなく光電効果の業績に対して与えられ、授賞式でノーベル委員会のアレニウスは「パリの著名な哲学者ベルクソンがこの理論に異議を唱えていることは秘密ではない」と述べた。カナレスはここに、哲学者の発言が物理学の評価にまで及んだ例を見ている。</p>
+  <div class="note fade">
+    <p class="n-title">筆者の見立て</p>
+    <p>二人はおそらく、同じ言葉で違うものを指していた。アインシュタインの「時間」は測定の手続きで定義される量で、ベルクソンの「時間」は測定を可能にしている経験の流れだった。どちらかが勝てば片付く話ではなく、二つの時間がどうつながっているのかという問いが、この日から100年後の今も開いたまま残っている。2022年には、この討論の100周年を記念する国際会議がポーランドのトルンで開かれた。</p>
+  </div>
+</div>
+</section>
+
+<section id="sec-8">
+<div class="wrap">
+  <p class="kicker fade">08 ── 以後</p>
+  <h2 class="fade"><span class="num">08</span>ベルクソンのあと、時間論はどこへ向かったか</h2>
+  <p class="sub fade">AFTER BERGSON · 現象学、分析哲学、物理学</p>
+  <p class="fade">20世紀の時間論は、大きく三つの流れに分かれた。体験の側から時間を記述し直す現象学、「流れ」や「いま」が論理的に成り立つかを問う分析哲学、そして時間をめぐる物理学そのものの展開だ。ベルクソンはどの流れにも、批判される相手として、あるいは先駆者として顔を出す。</p>
+  <h3 class="fade">現象学：フッサールとハイデガー</h3>
+  <p class="fade">エトムント・フッサールは1905年前後の講義で、ベルクソンと同じくメロディを例に時間意識を分析した。いま鳴っている音の知覚（原印象）には、たったいま過ぎた音がまだ「保持」され（把持）、次に来る音がすでに「予期」されている（予持）。だから私たちはばらばらの音ではなく、メロディを聴ける。ベルクソンの「前の音が次の音に溶け込む」という記述を、より細かい構造として分解したものと読める。</p>
+  <p class="fade">マルティン・ハイデガーは『存在と時間』（1927）で、時計で測る時間を、今が次々に並ぶ「通俗的な時間概念」として退けた。ここまではベルクソンと同じ方向だが、ハイデガーはベルクソンも結局は「意識状態の継起」という古い枠の中にいると脚注で批判した。ハイデガーにとって根本的な時間性は、自分の死という未来に先回りし、そこから過去を引き受け直す人間のあり方そのものだった。ベルクソンが流れの連続性に注目したのに対し、ハイデガーは<em>未来の側から</em>時間を組み立て直したと言える。</p>
+  <h3 class="fade">分析哲学：マクタガートの「時間は実在しない」</h3>
+  <p class="fade">英語圏の時間論の議論は、ほぼすべてが1908年のJ・M・E・マクタガートの論文「時間の非実在性」から始まる。彼は時間の中の出来事の並べ方を二通りに分けた。</p>
+  <div class="map fade">
+    <div class="mrow"><div class="mh"><span class="ms">A系列</span><span class="mt">過去・現在・未来</span></div><p>出来事は「未来」から「現在」へ、「現在」から「過去」へと移っていく。<span class="hl">「いま」が動く</span>という、私たちの実感に近い並べ方。</p></div>
+    <div class="mrow"><div class="mh"><span class="ms">B系列</span><span class="mt">より前・より後</span></div><p>「関ヶ原の戦いは大坂の陣より前」という関係は、いつ言っても変わらない。<span class="hl">「いま」を必要としない</span>固定された順序。</p></div>
+  </div>
+  <p class="fade" style="margin-top:22px">マクタガートの論証はこうだ。時間があるなら変化があり、変化にはA系列が要る。ところがA系列では、一つの出来事が過去でも現在でも未来でもあることになり、矛盾する。したがって時間は実在しない。この結論を受け入れる人は少ないが、どこが間違っているかをめぐって、現代の立場がきれいに分かれた。</p>
+  <div class="table-wrap fade">
+  <table>
+    <thead><tr><th>立場</th><th>何が実在するか</th><th>「いま」の扱い</th></tr></thead>
+    <tbody>
+      <tr><td><div class="title">現在主義</div><div class="by">presentism</div></td><td class="why">現在だけが実在する。過去はもう無く、未来はまだ無い</td><td class="why">特別。実在の縁そのもの</td></tr>
+      <tr><td><div class="title">成長ブロック説</div><div class="by">growing block</div></td><td class="why">過去と現在が実在し、現在が新しく付け足されていく</td><td class="why">特別。ブロックの先端</td></tr>
+      <tr><td><div class="title">永久主義（ブロック宇宙）</div><div class="by">eternalism</div></td><td class="why">過去・現在・未来がすべて同じ資格で実在する</td><td class="why">特別ではない。「ここ」と同じく話し手の位置</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="fade" style="margin-top:22px">ベルクソンをこの表に置くなら、成長ブロック説に最も近い。過去は消えずに残り続け（記憶の円錐）、未来はまだ作られていない（可能と現実）。ただ、彼が嫌ったのは「ブロック」という比喩そのもの、つまり時間を積み木のような空間的な塊として思い描くことだった点は覚えておいてよい。</p>
+  <h3 class="fade">物理学：ブロック宇宙とエントロピー</h3>
+  <p class="fade">1908年、数学者ミンコフスキーは相対性理論を、空間と時間を一つにした四次元の時空として書き直した。この描き方では、宇宙の全歴史が一つの塊として「すでにある」ように見え、物理学者の多くが永久主義を自然な解釈と考えるようになった。アインシュタイン自身も晩年、友人の遺族への手紙で、過去・現在・未来の区別は「頑固な錯覚」にすぎないと書いている。</p>
+  <p class="fade">これに対して、時間の向き（なぜ過去は覚えていて未来は覚えていないのか）は、熱力学のエントロピーで説明されることが多い。物理学者カルロ・ロヴェッリは『時間は存在しない』（原著2017）で、基礎物理学の方程式に時間の流れは現れず、私たちが感じる流れは、世界を粗く見たときに現れるエントロピー増大の効果だと論じた。ロヴェッリの描く「出来事のネットワークとしての世界」は、静止した塊としてのブロック宇宙よりも、むしろ変化を基本に置くベルクソンに近い、と指摘する論者もいる。</p>
+</div>
+</section>
+
+<section id="sec-9">
+<div class="wrap">
+  <p class="kicker fade">09 ── 評価</p>
+  <h2 class="fade"><span class="num">09</span>忘れられ、そして読み直された</h2>
+  <p class="sub fade">DECLINE AND REVIVAL · ラッセルからドゥルーズ、そして日本へ</p>
+  <p class="fade">ベルクソンの名声は、生前の熱狂ぶりと同じくらい急に冷えた。早い時期の批判者はバートランド・ラッセルで、1912年の論文で、知性より直観を上に置くなら、直観がいちばん冴えているのは人間より蜂や蟻のほうだということになる、と皮肉った。論理と科学を重視する分析哲学が英語圏の主流になると、ベルクソンは「詩的だが厳密でない」哲学の代表として読まれなくなっていく。第二次大戦後のフランスでも、関心はハイデガーとサルトルの実存主義へ移った。</p>
+  <p class="fade">流れを変えたのは、ジル・ドゥルーズの『ベルクソニズム』（1966）だった。ドゥルーズはベルクソンを、神秘的な生命哲学者ではなく、二種類の多様性を区別し、「潜在的なもの（virtuel）」という概念を作った厳密な思考の人として読み直した。さらに『シネマ』2巻（1983・85）では、『物質と記憶』の第1章を土台に映画の理論を組み立てている。映画を知性の悪い癖のたとえに使ったベルクソンが、映画論の出発点になったのは皮肉な巡り合わせだ。</p>
+  <p class="fade">1990年代以降、英米でも仏語圏でも、新しい校訂版の刊行や講義録の出版が進み、研究は再び活発になっている。日本はこの再評価の重要な拠点の一つで、平井靖史らの研究グループは『物質と記憶』を認知科学や神経科学と突き合わせる共同研究を続けてきた。</p>
+  <p class="fade">平井の『世界は時間でできている ── ベルクソン時間哲学入門』（青土社、2022）は、ベルクソンを「時間のスケール」の哲学として読み直している。ハエにとっては蛍光灯の光が点滅して見え、植物の動きは人間の時間感覚には遅すぎて見えない。生き物ごとに、一瞬としてまとめて捉えられる時間の幅が違う。人間の意識とは、物質の細かな振動を大きな幅で束ねて、一つの質として感じ取る仕組みだ、という読み方で、持続を神秘的な体験から、測定や実験と対話できる仮説の形に引き戻そうとしている。</p>
+</div>
+</section>
+
+<section id="sec-10">
+<div class="wrap">
+  <p class="kicker fade">10 ── 読む</p>
+  <h2 class="fade"><span class="num">10</span>いま、ベルクソンを読むとすれば</h2>
+  <p class="sub fade">WHY NOW · 締めくくりと読書ガイド</p>
+  <p class="fade">ここまでを一度まとめておく。ベルクソンの仕事は、ある一つの身ぶりの繰り返しでできている。時間を空間のように扱うと何が抜け落ちるかを指さし、抜け落ちたものの側から、自由・記憶・生命・社会を考え直す。『時間と自由』では意識について、『物質と記憶』では過去について、『創造的進化』では生命と宇宙について、『二源泉』では社会について、同じことをした。</p>
+  <p class="fade">この身ぶりは、哲学の教科書の外でもそのまま使える。予定表やタスク管理の画面は、時間を等しいマス目に区切って並べる。マス目は仕事を回すのに欠かせない。ただ、マス目を埋めた日と、何かが自分の中で熟した日は、必ずしも一致しない。ベルクソンはその食い違いを錯覚として片付けず、むしろそちらに時間の本当の姿があると言った。コーチングの場で「どの選択肢を選ぶべきか」という問いがなかなか進まないとき、選択肢の地図を描くより、迷っている本人がいまどう変わりつつあるかに目を向けるほうが動き出すことがある。これも『時間と自由』の分かれ道の議論の、ほぼ直接の応用だ。</p>
+  <p class="fade">ただし、ベルクソンをそのまま信じる必要はない。記憶についての主張は神経科学とぶつかり、相対性理論の扱いには明確な誤りがあり、エラン・ヴィタールは科学的な説明としては空回りしているという批判も根強い。それでも100年以上読まれ続けているのは、彼の答えより、彼が立てた問いのほうが長持ちしているからだろう。時計で測れる時間と、待つしかない時間は、どうつながっているのか。物理学も神経科学も、この問いにまだ答えきれていない。</p>
+  <h3 class="fade">読む順番の提案</h3>
+  <div class="route-stage fade">
+    <div class="stage-head"><span class="stage-badge">STEP 1</span><span class="stage-desc">日本語の入門書から</span></div>
+    <ul class="app">
+      <li><strong>平井靖史『世界は時間でできている ── ベルクソン時間哲学入門』青土社</strong><span>全体像と現代科学とのつながりを一冊で。本記事の第9節の読み方の出典。</span></li>
+      <li><strong>平井靖史『はじめてのベルクソン ── 時間をひらく哲学』講談社</strong><span>同じ著者による、さらに手に取りやすい入口。</span></li>
+    </ul>
+  </div>
+  <div class="route-stage fade">
+    <div class="stage-head"><span class="stage-badge core">STEP 2</span><span class="stage-desc">原典は短いものから</span></div>
+    <ul class="app">
+      <li><strong>『思考と動き』所収の「序論」「可能と現実」「形而上学入門」</strong><span>講演がもとになっていて読みやすい。直観と分析の区別、可能性の議論がつかめる。</span></li>
+      <li><strong>『時間と自由』第2章</strong><span>持続と二種類の多様性。振り子とメロディの議論はここ。</span></li>
+    </ul>
+  </div>
+  <div class="route-stage fade">
+    <div class="stage-head"><span class="stage-badge app">STEP 3</span><span class="stage-desc">主著へ</span></div>
+    <ul class="app">
+      <li><strong>『創造的進化』第1章・第4章</strong><span>砂糖水と映画のたとえ。物語として面白い章から。</span></li>
+      <li><strong>『物質と記憶』</strong><span>最も難しく、最も読み返される一冊。第3章の円錐を目当てに。</span></li>
+      <li><strong>ジル・ドゥルーズ『ベルクソンの哲学』（原題 Le Bergsonisme）</strong><span>ベルクソンを読んだあとで、骨組みを整理し直すために。</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<section id="sec-11" class="sources">
+<div class="wrap">
+  <p class="kicker fade">主な出典</p>
+  <h2 class="fade">この読み物の根拠</h2>
+  <p class="sub fade">SOURCES · 引用は筆者が日本語に要約・訳出したもの</p>
+  <ol class="fade">
+    <li>Bergson, <em>Time and Free Will</em>（1889／英訳 Pogson 1910）第2章。振り子とメロディの議論。<a href="https://www.gutenberg.org/ebooks/56852">Project Gutenberg</a></li>
+    <li>Bergson, <em>Creative Evolution</em>（1907／英訳 Mitchell 1911）第1章（砂糖水）・第4章（映画的メカニズム）。<a href="https://www.gutenberg.org/ebooks/26163">Project Gutenberg</a></li>
+    <li>Bergson, <em>Matter and Memory</em>（1896）第3章の円錐の図と二種類の記憶。<a href="https://en.wikipedia.org/wiki/Matter_and_Memory">概説</a>、<a href="https://protevi.com/Bergson/MM3.pdf">J. Protevi の講義ノート</a></li>
+    <li>Lawlor &amp; Moulard-Leonard, “Henri Bergson”, <a href="https://plato.stanford.edu/entries/bergson/">Stanford Encyclopedia of Philosophy</a>。生涯、ベルクソン・ブーム、ラッセルとハイデガーの批判、ドゥルーズ以後の再評価。</li>
+    <li>Canales, J. (2015) <em>The Physicist and the Philosopher</em>, Princeton UP。および <a href="https://en.wikipedia.org/wiki/Einstein%E2%80%93Bergson_debate">Einstein–Bergson debate</a>、<a href="https://www.lrb.co.uk/v38/n14/john-banville/what-do-clocks-have-to-do-with-it">LRB 書評</a>、<a href="https://nautil.us/this-philosopher-helped-ensure-there-was-no-nobel-for-relativity-235898">Nautilus（Canales）</a>。</li>
+    <li>ノーベル賞と晩年：<a href="https://www.nobelprize.org/prizes/literature/1927/bergson/biographical/">NobelPrize.org</a>、<a href="https://www.rep.routledge.com/articles/biographical/bergson-henri-louis-1859-1941/v-1/sections/life-47300">Routledge Encyclopedia of Philosophy</a>、<a href="https://jewishvirtuallibrary.org/jsource/biography/Bergson.html">Jewish Virtual Library</a>。</li>
+    <li>「可能と現実」とハムレットの例：<a href="https://e-space.mmu.ac.uk/603606/2/Archiv%20Bergson%20on%20Possibility%20and%20Novelty.pdf">Bergson on Possibility and Novelty</a>。『二源泉』：<a href="https://www.rep.routledge.com/articles/biographical/bergson-henri-louis-1859-1941/v-1/sections/morality-and-religion">Routledge, Morality and religion</a>。</li>
+    <li>アウグスティヌス『告白』第11巻、アリストテレス『自然学』第4巻。<a href="https://laikosblog.org/2019/12/10/the-threefold-present-how-augustine-re-invented-time/">The Threefold Present</a>。</li>
+    <li>McTaggart (1908) “The Unreality of Time”, <em>Mind</em>。<a href="https://en.wikipedia.org/wiki/The_Unreality_of_Time">概説</a>、<a href="https://www3.nd.edu/~jspeaks/courses/mcgill/370/mctaggart-time.html">J. Speaks の講義ノート</a>。現在主義・永久主義：<a href="https://en.wikipedia.org/wiki/Eternalism_(philosophy_of_time)">Eternalism</a>。</li>
+    <li>フッサールの時間意識：<a href="https://cfs.ku.dk/staff/zahavi-publications/Inner__time-_consciousness.pdf">Zahavi “Inner Time-Consciousness”</a>。ハイデガーのベルクソン批判：<a href="https://occidentstudy.ihcs.ac.ir/article_3793_en.html">Duration and the Original Temporality</a>。</li>
+    <li>Rovelli, C. (2017) <em>L'ordine del tempo</em>（邦訳『時間は存在しない』NHK出版）。</li>
+    <li>平井靖史『世界は時間でできている ── ベルクソン時間哲学入門』青土社、2022。<a href="https://www.kinokuniya.co.jp/f/dsg-01-9784791774883">紀伊國屋書店</a>。トルンの100周年会議：<a href="https://einsteinbergson.umk.pl/pages/Call_for_papers">Time. Bergson–Einstein debate 100 years later</a>。</li>
+  </ol>
+</div>
+</section>
+
+</main>
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+<script>
+
+// progress bar
+var _pb=document.getElementById('progress');
+document.addEventListener('scroll',function(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;_pb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';},{passive:true});
+// active nav
+var _nl=[].slice.call(document.querySelectorAll('.gnav-links a'));
+var _ns=_nl.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+var _io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;_nl.forEach(function(l){var on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+_ns.forEach(function(s){_io.observe(s);});
+</script>
+<script>
+/* THEMES:JS:START */
+/* =========================================================
+   DESIGN THEMES — 共有スクリプト（正本）
+   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
+   ページ側は <div data-theme-switch></div> を1つ置くだけでよい。
+   ページ固有の後処理が要る場合は window.onThemeChange に関数を入れる。
+   ========================================================= */
+
+var THEMES = [
+  { id: 'sai',  name: 'SAI v2',      desc: 'モノクロ基調・エディトリアル', dots: ['#62B8A0', '#EB6584', '#F2C94C'] },
+  { id: 'bold', name: 'Bold Yellow', desc: '黒と黄・2pxの枠線・影なし',    dots: ['#1B1B1B', '#E3E143', '#FAF9EC'] }
+];
+
+var THEME_KEY = 'design-theme';
+var THEME_ICON =
+  '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+  '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>' +
+  '<circle data-dot cx="13.5" cy="6.5" r="1.5"/><circle data-dot cx="17.5" cy="10.5" r="1.5"/>' +
+  '<circle data-dot cx="6.5" cy="12.5" r="1.5"/><circle data-dot cx="8.5" cy="7.5" r="1.5"/></svg>';
+
+var activeTheme = THEMES[0].id;
+
+function themeDotsHTML(theme) {
+  return theme.dots.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('');
+}
+
+function applyTheme(id, persist) {
+  var theme = THEMES.filter(function (t) { return t.id === id; })[0] || THEMES[0];
+  activeTheme = theme.id;
+  if (theme.id === THEMES[0].id) {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme.id);
+  }
+  if (persist) { try { localStorage.setItem(THEME_KEY, theme.id); } catch (e) {} }
+  renderThemeSwitch();
+  if (typeof window.onThemeChange === 'function') window.onThemeChange(theme.id);
+}
+
+function renderThemeSwitch() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  var theme = THEMES.filter(function (t) { return t.id === activeTheme; })[0] || THEMES[0];
+
+  if (!mount.querySelector('.ts-btn')) {
+    mount.innerHTML =
+      '<button type="button" class="ts-btn" aria-haspopup="listbox" aria-expanded="false">' + THEME_ICON + '</button>' +
+      '<div class="ts-menu" role="listbox" aria-label="デザイン" hidden></div>';
+    mount.querySelector('.ts-btn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      var menu = mount.querySelector('.ts-menu');
+      menu.hidden ? openThemeMenu() : closeThemeMenu();
+    });
+  }
+
+  var btn = mount.querySelector('.ts-btn');
+  btn.setAttribute('aria-label', 'デザインを切り替える（現在: ' + theme.name + '）');
+  btn.setAttribute('title', 'デザイン: ' + theme.name);
+
+  var menu = mount.querySelector('.ts-menu');
+  menu.innerHTML = '';
+  THEMES.forEach(function (t) {
+    var opt = document.createElement('button');
+    opt.type = 'button';
+    opt.className = 'ts-opt';
+    opt.setAttribute('role', 'option');
+    opt.setAttribute('aria-selected', String(t.id === activeTheme));
+    opt.innerHTML =
+      '<span class="ts-dots">' + themeDotsHTML(t) + '</span>' +
+      '<span class="ts-text"><span class="ts-name">' + t.name + '</span>' +
+      '<span class="ts-desc">' + t.desc + '</span></span>' +
+      '<span class="ts-check">●</span>';
+    opt.addEventListener('click', function () { applyTheme(t.id, true); closeThemeMenu(); });
+    menu.appendChild(opt);
+  });
+}
+
+function openThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = false;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'true');
+}
+
+function closeThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = true;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'false');
+}
+
+function initThemeSwitch() {
+  var saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+  applyTheme(saved || THEMES[0].id, false);
+
+  document.addEventListener('click', function (e) {
+    var mount = document.querySelector('[data-theme-switch]');
+    if (mount && !mount.contains(e.target)) closeThemeMenu();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeThemeMenu(); });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initThemeSwitch);
+} else {
+  initThemeSwitch();
+}
+/* THEMES:JS:END */
+</script>
+</body>
+</html>
