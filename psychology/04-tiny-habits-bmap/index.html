@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiny HabitsとB=MAPを、証拠の強さで読み直す — 習慣超大全はどこまで確かか</title>
+<meta name="description" content="BJ・フォッグのTiny HabitsとB=MAPを、主張ごとに証拠の強さで判定する。if-thenプランなどの手法、COM-Bや計画的行動理論との比較、今後の課題まで。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<!-- THEMES:BOOT:START -->
+<script>
+  /* 描画前にテーマを確定させる（切り替え時のちらつき防止） */
+  try {
+    var t = localStorage.getItem('design-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+<!-- THEMES:BOOT:END -->
+<style>
+  :root{
+    --ink: #111111; --ink-soft: #333333;
+    --teal: #111111; --teal-deep: #111111; --teal-wash: #F5F5F5;
+    --coral: #333333; --coral-wash: #F5F5F5;
+    --paper: #FAFAFA; --panel: #F5F5F5;
+    --line: #EEEEEE; --line-strong: #CCCCCC; --muted: #808080;
+    --maxw:768px;
+  
+  --paper-rgb: 250, 250, 250;  /* 固定ヘッダーの半透明背景用。--paper と同じ色 */
+  --white: #FFFFFF;
+    --en: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+    --jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    --stripe: repeating-linear-gradient(135deg,#F2C94C 0 14px,#62B8A0 14px 28px,#FFFFFF 28px 42px,#4F7C87 42px 56px,#FFFFFF 56px 70px);}
+/* THEMES:CSS:START */
+/* =========================================================
+   DESIGN THEMES — 共有テーマ定義（正本）
+   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
+   ページ側のHTMLを手で書き換えないこと。
+   ========================================================= */
+
+/* --- 既定テーマ（sai）: ページ側のパレットに足りないトークンを補う --- */
+:root {
+  /* 形 */
+  --r-card: 0px;        /* カード・パネルの角丸 */
+  --r-pill: 48px;       /* チップ・タグ・ピルボタン */
+  --r-input: 4px;       /* 入力欄 */
+  --r-xs: 3px;          /* トースト等の極小要素 */
+  --r-inner: 12px;      /* 吹き出し・入れ子カード */
+  --r-band-card: 16px;  /* 一段大きいカード */
+  --bw: 1px;            /* カードの枠線幅 */
+  --r-scale: 1;         /* 角丸の倍率。値が散っているページ（research-sai）はこれで一括調整する */
+  /* ページによって罫線トークンの名前が違う（sai-works系は --rule、research系は --line）。
+     var() のフォールバックで両方に対応する。 */
+  --card-line: var(--rule, var(--line));
+  --input-line: var(--rule-strong, var(--line-strong));
+
+  /* ページごとに既定が違うトークン（--paper-rgb / --ls-display）は
+     ここに書かない。各ページの :root で定義し、テーマ側は
+     html[data-theme="..."] ブロックでだけ上書きする。 */
+
+  /* 文字 */
+  --fw-display: 300;         /* 大見出しのウェイト */
+  --ls-label: 0.14em;        /* 欧文ラベルの字間 */
+  --label-case: uppercase;   /* 欧文ラベルの大文字化 */
+  --lh-body: 1.9;            /* 本文の行間 */
+
+  /* 影（既定は使わない。浮かせるテーマ用の受け口） */
+  --shadow-card: none;
+  --shadow-pop: none;
+
+  /* アイコン（線画SVGの線の太さ） */
+  --ico-sw: 1.5;
+  --ico-sw-lg: 1.25;
+
+  /* 装飾 */
+  --caution: #c84e6c;                    /* 注意書きのラベル */
+  --track-bg: #dde5e1;                   /* バーの溝 */
+  --track-bg-soft: #eef1ef;              /* バーの溝（淡い方） */
+  --lang-en-bg: #eef1f5;                 /* 言語バッジ（EN） */
+  --lang-en-fg: #5a6b86;
+  --mark-bg: rgba(98, 184, 160, .34);    /* マーカー線（標準） */
+  --mark-c-bg: rgba(235, 101, 132, .28); /* マーカー線（強調） */
+  --accent-band: var(--stripe);
+  --footer-bg: var(--rule);
+  --footer-fg: var(--muted);
+  --chip-g-bg: rgba(98, 184, 160, .14);
+  --chip-b-bg: rgba(79, 124, 135, .14);
+  --mosaic: #62B8A0, #F2C94C, #EB6584, #4F7C87, #FFFFFF, #FFFFFF, #F5F5F5;
+  /* 記事ページの節の交互の帯 */
+  --sec-bg: var(--white);                /* 奇数番目の節の背景 */
+  --sec-alt-bg: #F6F6F6;                 /* 偶数番目の節の背景（薄いテーマカラー） */
+  --sec-pad-y: 48px;                     /* main 直下の節の上下余白 */
+  --bleed: 100vw;                        /* 画面幅いっぱいに広げるときの幅（帯・ストライプ） */
+  --hero-pb: 56px;                       /* ヘッダー（hero）の下余白。ストライプはこの下、節との境目に置く */
+  --stripe-h: 4px;                       /* ヘッダー下のストライプの太さ */
+}
+
+/* --- theme: bold（黒と黄・2pxの枠線・影なし）--- */
+html[data-theme="bold"] {
+  --paper: #FAF9EC;
+  --paper-rgb: 250, 249, 236;
+  --white: #FFFFFF;
+  --ink: #1B1B1B;
+  --text: #1B1B1B;
+  --muted: #6E6B5E;
+  --rule: #E4E2D2;
+  --rule-strong: #1B1B1B;
+  --tint: #F2F1E2;
+  --teal: #1B1B1B;      /* 文字にも背景にも使われるため黒。黄色は --teal-wash 側 */
+  --teal-deep: #1B1B1B;
+  --coral: #6E6A12;     /* 強調テキスト。紙の上で 5.3:1 */
+  --yellow: #E3E143;
+  --deep-teal: #1B1B1B;
+  --deep: #1B1B1B;
+  --en: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --stripe: repeating-linear-gradient(135deg, #E3E143 0 16px, #1B1B1B 16px 18px, #E3E143 18px 34px);
+
+  --r-card: 12px;
+  --r-pill: 999px;
+  --r-input: 12px;
+  --r-xs: 999px;
+  --r-inner: 12px;
+  --r-band-card: 12px;
+  --bw: 2px;
+  --r-scale: 1;
+  --card-line: var(--ink);
+  --input-line: var(--ink);
+
+  --fw-display: 700;
+  --ls-display: 0;
+  --ls-label: 0.08em;
+  --label-case: uppercase;
+  --lh-body: 1.8;
+
+  --shadow-card: none;
+  --shadow-pop: none;
+
+  --ico-sw: 2;
+  --ico-sw-lg: 2;
+
+  /* research-sai 系のトークン名（記事ページはこちらの語彙を使う）
+     --teal は文字色にも背景にも使われるので黒に寄せ、
+     背景専用の --teal-wash に黄色を置く。 */
+  --panel: #F3F1DF;
+  --paper-2: #F3F1DF;
+  --ink-soft: #1B1B1B;
+  --ink-faint: #6E6B5E;
+  --teal-wash: #E3E143;
+  --coral-wash: #F6F4C4;
+  --sand: #6E6A12;
+  --sand-wash: #F6F4C4;
+  --line: #E0DECB;
+  --line-soft: #EDEBD9;
+  --line-strong: #1B1B1B;
+  --paper-warm: #F3F1DF;
+  --card: #FFFFFF;
+  --shadow: none;
+
+  --caution: #9B2C2C;
+  --track-bg: #E0DECB;
+  --track-bg-soft: #EDEBD9;
+  /* 淡い面の上に置く濃い文字色。既定は各ページの :root にある */
+  --teal-ink: #1B1B1B;
+  --sand-ink: #6E6A12;
+  --sand-ink-soft: #6E6A12;
+  --coral-ink: #9B2C2C;
+  --pull-ink: #1B1B1B;
+  --lang-en-bg: #F0EFE2;
+  --lang-en-fg: #5B5848;
+  /* 半透明の下地（alpha はページ側に残し、RGBだけ差し替える） */
+  --teal-rgb: 227, 225, 67;
+  --coral-rgb: 110, 106, 18;
+  --yellow-rgb: 227, 225, 67;
+  --deep-rgb: 27, 27, 27;
+  --mark-bg: rgba(227, 225, 67, .60);
+  --mark-c-bg: rgba(110, 106, 18, .20);
+  --accent-band: #E3E143;
+  --footer-bg: #E3E143;
+  --footer-fg: #1B1B1B;
+  --chip-g-bg: rgba(227, 225, 67, .34);
+  --chip-b-bg: rgba(27, 27, 27, .08);
+  --mosaic: #E3E143, #1B1B1B, #F9F8D9, #FFFFFF, #FFFFFF, #F2F1E2, #E3E143;
+  --sec-alt-bg: #F9F8DE;
+}
+
+/* --- 記事ページ：節ごとに背景を交互に変える（全テーマ共通） ---
+   奇数番目の節は白、偶数番目は薄いテーマカラー（--sec-alt-bg）。
+   帯は画面幅いっぱいに広げる（box-shadow + clip-path で左右だけ伸ばす）。
+   節は body 直下のページと main 直下のページがある。 */
+/* 対象は research の記事ページ（ナビに .nav-inner / .gnav-inner がある）だけ。
+   sai-works・LP・デザインシステムのページには効かせない。 */
+body:has(.nav-inner, .gnav-inner) { overflow-x: clip; }
+body:has(.nav-inner, .gnav-inner) > section,
+body:has(.nav-inner, .gnav-inner) > main > section { background: var(--sec-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-bg); clip-path: inset(0 calc(var(--bleed) * -1)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even),
+body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--sec-alt-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-alt-bg); }
+body:has(.nav-inner, .gnav-inner) > main > section[id^="sec-"] { padding-top: var(--sec-pad-y); padding-bottom: var(--sec-pad-y); }
+/* 最後の節とフッターの間に紙の色の隙間を作らない */
+body:has(.nav-inner, .gnav-inner) section ~ footer,
+body:has(.nav-inner, .gnav-inner) main ~ footer { margin-top: 0 !important; }
+
+/* ヘッダー下のストライプは、帯の境目（最初の節の上端）に描く。
+   ページごとに hero の中の位置（.hero::after / .hero .wrap::after）と余白が違い、
+   帯の端とずれていたので、hero 側のストライプは消して節の ::before に一本化する。
+   hero の下余白は --hero-pb に揃え、hero の下罫線はストライプが代わりをするので消す。 */
+body:has(.nav-inner, .gnav-inner) .hero { padding-bottom: var(--hero-pb) !important; border-bottom-width: 0 !important; }
+body:has(.nav-inner, .gnav-inner) .hero::after,
+body:has(.nav-inner, .gnav-inner) .hero .wrap::after { display: none !important; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type { position: relative; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--stripe-h); background: var(--stripe); z-index: 1; }
+
+/* =========================================================
+   切り替えボタン（.ts- 接頭辞。ページ側のCSSと衝突させない）
+   ページ側は <div data-theme-switch></div> を1つ置くだけ。
+   ========================================================= */
+
+[data-theme-switch] { position: relative; flex: none; line-height: 0; }
+
+/* ヘッダーの無いページ用：右上に浮かせる */
+[data-theme-switch][data-ts-float] { position: fixed; top: 16px; right: 16px; z-index: 300; }
+[data-theme-switch][data-ts-float] .ts-btn { background: var(--white); }
+
+.ts-btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s;
+}
+
+.ts-btn:hover { background: var(--ink); color: var(--white); }
+.ts-btn:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+
+.ts-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ico-sw);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ts-btn svg circle[data-dot] { fill: currentColor; stroke: none; }
+
+.ts-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 290px;
+  background: var(--white);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-pop);
+  padding: 6px;
+  line-height: 1.5;
+  z-index: 200;
+}
+
+.ts-menu[hidden] { display: none; }
+
+.ts-opt {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 9px 10px;
+  border-radius: var(--r-card);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .18s;
+}
+
+.ts-opt:hover { background: var(--tint); }
+.ts-opt:focus-visible { outline: 1px solid var(--ink); outline-offset: -1px; }
+.ts-dots { display: flex; gap: 3px; flex: none; }
+.ts-dots i { display: block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--rule-strong); box-sizing: border-box; }
+.ts-text { flex: 1; min-width: 0; }
+.ts-name { font-family: var(--en); font-size: 12px; font-weight: 500; letter-spacing: .04em; }
+.ts-desc { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 1px; }
+.ts-check { margin-left: auto; flex: none; font-size: 11px; color: var(--ink); opacity: 0; }
+.ts-opt[aria-selected="true"] .ts-check { opacity: 1; }
+
+/* research-sai の細いナビの中では一回り小さく */
+.nav-inner > [data-theme-switch] .ts-btn,
+.gnav-inner > [data-theme-switch] .ts-btn { width: 28px; height: 28px; }
+.nav-inner > [data-theme-switch] .ts-btn svg,
+.gnav-inner > [data-theme-switch] .ts-btn svg { width: 16px; height: 16px; }
+
+@media (max-width: 768px) {
+  .ts-btn { width: 32px; height: 32px; }
+  .ts-btn svg { width: 18px; height: 18px; }
+  .ts-menu { min-width: 264px; }
+}
+/* THEMES:CSS:END */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  .hero{padding:78px 0 50px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{font-family:"Noto Sans JP",serif;font-weight:700;font-size:clamp(27px,5.2vw,40px);line-height:1.42;margin:0 0 24px;}
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:32px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* signature: subjective-objective axis */
+  .sig{margin:42px 0 6px;}
+  .sig svg{width:100%;height:auto;display:block;}
+  .sig-cap{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.7;text-align:center;}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 13px;}
+  h2{font-family:"Noto Sans JP",serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;}
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;} p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* theory blocks */
+  .theory{border:var(--bw) solid var(--card-line);border-radius:calc(14px * var(--r-scale));padding:0;margin:24px 0 0;overflow:hidden;}
+  .theory .th-head{padding:18px 22px;display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);}
+  .theory .th-jp{font-family:"Noto Sans JP",serif;font-weight:700;font-size:18px;}
+  .theory .th-en{font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+  .theory .th-tag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:calc(20px * var(--r-scale));}
+  .theory .th-tag.subj{background:var(--coral-wash);color:var(--caution);}
+  .theory .th-tag.obj{background:var(--teal-wash);color:var(--teal-deep);}
+  .theory .th-body{padding:18px 22px;}
+  .theory .th-body p{font-size:14.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.85;}
+  .theory .th-body p:last-child{margin:0;}
+  .obj-line{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--coral);margin:0 0 6px;}
+  .obj-line.up{color:var(--teal-deep);}
+
+  .meter{margin:24px 0 4px;padding:18px 20px;background:var(--panel);border-radius:calc(11px * var(--r-scale));}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);}
+  .bar{height:7px;border-radius:calc(6px * var(--r-scale));background:var(--track-bg);overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:calc(6px * var(--r-scale));background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7;}
+
+  .caution{margin:20px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 calc(8px * var(--r-scale)) calc(8px * var(--r-scale)) 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--caution);margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+  .caution.muted{background:var(--panel);border-left-color:var(--line-strong);}
+  .caution.muted .c-label{color:var(--ink-soft);}
+
+  .note{background:var(--teal-wash);border-radius:calc(12px * var(--r-scale));padding:24px 26px;margin:20px 0 0;}
+  .note .n-title{font-family:"Noto Sans JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);} .note p:last-child{margin:0;}
+
+  /* mapping table (the payoff) */
+  .map{display:grid;gap:11px;margin:24px 0 0;}
+  .mrow{border:var(--bw) solid var(--card-line);border-radius:calc(12px * var(--r-scale));padding:17px 19px;}
+  .mrow .mh{display:flex;align-items:baseline;gap:10px;margin:0 0 6px;}
+  .mrow .ms{font-family:"Noto Sans JP",serif;font-weight:700;font-size:15.5px;}
+  .mrow .mt{font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 9px;border-radius:calc(14px * var(--r-scale));background:var(--panel);color:var(--ink-soft);}
+  .mrow p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.75;}
+  .mrow p .hl{color:var(--coral);font-weight:700;}
+
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 20px 42px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:27px;height:27px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .app li strong{display:block;margin-bottom:3px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);line-height:1.85;}
+
+  .route-stage{margin:0 0 26px;} .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Sans JP",serif;font-weight:700;font-size:13px;color:var(--white);background:var(--teal-deep);padding:5px 14px;border-radius:calc(20px * var(--r-scale));letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);} .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:calc(5px * var(--r-scale));white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);} .lang.en{background:var(--lang-en-bg);color:var(--lang-en-fg);}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;} .bar>i{transition:none;} html{scroll-behavior:auto;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
+    th,td{padding:9px 8px;font-size:13px;} .theory .th-head{flex-wrap:wrap;gap:6px;} .theory .th-tag{margin-left:0;}
+  }
+
+/* ---- header nav ---- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav.gnav{position:sticky;top:0;z-index:50;background:rgba(var(--paper-rgb),.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.gnav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.gnav-brand{font-family:"Noto Sans JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}
+.gnav-brand b{color:var(--coral)}
+.gnav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.gnav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft,var(--ink-soft));text-decoration:none;padding:6px 11px;border-radius:calc(999px * var(--r-scale));white-space:nowrap;transition:.18s}
+.gnav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+@media(max-width:560px){.gnav-inner{padding:11px 18px}.gnav-brand{display:none}}
+
+</style>
+
+<style id="v2-override">
+/* SAI's DESIGN SYSTEM v2 — 2026-09-16 */
+body{font-family:var(--jp);color:var(--ink-soft);background:var(--paper);letter-spacing:.01em;}
+h1,h2,h3,h4,.title,.lede strong,.reader-title{font-family:var(--jp)!important;color:var(--ink);font-weight:700;letter-spacing:.01em;}
+h1{line-height:1.35;}
+h2{line-height:1.5;}
+.eyebrow,.kicker,.sec-no,.sec-sub,.series,.lang,.stage-badge,.div-tag,.src-tag,.cat,.count,.last-updated,.meta,.meta span,
+.gnav-brand,.gnav-links a,.brand,.nav-links a,nav a,.stat .l,.leg span,.rl,.bl,.mini .tagn,.need .nn,h2 .num,.route-stage,.ef .eflabel,
+.stat .n,.bv,.rv,.dv,.meter-val,.ef .efval{font-family:var(--en),var(--jp)!important;}
+.eyebrow,.kicker,.sec-no,.series,.cat,.gnav-links a,.nav-links a,.stage-badge,.div-tag,.stat .l,.rl{letter-spacing:.12em!important;text-transform:uppercase;font-weight:500!important;font-size:11px!important;color:var(--muted)!important;}
+.eyebrow::before{background:var(--ink)!important;}
+nav,.gnav,nav.gnav{background:linear-gradient(to bottom,rgba(var(--paper-rgb),.96) 0%,rgba(var(--paper-rgb),.92) 30%,rgba(var(--paper-rgb),.8) 55%,rgba(var(--paper-rgb),.6) 78%,rgba(var(--paper-rgb),.42) 100%)!important;backdrop-filter:none;-webkit-backdrop-filter:none;border-color:transparent!important;box-shadow:none!important;}
+.reader-bar,.toolbar,.left-head{background:rgba(var(--paper-rgb),.92)!important;border-color:var(--line)!important;box-shadow:none!important;}
+.gnav-brand,.brand,.gnav-brand b,.brand b{font-family:var(--en)!important;font-weight:600!important;color:var(--ink)!important;letter-spacing:-.01em;}
+.gnav-links a,.nav-links a{color:var(--ink-soft)!important;border-bottom:1px solid transparent;border-radius:var(--r-card)!important;background:transparent!important;padding-left:0!important;padding-right:0!important;}
+.gnav-links a:hover,.nav-links a:hover{color:var(--ink)!important;border-bottom-color:var(--ink);background:transparent!important;}
+.gnav-links,.nav-links{gap:22px!important;}
+.gnav-links a[style*="teal-deep"],.nav-links a[style*="teal-deep"],.gnav-links a.on,.nav-links a.on{color:var(--ink)!important;border-bottom-color:var(--ink)!important;font-weight:600!important;}
+
+#progress{display:none!important;}
+a{color:var(--ink);}
+mark,mark.c{background:var(--panel);color:var(--ink);padding:0 .2em;}
+.note,.caution,.insight,.pull,.mini,.need,.stat,.chart-card,.dom,.effects,.meter,.continuum,.stop,.closing,.why,.sources,.refs,.entry,.reader-frame,.reader-empty,.search input,.stat-grid > *,.minis > *,.needs > *{border-radius:var(--r-card)!important;box-shadow:none!important;}
+.note,.caution,.insight,.pull,.mini,.need,.chart-card,.dom,.stat{background:var(--white)!important;border:var(--bw) solid var(--card-line)!important;}
+.note.sand,.caution{border-left:2px solid var(--ink)!important;}
+.note .h,.note .n-title,.caution .c-label,.insight h4{color:var(--ink)!important;}
+.stage-badge,.div-tag,.chip,.tagn,.mini .tagn,.need .nn{border-radius:var(--r-pill)!important;border:var(--bw) solid var(--ink)!important;background:transparent!important;color:var(--ink)!important;}
+.chip.active,.chip.flag-chip.active{background:var(--ink)!important;color:var(--white)!important;}
+.chip .c,.count{color:inherit!important;}
+.search input{border:var(--bw) solid var(--input-line)!important;border-radius:var(--r-input)!important;background:var(--white)!important;}
+.search input:focus{border-color:var(--ink)!important;box-shadow:none!important;}
+.entry.is-active{background:var(--white)!important;border-left:2px solid var(--ink)!important;}
+.entry:hover{background:var(--panel)!important;}
+.bm.on,.bm.on svg{color:var(--ink)!important;fill:var(--ink)!important;}
+table{border-collapse:collapse;}
+th{font-family:var(--en),var(--jp)!important;font-size:11px!important;letter-spacing:.12em!important;text-transform:uppercase;color:var(--muted)!important;font-weight:500!important;border-bottom:1px solid var(--ink)!important;background:transparent!important;}
+td{border-bottom:1px solid var(--line)!important;}
+.bar > i,.bar-fill,.efbar > i,.meter-top,.range-fill,.div-fill{border-radius:var(--r-card)!important;}
+.src-tag{border-radius:var(--r-card)!important;border:var(--bw) solid var(--card-line)!important;background:var(--white)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:12px!important;color:var(--muted)!important;}
+.src-tag b{color:var(--ink)!important;}
+.fade{opacity:1!important;transform:none!important;transition:none!important;}
+.sources,.refs{border-top:1px solid var(--ink);}
+footer{background:var(--line)!important;border-top:none!important;padding:40px 24px!important;}
+.left-head{border-bottom:4px solid transparent!important;border-image:var(--stripe) 1!important;}
+
+/* ---- v2.1: rhythm ---- */
+html,body{overflow-x:hidden;}
+.hero{position:relative;padding-bottom:56px!important;}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:48px;width:calc(100% + 120px);margin-left:-60px;}
+html.in-frame .hero::after{width:100%;margin-left:0;}
+section{padding-top:16px;}
+h2{margin-top:72px!important;}
+.hero h2,section > h2:first-child{margin-top:0!important;}
+h3{margin-top:40px!important;}
+.closing{background:var(--panel)!important;border:none!important;border-radius:calc(16px * var(--r-scale))!important;padding:40px 44px!important;margin:80px 0!important;}
+.sources,.refs{margin-top:120px!important;padding-top:32px!important;}
+footer{margin-top:0!important;padding:48px 24px!important;}
+@media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
+</style>
+<style id="article-extra">
+  h3{font-family:var(--jp);font-weight:700;font-size:18px;line-height:1.6;margin:40px 0 14px;color:var(--ink);}
+  .table-wrap{overflow-x:auto;margin:24px 0 0;}
+  .table-wrap table{min-width:520px;}
+  .fig{margin:28px 0 8px;padding:20px 18px 16px;background:var(--white);border:var(--bw) solid var(--card-line);border-radius:var(--r-card);}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-size:12.5px;color:var(--muted);line-height:1.75;margin-top:12px;}
+  .f-h{font-family:var(--jp);font-weight:700;font-size:15px;fill:var(--ink);}
+  .f-s{font-family:var(--jp);font-size:11.5px;fill:var(--muted);}
+  .f-lb{font-family:var(--jp);font-weight:700;font-size:12px;fill:var(--ink);}
+  .f-ax{stroke:var(--line-strong);stroke-width:1.5;}
+  .f-pt circle{fill:var(--ink);}
+  .f-wave1{fill:none;stroke:var(--ink);stroke-width:2.2;}
+  .f-wave2{fill:none;stroke:var(--muted);stroke-width:1.6;opacity:.7;}
+  .f-cone{fill:var(--teal-wash);stroke:var(--ink);stroke-width:1.5;}
+  .f-ell{fill:var(--panel);stroke:var(--ink);stroke-width:1.5;}
+  .f-ell2{fill:none;stroke:var(--ink);stroke-width:1;stroke-dasharray:4 4;}
+  .f-plane{fill:var(--panel);stroke:var(--line-strong);stroke-width:1.2;opacity:.9;}
+  .f-dot{fill:var(--ink);}
+  .f-arrow,.f-arrowhead{stroke:var(--muted);stroke-width:1.4;fill:none;}
+  .route-stage .app{margin-top:10px;}
+  .summary{margin:36px 0 0;padding:26px 26px 22px;background:var(--white);border:var(--bw) solid var(--card-line);border-left:3px solid var(--ink);border-radius:var(--r-card);}
+  .sm-label{font-size:13px;font-weight:700;color:var(--ink);margin:0 0 14px;letter-spacing:.04em;}
+  .sm-list{margin:0;padding:0 0 0 1.4em;}
+  .sm-list li{font-size:15px;line-height:1.85;color:var(--ink-soft);margin:0 0 12px;}
+  .sm-list li strong{display:block;color:var(--ink);}
+  .sm-foot{font-size:12.5px;color:var(--muted);margin:6px 0 0;line-height:1.75;}
+  @media(max-width:560px){.summary{padding:20px 18px 16px;}}
+  @media(max-width:560px){.fig{padding:14px 10px 12px;}}
+
+  .ev-title{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 16px;}
+  .ev-row{display:grid;grid-template-columns:190px 1fr 44px;gap:12px;align-items:center;margin:0 0 10px;font-size:13px;color:var(--ink-soft);line-height:1.5;}
+  .ev-track{display:block;height:10px;background:var(--track-bg);}
+  .ev-track i{display:block;height:100%;background:var(--ink);}
+  .ev-v{font-family:var(--en);font-weight:600;color:var(--ink);text-align:right;}
+  ul.clean{margin:18px 0 22px;padding:0;list-style:none;}
+  ul.clean li{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.85;}
+  ul.clean li b{color:var(--ink);}
+  .sources h2{margin-bottom:24px;}
+  @media(max-width:560px){.ev-row{grid-template-columns:1fr 40px;gap:4px 10px;}.ev-lb{grid-column:1 / -1;}}
+</style>
+<script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+</head>
+<body>
+<div id="progress"></div>
+<nav class="gnav">
+  <div class="gnav-inner">
+    <span class="gnav-brand">Tiny HabitsとB=MAP</span>
+    <div class="gnav-links">
+      <a href="#sec-1">区別</a>
+      <a href="#sec-2">B=MAP</a>
+      <a href="#sec-3">Tiny Habits</a>
+      <a href="#sec-4">検証</a>
+      <a href="#sec-5">試験</a>
+      <a href="#sec-6">裏づけ</a>
+      <a href="#sec-7">他の方法</a>
+      <a href="#sec-8">比較</a>
+      <a href="#sec-9">課題</a>
+      <a href="#sec-10">使う</a>
+    </div>
+    <div data-theme-switch></div>
+</div>
+</nav>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow fade">Deep Research ／ 概念探究</p>
+    <h1 class="fade">Tiny HabitsとB=MAPを、<br>証拠の強さで読み直す</h1>
+    <p class="lede fade">BJ・フォッグの公式サイトには、B=MAPは「あらゆる年齢、あらゆる文化の人に当てはまる」と書いてある。引用した学術文献は1,900本を超えるという。ところが2025年のスコーピングレビュー（ある領域の研究を広く集めて地図にする総説）が健康分野の介入研究を探したところ、条件を満たしたのは6本、参加者は合計289人だった。では『習慣超大全』は眉唾なのか。そう片づけると、今度は別の間違いをする。この本の処方の一部は、フォッグとは別の研究者たちの習慣研究とよく噛み合っているからだ。どこまでが確かめられていて、どこからが著者の経験なのかを、主張ごとに切り分けていく。</p>
+    <div class="meta fade">
+      <span><i class="dot"></i>読了 約25分</span>
+      <span><i class="dot"></i>前提知識なし</span>
+      <span><i class="dot"></i>2026-11-06</span>
+    </div>
+    <div class="summary fade">
+      <p class="sm-label">先に要点</p>
+      <ol class="sm-list">
+        <li><strong>B=MAPは、実証された法則というより分析の道具である。</strong>動機と能力が高い人ほど行動しやすいという相関は出ている。「3要素が同じ瞬間に揃わないと行動は起きない」という核心は、直接の検証が見つからなかった。</li>
+        <li><strong>Tiny Habitsのランダム化比較試験で確認できたのは1本。</strong>感謝の尺度は上がったが、脱落が多く、習慣の強さそのものは測っていない。</li>
+        <li><strong>「お祝い」は、この手法で最も検証が薄い部分だ。</strong>単独で効果を試した研究は見つからなかった。</li>
+        <li><strong>比較的しっかりしているのは、if-thenプラン、記録、同じ状況での反復。</strong>それでも効果量は、言われてきたより控えめに見たほうがいい。</li>
+      </ol>
+      <p class="sm-foot">確認の範囲と限界は、記事末尾の「この記事の限界」に書いた。</p>
+    </div>
+  </div>
+</header>
+<main>
+<section id="sec-1">
+  <div class="wrap">
+    <p class="kicker fade">01 ── 区別</p>
+    <h2 class="fade">一冊の中に、三つの主張が混ざっている</h2>
+    <p class="sub fade">Behavior, method, habit</p>
+    <p>『習慣超大全』（原題 <em>Tiny Habits</em>、ダイヤモンド社、2021年、552ページ）を読むと、三つの話が地続きに進む。B=MAPは、ある行動がその瞬間に起きるかどうかの説明。Tiny Habitsは、新しい行動を暮らしに組み込む手順。そして習慣は、手がかりと行動の結びつきが繰り返しで強まり、考えなくても動き出す状態を指す。</p>
+    <p>この三つは、それぞれ別に確かめる必要がある。B=MAPが正しくてもTiny Habitsが効くとは限らないし、Tiny Habitsで行動が増えても、それが習慣になったとは言えない。</p>
+    <p>最後の点は、実は習慣研究者が一番気にしているところだ。Gardnerらの2022年の論文は、<em>行動の回数だけから習慣を推定してはいけない</em>と明記している。毎朝がんばって思い出して薬を飲んでいる人は、回数こそ多いが、習慣になっているとは限らない。測るべきなのは、手がかりに出会ったときに考えなくても動くかどうか（自動性）のほうになる。</p>
+    <p>この区別を持ったまま、主張を一つずつ判定すると次のようになる。判定は、確認できた文献をもとにした筆者の見立てである。</p>
+    <div class="table-wrap fade">
+      <table>
+        <thead><tr><th>主張</th><th>確認できた証拠</th><th>判定</th></tr></thead>
+        <tbody>
+          <tr><td>動機と能力が高い人ほど行動する</td><td>4つの行動の調査で、オッズが8〜35倍。多くは横断調査</td><td><strong>相関は支持</strong></td></tr>
+          <tr><td>3要素が同時に揃わないと行動は起きない</td><td>直接検証は見つからず</td><td><strong>未検証</strong></td></tr>
+          <tr><td>B=MAPに沿った介入は効く</td><td>6本・計289人。比較群なしも含み、モデル単独の効果は分離できない</td><td><strong>予備的</strong></td></tr>
+          <tr><td>Tiny Habitsは効く</td><td>RCT 1本。結果は感謝尺度で、脱落も多い</td><td><strong>予備的</strong></td></tr>
+          <tr><td>既存の行動に紐づける</td><td>単純な行動の実験で支持。ただし時刻の手がかりと差が出なかったRCTもある</td><td><strong>部分的に支持</strong></td></tr>
+          <tr><td>行動を小さくする</td><td>単純な行動ほど定着しやすいという間接証拠のみ</td><td><strong>間接的</strong></td></tr>
+          <tr><td>お祝いが習慣を定着させる</td><td>単独の検証は見つからず。報酬一般の研究は相関が中心</td><td><strong>未検証</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="sec-2">
+  <div class="wrap">
+    <p class="kicker fade">02 ── B=MAP</p>
+    <h2 class="fade">行動が起きない理由を、三つに分けて探すモデル</h2>
+    <p class="sub fade">Motivation, Ability, Prompt</p>
+    <p>B=MAPの主張は短い。動機（Motivation）、能力（Ability）、プロンプト（Prompt）が同じ瞬間に揃うと行動が起き、起きなかったなら少なくとも一つが欠けている。2009年に会議論文として発表されたときの主張も、同じ瞬間に揃う必要があるという点で変わっていない。</p>
+    <figure class="fig fade">
+      <svg viewBox="0 0 640 320" role="img" aria-label="縦軸が動機、横軸が能力の図。右下がりの曲線が行動ラインで、その上でプロンプトが来ると行動が起きる">
+        <line class="f-ax" x1="70" y1="270" x2="600" y2="270"/>
+        <line class="f-ax" x1="70" y1="270" x2="70" y2="30"/>
+        <path class="f-wave1" d="M95 42 C 130 180, 240 235, 575 250"/>
+        <text class="f-lb" x="20" y="150" transform="rotate(-90 20 150)">動機 低 → 高</text>
+        <text class="f-lb" x="280" y="303">能力（やりやすさ） 低 → 高</text>
+        <text class="f-s" x="430" y="232">行動ライン</text>
+        <g class="f-pt"><circle cx="400" cy="120" r="6"/></g>
+        <text class="f-lb" x="415" y="115">プロンプトが来れば行動する</text>
+        <text class="f-s" x="415" y="134">動機か能力のどちらかが足りている</text>
+        <g class="f-pt"><circle cx="165" cy="225" r="6"/></g>
+        <text class="f-lb" x="182" y="256">プロンプトが来ても行動しない</text>
+      </svg>
+      <figcaption>図1　B=MAPの構造（筆者によるFogg図の模式）。実測データではない。曲線の形も測定で求められたものではなく、動機と能力が補い合うという考えを表している。</figcaption>
+    </figure>
+    <p>三つの中身を見ておく。</p>
+    <div class="map fade">
+      <div class="mrow"><div class="mh"><span class="ms">動機</span><span class="mt">Motivation</span></div><p>快と痛み（感覚）、希望と恐れ（予期）、受容と拒絶（所属）の三つ。フォッグは動機を波にたとえる。波が高いときは難しいこともやるが、引くと簡単なことしかしない。</p></div>
+      <div class="mrow"><div class="mh"><span class="ms">能力</span><span class="mt">Ability</span></div><p>時間、お金、身体的な労力、頭を使う労力、いつもの手順からの外れ具合。そのとき一番足りない資源で、行動の難しさが決まる（2009年の論文には「社会的な逸脱」もあった）。能力を上げる道は、訓練する、道具を渡す、行動を小さくするの三つで、フォッグが勧めるのは最後の道だ。</p></div>
+      <div class="mrow"><div class="mh"><span class="ms">プロンプト</span><span class="mt">Prompt</span></div><p>「今やって」という合図。もとは Trigger と呼ばれ、2017年に改称された。動機が足りない人には火花（Spark）、能力が足りない人には手助け（Facilitator）、どちらも足りている人には単なる合図（Signal）を出す。</p></div>
+    </div>
+    <p style="margin-top:24px">実務で使うと、これは便利だ。ユーザーが登録しないとき、説得文を磨くべきか、入力項目を減らすべきか、通知を増やすべきか。考える順番を与えてくれる。</p>
+    <p>ただ、便利さと正しさは別の話で、気になる文がある。「行動が起きないなら、少なくとも一つが欠けている」。やらなかった人を見て「動機か能力かプロンプトのどれかが足りなかった」と言えば、ほぼ何でも説明できてしまう…。事前に予測して外れる余地がなければ、理論は検証されない。B=MAPの検証を読むときは、ここを見ていく。</p>
+  </div>
+</section>
+
+<section id="sec-3">
+  <div class="wrap">
+    <p class="kicker fade">03 ── 手法</p>
+    <h2 class="fade">コーヒーを一口飲んだら、感謝を一つ思い出す</h2>
+    <p class="sub fade">Anchor, Tiny Behavior, Celebration</p>
+    <p>Tiny Habitsは、B=MAPをそのまま手順に落としたものと読める。動機は当てにせず、行動を極端に小さくして能力を上げ、プロンプトを日課に任せる。レシピの形は「〇〇したら（アンカー）、△△する（小さな行動）」。やったらすぐ、お祝いをする。</p>
+    <p>実際に研究で使われたレシピを借りると、こうなる。</p>
+    <ul class="clean">
+      <li>コーヒーを一口飲んだら、感謝していることを一つ思い浮かべる。</li>
+      <li>朝、床に足をつけたら、前屈のストレッチを3呼吸する。</li>
+      <li>お祝いの例は、「感謝するって気分がいい！」と思ってガッツポーズをする。</li>
+    </ul>
+    <p>お祝いには、はっきりした理屈が与えられている。良い気分と成功の感覚（フォッグの言葉でShine）が、アンカーと行動の結びつきを強め、自動性を高めるというものだ。フォッグは「やるべきこと」より「本当にやりたいこと」を選ぶようにも勧めている。</p>
+    <p>小さくする理由も筋が通っている。歯を1本だけフロスする程度なら、動機の波が引いた日でもできる。続けられれば結びつきは強まり、やる日が増える。そしてどこかで行動が自然に広がる、とフォッグは言う。</p>
+    <p>どれも、もっともらしい。では、実際に試した人たちは何を見つけたのか。</p>
+    <div class="caution fade">
+      <p class="c-label">読むときの注意</p>
+      <p>この記事は、手法の内容を公式サイト、論文での記述、書評や要約から確認している。『習慣超大全』全552ページを精読したわけではない。本書の個々の章の評価としては読まないでほしい。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-4">
+  <div class="wrap">
+    <p class="kicker fade">04 ── 検証 1</p>
+    <h2 class="fade">B=MAPは、何をどこまで確かめられたのか</h2>
+    <p class="sub fade">Correlation first, experiments later</p>
+    <h3 class="fade">オッズ35倍の調査と、その読み方</h3>
+    <p>一番派手な数字は、Aghaの2022年の論文に出てくる。ナイジェリア、パキスタン、インドの調査データで、動機と能力がともに高い人は、行動するオッズが大きく高かった。</p>
+    <div class="table-wrap fade">
+      <table>
+        <thead><tr><th>国</th><th>対象</th><th>行動</th><th>オッズの倍率</th></tr></thead>
+        <tbody>
+          <tr><td>パキスタン</td><td>既婚男性</td><td>コンドーム使用</td><td>35倍</td></tr>
+          <tr><td>ナイジェリア</td><td>医療従事者</td><td>COVID-19ワクチン接種</td><td>27倍</td></tr>
+          <tr><td>インド</td><td>出産年齢の女性</td><td>鉄・葉酸の服用</td><td>9倍</td></tr>
+          <tr><td>ナイジェリア</td><td>思春期から若年の女性</td><td>現代的避妊法の使用</td><td>8倍</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:24px">印象的な数字だが、4件のうち3件は一時点の調査で、著者自身が因果は言えないと書いている。2件では動機と能力をそれぞれ1問で聞いているし、他の調査の転用なので能力の要素が一部測れていない。ワクチンを打った人が「打ちたかった」と答えるのは自然なことで、動機が接種を生んだのか、接種が答えを変えたのかは区別できない（これは筆者の読み）。</p>
+    <p>査読報告も公開されていて、査読者の一人は、国ごとに設定も質問も違う調査から同じ結論を導く方法に疑問を呈している。著者の結論も控えめで、実験や準実験での厳密な検証を勧めている。</p>
+    <h3 class="fade">6本・289人のレビュー</h3>
+    <p>Duarte-Anselmiらの2025年のスコーピングレビューは、B=MAPを使った健康介入の全体像を見るのに一番よい資料だ。6本のうち米国が約3分の2、RCTも約3分の2。結果だけを見ると好成績が並ぶ。妊娠中の体重管理では妊娠糖尿病が10.34%対34.48%、HPVワクチンの接種意向は63.3%から96.7%へ。レビューの結論も「有効な枠組み」である。</p>
+    <p>限界の節を読むと、印象が変わる。小さなサンプル、自己報告、比較群のない研究、研究間のばらつきでメタ分析は不可。COM-Bなど他のモデルとの比較もない。長期の継続を調べた研究も少ない。妊娠中の体重管理の試験（Wang 2024）は58人のパイロットで、WeChatの基盤と個別支援を組み合わせた総合パッケージだった。効いたとしても、効いたのがB=MAPの考え方なのか、手厚い支援なのかは分けられない。</p>
+    <p>ここが大事な分かれ目で、「B=MAPを使って作った介入が効いた」ことと、「B=MAPの予測が正しい」ことは違う。優秀な設計者なら、どの枠組みを使っても効く介入を作れるかもしれない。</p>
+    <div class="note fade">
+      <p class="n-title">未検証のまま残っている予測</p>
+      <p>B=MAPには、本来なら反証できる予測が含まれている。プロンプトがなければ動機と能力が高くても行動しない。動機と能力は特定の曲線に沿って補い合う。曲線を越えていなければプロンプトは無効である。こうした予測を直接試したRCTは、今回の調査では見つからなかった。Hrehaの解説記事も同じ見立てで、この点についてはRCTがないと書いている（二次資料）。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-5">
+  <div class="wrap">
+    <p class="kicker fade">05 ── 検証 2</p>
+    <h2 class="fade">Tiny Habitsの試験で、何が測られなかったか</h2>
+    <p class="sub fade">Hollingsworth &amp; Redden, 2022</p>
+    <p>Tiny Habitsを直接試したランダム化比較試験として確認できたのは、Hollingsworthらの2022年の研究である。感謝尺度が低めの成人154人を3群に分けた。感謝のレシピを行う群、感謝と関係ないレシピ（読書やストレッチなど）を行う群、何もしない群だ。</p>
+    <div class="table-wrap fade">
+      <table>
+        <thead><tr><th>群</th><th>約1週後の変化</th><th>約1か月後の変化</th><th>1か月後の回答者</th></tr></thead>
+        <tbody>
+          <tr><td>感謝のTiny Habits</td><td>+6.9</td><td>+7.0</td><td>28／50人</td></tr>
+          <tr><td>感謝以外のTiny Habits</td><td>+5.6</td><td>+4.8</td><td>23／52人</td></tr>
+          <tr><td>何もしない</td><td>+2.5</td><td>+2.9</td><td>39／52人</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fig-note" style="font-size:12.5px;color:var(--muted);margin-top:10px">感謝尺度GQ-6（6〜42点）の変化量。出典：Hollingsworth &amp; Redden 2022, Table 2。</p>
+    <p>感謝群は何もしない群より有意に高く、1か月後の効果量は d=0.78（1か月後に有意差が残ったのはこの比較だけ）。数字だけ見れば立派な結果だ。ただし、読むべき点が四つある。</p>
+    <p>一つめ。<em>習慣の強さを測っていない</em>。主な結果は感謝の尺度、副次は希望の尺度で、自動性の測定は報告されていない。「感謝が増えた」とは言えても、「習慣ができた」とは言えない。</p>
+    <p>二つめ。脱落が偏っている。1か月後の回答率は、何もしない群が4分の3に対し、Tiny Habitsの2群は5割前後。著者も、結果が偏っているかもしれないと認めている。続かなかった人が答えなければ、残った人の数字は良く見える。</p>
+    <p>三つめ。第一著者が研究を設計し、感謝群のコーチも務めている。これ自体は不正ではないが、独立した検証とは言いにくい。結果は自己報告の尺度で、盲検化についての記載もなかった。</p>
+    <p>四つめが一番面白い。1週後の時点で、感謝と無関係なレシピでも感謝尺度は上がり（d=0.71）、2つのTiny Habits群に統計的な差はなかった。読書やストレッチで感謝が増えるのだろうか。小さな成功の積み重ねが気分を上げたのかもしれないし、コーチとのやりとりや、残った人の偏りかもしれない…。この試験だけでは分からない。</p>
+    <h3 class="fade">「4万人で8割」の中身</h3>
+    <p>よく引かれる数字に、5日間の無料プログラムの参加者4万人超、成功率は約8割というものがある。ただ、これはフォッグ自身のプログラムの自己申告で、査読研究で独立に確認されたものではないと、Hrehaの記事は指摘している（二次資料）。指導人数も、資料や時期によって2万人とも4万人とも書かれる。どちらにしても普及の規模を示す数字で、効果の数字ではない。</p>
+    <h3 class="fade">お祝いは、なぜ効くと言えないのか</h3>
+    <p>お祝いだけを取り出して、ありとなしを比べた研究は見つからなかった。Hollingsworthらの試験でも、お祝いの有無は比較していない。</p>
+    <p>周辺の研究は、ある程度この方向を向いている。Judahらの2018年の研究では、フロスとビタミンCの習慣で、報酬を感じている人ほど反復が習慣につながりやすかった。Woolleyらの研究でも、続くかどうかをよく予測したのは、遠い将来の利益より目の前の楽しさだった。</p>
+    <p>ただ、どちらも「やっていて楽しいと感じる」話で、自分で後から祝う行為を試したものではない。Judahらも単一群の観察研究である。Gardnerらは、果物の摂取を調べた似た研究について、習慣が育ってやりやすくなったから楽しく感じるようになった可能性を指摘し、内発的報酬が習慣を強めた証拠と見るのは不適切だと書いている。GardnerとLallyは、報酬がそもそも習慣に必要なのかも、まだ確かめるべき問題だとしている。</p>
+    <p>お祝いは、外れていても失うものが小さい。やりたい人はやればいいと思う。ただ、「感情が習慣を作る」という説明を、確立した知見として受け取るのは早い。</p>
+  </div>
+</section>
+
+<section id="sec-6">
+  <div class="wrap">
+    <p class="kicker fade">06 ── 裏づけ</p>
+    <h2 class="fade">本人の実験より、他人の研究が支えている部分</h2>
+    <p class="sub fade">Where independent habit research agrees</p>
+    <p>ここまでだと、Tiny Habitsは根拠の薄い手法に見える。視点を変えて、フォッグと無関係に積み上げられた習慣研究と突き合わせると、話が変わってくる。</p>
+    <h3 class="fade">アンカーは効く。ただし、魔法の配置ではない</h3>
+    <p>Judahらの2013年の探索的な実験（50人）では、フロスを歯磨きの前に行う群より後に行う群のほうが、4週後の自動性が高かった。すでに定着した行動の直後に置くという発想を、直接支持する結果である。</p>
+    <p>ところがKellerらの2021年のRCT（192人、84日間）は、「朝食の後に水を飲む」のような日課の手がかりと、「午前9時に水を飲む」のような時刻の手がかりを比べて、差がないと報告した。どちらも自動性は上がり、一番効いていたのは計画どおりに繰り返した回数だった。</p>
+    <p>つまり、アンカーが特別なのではなさそうだ。Tiny Habitsのレシピは、形としては後で述べるif-thenプランとほぼ同じで、効いているのはおそらく、手がかりをはっきり決めて、そこで繰り返すことのほうだろう（レシピとif-thenの対応は筆者の解釈）。</p>
+    <h3 class="fade">小さくすることは、遠回しに支持される</h3>
+    <p>行動の大小を直接比べて習慣の強さを見た研究は、今回の調査では見つからなかった。あるのは間接的な証拠だ。Buyalskayaらの2023年のPNAS論文は、機械学習で習慣の形成を推定し、ジムは中央値で約4〜7か月、手洗いは数週間と見積もった（ジム3万人超、手洗い3千人超）。著者はその理由に頻度と複雑さを挙げるが、比べた行動は二つだけで、これは仮説の域を出ない。</p>
+    <p>Singhらの2024年のレビューでも、水を飲む習慣は運動や果物・野菜の習慣より強かった。単純な行動ほど身につきやすいというのは、おそらく確かだろう。</p>
+    <p>未解決なのはその先だ。歯を1本フロスする習慣ができても、それだけで歯周病の予防に足りるとは考えにくい。腕立て2回の習慣は30回になるのか。行動が自然に広がるという主張こそ、Tiny Habitsの核心なのに、確かめた研究は見つからなかった。</p>
+    <h3 class="fade">失敗しても崩れない、は支持される</h3>
+    <p>Lallyらの2010年の研究では、1回抜けても習慣の形成に大きな影響はなかった。ジムの巨大実験でも、最も効いたのは欠席後に戻ると小さな報酬をもらえるプログラムだった。Tiny Habitsの「できなくても責めない」という態度は、この点でよく合っている。</p>
+    <p>逆に、合わない数字もある。Lallyの研究での自動性の到達は、中央値で66日、幅は18〜254日。ただしこの66日は、参加者96人のうちモデルがよく当てはまった39人から出た数字とされ（二次資料）、84日の観察を超える値は推定だ。本人も「66日で習慣ができるのか」と聞かれて、多くの人の多くの場合には当てはまらないと答えている。行動を小さくすれば数日で定着するといった類の期待は、持たないほうがいい。</p>
+  </div>
+</section>
+
+<section id="sec-7">
+  <div class="wrap">
+    <p class="kicker fade">07 ── 他の方法</p>
+    <h2 class="fade">比較的しっかりしている方法を、値引きして見る</h2>
+    <p class="sub fade">Other evidence-based techniques</p>
+    <p>習慣化の研究でも、有名な効果量はしばしば後から縮む。一番よく知られたif-thenプランが典型だ。</p>
+    <figure class="fig fade">
+      <p class="ev-title">if-thenプランの効果量は、どこまで縮むか</p>
+      <div class="ev-bars" role="img" aria-label="効果量dの比較。2006年の94件で0.65、2024年の642件で0.36、行動のみ0.27、バイアス補正後0.15">
+        <div class="ev-row"><span class="ev-lb">2006年 メタ分析（94件）</span><span class="ev-track"><i style="width:81%"></i></span><span class="ev-v">0.65</span></div>
+        <div class="ev-row"><span class="ev-lb">2024年 全結果（642件）</span><span class="ev-track"><i style="width:45%"></i></span><span class="ev-v">0.36</span></div>
+        <div class="ev-row"><span class="ev-lb">2024年 行動のみ</span><span class="ev-track"><i style="width:34%"></i></span><span class="ev-v">0.27</span></div>
+        <div class="ev-row"><span class="ev-lb">2024年 頑健ベイズ補正後</span><span class="ev-track"><i style="width:19%"></i></span><span class="ev-v">0.15</span></div>
+      </div>
+      <figcaption>図2　効果量 d の比較。2024年の論文要旨で確認できたのは結果別の範囲 .27〜.66 まで。全体の0.36と補正後の0.15は、本文を引用した二次資料からの値で、原論文では未確認（本文が有料のため）。補正後の0.15は、行動以外の結果も含む全体の推定値である。</figcaption>
+    </figure>
+    <p>0.65と0.15では、読み手が受ける印象はかなり違う。それでも、642件という件数の検証を受けた方法は、この分野では多くない。以下、筆者が信頼する順に並べる。</p>
+    <div class="map fade">
+      <div class="mrow"><div class="mh"><span class="ms">if-thenプラン</span><span class="mt">根拠 強め／効果 小〜中</span></div><p>「Xが起きたらYをする」と決める。2024年のメタ分析では、if-thenの形を取ること、目標への動機が高いこと、計画を反復して確認することで効果が大きくなった。ひと手間で済むので、費用対効果はよい。</p></div>
+      <div class="mrow"><div class="mh"><span class="ms">進捗の記録</span><span class="mt">根拠 強め／効果 小〜中</span></div><p>Harkinらの2016年のメタ分析（138のランダム化研究、19,951人）で、記録の頻度を増やす介入は目標達成を高めた（d=0.40）。記録を形に残すと効果が大きかった（0.43対0.29）。ただし対象は健康行動が多く、習慣そのものを測った結果ではない。</p></div>
+      <div class="mrow"><div class="mh"><span class="ms">同じ状況で繰り返す</span><span class="mt">根拠 中／習慣の定義そのもの</span></div><p>習慣研究者の間で最も一致している条件。Singhらのレビューでは、介入前後で習慣スコアが上がった（SMD=0.69）。ただしこれは前後の変化を見た値で、20本中11本がバイアスの高い研究だった。身体活動の習慣介入を対照群と比べた別のレビューの値は SMD=0.31 で、実力はこちらに近いかもしれない。</p></div>
+      <div class="mrow"><div class="mh"><span class="ms">自分で選ぶ、楽しめるものにする</span><span class="mt">根拠 中／因果は未確定</span></div><p>自分で選んだ習慣は、割り当てられた習慣より強かった（van der Weiden）。楽しさの評価が運動習慣の形成を媒介していた（Kaushal）。Tiny Habitsの「本当にやりたいことを選ぶ」と同じ方向を向く。</p></div>
+      <div class="mrow"><div class="mh"><span class="ms">戻ったときに報酬を出す</span><span class="mt">根拠 大規模実験1本</span></div><p>Milkmanらの巨大実験（61,293人、54プログラム）で最も効いた。一方で、ジム通いを増やしたのは54のうち45%にとどまり、終了後も効果を測れたのは8%だけ。しかも第三者の予測では、どれが効くかを当てられなかった。行動介入全般についての冷静な基準になる数字である。</p></div>
+    </div>
+    <div class="caution muted fade">
+      <p class="c-label">単発の知見</p>
+      <p>朝のストレッチは平均106日、夜は154日で習慣になったという報告もある（Fournier）。ただし1本の研究で、対象もストレッチに限られる。「習慣は朝に」と一般化するには足りない。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-8">
+  <div class="wrap">
+    <p class="kicker fade">08 ── 比較</p>
+    <h2 class="fade">従来のモデルと、何が違うのか</h2>
+    <p class="sub fade">B=MAP, COM-B, TPB, habit theory</p>
+    <p>比べるとき、「どれが正しいか」を問うと話がかみ合わない。モデルごとに説明しようとしている対象が違うからだ。</p>
+    <div class="table-wrap fade">
+      <table>
+        <thead><tr><th>モデル</th><th>説明する対象</th><th>確かめられ方</th><th>弱いところ</th></tr></thead>
+        <tbody>
+          <tr><td><strong>B=MAP</strong><br>Fogg 2009</td><td>その瞬間に行動が起きるか</td><td>応用研究と横断調査が中心</td><td>予測の直接検証がない。後付けで説明できてしまう</td></tr>
+          <tr><td><strong>COM-B</strong><br>Michie 2011</td><td>個人から政策まで、行動の条件と介入の種類</td><td>19の枠組みを整理して構築。政策文書の分類で信頼性を確認</td><td>設計の改善につながるかは今後の課題と著者も書く</td></tr>
+          <tr><td><strong>計画的行動理論</strong><br>Ajzen 1985</td><td>態度、規範、統制感から意図と行動を予測</td><td>237件の前向き研究で行動の分散の19.3%を説明</td><td>意図があっても動かない人を説明しにくい。客観指標だと予測力が下がる</td></tr>
+          <tr><td><strong>習慣理論</strong><br>Lally, Gardner, Woodら</td><td>繰り返しで手がかりと行動が結びつく過程</td><td>追跡研究と自動性尺度。基準を満たす追跡研究は5本</td><td>測定の多くが自己報告。定義にも合意がない</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="fade">計画的行動理論は、同じ病を先に患った</h3>
+    <p>計画的行動理論（TPB）は30年ほど健康行動研究の中心にいた理論である。Sniehottaらは2014年に「引退させるときだ」と題する論説を書き、8本の反論や応答を呼んだ。批判の中身は、B=MAPを読むうえで参考になる。相関研究ばかりで実験が少ない。実験をすると想定どおりに動かない。そもそも反証できない常識的な言明ではないか。</p>
+    <p>B=MAPに向けられる疑問と、かなり似ている。ただTPBには237件の前向き研究があり、弱点が数字で分かる。検証されて弱点が分かった理論と、まだ十分に検証されていない理論は、同じ「弱い」でも意味が違うわけで、後者は単に分かっていない。</p>
+    <p>TPBの弱点から学べることもある。Webbらのメタ分析（47の実験）では、意図を d=0.66 変えても、行動は d=0.36 しか変わらなかった。この隙間を埋める方法として研究が進んだのがif-thenプランであり、フォッグの「動機より設計」という直感も、同じ隙間を見ている。</p>
+    <h3 class="fade">COM-Bとは、どこが対応するのか</h3>
+    <p>COM-Bは、能力（Capability）、機会（Opportunity）、動機（Motivation）の三つで行動を説明する。B=MAPの能力はCapabilityと重なり、プロンプトはOpportunityの一部と重なる（対応づけは筆者の解釈で、公式のものではない）。</p>
+    <p>違いは二つある。COM-Bには、周囲の規範や文化を含む「社会的機会」がある。避妊やワクチンのように周囲の目が強く関わる行動では、個人の能力をいくら上げても届かない部分が出る。2025年のレビューでも、スティグマや費用の壁が報告されていた。</p>
+    <p>もう一つは動機の扱いだ。COM-Bは、熟慮による動機と、感情や衝動による自動的な動機を分け、<em>熟慮による動機がなくても行動は起きうる</em>としている。これは習慣をうまく説明する。走りたいと思っていない朝でも、いつもどおり走り出す人のことだ。B=MAPの図では動機が縦軸1本なので、この区別が現れない。</p>
+    <h3 class="fade">4段階で並べると、守備範囲が見える</h3>
+    <p>LallyとGardnerは、習慣の形成を四つの段階に分けた。各モデルをここに並べると、争うよりも役割の違いが見えてくる。</p>
+    <div class="table-wrap fade">
+      <table>
+        <thead><tr><th>段階</th><th>よく説明するもの</th><th>使える方法</th></tr></thead>
+        <tbody>
+          <tr><td>1. やると決める</td><td>TPB、COM-Bの動機</td><td>自分で選ぶ、楽しめるものを選ぶ</td></tr>
+          <tr><td>2. 意図を行動に移す</td><td>B=MAP、if-thenプラン、COM-B</td><td>if-thenプラン、行動を小さくする、環境を変える</td></tr>
+          <tr><td>3. 繰り返す</td><td>B=MAP、習慣理論</td><td>記録、抜けた後の戻り方、報酬</td></tr>
+          <tr><td>4. 自動的になる</td><td>習慣理論</td><td>同じ状況での反復を時間をかけて続ける</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:24px">この表（モデルの割り当ては筆者の整理）で気になるのは、「動機に頼らない」というTiny Habitsの看板である。Gardnerらは、習慣の形成には、その前に動機、能力、機会のいずれかの変化が必要だと書く。if-thenプランも、目標への動機が高いほど効く。動機が要らないのではなく、毎回の実行で動機に頼らなくて済むようになる、というのが正確なところだろう。第1段階を飛ばせるわけではない。</p>
+  </div>
+</section>
+
+<section id="sec-9">
+  <div class="wrap">
+    <p class="kicker fade">09 ── 課題</p>
+    <h2 class="fade">何が分かれば、この議論は決着するのか</h2>
+    <p class="sub fade">What remains unknown</p>
+    <p>足りないものは、はっきりしている。必要な試験も、難しいものではない。</p>
+    <ul class="clean">
+      <li><b>要素を分解した試験</b>　行動の大きさ（小さい／通常）とお祝い（あり／なし）を掛け合わせた2×2の試験があれば、Tiny Habitsの二大主張を切り分けられる（筆者の提案）。お祝いなしでも同じ結果なら、手順は一つ短くできる。</li>
+      <li><b>自動性を測る</b>　Tiny Habitsの研究でも、自動性の尺度を使い、客観的な行動記録と組み合わせる必要がある。Gardnerらの基準では、基準を満たす追跡研究は当時5本だけで、これはTiny Habitsに限った話ではない。</li>
+      <li><b>モデルどうしの直接比較</b>　2025年のレビューも、Aghaも、他のモデルとの比較を課題に挙げている。同じ行動を同じ人たちで比べる研究は見つからなかった。Milkmanらの巨大実験の形式はそのまま使えるはずだ。</li>
+      <li><b>長期の追跡</b>　Hollingsworthらは約1か月。ジムの習慣の形成に4〜7か月かかるなら、1か月の試験では形成途中しか見ていないことになる。</li>
+      <li><b>独立した再現</b>　手法の提供者やコーチと距離のある研究者による再現。</li>
+      <li><b>小さな行動は広がるのか</b>　小さな習慣が大きな行動へ自然に広がるという主張の検証。ここが確かめられないと、健康上の結果につながるかどうかが分からない。</li>
+      <li><b>対象の広がり</b>　2025年のレビューには、10歳未満と10〜19歳の研究がなく、性差の分析もなかった。「あらゆる年齢、あらゆる文化」と言うには、証拠が偏りすぎている。</li>
+    </ul>
+    <p>もう一つ、方向の違う疑問がある。Buyalskayaらは、行動の予測しやすい人ほど、ジム通いを増やす介入に反応しにくいことを報告した。習慣が強い人には働きかけが届きにくいということなら、良い習慣は守られるが、悪い習慣はそれだけ変えにくい。作る話ばかりの習慣論に、やめる話をどう接続するのか。これはまだ開いたままだ。</p>
+  </div>
+</section>
+
+<section id="sec-10">
+  <div class="wrap">
+    <p class="kicker fade">10 ── 使う</p>
+    <h2 class="fade">では『習慣超大全』をどう読むか</h2>
+    <p class="sub fade">How to use it anyway</p>
+    <p>設計の手引きとして読むのがいいと思う。行動しない理由を切り分ける考え方も、レシピの書き方も、すぐ試せるし、試す費用も小さい。学術書として読まなければ、失うものは少ない。</p>
+    <p>自分で試すなら、Tiny Habitsの形を借りて、根拠のある部分を足すとよさそうだ。</p>
+    <ol class="app fade">
+      <li><strong>自分で選ぶ</strong><span>やるべきことより、やりたいことから。自分で選んだ習慣のほうが強い。</span></li>
+      <li><strong>「〇〇したら△△する」と書く</strong><span>毎日ほぼ確実に起きるものを手がかりにする。日課でも時刻でもよい。差は出ていない。</span></li>
+      <li><strong>小さく始める</strong><span>動機が低い日でもできる大きさに。根拠は間接的なので、目的の結果に届く大きさまで増やす計画は別に持っておく。自然に広がるとは限らない。</span></li>
+      <li><strong>記録を形に残す</strong><span>カレンダーの印で足りる。頭の中で数えるより効果が大きい。</span></li>
+      <li><strong>抜けたら次の機会に戻る</strong><span>1回抜けても大きな影響はなかった。一方、抜けてばかりの人は習慣にならなかった。</span></li>
+      <li><strong>回数ではなく、自動性で判定する</strong><span>月に一度、「考えずに始めているか」を確かめる。結論は数か月単位で出す。</span></li>
+    </ol>
+    <p>お祝いは、好みで足せばいい。なお完璧主義の人がこの手順でつまずくところは、<a href="../03-perfectionism-habit/">「完璧主義は、習慣を壊すのか」</a>で別に扱っている。</p>
+    <div class="closing fade">
+      <p><strong>結局、どこまで信じてよいのか。</strong></p>
+      <p>「小さく決めて、同じ場面で繰り返し、記録する」という行動の部分は、フォッグの権威がなくても支持されている。「お祝いが習慣を作る」「小さな行動は自然に広がる」「B=MAPは誰にでも当てはまる」という説明の部分は、まだ確かめられていない。本が売れた理由はたぶん後者の語りの力にあるので、読むときはそこを楽しみつつ、手を動かすのは前者でいいと思う。</p>
+      <p style="margin-bottom:0">2009年から十数年、これだけ広まった手法なのに、要素ごとの試験は今回見つからなかった。逆に言えば、2×2の試験を1本行うだけで、この分野の見通しはかなり変わるはずだ。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-11" class="sources">
+  <div class="wrap">
+    <p class="kicker fade">Limits &amp; Sources</p>
+    <h2 class="fade">この記事の限界と出典</h2>
+    <div class="caution muted fade">
+      <p class="c-label">この記事の限界</p>
+      <p>「見つからなかった」は、今回のWeb調査の範囲での話で、存在しないことの証明ではない（2025年のレビューも、用語の不統一で関連研究を取りこぼした可能性を認めており、Hollingsworthらの試験もこのレビューの6本には入っていない）。Lally 2010、Keller 2021、Judah 2018、Webb &amp; Sheeran 2006、Woolley &amp; Fishbach 2017、Fournier、van der Weiden、Kaushal、Gollwitzer &amp; Sheeran 2006、McEachan 2011 は、要旨、他の論文での引用、または二次資料で確認した。Sheeran 2024 は要旨のみで、本文は読めていない。証拠の判定とモデルの対応づけは筆者の解釈である。</p>
+    </div>
+    <ol>
+      <li>Fogg BJ (2009). A behavior model for persuasive design. Persuasive '09. <a href="https://doi.org/10.1145/1541948.1541999" target="_blank" rel="noopener">DOI</a> ／ 内容の確認は<a href="https://justinowings.com/fogg-behavior-model/" target="_blank" rel="noopener">引用つきの解説</a>による</li>
+      <li>Fogg BJ. <a href="https://www.behaviormodel.org/" target="_blank" rel="noopener">Fogg Behavior Model 公式サイト</a>（<a href="https://www.behaviormodel.org/motivation" target="_blank" rel="noopener">Motivation</a>、<a href="https://www.behaviormodel.org/ability" target="_blank" rel="noopener">Ability</a>、<a href="https://www.behaviormodel.org/prompts" target="_blank" rel="noopener">Prompts</a>）</li>
+      <li>BJ・フォッグ『<a href="https://www.amazon.co.jp/dp/4478106312" target="_blank" rel="noopener">習慣超大全</a>』須川綾子訳、ダイヤモンド社、2021年</li>
+      <li>Duarte-Anselmi G, et al. (2025). Behavioral science meets public health. <i>BMC Public Health</i>, 25, 3468. <a href="https://link.springer.com/article/10.1186/s12889-025-24525-y" target="_blank" rel="noopener">本文</a></li>
+      <li>Agha S (2022). Use of a practitioner-friendly behavior model. <i>Vaccines</i>, 10(8), 1261. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9414643/" target="_blank" rel="noopener">本文</a> ／ <a href="https://www.mdpi.com/2076-393X/10/8/1261/review_report" target="_blank" rel="noopener">査読報告</a></li>
+      <li>Wang L, et al. (2024). Hybrid weight management for pregnant women based on the Fogg behavior model. <i>BMC Pregnancy and Childbirth</i>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11289958/" target="_blank" rel="noopener">本文</a></li>
+      <li>Hollingsworth JC, Redden DT (2022). Tiny Habits for Gratitude. <i>Frontiers in Public Health</i>, 10, 866992. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9149079/" target="_blank" rel="noopener">本文</a></li>
+      <li>Hreha J. <a href="https://www.thebehavioralscientist.com/articles/fogg-behavior-model" target="_blank" rel="noopener">The Fogg Behavior Model: B = MAP</a>. The Behavioral Scientist（二次資料）</li>
+      <li>Gardner B, Rebar AL, Lally P (2022). How does habit form? <i>Cogent Psychology</i>, 9(1). <a href="https://doi.org/10.1080/23311908.2022.2041277" target="_blank" rel="noopener">本文</a></li>
+      <li>Gardner B, Lally P. Commentary on Phillips &amp; Mullan（報酬と習慣について）. <a href="https://discovery.ucl.ac.uk/id/eprint/10155780/" target="_blank" rel="noopener">UCL Discovery</a></li>
+      <li>Singh B, et al. (2024). Time to form a habit. <i>Healthcare</i>, 12(23), 2488. <a href="https://www.mdpi.com/2227-9032/12/23/2488" target="_blank" rel="noopener">本文</a></li>
+      <li>Lally P, et al. (2010). How are habits formed. <i>European Journal of Social Psychology</i>, 40(6). <a href="https://doi.org/10.1002/ejsp.674" target="_blank" rel="noopener">DOI</a> ／ <a href="https://www.surrey.ac.uk/news/does-it-really-take-66-days-form-habit-we-asked-expert-dr-pippa-lally" target="_blank" rel="noopener">本人インタビュー</a> ／ <a href="https://www.thebehavioralscientist.com/articles/how-long-to-form-a-habit" target="_blank" rel="noopener">解説（二次資料）</a></li>
+      <li>Keller J, et al. (2021). Habit formation following routine-based versus time-based cue planning. <i>British Journal of Health Psychology</i>, 26. <a href="https://pubmed.ncbi.nlm.nih.gov/33405284/" target="_blank" rel="noopener">PubMed</a></li>
+      <li>Judah G, Gardner B, Aunger R (2013). Forming a flossing habit. <i>British Journal of Health Psychology</i>, 18(2). <a href="https://researchonline.lshtm.ac.uk/id/eprint/275190/" target="_blank" rel="noopener">要旨</a></li>
+      <li>Judah G, et al. (2018). Exploratory study of the impact of perceived reward on habit formation. <i>BMC Psychology</i>, 6, 62. <a href="https://doaj.org/article/81eb14f34c254e93b2998fd7ee3ae904" target="_blank" rel="noopener">要旨</a></li>
+      <li>Woolley K, Fishbach A (2017). Immediate rewards predict adherence to long-term goals. <i>PSPB</i>. <a href="https://www.chicagobooth.edu/media-relations-and-communications/press-releases/implement-immediate-rewards-as-you-pursue-that-long-term-goal" target="_blank" rel="noopener">大学発表</a></li>
+      <li>Buyalskaya A, et al. (2023). What can machine learning teach us about habit formation? <i>PNAS</i>, 120(17). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10151500/" target="_blank" rel="noopener">本文</a></li>
+      <li>Milkman KL, et al. (2021). Megastudies improve the impact of applied behavioural science. <i>Nature</i>, 600. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8822539/" target="_blank" rel="noopener">本文</a></li>
+      <li>Sheeran P, Listrom O, Gollwitzer PM (2025). The when and how of planning. <i>European Review of Social Psychology</i>, 36(1). <a href="https://doi.org/10.1080/10463283.2024.2334563" target="_blank" rel="noopener">要旨</a> ／ 補正値は<a href="https://www.thebehavioralscientist.com/glossary/implementation-intentions" target="_blank" rel="noopener">The Behavioral Scientist の解説</a>による（2006年のメタ分析の値も同じ）</li>
+      <li>Harkin B, et al. (2016). Does monitoring goal progress promote goal attainment? <i>Psychological Bulletin</i>, 142(2). <a href="https://eprints.whiterose.ac.uk/id/eprint/87431/" target="_blank" rel="noopener">著者版</a></li>
+      <li>Michie S, van Stralen MM, West R (2011). The behaviour change wheel. <i>Implementation Science</i>, 6, 42. <a href="https://link.springer.com/article/10.1186/1748-5908-6-42" target="_blank" rel="noopener">本文</a></li>
+      <li>Sniehotta FF, Presseau J, Araújo-Soares V (2014). Time to retire the theory of planned behaviour. <i>Health Psychology Review</i>, 8(1). <a href="https://doi.org/10.1080/17437199.2013.869710" target="_blank" rel="noopener">本文</a></li>
+      <li>Webb TL, Sheeran P (2006). Does changing behavioral intentions engender behavior change? <i>Psychological Bulletin</i>, 132(2). <a href="https://eprints.whiterose.ac.uk/1580" target="_blank" rel="noopener">著者版</a></li>
+    </ol>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap" style="font-size:13px;color:var(--muted)">
+    Tiny HabitsとB=MAPを、証拠の強さで読み直す<br>
+    SAI's Research ／ 2026-11-06
+  </div>
+</footer>
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+<script>
+
+// progress bar
+var _pb=document.getElementById('progress');
+document.addEventListener('scroll',function(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;_pb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';},{passive:true});
+// active nav
+var _nl=[].slice.call(document.querySelectorAll('.gnav-links a'));
+var _ns=_nl.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+var _io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;_nl.forEach(function(l){var on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+_ns.forEach(function(s){_io.observe(s);});
+</script>
+<script>
+/* THEMES:JS:START */
+/* =========================================================
+   DESIGN THEMES — 共有スクリプト（正本）
+   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
+   ページ側は <div data-theme-switch></div> を1つ置くだけでよい。
+   ページ固有の後処理が要る場合は window.onThemeChange に関数を入れる。
+   ========================================================= */
+
+var THEMES = [
+  { id: 'sai',  name: 'SAI v2',      desc: 'モノクロ基調・エディトリアル', dots: ['#62B8A0', '#EB6584', '#F2C94C'] },
+  { id: 'bold', name: 'Bold Yellow', desc: '黒と黄・2pxの枠線・影なし',    dots: ['#1B1B1B', '#E3E143', '#FAF9EC'] }
+];
+
+var THEME_KEY = 'design-theme';
+var THEME_ICON =
+  '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+  '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>' +
+  '<circle data-dot cx="13.5" cy="6.5" r="1.5"/><circle data-dot cx="17.5" cy="10.5" r="1.5"/>' +
+  '<circle data-dot cx="6.5" cy="12.5" r="1.5"/><circle data-dot cx="8.5" cy="7.5" r="1.5"/></svg>';
+
+var activeTheme = THEMES[0].id;
+
+function themeDotsHTML(theme) {
+  return theme.dots.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('');
+}
+
+function applyTheme(id, persist) {
+  var theme = THEMES.filter(function (t) { return t.id === id; })[0] || THEMES[0];
+  activeTheme = theme.id;
+  if (theme.id === THEMES[0].id) {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme.id);
+  }
+  if (persist) { try { localStorage.setItem(THEME_KEY, theme.id); } catch (e) {} }
+  renderThemeSwitch();
+  if (typeof window.onThemeChange === 'function') window.onThemeChange(theme.id);
+}
+
+function renderThemeSwitch() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  var theme = THEMES.filter(function (t) { return t.id === activeTheme; })[0] || THEMES[0];
+
+  if (!mount.querySelector('.ts-btn')) {
+    mount.innerHTML =
+      '<button type="button" class="ts-btn" aria-haspopup="listbox" aria-expanded="false">' + THEME_ICON + '</button>' +
+      '<div class="ts-menu" role="listbox" aria-label="デザイン" hidden></div>';
+    mount.querySelector('.ts-btn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      var menu = mount.querySelector('.ts-menu');
+      menu.hidden ? openThemeMenu() : closeThemeMenu();
+    });
+  }
+
+  var btn = mount.querySelector('.ts-btn');
+  btn.setAttribute('aria-label', 'デザインを切り替える（現在: ' + theme.name + '）');
+  btn.setAttribute('title', 'デザイン: ' + theme.name);
+
+  var menu = mount.querySelector('.ts-menu');
+  menu.innerHTML = '';
+  THEMES.forEach(function (t) {
+    var opt = document.createElement('button');
+    opt.type = 'button';
+    opt.className = 'ts-opt';
+    opt.setAttribute('role', 'option');
+    opt.setAttribute('aria-selected', String(t.id === activeTheme));
+    opt.innerHTML =
+      '<span class="ts-dots">' + themeDotsHTML(t) + '</span>' +
+      '<span class="ts-text"><span class="ts-name">' + t.name + '</span>' +
+      '<span class="ts-desc">' + t.desc + '</span></span>' +
+      '<span class="ts-check">●</span>';
+    opt.addEventListener('click', function () { applyTheme(t.id, true); closeThemeMenu(); });
+    menu.appendChild(opt);
+  });
+}
+
+function openThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = false;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'true');
+}
+
+function closeThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = true;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'false');
+}
+
+function initThemeSwitch() {
+  var saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+  applyTheme(saved || THEMES[0].id, false);
+
+  document.addEventListener('click', function (e) {
+    var mount = document.querySelector('[data-theme-switch]');
+    if (mount && !mount.contains(e.target)) closeThemeMenu();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeThemeMenu(); });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initThemeSwitch);
+} else {
+  initThemeSwitch();
+}
+/* THEMES:JS:END */
+</script>
+</body>
+</html>
