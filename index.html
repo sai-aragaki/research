@@ -374,6 +374,19 @@ body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { conte
   .bm.on{color:var(--coral)}
   .bm svg{width:16px;height:16px}
 
+  /* read state */
+  .rd{display:inline-block;margin-top:6px;padding:2px 0;font-size:11.5px;color:var(--ink-soft);
+    text-decoration:underline;text-underline-offset:3px;transition:color .15s}
+  .rd:hover{color:var(--ink)}
+  .rd:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+  .entry.is-read .t{font-weight:400;color:var(--muted)}
+  .sync-btn{font-size:inherit;letter-spacing:inherit;color:var(--ink-soft);padding:2px 0;
+    text-decoration:underline;text-underline-offset:3px}
+  .sync-btn:hover{color:var(--ink)}
+  .sync-btn:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+  .count{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .count .chip{flex:none}
+
   .empty-msg{display:none;padding:40px 20px;text-align:center;color:var(--muted);font-size:13px}
 
   /* ---- right column (reader) ---- */
@@ -407,6 +420,7 @@ body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { conte
     .list{overflow:visible;padding-bottom:140px}
     .entry{padding:12px 16px}
     .bm{right:12px;top:10px}
+    .rd{margin-top:0;padding:10px 12px 10px 0;margin-bottom:-8px}
 
     /* Reader: full-screen overlay, below the back bar */
     .right{position:fixed;top:50px;left:0;right:0;bottom:0;z-index:100;height:auto;
@@ -529,7 +543,7 @@ footer{background:var(--line)!important;border-top:none!important;padding:40px 2
   <div class="left">
     <div class="left-head">
       <div class="eyebrow">Research Archive</div>
-      <div class="last-updated">最終更新 <b>2026-10-25</b>／全<b id="luCount"></b>件</div>
+      <div class="last-updated">最終更新 <b>2026-10-25</b>／全<b id="luCount"></b>件／<button class="sync-btn" id="syncBtn" type="button"></button></div>
       <div data-theme-switch></div>
 </div>
     <div class="toolbar">
@@ -539,7 +553,7 @@ footer{background:var(--line)!important;border-top:none!important;padding:40px 2
       </div>
       <div class="filters" id="filters"></div>
     </div>
-    <div class="count" id="count"></div>
+    <div class="count"><span id="count"></span><button class="chip" id="unreadToggle" type="button" aria-pressed="false"></button></div>
     <main class="list" id="list"></main>
     <div class="empty-msg" id="empty">該当する記事はありません。</div>
   </div>
@@ -556,6 +570,7 @@ footer{background:var(--line)!important;border-top:none!important;padding:40px 2
   </div>
 </div>
 
+<script src="/read-status.js"></script>
 <script>
 const ARTICLES = [
   { cat:"ウェルビーイング", title:"ウェルビーイングの全体地図", sub:"概念・構造・主要理論、そしてなぜ5つに絞ったか", url:"./wellbeing/00-map/" },
@@ -601,7 +616,10 @@ function saveFlags(){ localStorage.setItem(LS_KEY, JSON.stringify(flags)); }
 function isFlagged(url){ return !!flags[url]; }
 function toggleFlag(url){ if(flags[url]) delete flags[url]; else flags[url]=1; saveFlags(); }
 
-let active = 'all', keyword = '', currentUrl = null;
+/* ---- read state（保存と同期は /read-status.js） ---- */
+const isRead=url=>RARead.isRead(url);
+
+let active = 'all', keyword = '', currentUrl = null, unreadOnly = false;
 
 const listEl=document.getElementById('list'), filtersEl=document.getElementById('filters'),
   countEl=document.getElementById('count'), emptyEl=document.getElementById('empty'),
@@ -609,7 +627,8 @@ const listEl=document.getElementById('list'), filtersEl=document.getElementById(
   readerTitle=document.getElementById('readerTitle'), readerLink=document.getElementById('readerLink'),
   readerEmpty=document.getElementById('readerEmpty'),
   mobBack=document.getElementById('mobBack'), mobBackBtn=document.getElementById('mobBackBtn'),
-  mobBackTitle=document.getElementById('mobBackTitle'), mobBackLink=document.getElementById('mobBackLink');
+  mobBackTitle=document.getElementById('mobBackTitle'), mobBackLink=document.getElementById('mobBackLink'),
+  unreadToggleEl=document.getElementById('unreadToggle'), syncBtnEl=document.getElementById('syncBtn');
 
 function esc(s){return s.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function hl(t){
@@ -624,10 +643,13 @@ const bmOff='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 const bmOn='<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>';
 
 const cats=[...new Set(ARTICLES.map(a=>a.cat))];
-const catCount=c=>ARTICLES.filter(a=>a.cat===c).length;
-const flagCount=()=>ARTICLES.filter(a=>isFlagged(a.url)).length;
+const inScope=a=>!unreadOnly||!isRead(a.url);
+const catCount=c=>ARTICLES.filter(a=>a.cat===c&&inScope(a)).length;
+const flagCount=()=>ARTICLES.filter(a=>isFlagged(a.url)&&inScope(a)).length;
 
-function matches(a){
+function matches(a){ return inScope(a)&&matchesBase(a); }
+
+function matchesBase(a){
   if(active==='flagged') return isFlagged(a.url)&&(!keyword||(a.title+a.sub+a.cat).toLowerCase().includes(keyword.toLowerCase()));
   const inCat=(active==='all'||a.cat===active);
   if(!inCat) return false;
@@ -637,7 +659,7 @@ function matches(a){
 
 function render(){
   /* chips */
-  let ch='<button class="chip '+(active==='all'?'active':'')+'" data-cat="all">すべて<span class="c">'+ARTICLES.length+'</span></button>';
+  let ch='<button class="chip '+(active==='all'?'active':'')+'" data-cat="all">すべて<span class="c">'+ARTICLES.filter(inScope).length+'</span></button>';
   const fc=flagCount();
   ch+='<button class="chip flag-chip '+(active==='flagged'?'active':'')+'" data-cat="flagged">読みたい'+(fc?'<span class="c">'+fc+'</span>':'')+'</button>';
   cats.forEach(c=>{ch+='<button class="chip '+(active===c?'active':'')+'" data-cat="'+c+'">'+c+'<span class="c">'+catCount(c)+'</span></button>';});
@@ -647,12 +669,14 @@ function render(){
   /* list */
   const shown=ARTICLES.filter(matches);
   listEl.innerHTML=shown.map((a,i)=>{
-    const f=isFlagged(a.url), act=a.url===currentUrl;
-    return '<div class="entry fade'+(act?' is-active':'')+'" style="animation-delay:'+Math.min(i*30,250)+'ms" data-url="'+esc(a.url)+'">'
+    const f=isFlagged(a.url), act=a.url===currentUrl, r=isRead(a.url);
+    const rdLabel=r?'未読に戻す':'既読にする';
+    return '<div class="entry fade'+(act?' is-active':'')+(r?' is-read':'')+'" style="animation-delay:'+Math.min(i*30,250)+'ms" data-url="'+esc(a.url)+'">'
       +'<button class="bm'+(f?' on':'')+'" data-bm="'+esc(a.url)+'" title="'+(f?'解除':'読みたい')+'" aria-label="ブックマーク">'+(f?bmOn:bmOff)+'</button>'
       +'<div class="cat">'+esc(a.cat)+'</div>'
       +'<div class="t">'+hl(a.title)+'</div>'
       +'<div class="s">'+hl(a.sub)+'</div>'
+      +'<button class="rd" type="button" data-rd="'+esc(a.url)+'" aria-label="「'+esc(a.title)+'」を'+rdLabel+'">'+rdLabel+'</button>'
       +'</div>';
   }).join('');
 
@@ -671,11 +695,25 @@ function render(){
     const fchip=filtersEl.querySelector('.flag-chip');
     if(fchip){const sp=fchip.querySelector('.c');if(fc){if(sp)sp.textContent=fc;else fchip.insertAdjacentHTML('beforeend','<span class="c">'+fc+'</span>');}else if(sp)sp.remove();}
   });});
-  listEl.querySelectorAll('.entry').forEach(el=>{el.addEventListener('click',e=>{if(e.target.closest('.bm'))return;openArticle(el.dataset.url);});});
+  listEl.querySelectorAll('.rd').forEach(b=>{b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const url=b.dataset.rd;
+    RARead.toggle(url);
+    const again=[...listEl.querySelectorAll('.rd')].find(x=>x.dataset.rd===url);
+    if(again) again.focus();
+  });});
+  listEl.querySelectorAll('.entry').forEach(el=>{el.addEventListener('click',e=>{if(e.target.closest('.bm,.rd'))return;openArticle(el.dataset.url);});});
 
-  countEl.textContent=keyword?'「'+keyword+'」 — '+shown.length+' 件'
-    :(active==='all'?'全 '+shown.length+' 篇':active==='flagged'?'読みたい — '+shown.length+' 篇':active+' — '+shown.length+' 篇');
+  const un=unreadOnly?'・未読':'';
+  countEl.textContent=keyword?'「'+keyword+'」'+un+' — '+shown.length+' 件'
+    :(active==='all'?(unreadOnly?'未読 — ':'全 ')+shown.length+' 篇':active==='flagged'?'読みたい'+un+' — '+shown.length+' 篇':active+un+' — '+shown.length+' 篇');
+  emptyEl.textContent=unreadOnly?'該当する未読の記事はありません。':'該当する記事はありません。';
   emptyEl.style.display=shown.length===0?'block':'none';
+
+  syncBtnEl.textContent={off:'同期を設定',on:'同期オン',error:'同期エラー'}[RARead.status()];
+  unreadToggleEl.classList.toggle('active',unreadOnly);
+  unreadToggleEl.setAttribute('aria-pressed',String(unreadOnly));
+  unreadToggleEl.innerHTML='未読のみ<span class="c">'+ARTICLES.filter(a=>!isRead(a.url)&&matchesBase(a)).length+'</span>';
 }
 
 function openArticle(url){
@@ -718,6 +756,18 @@ function closeReader(){
 
 mobBackBtn.addEventListener('click',closeReader);
 qEl.addEventListener('input',()=>{keyword=qEl.value.trim();render();});
+unreadToggleEl.addEventListener('click',()=>{unreadOnly=!unreadOnly;render();});
+/* 記事末尾のボタン・別タブ・他の端末で変わった既読を一覧に反映する */
+RARead.onChange(render);
+syncBtnEl.addEventListener('click',()=>{
+  if(RARead.status()==='off'){
+    const key=(window.prompt('同期キーを入力してください')||'').trim();
+    if(!key) return;
+    RARead.connect(key).catch(()=>window.alert('同期キーを確認できませんでした。キーと通信状況を確かめてください。'));
+  }else if(window.confirm('この端末の同期を解除しますか？既読の記録はこの端末に残ります。')){
+    RARead.disconnect();
+  }
+});
 render();
 document.getElementById('luCount').textContent = ARTICLES.length;
 </script>
