@@ -525,6 +525,24 @@ footer{background:var(--line)!important;border-top:none!important;padding:40px 2
   .count{padding:16px 20px 4px!important;}
   .entry{padding:16px 20px!important;}
 }
+
+/* ---- サイドバー開閉（PC・iPad 横向き） 2026-11-08 ---- */
+.side-btn{appearance:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;
+  border:var(--bw) solid var(--ink);border-radius:var(--r-pill);background:transparent;color:var(--ink);cursor:pointer;
+  flex-shrink:0;transition:background .18s,color .18s}
+.side-btn:hover{background:var(--ink);color:var(--white)}
+.side-btn:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+.side-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:var(--ico-sw,1.5);stroke-linecap:round;stroke-linejoin:round}
+.left-head .side-close{position:absolute;top:30px;right:70px}
+.side-open{display:none}
+.shell{transition:grid-template-columns .25s ease}
+@media(min-width:861px){
+  .shell.side-collapsed{grid-template-columns:0 1fr}
+  .shell.side-collapsed .left{visibility:hidden;border-right:none}
+  .shell.side-collapsed .side-open{display:flex}
+}
+@media(max-width:860px){.side-btn{display:none!important}}
+@media(prefers-reduced-motion:reduce){.shell{transition:none}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
 </head>
@@ -545,6 +563,7 @@ footer{background:var(--line)!important;border-top:none!important;padding:40px 2
       <div class="eyebrow">Research Archive</div>
       <div class="last-updated">最終更新 <b>2026-10-25</b>／全<b id="luCount"></b>件／<button class="sync-btn" id="syncBtn" type="button"></button></div>
       <div data-theme-switch></div>
+      <button class="side-btn side-close" id="sideClose" type="button" aria-label="一覧を閉じる" title="一覧を閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path d="M16 10l-2 2 2 2"/></svg></button>
 </div>
     <div class="toolbar">
       <div class="search">
@@ -560,6 +579,7 @@ footer{background:var(--line)!important;border-top:none!important;padding:40px 2
 
   <div class="right" id="reader">
     <div class="reader-bar">
+      <button class="side-btn side-open" id="sideOpen" type="button" aria-label="一覧を開く" title="一覧を開く"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path d="M14 10l2 2-2 2"/></svg></button>
       <div class="reader-title" id="readerTitle"></div>
       <a class="reader-link" id="readerLink" href="#" target="_blank" rel="noopener">別タブで開く</a>
     </div>
@@ -881,6 +901,17 @@ if (document.readyState === 'loading') {
   initThemeSwitch();
 }
 /* THEMES:JS:END */
+</script>
+<script>
+/* ---- サイドバー開閉（状態は端末ごとに保存） ---- */
+(function(){
+  var shell=document.querySelector('.shell'),closeBtn=document.getElementById('sideClose'),openBtn=document.getElementById('sideOpen'),KEY='ra_side_collapsed';
+  function set(c,focus){shell.classList.toggle('side-collapsed',c);try{localStorage.setItem(KEY,c?'1':'0')}catch(e){}
+    if(focus)(c?openBtn:closeBtn).focus();}
+  try{if(localStorage.getItem(KEY)==='1')shell.classList.add('side-collapsed')}catch(e){}
+  closeBtn.addEventListener('click',function(){set(true,true)});
+  openBtn.addEventListener('click',function(){set(false,true)});
+})();
 </script>
 </body>
 </html>
