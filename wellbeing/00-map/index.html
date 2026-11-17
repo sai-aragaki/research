@@ -33,8 +33,9 @@
 /* THEMES:CSS:START */
 /* =========================================================
    DESIGN THEMES — 共有テーマ定義（正本）
-   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
-   ページ側のHTMLを手で書き換えないこと。
+   sync-themes.py で各ページに流し込む。ページ側のHTMLを手で書き換えないこと。
+   テーマごとの値は themes/<id>.json に書く。下の GENERATED 区間は
+   build-themes.py が組み立てるので、ここを手で書き換えないこと。
    ========================================================= */
 
 /* --- 既定テーマ（sai）: ページ側のパレットに足りないトークンを補う --- */
@@ -94,7 +95,8 @@
   --stripe-h: 4px;                       /* ヘッダー下のストライプの太さ */
 }
 
-/* --- theme: bold（黒と黄・2pxの枠線・影なし）--- */
+/* THEMES:GENERATED:START */
+/* --- theme: bold（黒と黄・2pxの枠線・影なし）--- 生成元: themes/bold.json */
 html[data-theme="bold"] {
   --paper: #FAF9EC;
   --paper-rgb: 250, 249, 236;
@@ -105,15 +107,14 @@ html[data-theme="bold"] {
   --rule: #E4E2D2;
   --rule-strong: #1B1B1B;
   --tint: #F2F1E2;
-  --teal: #1B1B1B;      /* 文字にも背景にも使われるため黒。黄色は --teal-wash 側 */
+  --teal: #1B1B1B;
   --teal-deep: #1B1B1B;
-  --coral: #6E6A12;     /* 強調テキスト。紙の上で 5.3:1 */
+  --coral: #6E6A12;
   --yellow: #E3E143;
   --deep-teal: #1B1B1B;
   --deep: #1B1B1B;
   --en: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
   --stripe: repeating-linear-gradient(135deg, #E3E143 0 16px, #1B1B1B 16px 18px, #E3E143 18px 34px);
-
   --r-card: 12px;
   --r-pill: 999px;
   --r-input: 12px;
@@ -124,22 +125,15 @@ html[data-theme="bold"] {
   --r-scale: 1;
   --card-line: var(--ink);
   --input-line: var(--ink);
-
   --fw-display: 700;
   --ls-display: 0;
   --ls-label: 0.08em;
   --label-case: uppercase;
   --lh-body: 1.8;
-
   --shadow-card: none;
   --shadow-pop: none;
-
   --ico-sw: 2;
   --ico-sw-lg: 2;
-
-  /* research-sai 系のトークン名（記事ページはこちらの語彙を使う）
-     --teal は文字色にも背景にも使われるので黒に寄せ、
-     背景専用の --teal-wash に黄色を置く。 */
   --panel: #F3F1DF;
   --paper-2: #F3F1DF;
   --ink-soft: #1B1B1B;
@@ -154,11 +148,9 @@ html[data-theme="bold"] {
   --paper-warm: #F3F1DF;
   --card: #FFFFFF;
   --shadow: none;
-
   --caution: #9B2C2C;
   --track-bg: #E0DECB;
   --track-bg-soft: #EDEBD9;
-  /* 淡い面の上に置く濃い文字色。既定は各ページの :root にある */
   --teal-ink: #1B1B1B;
   --sand-ink: #6E6A12;
   --sand-ink-soft: #6E6A12;
@@ -166,21 +158,98 @@ html[data-theme="bold"] {
   --pull-ink: #1B1B1B;
   --lang-en-bg: #F0EFE2;
   --lang-en-fg: #5B5848;
-  /* 半透明の下地（alpha はページ側に残し、RGBだけ差し替える） */
   --teal-rgb: 227, 225, 67;
   --coral-rgb: 110, 106, 18;
   --yellow-rgb: 227, 225, 67;
   --deep-rgb: 27, 27, 27;
-  --mark-bg: rgba(227, 225, 67, .60);
-  --mark-c-bg: rgba(110, 106, 18, .20);
+  --mark-bg: rgba(227, 225, 67, 0.6);
+  --mark-c-bg: rgba(110, 106, 18, 0.2);
   --accent-band: #E3E143;
   --footer-bg: #E3E143;
   --footer-fg: #1B1B1B;
-  --chip-g-bg: rgba(227, 225, 67, .34);
-  --chip-b-bg: rgba(27, 27, 27, .08);
+  --chip-g-bg: rgba(227, 225, 67, 0.34);
+  --chip-b-bg: rgba(27, 27, 27, 0.08);
   --mosaic: #E3E143, #1B1B1B, #F9F8D9, #FFFFFF, #FFFFFF, #F2F1E2, #E3E143;
   --sec-alt-bg: #F9F8DE;
 }
+
+/* --- theme: mint（白とミント・面で区切る・角丸）--- 生成元: themes/mint.json */
+html[data-theme="mint"] {
+  --paper: #F4F9F7;
+  --paper-rgb: 244, 249, 247;
+  --white: #FFFFFF;
+  --ink: #16201D;
+  --text: #33403C;
+  --muted: #5B6A65;
+  --rule: #DCEAE4;
+  --rule-strong: #6F857D;
+  --tint: #E6F2ED;
+  --teal: #22705C;
+  --teal-deep: #3F6E79;
+  --coral: #B03A57;
+  --yellow: #F2C94C;
+  --deep-teal: #3F6E79;
+  --deep: #3F6E79;
+  --en: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  --stripe: linear-gradient(90deg, #62B8A0 0 25%, #F2C94C 25% 50%, #EB6584 50% 75%, #4F7C87 75% 100%);
+  --r-card: 12px;
+  --r-pill: 999px;
+  --r-input: 12px;
+  --r-xs: 6px;
+  --r-inner: 12px;
+  --r-band-card: 12px;
+  --bw: 1px;
+  --r-scale: 1;
+  --card-line: transparent;
+  --input-line: var(--rule-strong);
+  --fw-display: 700;
+  --ls-display: 0;
+  --ls-label: 0.12em;
+  --label-case: uppercase;
+  --lh-body: 1.9;
+  --shadow-card: 0 8px 24px rgba(22, 32, 29, .06);
+  --shadow-pop: 0 16px 40px rgba(22, 32, 29, .14);
+  --ico-sw: 1.75;
+  --ico-sw-lg: 1.5;
+  --panel: #E6F2ED;
+  --paper-2: #E6F2ED;
+  --ink-soft: #33403C;
+  --ink-faint: #5B6A65;
+  --teal-wash: #DDF0E8;
+  --coral-wash: #FCE9EE;
+  --sand: #B03A57;
+  --sand-wash: #FCE9EE;
+  --line: #DCEAE4;
+  --line-soft: #EEF4F2;
+  --line-strong: #6F857D;
+  --paper-warm: #E6F2ED;
+  --card: #FFFFFF;
+  --shadow: 0 8px 24px rgba(22, 32, 29, .06);
+  --caution: #B0363A;
+  --track-bg: #DCEAE4;
+  --track-bg-soft: #EEF4F2;
+  --teal-ink: #22705C;
+  --sand-ink: #B03A57;
+  --sand-ink-soft: #B03A57;
+  --coral-ink: #B0363A;
+  --pull-ink: #16201D;
+  --lang-en-bg: #E6F2ED;
+  --lang-en-fg: #5B6A65;
+  --teal-rgb: 98, 184, 160;
+  --coral-rgb: 176, 58, 87;
+  --yellow-rgb: 242, 201, 76;
+  --deep-rgb: 63, 110, 121;
+  --mark-bg: rgba(242, 201, 76, 0.6);
+  --mark-c-bg: rgba(176, 58, 87, 0.2);
+  --accent-band: #62B8A0;
+  --footer-bg: #E6F2ED;
+  --footer-fg: #16201D;
+  --chip-g-bg: rgba(98, 184, 160, 0.34);
+  --chip-b-bg: rgba(63, 110, 121, 0.08);
+  --mosaic: #62B8A0, #F2C94C, #EB6584, #4F7C87, #FFFFFF, #EEF7F3, #FFFFFF;
+  --sec-alt-bg: #EEF7F3;
+}
+/* THEMES:GENERATED:END */
 
 /* --- 記事ページ：節ごとに背景を交互に変える（全テーマ共通） ---
    奇数番目の節は白、偶数番目は薄いテーマカラー（--sec-alt-bg）。
@@ -863,15 +932,19 @@ _ns.forEach(function(s){_io.observe(s);});
 /* THEMES:JS:START */
 /* =========================================================
    DESIGN THEMES — 共有スクリプト（正本）
-   このファイルを直接編集し、sync-themes.py で各ページに流し込む。
+   sync-themes.py で各ページに流し込む。テーマ一覧（THEMES）は
+   themes/*.json から build-themes.py が組み立てるので、LIST 区間は手で書かない。
    ページ側は <div data-theme-switch></div> を1つ置くだけでよい。
    ページ固有の後処理が要る場合は window.onThemeChange に関数を入れる。
    ========================================================= */
 
+/* THEMES:LIST:START */
 var THEMES = [
-  { id: 'sai',  name: 'SAI v2',      desc: 'モノクロ基調・エディトリアル', dots: ['#62B8A0', '#EB6584', '#F2C94C'] },
-  { id: 'bold', name: 'Bold Yellow', desc: '黒と黄・2pxの枠線・影なし',    dots: ['#1B1B1B', '#E3E143', '#FAF9EC'] }
+  { id: "sai", name: "SAI v2", desc: "モノクロ基調・エディトリアル", dots: ["#62B8A0", "#EB6584", "#F2C94C"] },
+  { id: "bold", name: "Bold Yellow", desc: "黒と黄・2pxの枠線・影なし", dots: ["#1B1B1B", "#E3E143", "#FAF9EC"] },
+  { id: "mint", name: "Mint", desc: "白とミント・面で区切る・角丸", dots: ["#62B8A0", "#F2C94C", "#EB6584"] }
 ];
+/* THEMES:LIST:END */
 
 var THEME_KEY = 'design-theme';
 var THEME_ICON =
