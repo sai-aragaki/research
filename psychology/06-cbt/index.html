@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>認知行動療法（CBT）の全体地図 — 基礎・技法・実践・具体例・証拠</title>
+<meta name="description" content="認知行動療法（CBT）を1本で。認知モデル、三つの波の系譜、考え方のくせ、悪循環、技法、セッションの型、うつ・パニック・不眠の具体例、409試験のメタ分析による効果、日本での保険診療とセルフヘルプの線引きまで。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<!-- THEMES:BOOT:START -->
+<script>
+  /* 描画前にテーマを確定させる（切り替え時のちらつき防止） */
+  try {
+    var t = localStorage.getItem('design-theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+<!-- THEMES:BOOT:END -->
+<style>
+  :root{
+    --ink: #111111; --ink-soft: #333333;
+    --teal: #111111; --teal-deep: #111111; --teal-wash: #F5F5F5;
+    --coral: #333333; --coral-wash: #F5F5F5;
+    --paper: #FAFAFA; --panel: #F5F5F5;
+    --line: #EEEEEE; --line-strong: #CCCCCC; --muted: #808080;
+    --maxw:768px;
+  
+  --paper-rgb: 250, 250, 250;  /* 固定ヘッダーの半透明背景用。--paper と同じ色 */
+  --white: #FFFFFF;
+    --en: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+    --jp: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    --stripe: repeating-linear-gradient(135deg,#F2C94C 0 14px,#62B8A0 14px 28px,#FFFFFF 28px 42px,#4F7C87 42px 56px,#FFFFFF 56px 70px);}
+/* THEMES:CSS:START */
+/* =========================================================
+   DESIGN THEMES — 共有テーマ定義（正本）
+   sync-themes.py で各ページに流し込む。ページ側のHTMLを手で書き換えないこと。
+   テーマごとの値は themes/<id>.json に書く。下の GENERATED 区間は
+   build-themes.py が組み立てるので、ここを手で書き換えないこと。
+   ========================================================= */
+
+/* --- 既定テーマ（sai）: ページ側のパレットに足りないトークンを補う --- */
+:root {
+  /* 形 */
+  --r-card: 0px;        /* カード・パネルの角丸 */
+  --r-pill: 48px;       /* チップ・タグ・ピルボタン */
+  --r-input: 4px;       /* 入力欄 */
+  --r-xs: 3px;          /* トースト等の極小要素 */
+  --r-inner: 12px;      /* 吹き出し・入れ子カード */
+  --r-band-card: 16px;  /* 一段大きいカード */
+  --bw: 1px;            /* カードの枠線幅 */
+  --r-scale: 1;         /* 角丸の倍率。値が散っているページ（research-sai）はこれで一括調整する */
+  /* ページによって罫線トークンの名前が違う（sai-works系は --rule、research系は --line）。
+     var() のフォールバックで両方に対応する。 */
+  --card-line: var(--rule, var(--line));
+  --input-line: var(--rule-strong, var(--line-strong));
+
+  /* ページごとに既定が違うトークン（--paper-rgb / --ls-display）は
+     ここに書かない。各ページの :root で定義し、テーマ側は
+     html[data-theme="..."] ブロックでだけ上書きする。 */
+
+  /* 文字 */
+  --fw-display: 300;         /* 大見出しのウェイト */
+  --ls-label: 0.14em;        /* 欧文ラベルの字間 */
+  --label-case: uppercase;   /* 欧文ラベルの大文字化 */
+  --lh-body: 1.9;            /* 本文の行間 */
+
+  /* 影（既定は使わない。浮かせるテーマ用の受け口） */
+  --shadow-card: none;
+  --shadow-pop: none;
+
+  /* アイコン（線画SVGの線の太さ） */
+  --ico-sw: 1.5;
+  --ico-sw-lg: 1.25;
+
+  /* 装飾 */
+  --caution: #c84e6c;                    /* 注意書きのラベル */
+  --track-bg: #dde5e1;                   /* バーの溝 */
+  --track-bg-soft: #eef1ef;              /* バーの溝（淡い方） */
+  --lang-en-bg: #eef1f5;                 /* 言語バッジ（EN） */
+  --lang-en-fg: #5a6b86;
+  --mark-bg: rgba(98, 184, 160, .34);    /* マーカー線（標準） */
+  --mark-c-bg: rgba(235, 101, 132, .28); /* マーカー線（強調） */
+  --accent-band: var(--stripe);
+  --footer-bg: var(--rule);
+  --footer-fg: var(--muted);
+  --chip-g-bg: rgba(98, 184, 160, .14);
+  --chip-b-bg: rgba(79, 124, 135, .14);
+  --mosaic: #62B8A0, #F2C94C, #EB6584, #4F7C87, #FFFFFF, #FFFFFF, #F5F5F5;
+  /* 記事ページの節の交互の帯 */
+  --sec-bg: var(--white);                /* 奇数番目の節の背景 */
+  --sec-alt-bg: #F6F6F6;                 /* 偶数番目の節の背景（薄いテーマカラー） */
+  --sec-pad-y: 48px;                     /* main 直下の節の上下余白 */
+  --bleed: 100vw;                        /* 画面幅いっぱいに広げるときの幅（帯・ストライプ） */
+  --hero-pb: 56px;                       /* ヘッダー（hero）の下余白。ストライプはこの下、節との境目に置く */
+  --stripe-h: 4px;                       /* ヘッダー下のストライプの太さ */
+}
+
+/* THEMES:GENERATED:START */
+/* --- theme: bold（黒と黄・2pxの枠線・影なし）--- 生成元: themes/bold.json */
+html[data-theme="bold"] {
+  --paper: #FAF9EC;
+  --paper-rgb: 250, 249, 236;
+  --white: #FFFFFF;
+  --ink: #1B1B1B;
+  --text: #1B1B1B;
+  --muted: #6E6B5E;
+  --rule: #E4E2D2;
+  --rule-strong: #1B1B1B;
+  --tint: #F2F1E2;
+  --teal: #1B1B1B;
+  --teal-deep: #1B1B1B;
+  --coral: #6E6A12;
+  --yellow: #E3E143;
+  --deep-teal: #1B1B1B;
+  --deep: #1B1B1B;
+  --en: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --stripe: repeating-linear-gradient(135deg, #E3E143 0 16px, #1B1B1B 16px 18px, #E3E143 18px 34px);
+  --r-card: 12px;
+  --r-pill: 999px;
+  --r-input: 12px;
+  --r-xs: 999px;
+  --r-inner: 12px;
+  --r-band-card: 12px;
+  --bw: 2px;
+  --r-scale: 1;
+  --card-line: var(--ink);
+  --input-line: var(--ink);
+  --fw-display: 700;
+  --ls-display: 0;
+  --ls-label: 0.08em;
+  --label-case: uppercase;
+  --lh-body: 1.8;
+  --shadow-card: none;
+  --shadow-pop: none;
+  --ico-sw: 2;
+  --ico-sw-lg: 2;
+  --panel: #F3F1DF;
+  --paper-2: #F3F1DF;
+  --ink-soft: #1B1B1B;
+  --ink-faint: #6E6B5E;
+  --teal-wash: #E3E143;
+  --coral-wash: #F6F4C4;
+  --sand: #6E6A12;
+  --sand-wash: #F6F4C4;
+  --line: #E0DECB;
+  --line-soft: #EDEBD9;
+  --line-strong: #1B1B1B;
+  --paper-warm: #F3F1DF;
+  --card: #FFFFFF;
+  --shadow: none;
+  --caution: #9B2C2C;
+  --track-bg: #E0DECB;
+  --track-bg-soft: #EDEBD9;
+  --teal-ink: #1B1B1B;
+  --sand-ink: #6E6A12;
+  --sand-ink-soft: #6E6A12;
+  --coral-ink: #9B2C2C;
+  --pull-ink: #1B1B1B;
+  --lang-en-bg: #F0EFE2;
+  --lang-en-fg: #5B5848;
+  --teal-rgb: 227, 225, 67;
+  --coral-rgb: 110, 106, 18;
+  --yellow-rgb: 227, 225, 67;
+  --deep-rgb: 27, 27, 27;
+  --mark-bg: rgba(227, 225, 67, 0.6);
+  --mark-c-bg: rgba(110, 106, 18, 0.2);
+  --accent-band: #E3E143;
+  --footer-bg: #E3E143;
+  --footer-fg: #1B1B1B;
+  --chip-g-bg: rgba(227, 225, 67, 0.34);
+  --chip-b-bg: rgba(27, 27, 27, 0.08);
+  --mosaic: #E3E143, #1B1B1B, #F9F8D9, #FFFFFF, #FFFFFF, #F2F1E2, #E3E143;
+  --sec-alt-bg: #F9F8DE;
+}
+
+/* --- theme: mint（白とミント・面で区切る・角丸）--- 生成元: themes/mint.json */
+html[data-theme="mint"] {
+  --paper: #F4F9F7;
+  --paper-rgb: 244, 249, 247;
+  --white: #FFFFFF;
+  --ink: #16201D;
+  --text: #33403C;
+  --muted: #5B6A65;
+  --rule: #DCEAE4;
+  --rule-strong: #6F857D;
+  --tint: #E6F2ED;
+  --teal: #22705C;
+  --teal-deep: #3F6E79;
+  --coral: #B03A57;
+  --yellow: #F2C94C;
+  --deep-teal: #3F6E79;
+  --deep: #3F6E79;
+  --en: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  --stripe: linear-gradient(90deg, #62B8A0 0 25%, #F2C94C 25% 50%, #EB6584 50% 75%, #4F7C87 75% 100%);
+  --r-card: 12px;
+  --r-pill: 999px;
+  --r-input: 12px;
+  --r-xs: 6px;
+  --r-inner: 12px;
+  --r-band-card: 12px;
+  --bw: 1px;
+  --r-scale: 1;
+  --card-line: transparent;
+  --input-line: var(--rule-strong);
+  --fw-display: 700;
+  --ls-display: 0;
+  --ls-label: 0.12em;
+  --label-case: uppercase;
+  --lh-body: 1.9;
+  --shadow-card: 0 8px 24px rgba(22, 32, 29, .06);
+  --shadow-pop: 0 16px 40px rgba(22, 32, 29, .14);
+  --ico-sw: 1.75;
+  --ico-sw-lg: 1.5;
+  --panel: #E6F2ED;
+  --paper-2: #E6F2ED;
+  --ink-soft: #33403C;
+  --ink-faint: #5B6A65;
+  --teal-wash: #DDF0E8;
+  --coral-wash: #FCE9EE;
+  --sand: #B03A57;
+  --sand-wash: #FCE9EE;
+  --line: #DCEAE4;
+  --line-soft: #EEF4F2;
+  --line-strong: #6F857D;
+  --paper-warm: #E6F2ED;
+  --card: #FFFFFF;
+  --shadow: 0 8px 24px rgba(22, 32, 29, .06);
+  --caution: #B0363A;
+  --track-bg: #DCEAE4;
+  --track-bg-soft: #EEF4F2;
+  --teal-ink: #22705C;
+  --sand-ink: #B03A57;
+  --sand-ink-soft: #B03A57;
+  --coral-ink: #B0363A;
+  --pull-ink: #16201D;
+  --lang-en-bg: #E6F2ED;
+  --lang-en-fg: #5B6A65;
+  --teal-rgb: 98, 184, 160;
+  --coral-rgb: 176, 58, 87;
+  --yellow-rgb: 242, 201, 76;
+  --deep-rgb: 63, 110, 121;
+  --mark-bg: rgba(242, 201, 76, 0.6);
+  --mark-c-bg: rgba(176, 58, 87, 0.2);
+  --accent-band: #62B8A0;
+  --footer-bg: #E6F2ED;
+  --footer-fg: #16201D;
+  --chip-g-bg: rgba(98, 184, 160, 0.34);
+  --chip-b-bg: rgba(63, 110, 121, 0.08);
+  --mosaic: #62B8A0, #F2C94C, #EB6584, #4F7C87, #FFFFFF, #EEF7F3, #FFFFFF;
+  --sec-alt-bg: #EEF7F3;
+}
+/* THEMES:GENERATED:END */
+
+/* --- 記事ページ：節ごとに背景を交互に変える（全テーマ共通） ---
+   奇数番目の節は白、偶数番目は薄いテーマカラー（--sec-alt-bg）。
+   帯は画面幅いっぱいに広げる（box-shadow + clip-path で左右だけ伸ばす）。
+   節は body 直下のページと main 直下のページがある。 */
+/* 対象は research の記事ページ（ナビに .nav-inner / .gnav-inner がある）だけ。
+   sai-works・LP・デザインシステムのページには効かせない。 */
+body:has(.nav-inner, .gnav-inner) { overflow-x: clip; }
+body:has(.nav-inner, .gnav-inner) > section,
+body:has(.nav-inner, .gnav-inner) > main > section { background: var(--sec-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-bg); clip-path: inset(0 calc(var(--bleed) * -1)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even),
+body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--sec-alt-bg); box-shadow: 0 0 0 var(--bleed) var(--sec-alt-bg); }
+body:has(.nav-inner, .gnav-inner) > main > section[id^="sec-"] { padding-top: var(--sec-pad-y); padding-bottom: var(--sec-pad-y); }
+/* 最後の節とフッターの間に紙の色の隙間を作らない */
+body:has(.nav-inner, .gnav-inner) section ~ footer,
+body:has(.nav-inner, .gnav-inner) main ~ footer { margin-top: 0 !important; }
+
+/* ヘッダー下のストライプは、帯の境目（最初の節の上端）に描く。
+   ページごとに hero の中の位置（.hero::after / .hero .wrap::after）と余白が違い、
+   帯の端とずれていたので、hero 側のストライプは消して節の ::before に一本化する。
+   hero の下余白は --hero-pb に揃え、hero の下罫線はストライプが代わりをするので消す。 */
+body:has(.nav-inner, .gnav-inner) .hero { padding-bottom: var(--hero-pb) !important; border-bottom-width: 0 !important; }
+body:has(.nav-inner, .gnav-inner) .hero::after,
+body:has(.nav-inner, .gnav-inner) .hero .wrap::after { display: none !important; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type { position: relative; }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before,
+body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--stripe-h); background: var(--stripe); z-index: 1; }
+
+/* =========================================================
+   切り替えボタン（.ts- 接頭辞。ページ側のCSSと衝突させない）
+   ページ側は <div data-theme-switch></div> を1つ置くだけ。
+   ========================================================= */
+
+[data-theme-switch] { position: relative; flex: none; line-height: 0; }
+
+/* ヘッダーの無いページ用：右上に浮かせる */
+[data-theme-switch][data-ts-float] { position: fixed; top: 16px; right: 16px; z-index: 300; }
+[data-theme-switch][data-ts-float] .ts-btn { background: var(--white); }
+
+.ts-btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s;
+}
+
+.ts-btn:hover { background: var(--ink); color: var(--white); }
+.ts-btn:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+
+.ts-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--ico-sw);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ts-btn svg circle[data-dot] { fill: currentColor; stroke: none; }
+
+.ts-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 290px;
+  background: var(--white);
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-pop);
+  padding: 6px;
+  line-height: 1.5;
+  z-index: 200;
+}
+
+.ts-menu[hidden] { display: none; }
+
+.ts-opt {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 9px 10px;
+  border-radius: var(--r-card);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .18s;
+}
+
+.ts-opt:hover { background: var(--tint); }
+.ts-opt:focus-visible { outline: 1px solid var(--ink); outline-offset: -1px; }
+.ts-dots { display: flex; gap: 3px; flex: none; }
+.ts-dots i { display: block; width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--rule-strong); box-sizing: border-box; }
+.ts-text { flex: 1; min-width: 0; }
+.ts-name { font-family: var(--en); font-size: 12px; font-weight: 500; letter-spacing: .04em; }
+.ts-desc { display: block; font-size: 11px; color: var(--muted); line-height: 1.5; margin-top: 1px; }
+.ts-check { margin-left: auto; flex: none; font-size: 11px; color: var(--ink); opacity: 0; }
+.ts-opt[aria-selected="true"] .ts-check { opacity: 1; }
+
+/* research-sai の細いナビの中では一回り小さく */
+.nav-inner > [data-theme-switch] .ts-btn,
+.gnav-inner > [data-theme-switch] .ts-btn { width: 28px; height: 28px; }
+.nav-inner > [data-theme-switch] .ts-btn svg,
+.gnav-inner > [data-theme-switch] .ts-btn svg { width: 16px; height: 16px; }
+
+@media (max-width: 768px) {
+  .ts-btn { width: 32px; height: 32px; }
+  .ts-btn svg { width: 18px; height: 18px; }
+  .ts-menu { min-width: 264px; }
+}
+/* THEMES:CSS:END */
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans JP",sans-serif;font-weight:400;line-height:1.95;font-size:16.5px;
+    -webkit-font-smoothing:antialiased;letter-spacing:.01em;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  .hero{padding:78px 0 50px;border-bottom:1px solid var(--line);}
+  .series{font-size:12px;font-weight:700;letter-spacing:.2em;color:var(--coral);margin:0 0 8px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--teal-deep);text-transform:uppercase;margin:0 0 22px;}
+  .eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--teal);vertical-align:middle;margin-right:12px;transform:translateY(-3px);}
+  h1{font-family:"Noto Sans JP",serif;font-weight:700;font-size:clamp(27px,5.2vw,40px);line-height:1.42;margin:0 0 24px;}
+  h1 .accent{color:var(--teal-deep);}
+  .lede{font-size:17px;color:var(--ink-soft);margin:0;max-width:46em;}
+  .meta{margin-top:32px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;}
+  .meta span{display:inline-flex;align-items:center;gap:7px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block;}
+
+  /* signature: subjective-objective axis */
+  .sig{margin:42px 0 6px;}
+  .sig svg{width:100%;height:auto;display:block;}
+  .sig-cap{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.7;text-align:center;}
+
+  section{padding:52px 0;border-bottom:1px solid var(--line);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--teal);margin:0 0 13px;}
+  h2{font-family:"Noto Sans JP",serif;font-weight:700;font-size:clamp(21px,3.6vw,27px);line-height:1.5;margin:0 0 8px;}
+  h2 .num{color:var(--teal);font-size:.7em;font-weight:600;margin-right:.5em;font-feature-settings:"tnum";}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 26px;font-weight:500;letter-spacing:.04em;}
+  p{margin:0 0 20px;} p:last-child{margin-bottom:0;}
+  strong{font-weight:700;color:var(--ink);}
+  em{font-style:normal;background:linear-gradient(transparent 62%, var(--teal-wash) 62%);font-weight:500;padding:0 .1em;}
+  a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .2s;}
+  a:hover{border-color:var(--teal);}
+
+  /* theory blocks */
+  .theory{border:var(--bw) solid var(--card-line);border-radius:calc(14px * var(--r-scale));padding:0;margin:24px 0 0;overflow:hidden;}
+  .theory .th-head{padding:18px 22px;display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);}
+  .theory .th-jp{font-family:"Noto Sans JP",serif;font-weight:700;font-size:18px;}
+  .theory .th-en{font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+  .theory .th-tag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:calc(20px * var(--r-scale));}
+  .theory .th-tag.subj{background:var(--coral-wash);color:var(--caution);}
+  .theory .th-tag.obj{background:var(--teal-wash);color:var(--teal-deep);}
+  .theory .th-body{padding:18px 22px;}
+  .theory .th-body p{font-size:14.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.85;}
+  .theory .th-body p:last-child{margin:0;}
+  .obj-line{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--coral);margin:0 0 6px;}
+  .obj-line.up{color:var(--teal-deep);}
+
+  .meter{margin:24px 0 4px;padding:18px 20px;background:var(--panel);border-radius:calc(11px * var(--r-scale));}
+  .meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+  .meter-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ink-soft);}
+  .meter-val{font-size:12px;font-weight:700;color:var(--teal-deep);}
+  .bar{height:7px;border-radius:calc(6px * var(--r-scale));background:var(--track-bg);overflow:hidden;}
+  .bar > i{display:block;height:100%;border-radius:calc(6px * var(--r-scale));background:linear-gradient(90deg,var(--teal-deep),var(--teal));width:0;transition:width 1.1s cubic-bezier(.4,0,.1,1);}
+  .meter-note{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.7;}
+
+  .caution{margin:20px 0 0;padding:15px 17px 15px 18px;background:var(--coral-wash);border-left:3px solid var(--coral);border-radius:0 calc(8px * var(--r-scale)) calc(8px * var(--r-scale)) 0;}
+  .caution .c-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--caution);margin:0 0 5px;}
+  .caution p{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.85;}
+  .caution.muted{background:var(--panel);border-left-color:var(--line-strong);}
+  .caution.muted .c-label{color:var(--ink-soft);}
+
+  .note{background:var(--teal-wash);border-radius:calc(12px * var(--r-scale));padding:24px 26px;margin:20px 0 0;}
+  .note .n-title{font-family:"Noto Sans JP",serif;font-weight:700;font-size:16px;color:var(--teal-deep);margin:0 0 12px;}
+  .note p{font-size:15px;margin:0 0 14px;color:var(--ink-soft);} .note p:last-child{margin:0;}
+
+  /* mapping table (the payoff) */
+  .map{display:grid;gap:11px;margin:24px 0 0;}
+  .mrow{border:var(--bw) solid var(--card-line);border-radius:calc(12px * var(--r-scale));padding:17px 19px;}
+  .mrow .mh{display:flex;align-items:baseline;gap:10px;margin:0 0 6px;}
+  .mrow .ms{font-family:"Noto Sans JP",serif;font-weight:700;font-size:15.5px;}
+  .mrow .mt{font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 9px;border-radius:calc(14px * var(--r-scale));background:var(--panel);color:var(--ink-soft);}
+  .mrow p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.75;}
+  .mrow p .hl{color:var(--coral);font-weight:700;}
+
+  .app{counter-reset:app;margin:24px 0 0;padding:0;list-style:none;}
+  .app li{position:relative;padding:0 0 20px 42px;}
+  .app li::before{counter-increment:app;content:counter(app);position:absolute;left:0;top:1px;width:27px;height:27px;border-radius:50%;background:var(--teal-wash);color:var(--teal-deep);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .app li strong{display:block;margin-bottom:3px;}
+  .app li span{font-size:14.5px;color:var(--ink-soft);line-height:1.85;}
+
+  .route-stage{margin:0 0 26px;} .route-stage:last-child{margin-bottom:0;}
+  .stage-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .stage-badge{font-family:"Noto Sans JP",serif;font-weight:700;font-size:13px;color:var(--white);background:var(--teal-deep);padding:5px 14px;border-radius:calc(20px * var(--r-scale));letter-spacing:.05em;}
+  .stage-badge.core{background:var(--teal);} .stage-badge.app{background:var(--coral);}
+  .stage-desc{font-size:13px;color:var(--muted);}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line-strong);}
+  td .title{font-weight:700;color:var(--ink);line-height:1.55;}
+  td .by{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .lang{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:calc(5px * var(--r-scale));white-space:nowrap;}
+  .lang.jp{background:var(--teal-wash);color:var(--teal-deep);} .lang.en{background:var(--lang-en-bg);color:var(--lang-en-fg);}
+  .why{font-size:13px;color:var(--ink-soft);line-height:1.7;}
+
+  .sources{padding-bottom:80px;border-bottom:none;}
+  .sources ol{margin:18px 0 0;padding:0 0 0 22px;font-size:12.5px;color:var(--muted);line-height:1.85;}
+  .sources li{margin-bottom:8px;}
+  .sources a{color:var(--muted);border-color:var(--line);}
+
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .fade.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;} .bar>i{transition:none;} html{scroll-behavior:auto;}
+  }
+  @media(max-width:560px){
+    body{font-size:16px;} .wrap{padding:0 19px;} .hero{padding:58px 0 42px;} section{padding:42px 0;}
+    th,td{padding:9px 8px;font-size:13px;} .theory .th-head{flex-wrap:wrap;gap:6px;} .theory .th-tag{margin-left:0;}
+  }
+
+/* ---- header nav ---- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));z-index:60;transition:width .12s ease-out}
+nav.gnav{position:sticky;top:0;z-index:50;background:rgba(var(--paper-rgb),.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.gnav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:18px;padding:13px 26px}
+.gnav-brand{font-family:"Noto Sans JP",serif;font-weight:700;font-size:15px;color:var(--teal-deep);white-space:nowrap}
+.gnav-brand b{color:var(--coral)}
+.gnav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.gnav-links a{font-size:12.5px;font-weight:500;color:var(--ink-soft,var(--ink-soft));text-decoration:none;padding:6px 11px;border-radius:calc(999px * var(--r-scale));white-space:nowrap;transition:.18s}
+.gnav-links a:hover{color:var(--teal-deep);background:var(--teal-wash)}
+@media(max-width:560px){.gnav-inner{padding:11px 18px}.gnav-brand{display:none}}
+
+</style>
+
+<style id="v2-override">
+/* SAI's DESIGN SYSTEM v2 — 2026-09-16 */
+body{font-family:var(--jp);color:var(--ink-soft);background:var(--paper);letter-spacing:.01em;}
+h1,h2,h3,h4,.title,.lede strong,.reader-title{font-family:var(--jp)!important;color:var(--ink);font-weight:700;letter-spacing:.01em;}
+h1{line-height:1.35;}
+h2{line-height:1.5;}
+.eyebrow,.kicker,.sec-no,.sec-sub,.series,.lang,.stage-badge,.div-tag,.src-tag,.cat,.count,.last-updated,.meta,.meta span,
+.gnav-brand,.gnav-links a,.brand,.nav-links a,nav a,.stat .l,.leg span,.rl,.bl,.mini .tagn,.need .nn,h2 .num,.route-stage,.ef .eflabel,
+.stat .n,.bv,.rv,.dv,.meter-val,.ef .efval{font-family:var(--en),var(--jp)!important;}
+.eyebrow,.kicker,.sec-no,.series,.cat,.gnav-links a,.nav-links a,.stage-badge,.div-tag,.stat .l,.rl{letter-spacing:.12em!important;text-transform:uppercase;font-weight:500!important;font-size:11px!important;color:var(--muted)!important;}
+.eyebrow::before{background:var(--ink)!important;}
+nav,.gnav,nav.gnav{background:linear-gradient(to bottom,rgba(var(--paper-rgb),.96) 0%,rgba(var(--paper-rgb),.92) 30%,rgba(var(--paper-rgb),.8) 55%,rgba(var(--paper-rgb),.6) 78%,rgba(var(--paper-rgb),.42) 100%)!important;backdrop-filter:none;-webkit-backdrop-filter:none;border-color:transparent!important;box-shadow:none!important;}
+.reader-bar,.toolbar,.left-head{background:rgba(var(--paper-rgb),.92)!important;border-color:var(--line)!important;box-shadow:none!important;}
+.gnav-brand,.brand,.gnav-brand b,.brand b{font-family:var(--en)!important;font-weight:600!important;color:var(--ink)!important;letter-spacing:-.01em;}
+.gnav-links a,.nav-links a{color:var(--ink-soft)!important;border-bottom:1px solid transparent;border-radius:var(--r-card)!important;background:transparent!important;padding-left:0!important;padding-right:0!important;}
+.gnav-links a:hover,.nav-links a:hover{color:var(--ink)!important;border-bottom-color:var(--ink);background:transparent!important;}
+.gnav-links,.nav-links{gap:22px!important;}
+.gnav-links a[style*="teal-deep"],.nav-links a[style*="teal-deep"],.gnav-links a.on,.nav-links a.on{color:var(--ink)!important;border-bottom-color:var(--ink)!important;font-weight:600!important;}
+
+#progress{display:none!important;}
+a{color:var(--ink);}
+mark,mark.c{background:var(--panel);color:var(--ink);padding:0 .2em;}
+.note,.caution,.insight,.pull,.mini,.need,.stat,.chart-card,.dom,.effects,.meter,.continuum,.stop,.closing,.why,.sources,.refs,.entry,.reader-frame,.reader-empty,.search input,.stat-grid > *,.minis > *,.needs > *{border-radius:var(--r-card)!important;box-shadow:none!important;}
+.note,.caution,.insight,.pull,.mini,.need,.chart-card,.dom,.stat{background:var(--white)!important;border:var(--bw) solid var(--card-line)!important;}
+.note.sand,.caution{border-left:2px solid var(--ink)!important;}
+.note .h,.note .n-title,.caution .c-label,.insight h4{color:var(--ink)!important;}
+.stage-badge,.div-tag,.chip,.tagn,.mini .tagn,.need .nn{border-radius:var(--r-pill)!important;border:var(--bw) solid var(--ink)!important;background:transparent!important;color:var(--ink)!important;}
+.chip.active,.chip.flag-chip.active{background:var(--ink)!important;color:var(--white)!important;}
+.chip .c,.count{color:inherit!important;}
+.search input{border:var(--bw) solid var(--input-line)!important;border-radius:var(--r-input)!important;background:var(--white)!important;}
+.search input:focus{border-color:var(--ink)!important;box-shadow:none!important;}
+.entry.is-active{background:var(--white)!important;border-left:2px solid var(--ink)!important;}
+.entry:hover{background:var(--panel)!important;}
+.bm.on,.bm.on svg{color:var(--ink)!important;fill:var(--ink)!important;}
+table{border-collapse:collapse;}
+th{font-family:var(--en),var(--jp)!important;font-size:11px!important;letter-spacing:.12em!important;text-transform:uppercase;color:var(--muted)!important;font-weight:500!important;border-bottom:1px solid var(--ink)!important;background:transparent!important;}
+td{border-bottom:1px solid var(--line)!important;}
+.bar > i,.bar-fill,.efbar > i,.meter-top,.range-fill,.div-fill{border-radius:var(--r-card)!important;}
+.src-tag{border-radius:var(--r-card)!important;border:var(--bw) solid var(--card-line)!important;background:var(--white)!important;text-transform:none!important;letter-spacing:.02em!important;font-size:12px!important;color:var(--muted)!important;}
+.src-tag b{color:var(--ink)!important;}
+.fade{opacity:1!important;transform:none!important;transition:none!important;}
+.sources,.refs{border-top:1px solid var(--ink);}
+footer{background:var(--line)!important;border-top:none!important;padding:40px 24px!important;}
+.left-head{border-bottom:4px solid transparent!important;border-image:var(--stripe) 1!important;}
+
+/* ---- v2.1: rhythm ---- */
+html,body{overflow-x:hidden;}
+.hero{position:relative;padding-bottom:56px!important;}
+.hero::after{content:"";display:block;height:4px;background:var(--stripe);margin-top:48px;width:calc(100% + 120px);margin-left:-60px;}
+html.in-frame .hero::after{width:100%;margin-left:0;}
+section{padding-top:16px;}
+h2{margin-top:72px!important;}
+.hero h2,section > h2:first-child{margin-top:0!important;}
+h3{margin-top:40px!important;}
+.closing{background:var(--panel)!important;border:none!important;border-radius:calc(16px * var(--r-scale))!important;padding:40px 44px!important;margin:80px 0!important;}
+.sources,.refs{margin-top:120px!important;padding-top:32px!important;}
+footer{margin-top:0!important;padding:48px 24px!important;}
+@media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
+</style>
+<style id="article-extra">
+  h3{font-family:var(--jp);font-weight:700;font-size:18px;line-height:1.6;margin:40px 0 14px;color:var(--ink);}
+  .table-wrap{overflow-x:auto;margin:24px 0 0;}
+  .table-wrap table{min-width:520px;}
+  .fig{margin:28px 0 8px;padding:20px 18px 16px;background:var(--white);border:var(--bw) solid var(--card-line);border-radius:var(--r-card);}
+  .fig svg{width:100%;height:auto;display:block;}
+  .fig figcaption{font-size:12.5px;color:var(--muted);line-height:1.75;margin-top:12px;}
+  .f-h{font-family:var(--jp);font-weight:700;font-size:15px;fill:var(--ink);}
+  .f-s{font-family:var(--jp);font-size:11.5px;fill:var(--muted);}
+  .f-lb{font-family:var(--jp);font-weight:700;font-size:12px;fill:var(--ink);}
+  .f-ax{stroke:var(--line-strong);stroke-width:1.5;}
+  .f-pt circle{fill:var(--ink);}
+  .f-wave1{fill:none;stroke:var(--ink);stroke-width:2.2;}
+  .f-wave2{fill:none;stroke:var(--muted);stroke-width:1.6;opacity:.7;}
+  .f-cone{fill:var(--teal-wash);stroke:var(--ink);stroke-width:1.5;}
+  .f-ell{fill:var(--panel);stroke:var(--ink);stroke-width:1.5;}
+  .f-ell2{fill:none;stroke:var(--ink);stroke-width:1;stroke-dasharray:4 4;}
+  .f-plane{fill:var(--panel);stroke:var(--line-strong);stroke-width:1.2;opacity:.9;}
+  .f-dot{fill:var(--ink);}
+  .f-arrow,.f-arrowhead{stroke:var(--muted);stroke-width:1.4;fill:none;}
+  .route-stage .app{margin-top:10px;}
+  .summary{margin:36px 0 0;padding:26px 26px 22px;background:var(--white);border:var(--bw) solid var(--card-line);border-left:3px solid var(--ink);border-radius:var(--r-card);}
+  .sm-label{font-size:13px;font-weight:700;color:var(--ink);margin:0 0 14px;letter-spacing:.04em;}
+  .sm-list{margin:0;padding:0 0 0 1.4em;}
+  .sm-list li{font-size:15px;line-height:1.85;color:var(--ink-soft);margin:0 0 12px;}
+  .sm-list li strong{display:block;color:var(--ink);}
+  .sm-foot{font-size:12.5px;color:var(--muted);margin:6px 0 0;line-height:1.75;}
+  @media(max-width:560px){.summary{padding:20px 18px 16px;}}
+  @media(max-width:560px){.fig{padding:14px 10px 12px;}}
+
+  .ev-title{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 16px;}
+  .ev-row{display:grid;grid-template-columns:190px 1fr 44px;gap:12px;align-items:center;margin:0 0 10px;font-size:13px;color:var(--ink-soft);line-height:1.5;}
+  .ev-track{display:block;height:10px;background:var(--track-bg);}
+  .ev-track i{display:block;height:100%;background:var(--ink);}
+  .ev-v{font-family:var(--en);font-weight:600;color:var(--ink);text-align:right;}
+  ul.clean{margin:18px 0 22px;padding:0;list-style:none;}
+  ul.clean li{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.85;}
+  ul.clean li b{color:var(--ink);}
+  .sources h2{margin-bottom:24px;}
+  .table-wrap td:first-child{min-width:6.5em;}
+  @media(max-width:560px){.ev-row{grid-template-columns:1fr 40px;gap:4px 10px;}.ev-lb{grid-column:1 / -1;}}
+</style>
+<style id="article-cbt">
+  h1 .nw{display:inline-block;}
+  .fig .f-box{fill:var(--white);stroke:var(--ink);stroke-width:1.5;}
+  .fig .f-box2{fill:var(--panel);stroke:var(--line-strong);stroke-width:1.2;}
+  .fig .f-line{stroke:var(--ink);stroke-width:1.4;fill:none;}
+  .fig .f-dash{stroke:var(--muted);stroke-width:1.2;fill:none;stroke-dasharray:4 4;}
+  .fig .f-head{fill:var(--ink);}
+  .fig .f-headm{fill:var(--muted);}
+  .fig .f-t{font-family:var(--jp);font-weight:700;font-size:14px;fill:var(--ink);}
+  .fig .f-tm{font-family:var(--jp);font-size:11.5px;fill:var(--muted);}
+  .fig .f-en{font-family:var(--en);font-size:10px;letter-spacing:.12em;fill:var(--muted);}
+  .fig.narrow svg{max-width:420px;margin:0 auto;}
+  .layers{display:grid;gap:10px;margin:24px 0 0;}
+  .layer{background:var(--white);border:var(--bw) solid var(--card-line);border-radius:var(--r-card);padding:16px 20px;}
+  .layer:nth-child(2){margin-left:18px;} .layer:nth-child(3){margin-left:36px;}
+  .layer .ln{font-weight:700;color:var(--ink);font-size:15.5px;margin:0 0 2px;}
+  .layer .le{font-family:var(--en);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;}
+  .layer p{font-size:14px;line-height:1.8;margin:0;color:var(--ink-soft);}
+  .tools{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 0;}
+  .tool{background:var(--white);border:var(--bw) solid var(--card-line);border-radius:var(--r-card);padding:16px 18px;}
+  .tool .tn{font-weight:700;color:var(--ink);font-size:15px;margin:0 0 6px;}
+  .tool p{font-size:13.5px;line-height:1.8;margin:0;color:var(--ink-soft);}
+  .tool-label{font-family:var(--en),var(--jp);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:32px 0 0;}
+  .case{margin:32px 0 0;background:var(--white);border:var(--bw) solid var(--card-line);border-radius:var(--r-card);padding:24px 26px;}
+  .case .cl{font-family:var(--en),var(--jp);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;}
+  .case .ch{font-weight:700;color:var(--ink);font-size:17px;margin:0 0 14px;line-height:1.6;}
+  .case p{font-size:15px;}
+  .case .step{font-weight:700;color:var(--ink);font-size:14px;margin:22px 0 6px;}
+  .col7{width:100%;margin:10px 0 18px;font-size:13.5px;}
+  .col7 th{width:7.5em;white-space:nowrap;}
+  .col7 td{line-height:1.75;}
+  .col7 .no{font-family:var(--en);color:var(--muted);margin-right:6px;}
+  ol.timeline{list-style:none;margin:24px 0 0;padding:0;border-left:1px solid var(--ink);}
+  ol.timeline li{position:relative;padding:0 0 16px 22px;font-size:14.5px;line-height:1.8;}
+  ol.timeline li::before{content:"";position:absolute;left:-4px;top:.65em;width:7px;height:7px;border-radius:50%;background:var(--ink);}
+  ol.timeline .yr{font-family:var(--en);font-weight:600;color:var(--ink);margin-right:10px;}
+  @media(max-width:560px){
+    .tools{grid-template-columns:1fr;}
+    .case{padding:20px 18px;}
+    .layer:nth-child(2){margin-left:10px;} .layer:nth-child(3){margin-left:20px;}
+    .col7 th{width:auto;white-space:normal;min-width:5em;}
+  }
+</style>
+<script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+</head>
+<body>
+<div id="progress"></div>
+<nav class="gnav">
+  <div class="gnav-inner">
+    <span class="gnav-brand">認知行動療法の全体地図</span>
+    <div class="gnav-links">
+      <a href="#sec-1">誤解</a>
+      <a href="#sec-2">系譜</a>
+      <a href="#sec-3">三層</a>
+      <a href="#sec-4">悪循環</a>
+      <a href="#sec-5">道具箱</a>
+      <a href="#sec-6">型</a>
+      <a href="#sec-7">具体例</a>
+      <a href="#sec-8">証拠</a>
+      <a href="#sec-9">日本</a>
+      <a href="#sec-10">使い方</a>
+    </div>
+    <div data-theme-switch></div>
+</div>
+</nav>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow fade">Deep Research ／ 概念探究</p>
+    <h1 class="fade"><span class="nw">認知行動療法（CBT）の</span><span class="nw">全体地図。</span><br><span class="nw">考えは、</span><span class="nw">確かめてから信じる</span></h1>
+    <p class="lede fade">1960年代のはじめ、ペンシルベニア大学の精神科医アーロン・ベックは、うつ病の人は無意識のうちに苦しみを求めている、という精神分析の仮説を確かめようとしていた。ところが調べていくと、出てきたのは別のものだった。患者の頭には「自分はだめだ」「どうせうまくいかない」という短い考えが、本人もほとんど気づかないまま流れ続けていた。この観察から生まれた認知療法は、行動療法と合流して認知行動療法（CBT）になる。いまでは、うつ病だけで409件の比較試験がある、もっとも検証された心理療法だ。この記事では、基本のモデル、技法、1回のセッションの進み方、3つの具体例、効果の証拠、日本での受け方までを1本にまとめる。</p>
+    <div class="meta fade">
+      <span><i class="dot"></i>読了 約35分</span>
+      <span><i class="dot"></i>前提知識なし</span>
+      <span><i class="dot"></i>2026-11-17</span>
+    </div>
+    <div class="summary fade">
+      <p class="sm-label">先に要点</p>
+      <ol class="sm-list">
+        <li><strong>CBTは「前向きに考える」方法ではない。</strong>浮かんだ考えを事実と照らし合わせ、行動で試して確かめる方法だ。</li>
+        <li><strong>気分を動かしているのは、出来事そのものより、その受け取り方だ。</strong>そして問題を長引かせているのは、多くの場合、回避や安全行動といった本人なりの対処である。</li>
+        <li><strong>うつ病では409件の試験をまとめた分析で、何もしない群などに対して中〜大の効果（g=0.79）が出ている。</strong>研究の偏りを補正すると0.47に下がる。薬との差は治療直後には無く、半年〜1年後にはCBTが上回った。</li>
+        <li><strong>万能ではない。</strong>他のきちんとした心理療法との差はほとんど無く、統合失調症の症状への効果は小さい。</li>
+      </ol>
+      <p class="sm-foot">一般向けの解説で、診断や治療の代わりにはならない。つらさが強いとき、死にたい気持ちがあるときは、セルフヘルプより先に医療機関や相談窓口を頼ってほしい（10章に窓口を載せた）。</p>
+    </div>
+  </div>
+</header>
+<main>
+
+<section id="sec-1">
+  <div class="wrap">
+    <p class="kicker fade">01 ── 誤解</p>
+    <h2 class="fade">CBTは「前向きに考える練習」ではない</h2>
+    <p class="sub fade">What CBT actually does</p>
+    <p>CBTを受けたら、ネガティブな考えをポジティブに言い換えさせられるのではないか。よく聞く心配だが、CBTが目指すのはもっと地味なこと、<strong>考えを正確にすること</strong>だ。「プレゼンで失敗した。自分は無能だ」という考えを「自分は有能だ」に塗り替えても、本人は信じない。CBTでは、「無能だ」をひとつの仮説として扱い、それを支える事実と支えない事実を並べてみる。</p>
+    <p>基本のモデルは単純だ。ある状況に出会うと、頭の中に短い考えが勝手に浮かぶ。ベックはこれを<em>自動思考（automatic thoughts）</em>と呼んだ。気分も、体の反応も、行動も、状況そのものではなくこの自動思考に反応して動く。</p>
+    <figure class="fig narrow fade">
+      <svg viewBox="0 0 360 330" role="img" aria-label="認知モデルの図。状況から自動思考が生まれ、自動思考が気分・体・行動を動かし、それらがまた自動思考を強める">
+        <defs><marker id="ah1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="f-head"/></marker>
+        <marker id="ah1m" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="f-headm"/></marker></defs>
+        <rect class="f-box2" x="105" y="8" width="150" height="48"/>
+        <text class="f-t" x="180" y="29" text-anchor="middle">状況</text>
+        <text class="f-tm" x="180" y="47" text-anchor="middle">送った連絡に半日返事がない</text>
+        <path class="f-line" d="M180 56 V86" marker-end="url(#ah1)"/>
+        <rect class="f-box" x="70" y="90" width="220" height="56"/>
+        <text class="f-t" x="180" y="113" text-anchor="middle">自動思考</text>
+        <text class="f-tm" x="180" y="133" text-anchor="middle">「怒らせたに違いない」</text>
+        <path class="f-line" d="M180 146 V194" marker-end="url(#ah1)"/>
+        <path class="f-line" d="M180 168 H62 V194" marker-end="url(#ah1)"/>
+        <path class="f-line" d="M180 168 H298 V194" marker-end="url(#ah1)"/>
+        <rect class="f-box" x="10" y="198" width="104" height="56"/>
+        <text class="f-t" x="62" y="221" text-anchor="middle">気分</text>
+        <text class="f-tm" x="62" y="240" text-anchor="middle">不安・焦り</text>
+        <rect class="f-box" x="128" y="198" width="104" height="56"/>
+        <text class="f-t" x="180" y="221" text-anchor="middle">体</text>
+        <text class="f-tm" x="180" y="240" text-anchor="middle">胸のざわつき</text>
+        <rect class="f-box" x="246" y="198" width="104" height="56"/>
+        <text class="f-t" x="298" y="221" text-anchor="middle">行動</text>
+        <text class="f-tm" x="298" y="240" text-anchor="middle">謝る文面を推敲</text>
+        <path class="f-dash" d="M62 254 V282 H298 V254 M298 282 H354 V118 H296" marker-end="url(#ah1m)"/>
+        <text class="f-tm" x="180" y="306" text-anchor="middle">気分・体・行動が、また同じ考えを強める</text>
+      </svg>
+      <figcaption>ベックの認知モデルを筆者が図にしたもの。CBTはこの輪のどこかに手を入れる。考えから入ることも、行動から入ることもある。</figcaption>
+    </figure>
+    <p>同僚に連絡して、半日返事がない。「忙しいのだろう」と考えた人は、少し気にしながら仕事を続ける。「怒らせたに違いない」と考えた人は胸がざわつき、謝る文面を何度も書き直す。</p>
+    <p>図の矢印は一方通行ではない。気分が沈むと嫌な記憶ほど思い出しやすくなり、考えはさらに暗くなる。出かけるのをやめれば、気分を持ち上げてくれる出来事にも出会わなくなる。こうして輪が閉じると、新しい出来事が起きなくても気分は沈み続ける。</p>
+    <div class="note fade">
+      <p class="n-title">協同的経験主義（collaborative empiricism）</p>
+      <p>セラピストは「正しい考え方」を教える先生ではない。クライアントと並んで、考えが事実と合っているかを一緒に調べる共同研究者として振る舞う。ベックが重んじたこの姿勢を協同的経験主義と呼ぶ。問いかけの多くが質問の形をとるのはそのためで、答えを言う代わりに、本人が自分で気づける問いを置く。これをソクラテス式質問という。</p>
+    </div>
+    <p>もう一つの特徴は、期間と目標がはっきりしていることだ。うつ病のCBTは週1回、12〜16回ほどが標準になる。生い立ちを掘り下げるより、いま困っていることを扱い、毎回の終わりに次の1週間で試すことを決める。最終的には、本人が技法を身につけて一人で回せるようになることを目指す。「自分自身のセラピストになる」と言われることもある。</p>
+  </div>
+</section>
+
+<section id="sec-2">
+  <div class="wrap">
+    <p class="kicker fade">02 ── 系譜</p>
+    <h2 class="fade">三つの波は、何を足してきたか</h2>
+    <p class="sub fade">Three waves of behavioural and cognitive therapies</p>
+    <p>CBTは一人の発明ではない。二つの流れが合流し、そこに三つ目の波が重なってできている。</p>
+    <h3>第一の波：行動が変われば、感情も変わる</h3>
+    <p>出発点は条件づけの実験だ。1920年、ジョン・ワトソンは生後11か月の乳児に、白いネズミと大きな金属音を組み合わせて見せ、恐怖が学習されることを示した（いわゆるアルバート坊やの実験で、今日の倫理基準では許されない）。4年後、メアリー・カバー・ジョーンズは、ウサギを怖がる男の子ピーターに、好物を食べている間に少しずつウサギを近づけ、怖さを消していった。</p>
+    <p>1958年、南アフリカ出身の精神科医ジョセフ・ウォルピが、これを治療法にまとめる。体の力を抜いた状態で、不安の弱い場面から順に思い浮かべていく系統的脱感作だ。怖さが学習されたものなら、学習し直すこともできるはずだ。この発想が、いまの曝露療法の原型になった。</p>
+    <h3>第二の波：考えが感情をつくる</h3>
+    <p>行動療法は、目に見える行動に絞ったことで科学になったが、そのぶん頭の中で起きていることには触れなかった。そこへ二人の臨床家が別々に踏み込む。精神分析から離れたアルバート・エリスは1955年ごろ論理療法（のちの論理情動行動療法、REBT）を始めた。出来事（A）そのものではなく、それについての信念（B）が感情という結果（C）を生む、というABC理論だ。ベックは1963年に論文「思考と抑うつ」を発表し、うつ病に特有の考えの偏りを記述した。</p>
+    <p>二人の違いは手つきにある。エリスは「〜でなければならない」という不合理な信念を、論理で強く問い詰めた。ベックは考えを仮説として扱い、日常で試して確かめることを重んじた。のちに標準になったのはベックのやり方で、認知療法は行動療法の技法を取り込みながら「認知行動療法」と呼ばれるようになっていく。</p>
+    <h3>第三の波：考えの中身より、考えとの付き合い方</h3>
+    <p>2004年、スティーブン・ヘイズは、マインドフルネスやアクセプタンス（受け入れること）を取り入れた療法群を「第三の波」と名づけた。アクセプタンス＆コミットメント・セラピー（ACT）、弁証法的行動療法（DBT）、マインドフルネス認知療法（MBCT）などがこれにあたる。考えの中身を正すより、「考えは考えにすぎない」と距離をとり、自分が大事にしたい方向へ行動を選ぶことを重んじる。</p>
+    <p>第三の波が第二の波を置き換えたわけではない。2008年のメタ分析では、ACTとDBTの効果は中程度だったが、試験の方法は従来のCBT研究より緩かった。「第三の波」という括り方そのものを疑問視する研究者もいる。2019年にはステファン・ホフマンとヘイズが、療法の名前で選ぶのをやめ、その人の問題を維持している<em>プロセス</em>（回避、反芻、価値から離れた行動など）を見立てて技法を選ぶ、プロセスベース療法という方向を打ち出した。流派の名前ではなく、何が効いているのかを手がかりに治療を組み立てよう、という提案だ。</p>
+    <ol class="timeline fade">
+      <li><span class="yr">1920</span>ワトソンとレイナー、恐怖の条件づけ（アルバート坊や）</li>
+      <li><span class="yr">1924</span>ジョーンズ、恐怖を消す試み（ピーター）</li>
+      <li><span class="yr">1955頃</span>エリス、論理療法を始める</li>
+      <li><span class="yr">1958</span>ウォルピ『逆制止による心理療法』、系統的脱感作</li>
+      <li><span class="yr">1963</span>ベック「思考と抑うつ」</li>
+      <li><span class="yr">1979</span>ベックら『うつ病の認知療法』、治療マニュアルの原型</li>
+      <li><span class="yr">1986</span>クラーク、パニック障害の認知モデル</li>
+      <li><span class="yr">2004</span>ヘイズ、「第三の波」を提唱</li>
+      <li><span class="yr">2010</span>日本で、うつ病のCBTが保険診療の対象に</li>
+      <li><span class="yr">2019</span>ホフマンとヘイズ、プロセスベース療法を提唱</li>
+    </ol>
+  </div>
+</section>
+
+<section id="sec-3">
+  <div class="wrap">
+    <p class="kicker fade">03 ── 三層</p>
+    <h2 class="fade">考えは、三つの深さで動いている</h2>
+    <p class="sub fade">Automatic thoughts, intermediate beliefs, core beliefs</p>
+    <p>ベックのモデルでは、考えを三つの層に分けて扱う。表に近いものほど気づきやすく、深いものほど本人には「事実」に感じられる。</p>
+    <div class="layers fade">
+      <div class="layer"><p class="ln">自動思考</p><p class="le">Automatic thoughts</p><p>その場で浮かぶ短い言葉やイメージ。「また失敗した」「嫌われた」。意識を向ければ捕まえられる。</p></div>
+      <div class="layer"><p class="ln">媒介信念</p><p class="le">Intermediate beliefs</p><p>自分に課しているルールや前提。「人に頼るのは弱さだ」「完璧にやれないなら、やらないのと同じだ」。</p></div>
+      <div class="layer"><p class="ln">中核信念</p><p class="le">Core beliefs</p><p>自分・他人・世界についての、深くて広い思い込み。「自分は愛されない」「自分は無力だ」。子どものころからの経験で形づくられることが多い。</p></div>
+    </div>
+    <p style="margin-top:24px">治療は浅い層から入る。いきなり「あなたは自分を愛されない人間だと思っていますね」と言われても、本人にはぴんとこない。毎日の自動思考を書き留めていくうちに、似た考えが何度も出てくることに気づく。その共通点をたどるとルールが見え、さらにその下の信念が見えてくる。</p>
+    <p>うつ病について、ベックは<em>認知の三徴（cognitive triad）</em>という偏りを記述した。自分について（私はだめだ）、周りの世界について（何をしても報われない）、未来について（この先もよくならない）。この三つがそろって否定的に傾いた状態だ。</p>
+    <h3>よく出る「考え方のくせ」</h3>
+    <p>自動思考の歪み方には型がある。ベックのもとで学んだデビッド・バーンズが一般向けの本『いやな気分よ、さようなら』（原著1980年）で整理した一覧が、いまもよく使われている。名前を覚えておくと、浮かんだ考えに「あ、これは先読みだ」とラベルを貼れるようになる。貼れた時点で、その考えと少し距離がとれている。</p>
+    <div class="table-wrap fade">
+      <table>
+        <thead><tr><th>くせの名前</th><th>例</th></tr></thead>
+        <tbody>
+          <tr><td>全か無か思考</td><td>一つでもミスがあったら、全部失敗だ</td></tr>
+          <tr><td>一般化のしすぎ</td><td>一度断られた。自分はいつもこうだ</td></tr>
+          <tr><td>心のフィルター</td><td>褒められた9点を忘れ、指摘された1点だけを繰り返し思い出す</td></tr>
+          <tr><td>マイナス化思考</td><td>褒められたのは、ただのお世辞だ</td></tr>
+          <tr><td>結論の飛躍</td><td>既読なのに返事がない。嫌われたんだ（心の読みすぎ）。どうせ落ちる（先読み）</td></tr>
+          <tr><td>拡大解釈と過小評価</td><td>自分の失敗は大きく、成功は小さく見積もる</td></tr>
+          <tr><td>感情的決めつけ</td><td>こんなに不安なのだから、きっと危ないのだ</td></tr>
+          <tr><td>すべき思考</td><td>社会人なら弱音を吐くべきではない</td></tr>
+          <tr><td>レッテル貼り</td><td>自分は負け犬だ</td></tr>
+          <tr><td>個人化</td><td>チームの成績が悪いのは、自分のせいだ</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="caution muted fade">
+      <p class="c-label">くせがあること自体は病気ではない</p>
+      <p>疲れているときや不安なとき、誰でもこういう考え方をする。問題になるのは、それが固まって、気分や暮らしを長いあいだ縛るときだ。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-4">
+  <div class="wrap">
+    <p class="kicker fade">04 ── 悪循環</p>
+    <h2 class="fade">問題を長引かせているのは、たいてい「対処」のほうだ</h2>
+    <p class="sub fade">Maintenance cycles: avoidance, safety behaviours, rumination</p>
+    <p>CBTのセラピストは、問題が「なぜ始まったか」より「なぜ続いているか」に目を向ける。きっかけは過去にあっても、いま症状を支えているのは、本人がよかれと思って続けている対処であることが多い。</p>
+    <p>典型がパニック障害だ。オックスフォード大学のデビッド・クラークは1986年、パニック発作を「体の感覚を破局的に解釈すること」で説明するモデルを発表した。心臓がどきっとする。「心臓発作だ」と受け取る。不安が強まる。不安で鼓動はさらに速くなり、それが「やっぱり発作だ」の証拠に見える。</p>
+    <figure class="fig narrow fade">
+      <svg viewBox="0 0 360 340" role="img" aria-label="パニックの悪循環の図。引き金から、知覚された脅威、不安、体の感覚、破局的な解釈へと回り、また脅威に戻る">
+        <defs><marker id="ah2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L8,4 L0,8 z" class="f-head"/></marker></defs>
+        <text class="f-tm" x="180" y="16" text-anchor="middle">引き金：坂道、コーヒー、人混み</text>
+        <path class="f-line" d="M180 24 V50" marker-end="url(#ah2)"/>
+        <rect class="f-box" x="116" y="54" width="128" height="50"/>
+        <text class="f-t" x="180" y="75" text-anchor="middle">脅威を感じる</text>
+        <text class="f-tm" x="180" y="93" text-anchor="middle">「何かおかしい」</text>
+        <rect class="f-box" x="226" y="165" width="128" height="50"/>
+        <text class="f-t" x="290" y="186" text-anchor="middle">不安</text>
+        <text class="f-tm" x="290" y="204" text-anchor="middle">怖い、逃げたい</text>
+        <rect class="f-box" x="116" y="276" width="128" height="50"/>
+        <text class="f-t" x="180" y="297" text-anchor="middle">体の感覚</text>
+        <text class="f-tm" x="180" y="315" text-anchor="middle">動悸、息苦しさ</text>
+        <rect class="f-box" x="6" y="165" width="128" height="50"/>
+        <text class="f-t" x="70" y="186" text-anchor="middle">破局的な解釈</text>
+        <text class="f-tm" x="70" y="204" text-anchor="middle">「心臓発作だ」</text>
+        <path class="f-line" d="M244 90 Q296 98 296 160" marker-end="url(#ah2)"/>
+        <path class="f-line" d="M296 215 Q296 280 248 296" marker-end="url(#ah2)"/>
+        <path class="f-line" d="M116 300 Q64 282 64 220" marker-end="url(#ah2)"/>
+        <path class="f-line" d="M64 165 Q64 100 112 90" marker-end="url(#ah2)"/>
+        <text class="f-tm" x="180" y="186" text-anchor="middle">この輪が数十秒で</text>
+        <text class="f-tm" x="180" y="204" text-anchor="middle">何周も回る</text>
+      </svg>
+      <figcaption>Clark (1986) のパニックの認知モデルを筆者が簡略化したもの。座り込む、つかまる、といった安全行動が、この輪を保ってしまう。</figcaption>
+    </figure>
+    <p>では、発作を何十回経験しても、なぜ「死ななかった」という学びが起きないのか。クラークらが注目したのが<em>安全行動（safety behaviours）</em>だ。発作が来そうになると座り込む、壁につかまる、薬を握りしめる、混んだ電車を避ける。本人は「座ったから倒れずに済んだ」と考える。安全行動が、怖い予測が外れたと確かめる機会を奪ってしまう。</p>
+    <p>同じ形の輪は、ほかの悩みにも見つかる。</p>
+    <ul class="clean fade">
+      <li><b>回避（不安全般）</b>　怖い場面を避けると、その場の不安は下がる。ただ「行っても大丈夫だった」という経験は手に入らず、避ける範囲が少しずつ広がる。</li>
+      <li><b>反芻（うつ）</b>　「なぜ自分はこうなのか」を考え続けると、問題に取り組んでいる気がする。実際には気分を沈め、動く時間を奪う。</li>
+      <li><b>確認と儀式（強迫症）</b>　鍵を何度も確かめると、一時的に安心する。安心が手に入るから、次も確かめずにいられなくなる。</li>
+      <li><b>寝床で粘る（不眠）</b>　眠れないまま布団にいる時間が長いと、寝床が「眠れずに悩む場所」として覚え込まれる。</li>
+    </ul>
+    <p>治療の方針は、この見立てから決まる。CBTではこれをケースフォーミュレーション（事例の定式化）と呼ぶ。輪を回している部品を特定し、どこを外せば輪が止まるかを本人と一緒に考える。技法を選ぶのはそのあとだ。</p>
+  </div>
+</section>
+
+<section id="sec-5">
+  <div class="wrap">
+    <p class="kicker fade">05 ── 道具箱</p>
+    <h2 class="fade">技法は、考えを扱うものと行動を扱うものに分かれる</h2>
+    <p class="sub fade">Cognitive and behavioural techniques</p>
+    <p>CBTの技法は数が多いが、大きく二つに分けられる。考えに直接働きかけるものと、行動を変えて考えや気分を動かすものだ。実際のセッションでは両方を組み合わせて使う。</p>
+    <p class="tool-label">考えを扱う</p>
+    <div class="tools fade">
+      <div class="tool"><p class="tn">思考記録（コラム法）</p><p>気分が大きく動いた場面を、状況・気分・自動思考・根拠・反証・別の考え方・その後の気分の欄に書き出す。日本では大野裕の「7つのコラム」が広く使われている。</p></div>
+      <div class="tool"><p class="tn">ソクラテス式質問</p><p>「その考えを支える事実は？」「反対の事実は？」「友人が同じことを言ったら、何と声をかける？」。答えを教えず、本人が別の見方にたどり着けるよう問う。</p></div>
+      <div class="tool"><p class="tn">行動実験</p><p>考えを予測の形に直し、実際に試す。「会議で質問したら、ばかにされる」なら、1回質問して周りの反応を観察する。</p></div>
+      <div class="tool"><p class="tn">信念の見直し</p><p>「自分は無能だ」を支える証拠ばかり集めてきた過去を見直し、反対の証拠を日々書き留める。治療の後半で扱うことが多い。</p></div>
+    </div>
+    <p class="tool-label">行動を扱う</p>
+    <div class="tools fade">
+      <div class="tool"><p class="tn">行動活性化</p><p>1日の活動と気分を記録し、気分が上がる活動や達成感のある活動を、少しずつ予定に組み込む。うつ病の治療の柱の一つ。</p></div>
+      <div class="tool"><p class="tn">段階的曝露</p><p>怖い場面を弱い順に並べ（不安階層表）、避けずにとどまる。不安が自然に下がること、予測が外れることを体で覚える。</p></div>
+      <div class="tool"><p class="tn">曝露反応妨害法（ERP）</p><p>強迫症の第一選択。不安を呼ぶものに触れたうえで、確認や手洗いなどの儀式をあえてしない。</p></div>
+      <div class="tool"><p class="tn">問題解決技法</p><p>問題を具体的に定義し、解決策をいくつも出し、長所と短所を比べて、一つ試す。結果を見て次を決める。</p></div>
+    </div>
+    <p style="margin-top:28px">二つに分けて書いたが、境目はゆるい。行動実験は考えを確かめるための行動だし、曝露も「怖い予測が外れた」という認知の変化を通して効く、と考える研究者は多い。</p>
+    <div class="note fade">
+      <p class="n-title">考えを直さなくても効く？──分解研究の衝撃</p>
+      <p>1996年、ニール・ジェイコブソンらは、うつ病の認知療法を部品に分けて試した。151人を、行動活性化だけの群、そこに自動思考の修正を足した群、全部入りの群に振り分けたところ、行動活性化だけでも全部入りとほぼ同じ効果が出た。2006年の241人の試験では、重いうつ病で行動活性化が抗うつ薬と同等、認知療法を上回ったと報告されている。</p>
+      <p>ただし2019年に元のデータを再解析した研究では、この差は再現されず、両者はおおむね同等とされた。少なくとも言えるのは、考えを直接扱わずに行動から入る道もある、ということだ。行動活性化はその後、単独の治療法として扱われるようになり、英国NICEのうつ病ガイドラインにも名前が載っている。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-6">
+  <div class="wrap">
+    <p class="kicker fade">06 ── 型</p>
+    <h2 class="fade">1回50分、全16回はこう進む</h2>
+    <p class="sub fade">Session structure and the course of treatment</p>
+    <p>CBTのセッションは、驚くほど型がはっきりしている。ベックの娘で、ベック研究所を率いるジュディス・ベックの教科書に沿うと、1回はおおむね次の順に進む。</p>
+    <ol class="app fade">
+      <li><strong>気分を確かめる</strong><span>前回からの気分を、質問票や0〜100の数字で確かめる。よくなっているかどうかを毎回測る。</span></li>
+      <li><strong>前回とつなぐ</strong><span>前回話したことと、この1週間に起きたことをつなぐ。</span></li>
+      <li><strong>今日の議題を決める</strong><span>扱いたい問題を一緒に選ぶ。最初はセラピストが主導し、慣れるにつれて本人が決めるようになる。</span></li>
+      <li><strong>ホームワークを振り返る</strong><span>試したこと、わかったこと、うまくいかなかったこと。うまくいかなかった理由も大事な材料になる。</span></li>
+      <li><strong>議題に取り組む</strong><span>選んだ問題を、技法を使って扱う。途中でこまめに要約し、理解がずれていないか確かめる。</span></li>
+      <li><strong>次の1週間の行動計画を決める</strong><span>今日の気づきを、日常で試せる形にする。ジュディス・ベックは宿題を「アクションプラン」と呼んでいる。</span></li>
+      <li><strong>まとめと感想</strong><span>今日の要点を本人の言葉で言ってもらい、セッションへの感想を聞く。不満もここで拾う。</span></li>
+    </ol>
+    <p>宿題が中心にあるのは、変化が起きる場所が面接室ではなく日常だからだ。週1回50分は、1週間168時間のうちのほんの一部にすぎない。面接室で話したことも、残りの時間に試さなければ、出来事の受け取り方はなかなか変わらない。</p>
+    <p>コース全体は三つの段階に分かれる。日本の保険診療も、一連の治療で16回までを上限にしている。</p>
+    <ul class="clean fade">
+      <li><b>序盤（1〜4回）</b>　困りごとを整理し、目標を決め、図のモデルを本人と共有する。うつ病なら行動活性化から入ることが多い。</li>
+      <li><b>中盤（5〜12回）</b>　自動思考を記録して検証する。曝露や行動実験を進める。必要ならルールや前提（媒介信念）も扱う。</li>
+      <li><b>終盤（13〜16回）</b>　中核信念に触れ、学んだことを再発予防の計画にまとめる。面接の間隔を空け、一人で回せるかを確かめる。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="sec-7">
+  <div class="wrap">
+    <p class="kicker fade">07 ── 具体例</p>
+    <h2 class="fade">3人のケースで、手順を最後まで追う</h2>
+    <p class="sub fade">Three worked examples</p>
+    <p>ここからは、典型的な経過を3つの架空の例で追う。実在の人物ではなく、教科書や治療マニュアルによく出てくる流れを組み合わせたものだ。</p>
+
+    <div class="case fade">
+      <p class="cl">Case A ／ うつ</p>
+      <p class="ch">Aさん（34歳・営業職）：休日は寝て過ごし、月曜が怖い</p>
+      <p>3か月前から朝起きるのがつらく、休日はほとんど横になって過ごしている。仕事のミスを何日も引きずる。</p>
+      <p class="step">1. 行動活性化から入る</p>
+      <p>まず1週間、1時間ごとに何をしていたかと、そのときの気分（0〜10）を記録してもらった。見返すと、気分がいちばん低いのは休日に横になっている時間で、近所を歩いたときと夕飯を作ったときは少し上がっていた。本人は「休めば回復する」と思っていたが、記録はそう言っていない。そこで、平日は帰りに一駅歩く、土曜は一品だけ料理をする、と小さな予定を入れた。</p>
+      <p class="step">2. 7つのコラムで一つの場面をほどく</p>
+      <p>気分が少し持ち直した4回目から、思考記録を始めた。</p>
+      <div class="table-wrap">
+        <table class="col7">
+          <tbody>
+            <tr><th><span class="no">1</span>状況</th><td>会議で、上司から資料の数字の誤りを指摘された</td></tr>
+            <tr><th><span class="no">2</span>気分</th><td>落ち込み 85％、恥ずかしさ 70％</td></tr>
+            <tr><th><span class="no">3</span>自動思考</th><td>「また迷惑をかけた。自分はこの仕事に向いていない」</td></tr>
+            <tr><th><span class="no">4</span>根拠</th><td>先月も別の資料で誤りがあった。指摘したとき上司はため息をついた</td></tr>
+            <tr><th><span class="no">5</span>反証</th><td>誤りは1か所で、残りの分析はそのまま使われた。先週、取引先から感謝のメールが来た。同僚も月に一度くらいは指摘を受けている</td></tr>
+            <tr><th><span class="no">6</span>適応的思考</th><td>「確認が甘い箇所はあった。でも1か所のミスで、向いていないとまでは言えない。次は提出前にチェックリストで見直そう」</td></tr>
+            <tr><th><span class="no">7</span>今の気分</th><td>落ち込み 50％、恥ずかしさ 35％</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>気分はゼロにならない。CBTではそれでいい。目指すのは嫌な気分を消すことではなく、事実に見合った大きさに戻すことだ。記録を重ねるうちに、Aさんは「一つの失敗で、自分全体を判定している」という自分のくせ（一般化のしすぎ、レッテル貼り）に気づいていった。</p>
+    </div>
+
+    <div class="case fade">
+      <p class="cl">Case B ／ パニック</p>
+      <p class="ch">Bさん（28歳・事務職）：急行電車に乗れない</p>
+      <p>通勤中の急行で動悸がして途中下車して以来、各駅停車でしか通えない。ドアのそばに立ち、水のペットボトルを手放さない。</p>
+      <p class="step">1. 輪を一緒に描く</p>
+      <p>前の章の図をBさんの言葉で埋めた。「どきっとする」→「心臓がおかしい」→「怖い」→「さらにどきどきする」。各駅停車、ドアのそば、水が、安全行動にあたる。</p>
+      <p class="step">2. 行動実験で予測を試す</p>
+      <p>面接室で、その場で1分間足踏みをして、わざと動悸を起こしてもらった。事前の予測は「倒れる確率80％」。結果は、どきどきしたが倒れなかった。体の感覚にわざと触れるこのやり方を内部感覚曝露という。</p>
+      <p class="step">3. 安全行動を一つずつ外す</p>
+      <p>次に、急行に1駅だけ乗る。慣れたら3駅、水を鞄にしまう、ドアから離れて立つ、と段階を上げた。曝露のたびに「予測」と「実際」を書いて比べる。安全行動を残したまま乗ると「水があったから大丈夫だった」と受け取ってしまい、学びが起きにくい。外していく順番を本人と相談して決めるのがこのケースの山場だった。</p>
+    </div>
+
+    <div class="case fade">
+      <p class="cl">Case C ／ 不眠</p>
+      <p class="ch">Cさん（45歳・管理職）：布団にいるのは7時間半、眠れているのは5時間</p>
+      <p>寝つけない夜が半年続いている。眠れないと翌日が不安で、早めに布団に入るようにしたら、かえって眠れなくなった。</p>
+      <p class="step">1. 睡眠日誌をつける</p>
+      <p>2週間、寝床に入った時刻、寝ついた時刻、目が覚めた回数、起きた時刻を記録した。床にいる時間は平均7時間半、実際に眠っていたのは約5時間。睡眠効率（眠っていた時間÷床にいた時間）は67％だった。</p>
+      <p class="step">2. 睡眠制限と刺激制御</p>
+      <p>床にいる時間を、実際に眠れている時間に近い5時間半（0時半〜6時）まで縮めた。起きる時刻は休日も変えない。眠くなってから床に入り、15〜20分たっても眠れなければいったん寝室を出る。ベッドでスマホや仕事をしない。睡眠効率が85〜90％を超えた週から、床にいる時間を15分ずつ延ばした。</p>
+      <p class="step">3. 「8時間寝ないとだめ」を確かめる</p>
+      <p>「8時間眠らないと仕事にならない」という考えを、日誌と仕事の出来で照らし合わせた。5時間台の翌日でも、会議は普通にこなせていた。眠れない夜への怖さが下がると、寝つきも早くなった。</p>
+      <div class="caution fade">
+        <p class="c-label">睡眠制限は自己流で強くやらない</p>
+        <p>はじめの1〜2週間は日中の眠気が強くなる。車の運転や危険な作業がある人、双極性障害やてんかんのある人は、医師と相談しながら進める必要がある。</p>
+      </div>
+    </div>
+    <p style="margin-top:28px">慢性の不眠については、米国内科学会が2016年、成人の最初の治療としてCBT-I（不眠症のための認知行動療法）を強く推奨した。睡眠薬はCBT-Iで十分によくならないときに、短い期間使うもの、という位置づけだ。</p>
+  </div>
+</section>
+
+<section id="sec-8">
+  <div class="wrap">
+    <p class="kicker fade">08 ── 証拠</p>
+    <h2 class="fade">どれくらい効くのか。何がまだわかっていないのか</h2>
+    <p class="sub fade">What the evidence says</p>
+    <p>CBTは、心理療法の中でいちばん多く検証されてきた。2012年にホフマンらがCBTのメタ分析（複数の研究を統計的にまとめる分析）を探したとき、メタ分析だけで269本見つかった。うち106本を精査した結論は「根拠はとても強い」。とくに不安症、身体症状、過食症、怒りのコントロール、日常的なストレスで支持が厚かった。</p>
+    <h3>うつ病：409件の試験から</h3>
+    <p>2023年、ピム・カウパースらは、うつ病のCBTを検証したランダム化比較試験409件、参加者52,702人をまとめた。数字は「何と比べたか」で大きく変わる。</p>
+    <div class="fig fade" id="ev-chart">
+      <p class="ev-title">うつ病へのCBT：比べた相手ごとの効果量（g）</p>
+      <div class="ev-row"><span class="ev-lb">通常の治療・待機などと比べて</span><span class="ev-track"><i style="width:79%"></i></span><span class="ev-v">0.79</span></div>
+      <div class="ev-row"><span class="ev-lb">同上、研究の偏りを補正</span><span class="ev-track"><i style="width:47%"></i></span><span class="ev-v">0.47</span></div>
+      <div class="ev-row"><span class="ev-lb">治療者なしのセルフヘルプ</span><span class="ev-track"><i style="width:45%"></i></span><span class="ev-v">0.45</span></div>
+      <div class="ev-row"><span class="ev-lb">抗うつ薬と比べて（6〜12か月後）</span><span class="ev-track"><i style="width:34%"></i></span><span class="ev-v">0.34</span></div>
+      <div class="ev-row"><span class="ev-lb">他の心理療法と比べて</span><span class="ev-track"><i style="width:6%"></i></span><span class="ev-v">0.06</span></div>
+      <figcaption>Cuijpers et al. (2023), <i>World Psychiatry</i>。効果量 g は2群の平均の差をばらつきで割った値で、0.2で小、0.5で中、0.8で大が目安。目盛りは0〜1.0。</figcaption>
+    </div>
+    <p>読み方に注意がいる。何もしない、あるいは待つだけの群と比べた効果は中〜大だが、質の低い研究や<em>出版バイアス</em>（効果の出なかった研究ほど世に出にくい偏り）を補正すると0.47まで下がる。それでも中程度の効果は残る。一方、他の心理療法との差は0.06で、ほぼ無いに等しい。CBTはよく効く。ただし、ほかのきちんとした心理療法より大きく効くとまでは言えない。</p>
+    <p>薬との比較はもっと面白い。治療直後の差は無いのに、半年から1年たつとCBTの方がよい。2005年のホロンらの試験では、治療で改善した人のうち、認知療法を終えた人の再発は30.8％、抗うつ薬をやめた人は76.2％だった。CBTで身につけた技術が、治療を終えたあとも働き続けると考えられている。</p>
+    <h3>悩みの種類によって、効き方は違う</h3>
+    <ul class="clean fade">
+      <li><b>不安症・強迫症</b>　曝露を中心にしたCBTが第一選択。強迫症のERPは、薬（SSRI）と同じくらい効くとされる。</li>
+      <li><b>不眠</b>　CBT-Iが第一選択（米国内科学会、2016年）。</li>
+      <li><b>軽いうつ病</b>　英国NICEの2022年のガイドラインは、軽いうつ病では薬より先に、ガイド付きセルフヘルプ、グループでのCBTや行動活性化を勧めている。</li>
+      <li><b>統合失調症の症状</b>　2014年の34試験のメタ分析で効果は0.33。評価する人が割り付けを知らない（盲検化された）試験に絞ると0.15まで下がった。薬物療法などに添える補助的な位置づけと考えた方がよい。</li>
+    </ul>
+    <h3>オンラインでも効くのか</h3>
+    <p>治療者がメッセージなどで支えるインターネットCBT（ICBT）と対面のCBTを直接比べた試験を集めた2023年のメタ分析では、差は g=0.02 で、ほぼ同等だった。プログラムは自分で進め、治療者は伴走する形でも、対面と同じくらいの効果が出る。治療者が足りない国や地域では、これで支援を届けられる人の数が大きく変わる。</p>
+    <div class="caution muted fade">
+      <p class="c-label">まだ決着していないこと</p>
+      <p><strong>効果は年々小さくなっているのか。</strong>2015年、ヨンセンとフリボルグは1977〜2014年の70研究を分析し、うつ病へのCBTの効果が年を追って下がっていると報告した。2017年には反対の結論を出す再解析も出ており、決着はついていない。初期の研究が小さく、効果を大きく見積もりやすかったことも理由に挙げられている。</p>
+      <p style="margin-top:10px"><strong>何が効いているのか。</strong>5章の分解研究が示すように、考えの修正がなくても効く場合がある。共感や信頼関係といった、どの療法にも共通する要素がどれだけ効いているのかも議論が続いている。</p>
+      <p style="margin-top:10px"><strong>誰に効かないのか。</strong>平均で効いても、よくならない人、ぶり返す人は一定数いる。英国で低強度のCBTを受けて回復した人を追った研究では、1年以内に53％が再発していた。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-9">
+  <div class="wrap">
+    <p class="kicker fade">09 ── 日本</p>
+    <h2 class="fade">日本で受けるには</h2>
+    <p class="sub fade">CBT in Japan's health insurance system</p>
+    <p>日本では2010年度の診療報酬改定で、うつ病などの気分障害に対する認知療法・認知行動療法が保険の対象になった。対象はその後広がり、現行の点数表では次のように決まっている。</p>
+    <div class="table-wrap fade">
+      <table>
+        <tbody>
+          <tr><th>対象</th><td>入院していない人の、うつ病などの気分障害、強迫症（強迫性障害）、社交不安症、パニック症、PTSD、神経性過食症、不眠症</td></tr>
+          <tr><th>回数</th><td>一連の治療につき16回まで</td></tr>
+          <tr><th>時間</th><td>1回30分を超えた場合に算定</td></tr>
+          <tr><th>点数</th><td>医師が行う 480点 ／ 医師と看護師が共同で行う 350点 ／ 公認心理師による心理支援を伴う 330点</td></tr>
+          <tr><th>条件</th><td>医療機関が施設基準を届け出ていること。強迫症やPTSDなどは、厚生労働省研究班のマニュアルに沿って行う</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:24px">1点は10円なので、3割負担なら医師による1回は1,440円になる（初診料などは別）。</p>
+    <p>ただ、受けられる場所は多くない。2015年の厚生労働省研究班の報告では、保険診療でCBTを受けている人は、医療機関にかかっているうつ病患者の0.1％にも満たなかった。理由として挙げられたのは、長く医師しか実施できなかったことと、1回30分以上を十数回という時間の重さだ。看護師や公認心理師が関われる区分は、この壁を下げる方向の変更と読める。保険外では、心理相談室などが自費でCBTを提供しているが、料金も担い手の訓練も機関ごとにまちまちだ。</p>
+    <p>自分で試す入口としては、厚生労働省研究班でマニュアル作りを率いた精神科医・大野裕が監修する「<a href="https://www.cbtjp.net/" target="_blank" rel="noopener">こころのスキルアップ・トレーニング</a>」がある。7つのコラムを簡単にした書き込み式のコラム法を練習できる。サイト自身が「うつ病の治療を行うものではない」と断っている点は覚えておきたい。日々の落ち込みや不安とのつきあい方を練習する場所だ。</p>
+  </div>
+</section>
+
+<section id="sec-10">
+  <div class="wrap">
+    <p class="kicker fade">10 ── 使い方</p>
+    <h2 class="fade">自分で試すときの線引き</h2>
+    <p class="sub fade">Self-help, and when to ask for help</p>
+    <p>8章で見たとおり、治療者のいないセルフヘルプでも効果は0.45あった。本やアプリで試してみる価値は十分にある。始めるなら、次の順番が無理がない。</p>
+    <ol class="app fade">
+      <li><strong>1週間、記録だけをする</strong><span>気分が大きく動いた場面を、状況・気分（0〜100）・浮かんだ考えの3列で書く。直そうとしなくていい。</span></li>
+      <li><strong>くせに名前をつける</strong><span>記録を見返し、3章の一覧のどれに近いかを書き添える。</span></li>
+      <li><strong>小さな行動を一つ足す</strong><span>気分が少し上がった活動を一つ選び、次の週の予定に入れる。</span></li>
+      <li><strong>一つの考えを確かめる</strong><span>繰り返し出てくる考えを選び、根拠と反証を並べる。予測の形にできるなら、小さく試してみる。</span></li>
+    </ol>
+    <div class="caution fade">
+      <p class="c-label">セルフヘルプより先に、人を頼ってほしいとき</p>
+      <p>2週間以上ほぼ毎日気分が沈み、仕事や家事が回らない。眠れない、食べられない状態が続いている。死にたい気持ちや、自分を傷つけたい気持ちがある。お酒や薬の量が増えている。怖さで外出や通勤ができなくなっている。こうしたときは、かかりつけ医、精神科・心療内科、地域の保健所や精神保健福祉センターに相談してほしい。電話なら、こころの健康相談統一ダイヤル（0570-064-556）や、24時間つながる #いのちSOS（0120-061-338）がある。</p>
+    </div>
+    <div class="closing fade">
+      <p class="sm-label">結び</p>
+      <p>CBTの中心にあるのは、ベックが60年前に気づいた単純な事実だ。私たちは出来事そのものではなく、出来事の読み方に反応している。そして読み方は、事実と照らし合わせることで変えられる。</p>
+      <p><strong>前向きになる必要はない。正確になればいい。</strong>その作業を一人でできるようになることが、CBTの終わり方であり、目標でもある。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec-11" class="sources">
+  <div class="wrap">
+    <p class="kicker fade">Limits &amp; Sources</p>
+    <h2 class="fade">この記事の限界と出典</h2>
+    <div class="caution muted fade">
+      <p class="c-label">この記事の限界</p>
+      <p>Hofmann 2012、Cuijpers 2023、Hollon 2005、Jauhar 2014、Hedman-Lagerlöf 2023、Johnsen &amp; Friborg 2015 などの数値は、要旨や二次資料で確認した。セッションの流れはジュディス・ベックの著作の要約とベック研究所の逐語録をもとにした。3つのケースは架空の合成例で、実在の人物ではない。コースの3段階の区切り方は筆者の整理である。診療報酬の点数は2026年11月時点の現行の告示による。</p>
+    </div>
+    <ol>
+      <li>Beck AT (1963). Thinking and depression. <i>Archives of General Psychiatry</i>, 9. ／ Beck AT, Rush AJ, Shaw BF, Emery G (1979). <i>Cognitive Therapy of Depression</i>. Guilford.</li>
+      <li>Beck J (2020). <i>Cognitive Behavior Therapy: Basics and Beyond</i> (3rd ed.). Guilford. ／ Beck Institute, <a href="https://beckinstitute.org/wp-content/uploads/2021/06/BB3-Session-2-Annotated-Transcript.pdf" target="_blank" rel="noopener">Session 2 Annotated Transcript</a></li>
+      <li>Burns DD (1980). <i>Feeling Good: The New Mood Therapy</i>.（邦訳『いやな気分よ、さようなら』星和書店）</li>
+      <li>Plaud JJ (2003). Pavlov and the foundation of behavior therapy. <i>Spanish Journal of Psychology</i>. <a href="https://revistas.ucm.es/index.php/SJOP/en/article/view/SJOP0303220147A" target="_blank" rel="noopener">本文</a> ／ <a href="https://pressbooks.pub/openhistoryofpsychology/chapter/mary-cover-jones/" target="_blank" rel="noopener">Mary Cover Jones（Open History of Psychology）</a></li>
+      <li><a href="https://pressbooks.uwf.edu/socialwork-manualized-cbt/chapter/cbt-applications-and-populations/" target="_blank" rel="noopener">History of Cognitive Behavioral Therapy</a>（University of West Florida Pressbooks）</li>
+      <li>Hayes SC (2004). Acceptance and commitment therapy, relational frame theory, and the third wave of behavioral and cognitive therapies. <i>Behavior Therapy</i>, 35. ／ Öst LG (2008). <a href="https://www.uned.es/universidad/inicio/en/dam/jcr:f12cb884-eaa8-4a17-ac1e-d9e8762903d0/Ost%20(2008.BRAT).Efficacy%20of%20the%20third%20wave%20of%20behavioral%20therapies.pdf" target="_blank" rel="noopener">Efficacy of the third wave of behavioral therapies</a>. <i>Behaviour Research and Therapy</i>.</li>
+      <li>Hofmann SG, Hayes SC (2019). <a href="https://contextualscience.org/publications/hofmann_hayes_2019" target="_blank" rel="noopener">The future of intervention science: Process-based therapy</a>. <i>Clinical Psychological Science</i>, 7(1).</li>
+      <li>Clark DM (1986). A cognitive approach to panic. <i>Behaviour Research and Therapy</i>, 24. <a href="https://www.psychologytools.com/resource/cognitive-behavioral-model-of-panic-clark-1986" target="_blank" rel="noopener">解説（Psychology Tools）</a></li>
+      <li>Jacobson NS, et al. (1996). A component analysis of cognitive-behavioral treatment for depression. ／ Dimidjian S, et al. (2006). ／ Lorenzo-Luaces L, Dobson KS (2019). <a href="https://link.springer.com/article/10.1007/s41811-019-00044-8" target="_blank" rel="noopener">再解析</a></li>
+      <li>Hofmann SG, et al. (2012). The efficacy of cognitive behavioral therapy: A review of meta-analyses. <i>Cognitive Therapy and Research</i>, 36(5). <a href="https://pmc.ncbi.nlm.nih.gov/articles/3584580" target="_blank" rel="noopener">PMC</a></li>
+      <li>Cuijpers P, et al. (2023). Cognitive behavior therapy vs. control conditions, other psychotherapies, pharmacotherapies and combined treatment for depression. <i>World Psychiatry</i>. <a href="https://www.nationalelfservice.net/treatment/cbt/cognitive-behavioural-therapy-depression/" target="_blank" rel="noopener">解説（The Mental Elf）</a></li>
+      <li>Hollon SD, et al. (2005). Prevention of relapse following cognitive therapy vs medications in moderate to severe depression. <i>Archives of General Psychiatry</i>, 62. <a href="https://news.vanderbilt.edu/2005/04/08/research-challenges-current-guidelines-on-treating-moderate-to-severe-depression-59363" target="_blank" rel="noopener">Vanderbilt大学の発表</a></li>
+      <li>Jauhar S, et al. (2014). <a href="https://www.cambridge.org/core/journals/the-british-journal-of-psychiatry/article/cognitivebehavioural-therapy-for-the-symptoms-of-schizophrenia-systematic-review-and-metaanalysis-with-examination-of-potential-bias/10B5A4BB22C8A82FE55E578A15975753" target="_blank" rel="noopener">Cognitive-behavioural therapy for the symptoms of schizophrenia</a>. <i>British Journal of Psychiatry</i>.</li>
+      <li>Hedman-Lagerlöf E, et al. (2023). Therapist-supported internet-delivered cognitive behaviour therapy yields similar effects as face-to-face therapy. <i>World Psychiatry</i>. <a href="https://internet.psych.wisc.edu/wp-content/uploads/532-Master/532-UnitPages/Unit-13/Hedman-Lagerlo%CC%88f_WP_2023.pdf" target="_blank" rel="noopener">PDF</a></li>
+      <li>Johnsen TJ, Friborg O (2015). The effects of cognitive behavioral therapy as an anti-depressive treatment is falling. <i>Psychological Bulletin</i>. ／ <a href="https://nationalelfservice.net/treatment/cbt/battle-of-the-meta-analyses-is-cbt-becoming-less-effective-over-time" target="_blank" rel="noopener">反論を含む論争の解説</a></li>
+      <li>Qaseem A, et al. (2016). Management of chronic insomnia disorder in adults. <i>Annals of Internal Medicine</i>. <a href="https://www.acponline.org/acp-newsroom/acp-recommends-cognitive-behavioral-therapy-as-initial-treatment-for-chronic-insomnia" target="_blank" rel="noopener">ACP発表</a></li>
+      <li>NICE (2022). Depression in adults: treatment and management (NG222). <a href="https://pulsetoday.co.uk/?p=112582" target="_blank" rel="noopener">Pulseの解説</a> ／ 低強度CBT後の再発：<a href="https://pulsetoday.co.uk/?p=28737" target="_blank" rel="noopener">Pulse</a></li>
+      <li>ERPの効果：<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9520065/" target="_blank" rel="noopener">The effectiveness of exposure and response prevention combined with pharmacotherapy for OCD</a>. <i>Frontiers in Psychiatry</i> (2022)</li>
+      <li>厚生労働省「<a href="https://www.mhlw.go.jp/bunya/shougaihoken/kokoro/dl/01.pdf" target="_blank" rel="noopener">うつ病の認知療法・認知行動療法 治療者用マニュアル</a>」／ 厚生労働科学研究 <a href="https://mhlw-grants.niph.go.jp/system/files/2015/153091/201516018B_upload/201516018B0029.pdf" target="_blank" rel="noopener">2015年度報告</a></li>
+      <li>診療報酬点数表 I003-2 認知療法・認知行動療法（<a href="https://shirobon.net/medicalfee/latest/ika/r08_ika/r08i_ch2/r08i2_pa8/r08i28_sec1/r08i281_I003_2.html" target="_blank" rel="noopener">しろぼんねっと</a>）</li>
+      <li>大野裕 監修「<a href="https://www.cbtjp.net/ability/ColumnMethod.html" target="_blank" rel="noopener">こころのスキルアップ・トレーニング</a>」</li>
+      <li>厚生労働省「<a href="https://www.mhlw.go.jp/mamorouyokokoro/soudan/tel/index.html" target="_blank" rel="noopener">まもろうよ こころ：電話相談</a>」</li>
+    </ol>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap" style="font-size:13px;color:var(--muted)">
+    認知行動療法（CBT）の全体地図。考えは、確かめてから信じる<br>
+    SAI's Research ／ 2026-11-17
+  </div>
+</footer>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fades = document.querySelectorAll('.fade');
+  const fillBar = el => { const i = el.querySelector('.bar > i'); if(i){ i.style.width = (i.dataset.w||0)+'%'; } };
+  if(reduce){
+    fades.forEach(f=>f.classList.add('in'));
+    document.querySelectorAll('.bar > i').forEach(i=>i.style.width=(i.dataset.w||0)+'%');
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(e.target.querySelector && e.target.querySelector('.bar')) fillBar(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    fades.forEach(f=>io.observe(f));
+    document.querySelectorAll('.hero .fade').forEach(f=>f.classList.add('in'));
+  }
+</script>
+<script>
+
+// progress bar
+var _pb=document.getElementById('progress');
+document.addEventListener('scroll',function(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;_pb.style.width=(max>0?(h.scrollTop/max*100):0)+'%';},{passive:true});
+// active nav
+var _nl=[].slice.call(document.querySelectorAll('.gnav-links a'));
+var _ns=_nl.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+var _io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id='#'+e.target.id;_nl.forEach(function(l){var on=l.getAttribute('href')===id;l.style.color=on?'var(--teal-deep)':'';l.style.background=on?'var(--teal-wash)':'';});}});},{rootMargin:'-45% 0px -50% 0px'});
+_ns.forEach(function(s){_io.observe(s);});
+</script>
+<script>
+/* THEMES:JS:START */
+/* =========================================================
+   DESIGN THEMES — 共有スクリプト（正本）
+   sync-themes.py で各ページに流し込む。テーマ一覧（THEMES）は
+   themes/*.json から build-themes.py が組み立てるので、LIST 区間は手で書かない。
+   ページ側は <div data-theme-switch></div> を1つ置くだけでよい。
+   ページ固有の後処理が要る場合は window.onThemeChange に関数を入れる。
+   ========================================================= */
+
+/* THEMES:LIST:START */
+var THEMES = [
+  { id: "sai", name: "SAI v2", desc: "モノクロ基調・エディトリアル", dots: ["#62B8A0", "#EB6584", "#F2C94C"] },
+  { id: "bold", name: "Bold Yellow", desc: "黒と黄・2pxの枠線・影なし", dots: ["#1B1B1B", "#E3E143", "#FAF9EC"] },
+  { id: "mint", name: "Mint", desc: "白とミント・面で区切る・角丸", dots: ["#62B8A0", "#F2C94C", "#EB6584"] }
+];
+/* THEMES:LIST:END */
+
+var THEME_KEY = 'design-theme';
+var THEME_ICON =
+  '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+  '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>' +
+  '<circle data-dot cx="13.5" cy="6.5" r="1.5"/><circle data-dot cx="17.5" cy="10.5" r="1.5"/>' +
+  '<circle data-dot cx="6.5" cy="12.5" r="1.5"/><circle data-dot cx="8.5" cy="7.5" r="1.5"/></svg>';
+
+var activeTheme = THEMES[0].id;
+
+function themeDotsHTML(theme) {
+  return theme.dots.map(function (c) { return '<i style="background:' + c + '"></i>'; }).join('');
+}
+
+function applyTheme(id, persist) {
+  var theme = THEMES.filter(function (t) { return t.id === id; })[0] || THEMES[0];
+  activeTheme = theme.id;
+  if (theme.id === THEMES[0].id) {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme.id);
+  }
+  if (persist) { try { localStorage.setItem(THEME_KEY, theme.id); } catch (e) {} }
+  renderThemeSwitch();
+  if (typeof window.onThemeChange === 'function') window.onThemeChange(theme.id);
+}
+
+function renderThemeSwitch() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  var theme = THEMES.filter(function (t) { return t.id === activeTheme; })[0] || THEMES[0];
+
+  if (!mount.querySelector('.ts-btn')) {
+    mount.innerHTML =
+      '<button type="button" class="ts-btn" aria-haspopup="listbox" aria-expanded="false">' + THEME_ICON + '</button>' +
+      '<div class="ts-menu" role="listbox" aria-label="デザイン" hidden></div>';
+    mount.querySelector('.ts-btn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      var menu = mount.querySelector('.ts-menu');
+      menu.hidden ? openThemeMenu() : closeThemeMenu();
+    });
+  }
+
+  var btn = mount.querySelector('.ts-btn');
+  btn.setAttribute('aria-label', 'デザインを切り替える（現在: ' + theme.name + '）');
+  btn.setAttribute('title', 'デザイン: ' + theme.name);
+
+  var menu = mount.querySelector('.ts-menu');
+  menu.innerHTML = '';
+  THEMES.forEach(function (t) {
+    var opt = document.createElement('button');
+    opt.type = 'button';
+    opt.className = 'ts-opt';
+    opt.setAttribute('role', 'option');
+    opt.setAttribute('aria-selected', String(t.id === activeTheme));
+    opt.innerHTML =
+      '<span class="ts-dots">' + themeDotsHTML(t) + '</span>' +
+      '<span class="ts-text"><span class="ts-name">' + t.name + '</span>' +
+      '<span class="ts-desc">' + t.desc + '</span></span>' +
+      '<span class="ts-check">●</span>';
+    opt.addEventListener('click', function () { applyTheme(t.id, true); closeThemeMenu(); });
+    menu.appendChild(opt);
+  });
+}
+
+function openThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = false;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'true');
+}
+
+function closeThemeMenu() {
+  var mount = document.querySelector('[data-theme-switch]');
+  if (!mount) return;
+  mount.querySelector('.ts-menu').hidden = true;
+  mount.querySelector('.ts-btn').setAttribute('aria-expanded', 'false');
+}
+
+function initThemeSwitch() {
+  var saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+  applyTheme(saved || THEMES[0].id, false);
+
+  document.addEventListener('click', function (e) {
+    var mount = document.querySelector('[data-theme-switch]');
+    if (mount && !mount.contains(e.target)) closeThemeMenu();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeThemeMenu(); });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initThemeSwitch);
+} else {
+  initThemeSwitch();
+}
+/* THEMES:JS:END */
+</script>
+<script src="/read-status.js"></script>
+</body>
+</html>
+
