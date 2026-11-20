@@ -98,7 +98,24 @@
 }
 
 
-/* --- 記事ページ：節ごとに背景を交互に変える（全テーマ共通） ---
+/* --- 節ごとに背景を交互に変える（全ページ・全テーマ共通。2026-11-20 から research 以外にも広げた） ---
+   「節」＝ main 直下（main が無いページは body 直下）の <section>・<article>・[data-sec] で、中に h2 があるもの。
+   節が 2 つ以上並ぶページだけ、1・3・5…番目を --sec-bg（白）、2・4・6…番目を --sec-alt-bg（薄いテーマカラー）にする。
+   帯は画面幅いっぱいに広げ、節と節の間に紙の色の隙間が出ないよう、節の外の余白（margin）は 0、上下の余白は --sec-pad-y にそろえる。
+   見出し（h2）だけで区切ったページは、add-page.py が h2 ごとに <section data-sec-auto> で包む。
+   div で組んだ節（帯の div など）は data-sec を付ける。交互にしたくないページは <body data-sec-alt="off">。
+   research の記事（ナビに .nav-inner / .gnav-inner がある）は、下の専用の指定で塗る（余白はページ側のまま）。 */
+:is(body:not([data-sec-alt="off"]):not(:has(.nav-inner, .gnav-inner)):not(:has(> main)), body:not([data-sec-alt="off"]):not(:has(.nav-inner, .gnav-inner)) > main)
+  > :is(section, article, [data-sec]):has(h2):is(:has(~ :is(section, article, [data-sec]) h2), :is(section, article, [data-sec]):has(h2) ~ *) {
+  background: var(--sec-bg) !important; box-shadow: 0 0 0 var(--bleed) var(--sec-bg) !important; clip-path: inset(0 calc(var(--bleed) * -1));
+  margin-top: 0 !important; margin-bottom: 0 !important; padding-top: var(--sec-pad-y) !important; padding-bottom: var(--sec-pad-y) !important;
+}
+:is(body:not([data-sec-alt="off"]):not(:has(.nav-inner, .gnav-inner)):not(:has(> main)), body:not([data-sec-alt="off"]):not(:has(.nav-inner, .gnav-inner)) > main)
+  > :nth-child(even of :is(section, article, [data-sec]):has(h2)):is(:has(~ :is(section, article, [data-sec]) h2), :is(section, article, [data-sec]):has(h2) ~ *) {
+  background: var(--sec-alt-bg) !important; box-shadow: 0 0 0 var(--bleed) var(--sec-alt-bg) !important;
+}
+
+/* --- research の記事ページ：節ごとに背景を交互に変える（全テーマ共通） ---
    奇数番目の節は白、偶数番目は薄いテーマカラー（--sec-alt-bg）。
    帯は画面幅いっぱいに広げる（box-shadow + clip-path で左右だけ伸ばす）。
    節は body 直下のページと main 直下のページがある。 */
