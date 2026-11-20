@@ -100,11 +100,11 @@
 
 
 /* --- 節ごとに背景を交互に変える（全ページ・全テーマ共通。2026-11-20 から research 以外にも広げた） ---
-   「節」＝ main 直下（main が無いページは body 直下）の <section>・<article>・[data-sec] で、中に h2 があるもの。
+   「節」＝ main 直下（main が無いページは body 直下）の section・article・[data-sec] で、中に h2 があるもの。
    節が 2 つ以上並ぶページだけ、1・3・5…番目を --sec-bg（白）、2・4・6…番目を --sec-alt-bg（薄いテーマカラー）にする。
    帯は画面幅いっぱいに広げ、節と節の間に紙の色の隙間が出ないよう、節の外の余白（margin）は 0、上下の余白は --sec-pad-y にそろえる。
-   見出し（h2）だけで区切ったページは、add-page.py が h2 ごとに <section data-sec-auto> で包む。
-   div で組んだ節（帯の div など）は data-sec を付ける。交互にしたくないページは <body data-sec-alt="off">。
+   見出し（h2）だけで区切ったページは、add-page.py が h2 ごとに section（data-sec-auto 付き） で包む。
+   div で組んだ節（帯の div など）は data-sec を付ける。交互にしたくないページは body に data-sec-alt="off"。
    research の記事（ナビに .nav-inner / .gnav-inner がある）は、下の専用の指定で塗る（余白はページ側のまま）。 */
 :is(body:not([data-sec-alt="off"]):not(:has(.nav-inner, .gnav-inner)):not(:has(> main)), body:not([data-sec-alt="off"]):not(:has(.nav-inner, .gnav-inner)) > main)
   > :is(section, article, [data-sec]):has(h2):is(:has(~ :is(section, article, [data-sec]) h2), :is(section, article, [data-sec]):has(h2) ~ *) {
@@ -143,6 +143,9 @@ body:has(.nav-inner, .gnav-inner) > section:first-of-type,
 body:has(.nav-inner, .gnav-inner) > main > section:first-of-type { position: relative; }
 body:has(.nav-inner, .gnav-inner) > section:first-of-type::before,
 body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--stripe-h); background: var(--stripe); z-index: 1; }
+
+/* research のナビの題名（.brand）は、細い画面（320px など）でボタンの下にもぐらないよう折り返す（2026-11-20） */
+@media (max-width: 400px) { .nav-inner > .brand, .gnav-inner > .brand { white-space: normal; min-width: 0; } }
 /* THEMES:CSS:END */
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
