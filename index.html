@@ -320,7 +320,8 @@ mark,mark.c{background:var(--panel);color:var(--ink);padding:0 .2em;}
 .chip .c,.count{color:inherit!important;}
 .search input{border:var(--bw) solid var(--input-line)!important;border-radius:var(--r-input)!important;background:var(--white)!important;}
 .search input:focus{border-color:var(--ink)!important;box-shadow:none!important;}
-.entry.is-active{background:var(--white)!important;border-left:2px solid var(--ink)!important;}
+.entry{border-radius:0!important;}  /* 一覧は罫線で区切った構造なので、どのテーマでも角ばらせる（角丸だと左の線が曲がる） */
+.entry.is-active{background:var(--white)!important;border-left:var(--sel-w,2px) solid var(--sel-line,var(--ink))!important;}
 .entry:hover{background:var(--panel)!important;}
 .bm.on,.bm.on svg{color:var(--ink)!important;fill:var(--ink)!important;}
 table{border-collapse:collapse;}
