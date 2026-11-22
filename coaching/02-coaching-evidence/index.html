@@ -381,6 +381,23 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
   body[data-switch-fix] .nav-inner > [data-theme-switch] { position: absolute; top: 16px; right: 18px; margin: 0; }
   body[data-switch-fix] .nav-inner > .brand { padding-right: 44px; }
 }
+
+/* --- 記事ごとの独自の部品：部品が使っている古いトークンを、役割の名前につなぎ替える（2026-11-22 Takumi 決定 ④ ① a） ---
+   部品（箱の中の見出し・タグ・メーターの溝・注意のラベル・注記の別色の箱など 326 の class）を 1 つずつ書き換えず、
+   部品が色を決めている古いトークンの側を意味の名前にする。ふだんの値はいまと同じ色の名前なので、見た目は変わらない。
+   Mint・Bold Yellow だけ（html[data-theme] があるときだけ）。SAI v2 は記事ごとに古いトークンの値が違うので、つなぎ替えない（② a）。
+   図の系列色・SVG の図の中・物理のシミュレータは、テーマで変えない（③ a）ので、ここでは触らない */
+html[data-theme] body:has(.nav-inner, .gnav-inner) {
+  --teal-deep: var(--part-accent-fg);
+  --teal-wash: var(--part-wash-bg);
+  --panel: var(--part-panel-bg);
+  --caution: var(--alert-fg);
+  --coral: var(--hl-fg);
+  --sand: var(--note-alt-line-c);
+  --sand-wash: var(--note-alt-bg);
+  --sand-ink: var(--note-alt-fg);
+  --sand-ink-soft: var(--note-alt-fg);
+}
 </style>
 </head>
 <body>
