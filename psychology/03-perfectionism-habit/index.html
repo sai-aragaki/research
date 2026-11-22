@@ -393,6 +393,88 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 @media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
 <body>
 
@@ -436,7 +518,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="start">
   <div class="wrap">
-    <span class="sec-no">01 ── 出発点</span>
+    <span class="sec-no"><span class="sn">01</span><span class="sl">Origins</span></span>
     <h2>習慣は、1日サボったくらいでは壊れない</h2>
     <p class="sec-sub">Lally et al. (2010) ／ How are habits formed</p>
     <p>Lallyら（2010）は、大学関係者のボランティア96名に食事・飲料・運動などの行動を1つ選ばせ、12週間にわたって同じ文脈（「朝食後に」など）で毎日実行させ、自動性を毎日測定した。分析に十分なデータが残ったのは82名、そのうち明確な自動化曲線が適合したのは39名、約48%に過ぎない。自ら望んで参加したモチベーションの高い集団でさえ、半数以上は綺麗な曲線を描かなかった。</p>
@@ -452,7 +534,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="what">
   <div class="wrap">
-    <span class="sec-no">02 ── 解剖</span>
+    <span class="sec-no"><span class="sn">02</span><span class="sl">Anatomy</span></span>
     <h2>完璧主義は「高い基準」のことではない</h2>
     <p class="sec-sub">perfectionistic strivings vs. perfectionistic concerns</p>
     <p>完璧主義の学術的な捉え方は、この40年で何度も組み替えられてきた。Hamachek（1978）は「正常な完璧主義」と「神経症的な完璧主義」を分けた最初期の研究者で、前者は高い基準を追いながらも自分の限界を受け入れられる態度、後者は些細な不完全さも許せず慢性的な不安に苛まれる態度とした。Frostら（1990）はこれを35項目・6下位尺度からなるFMPSとして測定可能な形に落とし込み、Hewitt &amp; Flett（1991）はさらに対人関係の軸を加えて、自己志向的・他者志向的・社会規定的という3次元モデルを提示した（精神科患者263名のサンプルでα=.88／.74／.81）。</p>
@@ -485,7 +567,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="why">
   <div class="wrap">
-    <span class="sec-no">03 ── 起源</span>
+    <span class="sec-no"><span class="sn">03</span><span class="sl">Roots</span></span>
     <h2>27年で33%増えた、他人からの視線</h2>
     <p class="sec-sub">Curran &amp; Hill (2019, 2022) ／ Psychological Bulletin</p>
     <p>完璧主義がどこから来るのかを説明する経路は複数ある。まず遺伝率。スペインの青年期双生児研究では、自己志向的完璧主義の遺伝率が男児23%・女児30%であるのに対し、社会規定的完璧主義は男児39%・女児42%と、対人的な次元のほうがむしろ遺伝的影響が強い。個人内で完結する基準よりも、他人からどう見られているかという感覚のほうが遺伝的に規定されやすいというのは、直感に反する結果だろう。</p>
@@ -508,7 +590,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="habit">
   <div class="wrap">
-    <span class="sec-no">04 ── 定義</span>
+    <span class="sec-no"><span class="sn">04</span><span class="sl">Definition</span></span>
     <h2>習慣は意志ではなく、文脈でできている</h2>
     <p class="sec-sub">Wood &amp; Rünger (2016) ／ context-response association</p>
     <p>Wood &amp; Rünger（2016）の定義に立ち戻ろう。習慣とは、過去にある文脈で反復的に行動した結果、記憶の中に形成された文脈手がかりと反応の連合であり、その手がかりが再び現れると自動的に反応が活性化される。自動性を定義づける条件は2つ。文脈手がかりによって反復的に活性化されること、そして短期的な目標変化に対して鈍感であることだ。目標が変わっても、習慣はすぐには反応を変えない。</p>
@@ -530,7 +612,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="selfcontrol">
   <div class="wrap">
-    <span class="sec-no">05 ── 逆説</span>
+    <span class="sec-no"><span class="sn">05</span><span class="sl">Paradox</span></span>
     <h2>自制心の強い人は、我慢していない</h2>
     <p class="sec-sub">Galla &amp; Duckworth (2015, JPSP) ／ the self-control paradox</p>
     <p>Galla &amp; Duckworth（2015）は6つの研究、合計N=2,274を通じて、意外な事実を突き止めた。自己制御と学業成績や幸福感といった良い結果との関係を媒介していたのは、健康的な間食や運動、一定した睡眠といった「良い習慣」であり、自己制御の高い人ほど、日常生活での意識的な抑制の実感はむしろ<mark>少ない</mark>。従来の「自己制御＝誘惑に打ち勝つ力」という前提そのものが、ここで覆る。de Ridder ら（2012）の102研究・N=32,648のメタ分析も、この関係を補強するエビデンスとして位置づけられている（ただし具体的な効果量の数値は原典未確認）。</p>
@@ -544,7 +626,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="gap">
   <div class="wrap">
-    <span class="sec-no">06 ── 空白</span>
+    <span class="sec-no"><span class="sn">06</span><span class="sl">Gap</span></span>
     <h2>探しても、その研究は存在しなかった</h2>
     <p class="sec-sub">perfectionism × habit formation ／ 交差する実証研究の不在</p>
 
@@ -570,7 +652,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="bridge">
   <div class="wrap">
-    <span class="sec-no">07 ── 架橋</span>
+    <span class="sec-no"><span class="sn">07</span><span class="sl">Bridge</span></span>
     <h2>完璧主義は、習慣の何を壊すのか</h2>
     <p class="sec-sub">4本の橋 ／ 実証されていることと、そこからの推論</p>
 
@@ -630,7 +712,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="change">
   <div class="wrap">
-    <span class="sec-no">08 ── 介入</span>
+    <span class="sec-no"><span class="sn">08</span><span class="sl">Intervention</span></span>
     <h2>基準を下げる必要はない、という臨床的合意</h2>
     <p class="sec-sub">CBT-P、self-compassion、if-then プランニング</p>
 
@@ -659,7 +741,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="excellencism">
   <div class="wrap">
-    <span class="sec-no">09 ── 分岐</span>
+    <span class="sec-no"><span class="sn">09</span><span class="sl">Branches</span></span>
     <h2>完璧主義ではなく、卓越主義へ</h2>
     <p class="sec-sub">excellencism ／ Gaudreau (2019) Model of Excellencism and Perfectionism</p>
 

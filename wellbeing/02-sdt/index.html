@@ -356,8 +356,90 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 @media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
-<body>
+<body data-em="mark">
 <div id="progress"></div>
 <nav class="gnav">
   <div class="gnav-inner">
@@ -411,7 +493,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-1">
   <div class="wrap">
-    <p class="kicker fade">なぜSDTを最初に置くのか</p>
+    <p class="sec-no kicker fade"><span class="sl">Why first</span></p>
     <h2 class="fade">「最も再現される動機づけ理論」の中身</h2>
     <p class="sub fade">WHY START HERE</p>
     <p class="fade">前回の5本のうち、SDTだけ堅牢度を95%に振った。理由は2つある。ひとつは<strong>概念枠組みが半世紀かけて鍛えられ、6つのミニ理論として体系化されている</strong>こと。もうひとつは、教育・職場・医療・スポーツと領域を横断して、メタ分析が繰り返し同じ向きの関連を確認していること。心理学の再現性が問われた時代を、SDTは比較的よく生き延びた。</p>
@@ -421,8 +503,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-2">
   <div class="wrap">
-    <p class="kicker fade">構造</p>
-    <h2 class="fade"><span class="num">01</span>SDTは「ひとつの理論」ではない</h2>
+    <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">Structure</span></p>
+    <h2 class="fade">SDTは「ひとつの理論」ではない</h2>
     <p class="sub fade">SIX MINI-THEORIES UNDER ONE ROOF</p>
     <p class="fade">SDTの土台にあるのは<strong>有機体的弁証法</strong>という見方だ。人間はもともと好奇心をもち、成長しようとする能動的な存在で、社会的文脈がその傾向を<em>育てる</em>か<em>妨げる</em>かする——この対話（dialectic）が予測の起点になる。その上に、別々の時期に別々の現象を説明するために生まれた6つのミニ理論が乗っている。</p>
     <div class="minis fade">
@@ -457,8 +539,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-3">
   <div class="wrap">
-    <p class="kicker fade">中核</p>
-    <h2 class="fade"><span class="num">02</span>3つの基本的心理欲求</h2>
+    <p class="sec-no kicker fade"><span class="sn">02</span><span class="sl">Core</span></p>
+    <h2 class="fade">3つの基本的心理欲求</h2>
     <p class="sub fade">THE THREE NEEDS · すべて必須で、ひとつ欠けても固有のコストが出る</p>
     <div class="needs fade">
       <div class="need">
@@ -480,8 +562,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-4">
   <div class="wrap">
-    <p class="kicker fade">実証の岩盤</p>
-    <h2 class="fade"><span class="num">03</span>報酬が意欲を壊す——そして起きた殴り合い</h2>
+    <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">Evidence</span></p>
+    <h2 class="fade">報酬が意欲を壊す——そして起きた殴り合い</h2>
     <p class="sub fade">THE UNDERMINING EFFECT &amp; THE META-ANALYSIS WAR</p>
     <p class="fade">SDTの原点は1971年、デシのソマキューブ実験だ。面白いパズルに取り組ませ、途中で一方の群にだけ「1問解くごとに1ドル」を出し、翌日それを止めた。すると<strong>報酬を止めた群は、自由時間にパズルで遊ぶ時間が有意に減った</strong>。外的報酬が「楽しいからやる」を「報酬のためにやる」へすり替え、内発的動機づけを下げる——<em>アンダーマイニング効果</em>（過正当化効果）である。</p>
     <p class="fade">これは長く論争の的だった。1994年、キャメロン＆ピアスのメタ分析が「アンダーマイニング効果は小さく、教育政策上ほぼ無意味」と結論し、認知的評価理論を<em>捨てるべき</em>とまで主張した。これに対しデシ・ケストナー・ライアン（1999）が<strong>128の統制実験のメタ分析</strong>で反撃。結果はこうだ。</p>
@@ -518,8 +600,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-5">
   <div class="wrap">
-    <p class="kicker fade">最大の論点</p>
-    <h2 class="fade"><span class="num">04</span>「自律性は西洋の価値観では？」への応答</h2>
+    <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">Debate</span></p>
+    <h2 class="fade">「自律性は西洋の価値観では？」への応答</h2>
     <p class="sub fade">THE CROSS-CULTURAL DEBATE · 日本の文脈で最も効く</p>
     <p class="fade">SDTへの最も根強い批判は文化普遍性だ。マーカス＆キタヤマ（1991）以来、「自律性の重視は西洋の個人主義の反映で、東アジアのような集団主義文化には当てはまらない」とされてきた。アイエンガー＆レッパー（1999）は、集団主義文化の子どもには個人の選択がさほど重要でない、というデータを示した。</p>
     <p class="fade">SDT側の応答が、先ほどの区別だ。チルコフ・ライアン・キム・カプラン（2003）は<strong>「自律性≠独立・個人主義」</strong>を実証的に切り分けた。自律性は「自ら意志して承認している」状態であり、信頼する他者の選択を<em>進んで受け入れる</em>ことも自律的でありうる。実際、ロシア・韓国・トルコ・米国の4文化で、<strong>相対的自律性が高いほど主観的ウェルビーイングも高い</strong>という関連が共通して確認された。サブサハラ・アフリカでも3欲求は幸福を予測している。</p>
@@ -536,8 +618,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-6">
   <div class="wrap">
-    <p class="kicker fade">見落とされがちな柱</p>
-    <h2 class="fade"><span class="num">05</span>「何を」追うかも、幸福を分ける</h2>
+    <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">Overlooked</span></p>
+    <h2 class="fade">「何を」追うかも、幸福を分ける</h2>
     <p class="sub fade">GOAL CONTENTS THEORY</p>
     <p class="fade">⑤目標内容理論は、動機の<em>質</em>だけでなく目標の<em>中身</em>を扱う。人生目標は大きく2つに分かれる——<strong>内発的目標</strong>（成長・親密な関係・社会貢献・健康）と<strong>外発的目標</strong>（富・名声・イメージ）。</p>
     <p class="fade">ファンステーンキステら（2007）は数百人規模の従業員調査で、<strong>外発的目標を内発的目標より強く持つ人ほど、仕事満足・人生満足が低く、情緒的消耗・離職意図・ワークファミリー葛藤が高い</strong>ことを示した。しかも、外発的目標は<em>達成しても</em>幸福を安定的には上げない。「富と地位を手に入れれば幸せになれる」という消費文化の前提に、SDTは正面から反証している。これは自律的／統制的動機づけとは独立に効く（シェルドンら 2004）。</p>
@@ -546,8 +628,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-7">
   <div class="wrap">
-    <p class="kicker fade">正直な限界</p>
-    <h2 class="fade"><span class="num">06</span>割り引いて読むべきところ</h2>
+    <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">Limits</span></p>
+    <h2 class="fade">割り引いて読むべきところ</h2>
     <p class="sub fade">LIMITATIONS</p>
     <p class="fade">堅牢とはいえ、無謬ではない。フェアに3点。</p>
     <div class="caution fade" style="background:var(--panel);border-left-color:var(--line-strong);">
@@ -567,8 +649,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-8">
   <div class="wrap">
-    <p class="kicker fade">意思決定パートナーとしての使い方</p>
-    <h2 class="fade"><span class="num">07</span>対話に、どこを差し込むか</h2>
+    <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">Use</span></p>
+    <h2 class="fade">対話に、どこを差し込むか</h2>
     <p class="sub fade">FOR THE DECISION PARTNER</p>
     <p class="fade">職場応用の実証は厚い。スレンプら（2018）のメタ分析（72研究・83標本・N≈32,870）は、<strong>リーダーの自律性支援が自律的動機づけ・欲求充足・ウェルビーイング・エンゲージメントと強く正に関連し、統制的動機づけとは無関係</strong>であることを示した。国による調整効果も出ていない。具体的な自律性支援の振る舞いはこうだ。</p>
     <ul class="app fade">
@@ -582,8 +664,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-9">
   <div class="wrap">
-    <p class="kicker fade">総合評価</p>
-    <h2 class="fade"><span class="num">08</span>堅牢度</h2>
+    <p class="sec-no kicker fade"><span class="sn">08</span><span class="sl">Verdict</span></p>
+    <h2 class="fade">堅牢度</h2>
     <p class="sub fade">VERDICT · 堅牢度は筆者の編集判断であり測定値ではない</p>
     <div class="meter fade">
       <div class="meter-top"><span class="meter-label">概念 × 実証の総合堅牢度</span><span class="meter-val">非常に高い</span></div>
@@ -595,7 +677,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-10">
   <div class="wrap">
-    <p class="kicker fade">日本語で読める学習ルート</p>
+    <p class="sec-no kicker fade"><span class="sl">Reading</span></p>
     <h2 class="fade">入口 → 中核 → 応用（SDT編）</h2>
     <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
 
@@ -677,7 +759,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-11" class="sources">
   <div class="wrap">
-    <p class="kicker fade">主な出典</p>
+    <p class="sec-no kicker fade"><span class="sl">Sources</span></p>
     <h2 class="fade">この読み物の根拠</h2>
     <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
     <ol class="fade">

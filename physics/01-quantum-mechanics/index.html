@@ -305,6 +305,88 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 @media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
 <body>
 <div id="progress"></div>
@@ -343,7 +425,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 01 ===== -->
 <section id="crisis">
   <div class="wrap">
-    <span class="sec-no">01 ── 古典の限界</span>
+    <span class="sec-no"><span class="sn">01</span><span class="sl">Classical limits</span></span>
     <h2>なぜ古典物理学は「壊れた」のか</h2>
     <p class="sec-sub">Ultraviolet Catastrophe — 紫外線破綻</p>
     <p>19世紀末、物理学者たちは勝利を確信していた。ニュートン力学とマクスウェルの電磁気学、そしてボルツマンの統計力学が手を組めば、自然現象はすべて説明できるはずだ──。ケルヴィン卿が「物理学の空には小さな雲が二つ残っているだけだ」と述べたのは1900年のことだが、その「小さな雲」の一つが、古典物理学を根底から崩壊させることになる。</p>
@@ -373,7 +455,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 02 ===== -->
 <section id="quantum-hypothesis">
   <div class="wrap">
-    <span class="sec-no">02 ── 量子仮説</span>
+    <span class="sec-no"><span class="sn">02</span><span class="sl">Quantum hypothesis</span></span>
     <h2>プランク、アインシュタイン、ボーア──三つの飛躍</h2>
     <p class="sec-sub">The Birth of Quantum Theory, 1900–1913</p>
     <p>1900年10月、マックス・プランクは黒体放射のスペクトルを完全に再現する公式を見出した。だがその公式を理論的に基礎づけようとしたとき、彼は「絶望的な行為」と自ら呼んだ仮定を導入せざるを得なかった。エネルギーは連続的に変化するのではなく、ある最小単位 ε = hν（hは比例定数、νは振動数）の整数倍としてのみ存在するというものだ。</p>
@@ -420,7 +502,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 03 ===== -->
 <section id="duality">
   <div class="wrap">
-    <span class="sec-no">03 ── 波と粒子</span>
+    <span class="sec-no"><span class="sn">03</span><span class="sl">Wave & particle</span></span>
     <h2>二重スリット実験が突きつけた「存在の奇妙さ」</h2>
     <p class="sec-sub">Wave-Particle Duality</p>
     <p>リチャード・ファインマンは二重スリット実験について、「量子力学の唯一の謎がすべて含まれている」と述べた。1803年にトマス・ヤングが光で行ったこの実験は、光が波であることを証明する決定的な証拠と見なされた。二つのスリットを通った光はスクリーン上に縞模様──干渉パターン──を作る。波の山と山が重なれば強め合い、山と谷が重なれば打ち消し合うからだ。</p>
@@ -455,7 +537,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 04 ===== -->
 <section id="formalism">
   <div class="wrap">
-    <span class="sec-no">04 ── 数学的定式化</span>
+    <span class="sec-no"><span class="sn">04</span><span class="sl">Formalism</span></span>
     <h2>シュレーディンガー方程式と不確定性原理</h2>
     <p class="sec-sub">Mathematical Framework of Quantum Mechanics</p>
     <p>1925年から1926年にかけて、量子力学は一気に成熟した。まずハイゼンベルクが行列力学を、次にシュレーディンガーが波動力学を構築し、二つのアプローチが数学的に等価であることがすぐに示された。物理学者たちが日常的に使うのはシュレーディンガーの定式化だ。偏微分方程式を扱い慣れた当時の研究者にとって、行列よりも馴染みやすかったからだ。</p>
@@ -489,7 +571,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 05 ===== -->
 <section id="interpretation">
   <div class="wrap">
-    <span class="sec-no">05 ── 解釈問題</span>
+    <span class="sec-no"><span class="sn">05</span><span class="sl">Interpretation</span></span>
     <h2>シュレーディンガーの猫は生きているのか、死んでいるのか</h2>
     <p class="sec-sub">Interpretations of Quantum Mechanics</p>
     <p>量子力学の数学は完璧に機能する。だが「その数学が何を意味しているのか」を問うた瞬間、物理学者たちの意見は割れる。1935年にシュレーディンガーが提示した思考実験は、この混乱を最も鮮烈に表現したものだ。</p>
@@ -514,7 +596,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 06 ===== -->
 <section id="entanglement">
   <div class="wrap">
-    <span class="sec-no">06 ── 量子もつれ</span>
+    <span class="sec-no"><span class="sn">06</span><span class="sl">Entanglement</span></span>
     <h2>アインシュタインの「不気味な遠隔作用」が実在した</h2>
     <p class="sec-sub">Quantum Entanglement and Bell's Theorem</p>
     <p>1935年、アインシュタインはポドルスキー、ローゼンと共著で、のちに「EPR論文」と呼ばれる論文を発表した。二つの粒子が相互作用した後に離れていく場合、量子力学によれば一方の測定結果が他方の状態を瞬時に確定させる──たとえ二つの粒子が光年の彼方に離れていても。アインシュタインはこれを「不気味な遠隔作用（spooky action at a distance）」と呼び、量子力学は不完全であり、まだ発見されていない「隠れた変数」が存在するはずだと主張した。</p>
@@ -545,7 +627,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 07 ===== -->
 <section id="applications">
   <div class="wrap">
-    <span class="sec-no">07 ── 応用</span>
+    <span class="sec-no"><span class="sn">07</span><span class="sl">Applications</span></span>
     <h2>量子力学なしにスマートフォンは存在しない</h2>
     <p class="sec-sub">From Theory to Technology</p>
     <p>量子力学の応用は「量子コンピュータ」のような先端技術だけではない。現代社会のインフラは、20世紀に実現した「第一の量子革命」の成果の上に成り立っている。半導体、レーザー、LED、MRI、原子時計──これらのすべてが、量子力学の理解なしには設計できなかった技術だ。</p>
@@ -575,7 +657,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- ===== Section 08 ===== -->
 <section id="outlook">
   <div class="wrap">
-    <span class="sec-no">08 ── 展望</span>
+    <span class="sec-no"><span class="sn">08</span><span class="sl">Outlook</span></span>
     <h2>100年経っても未決の問い</h2>
     <p class="sec-sub">Open Questions in Quantum Mechanics</p>
     <p>1925年のハイゼンベルクの行列力学から数えて、量子力学は100年を迎えた。2025年のノーベル物理学賞の発表に際して、ウプサラ大学のオッレ・エリクソンが述べた一言はそのまま量子力学の到達点を要約している。「量子力学に依存しない先端技術は、今日、一つもない。」</p>

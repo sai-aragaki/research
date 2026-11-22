@@ -338,8 +338,90 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 @media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
-<body>
+<body data-em="mark">
 <div id="progress"></div>
 <nav class="gnav">
   <div class="gnav-inner">
@@ -413,8 +495,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-1">
   <div class="wrap">
-    <p class="kicker fade">出発点</p>
-    <h2 class="fade"><span class="num">01</span>「幸福感」では足りない、という反逆</h2>
+    <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">Origins</span></p>
+    <h2 class="fade">「幸福感」では足りない、という反逆</h2>
     <p class="sub fade">A REVOLT AGAINST HEDONIC MEASURES</p>
     <p class="fade">1980年代まで、ウェルビーイング研究は事実上「どれだけ幸福を感じ、人生に満足しているか」を測ることだった（前回のDiener SWBがその本流）。Ryff（1989）はここに<strong>理論的な不満</strong>を持った。快楽指標は、心理的に健康な人が示す<em>良い機能</em>——目的をもって人生に関与する、自分の才能を実現する、自己を深く理解する——をまるごと見落としている、と。</p>
     <p class="fade">そこで彼女は、当時バラバラだった「望ましい人間の在り方」の理論を<strong>横断的に読み、収束点を探す</strong>という方法をとった。出てきた共通項が、6つの次元だ。Ryan &amp; Deci（2001）はこのRyff（1989）を、卓越論的ウェルビーイング研究の<strong>礎</strong>として位置づけている。</p>
@@ -423,8 +505,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-2">
   <div class="wrap">
-    <p class="kicker fade">知的系譜</p>
-    <h2 class="fade"><span class="num">02</span>アリストテレスから現代心理学まで</h2>
+    <p class="sec-no kicker fade"><span class="sn">02</span><span class="sl">Lineage</span></p>
+    <h2 class="fade">アリストテレスから現代心理学まで</h2>
     <p class="sub fade">THE CONVERGENCE METHOD</p>
     <p class="fade">深い哲学的ルーツは、アリストテレスの『ニコマコス倫理学』にある。最高善は快や満足ではなく、<em>徳に即した魂の活動</em>——「汝自身を知れ」、そして「あなたが何者であるかになれ」。自分に宿る固有の才能（ダイモン）を見定め、現実にしていく営みだ。これが人間性・発達心理学の自己実現論へ自然に流れ込む。Ryffが束ねた主な源泉はこれら。</p>
     <div class="lineage fade">
@@ -441,8 +523,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-3">
   <div class="wrap">
-    <p class="kicker fade">中核</p>
-    <h2 class="fade"><span class="num">03</span>6つの次元</h2>
+    <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">Core</span></p>
+    <h2 class="fade">6つの次元</h2>
     <p class="sub fade">THE SIX DIMENSIONS · 日本語版（西田 2000）の訳語を併記</p>
     <div class="dims fade">
       <div class="dim"><div class="di">自</div><div class="dbody"><p class="dn">自己受容<small>Self-Acceptance</small></p><p>自分の長所も短所も含めて、自己に肯定的な態度をもてている感覚。過去の人生も受け入れている。</p></div></div>
@@ -457,8 +539,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-4">
   <div class="wrap">
-    <p class="kicker fade">位置づけ</p>
-    <h2 class="fade"><span class="num">04</span>快楽論（SWB）と並ぶ、もう一方の柱</h2>
+    <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">Position</span></p>
+    <h2 class="fade">快楽論（SWB）と並ぶ、もう一方の柱</h2>
     <p class="sub fade">HEDONIC vs EUDAIMONIC</p>
     <p class="fade">前回のDiener SWBと、このRyff PWBは、ウェルビーイング研究の<strong>2大伝統</strong>を代表する。両者は相関するが、概念としては別物だ。</p>
     <div class="split fade">
@@ -477,8 +559,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-5">
   <div class="wrap">
-    <p class="kicker fade">最大の強み</p>
-    <h2 class="fade"><span class="num">05</span>ウェルビーイングが「身体」に刻まれる</h2>
+    <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">Strength</span></p>
+    <h2 class="fade">ウェルビーイングが「身体」に刻まれる</h2>
     <p class="sub fade">THE BIOLOGICAL SIGNATURE · ここがRyffの真骨頂</p>
     <p class="fade">Ryffは全米中年調査<strong>MIDUS</strong>（および日本版<strong>MIDJA</strong>）を率い、卓越論的ウェルビーイングと生体指標の関連を大規模に追ってきた。とりわけ<strong>「人生の目的」</strong>は、前向き・縦断的な研究で頑健な予測力を示している。</p>
     <div class="stats fade">
@@ -496,8 +578,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-6">
   <div class="wrap">
-    <p class="kicker fade">最大の争点</p>
-    <h2 class="fade"><span class="num">06</span>その6次元、本当に分かれているのか</h2>
+    <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">Debate</span></p>
+    <h2 class="fade">その6次元、本当に分かれているのか</h2>
     <p class="sub fade">THE FACTOR-STRUCTURE WAR</p>
     <p class="fade">理論は美しいが、測定でつまずく。2006年、シュプリンガー＆ハウザーは論文タイトルそのままに<strong>「Ryffの6因子モデルにとって、まさに悪い知らせ」</strong>を突きつけた。複数の大規模・多様なサンプルで、6次元のうち<strong>とくに人格的成長・人生の目的・自己受容・環境制御力の4つが、極めて高く相関</strong>してしまう。つまり「6つの別々の次元」という理論的主張が、標準的な尺度ではデータ上の明確な区別を生まない。</p>
     <p class="fade">Ryff＆シンガー（2006）は同じ号で「これはむしろ6因子モデルにとって最良の知らせだ」と反論。シュプリンガーらはこれを<em>希望的観測</em>と切り捨てた。この応酬（『Social Science Research』誌上）以降、議論は<strong>今も続いている</strong>。サンプル・項目数・方法効果（肯定/否定の項目表現）・分析手法（CFAかESEMか）で結論が割れ、6次元を支持する研究（ファンディーレンドンクら）もあれば、2〜3因子に潰れるとする研究もある。</p>
@@ -510,8 +592,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-7">
   <div class="wrap">
-    <p class="kicker fade">もうひとつの争点</p>
-    <h2 class="fade"><span class="num">07</span>「卓越論」という区別そのものへの疑義</h2>
+    <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">Second debate</span></p>
+    <h2 class="fade">「卓越論」という区別そのものへの疑義</h2>
     <p class="sub fade">IS THE EUDAIMONIC LABEL EVEN VALID?</p>
     <p class="fade">より深い批判もある。カシュダン・ビスワス＝ディーナー・キング（2008）は、<strong>快楽論／卓越論という二分法そのものが理論的に一貫しておらず、両者の測定は実際には大きく重なる</strong>と論じた。実際、Ryffの6次元を統計的に分けると、4つが快楽論側、2つ（人格的成長・人生の目的）が卓越論側に割れる、というモデルも提案されている。つまり「Ryffのスケール＝純粋に卓越論的」とは言い切れない。</p>
     <p class="fade">加えて、6次元の選定自体が<strong>西洋の発達理論に偏っている</strong>のではないか、という文化的批判もある。徳目のリストは、誰がどの理論を束ねるかで変わりうる。理論駆動という強みは、裏返せば<em>恣意性</em>のリスクでもある。</p>
@@ -520,8 +602,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-8">
   <div class="wrap">
-    <p class="kicker fade">介入できるのか</p>
-    <h2 class="fade"><span class="num">08</span>育てられる——ただし条件つき</h2>
+    <p class="sec-no kicker fade"><span class="sn">08</span><span class="sl">Intervention</span></p>
+    <h2 class="fade">育てられる——ただし条件つき</h2>
     <p class="sub fade">CAN IT BE IMPROVED?</p>
     <p class="fade">朗報として、卓越論的ウェルビーイングは<strong>介入で改善しうる</strong>。Ryffの6次元を直接ターゲットにした統合的プログラムが最も効果的で、ファンディーレンドンク（2023）のメタ分析がこれを支持している。Ryffのモデルから派生した臨床手法が、ファヴァらの<strong>ウェルビーイング・セラピー（Well-Being Therapy）</strong>だ。</p>
     <p class="fade">重要なのは効き方の偏りで、<strong>もともと卓越論的ウェルビーイングが低い人ほど、介入の効果が大きい</strong>傾向がある。底上げ型の介入、という性格だ。</p>
@@ -530,8 +612,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-9">
   <div class="wrap">
-    <p class="kicker fade">意思決定パートナーとしての使い方</p>
-    <h2 class="fade"><span class="num">09</span>対話に、どこを差し込むか</h2>
+    <p class="sec-no kicker fade"><span class="sn">09</span><span class="sl">Use</span></p>
+    <h2 class="fade">対話に、どこを差し込むか</h2>
     <p class="sub fade">FOR THE DECISION PARTNER</p>
     <p class="fade">PWBは、経営者の「幸福度」を一次元で測るより、はるかに豊かな<strong>地図</strong>になる。6次元はそのまま、エグゼクティブの発達テーマに対応する。</p>
     <ul class="app fade">
@@ -549,8 +631,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-10">
   <div class="wrap">
-    <p class="kicker fade">総合評価</p>
-    <h2 class="fade"><span class="num">10</span>堅牢度</h2>
+    <p class="sec-no kicker fade"><span class="sn">10</span><span class="sl">Verdict</span></p>
+    <h2 class="fade">堅牢度</h2>
     <p class="sub fade">VERDICT · 堅牢度は筆者の編集判断であり測定値ではない</p>
     <div class="meter fade">
       <div class="meter-top"><span class="meter-label">理論の堅牢度（測定構造に留保）</span><span class="meter-val">高い</span></div>
@@ -562,7 +644,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-11">
   <div class="wrap">
-    <p class="kicker fade">日本語で読める学習ルート</p>
+    <p class="sec-no kicker fade"><span class="sl">Reading</span></p>
     <h2 class="fade">入口 → 中核 → 応用（Ryff PWB編）</h2>
     <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
 
@@ -644,7 +726,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-12" class="sources">
   <div class="wrap">
-    <p class="kicker fade">主な出典</p>
+    <p class="sec-no kicker fade"><span class="sl">Sources</span></p>
     <h2 class="fade">この読み物の根拠</h2>
     <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
     <ol class="fade">

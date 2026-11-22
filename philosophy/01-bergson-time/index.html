@@ -389,13 +389,24 @@ body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-
 }
 
 /* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
-   太字の線は、本文の段落の中だけ（BIDP の LP と同じ）。箱・表・図の中の太字には引かない */
-body:has(.nav-inner, .gnav-inner) p :is(strong, b):not(:is(.note, .insight, .caution, .summary, .stat, .chart-card, .pull, .mini, .dom, .closing, figure, table, .src-tag, .refs, .sources) *) {
-  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important; }
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
 body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
   font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
 body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
-body:has(.nav-inner, .gnav-inner) p em { font-style: var(--em-font, italic); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
 body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
 
 /* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
@@ -409,6 +420,9 @@ body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { b
 body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
 body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
 body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
 
 /* --- 表 --- */
 body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
@@ -426,7 +440,7 @@ body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav
 body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
 </style>
 </head>
-<body>
+<body data-em="mark">
 <div id="progress"></div>
 <nav class="gnav">
   <div class="gnav-inner">
@@ -474,7 +488,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-1">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">地図</span></p>
+  <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">Map</span></p>
   <h2 class="fade">時間について、哲学者は何を言い争ってきたのか</h2>
   <p class="sub fade">THE MAP · 三つの問いと四つの古典的立場</p>
   <p class="fade">アウグスティヌスは5世紀初めの『告白』第11巻で、「誰も私に尋ねなければ、時間が何かを私は知っている。尋ねる人に説明しようとすると、知らない」と書いた。時間の哲学はだいたいこの戸惑いから始まる。毎日使っているのに、言葉にしようとすると手からこぼれる。</p>
@@ -497,7 +511,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-2">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">02</span><span class="sl">人物</span></p>
+  <p class="sec-no kicker fade"><span class="sn">02</span><span class="sl">Person</span></p>
   <h2 class="fade">ブロードウェイを渋滞させた哲学者</h2>
   <p class="sub fade">LIFE · 1859–1941</p>
   <p class="fade">1913年2月、ベルクソンがニューヨークのコロンビア大学で講義をしたとき、聴きに来た人の群れでブロードウェイが渋滞したと伝えられている。パリのコレージュ・ド・フランスでの講義も、教室に入りきれない聴衆が廊下や窓の外にあふれた。1910年代、ベルクソンは哲学者というより社会現象だった。英語圏の研究者はこの時期を「ベルクソン・ブーム」と呼ぶ。</p>
@@ -522,7 +536,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-3">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">持続</span></p>
+  <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">Duration</span></p>
   <h2 class="fade">時計は、時間を測っていない</h2>
   <p class="sub fade">DURÉE · 『時間と自由』1889</p>
   <p class="fade">ベルクソンの議論は、振り子時計を見るところから始まる。「1分たった」と私たちは言う。その意味は、秒を刻む振り子が60回振れた、ということだ。</p>
@@ -556,7 +570,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-4">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">自由</span></p>
+  <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">Freedom</span></p>
   <h2 class="fade">自由は、「選択肢の分かれ道」には無い</h2>
   <p class="sub fade">FREEDOM · 決定論との対決と、ゼノンのパラドックス</p>
   <p class="fade">『時間と自由』という邦題が示すとおり、この本の目的は自由意志の問題を解くことにあった。持続の議論はそのための準備だ。</p>
@@ -575,7 +589,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-5">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">記憶</span></p>
+  <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">Memory</span></p>
   <h2 class="fade">過去は、脳の中にしまわれていない</h2>
   <p class="sub fade">MEMORY · 『物質と記憶』1896</p>
   <p class="fade">持続が「前の状態が今に染み込んでいる」ことだとすると、次に気になるのは、その過去がどこに残っているのか、だ。ふつうの答えは脳だろう。記憶は脳のどこかに痕跡として保存されている。ベルクソンは失語症の臨床研究を何年も読み込んだうえで、この答えを退けた。</p>
@@ -616,7 +630,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-6">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">生命</span></p>
+  <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">Life</span></p>
   <h2 class="fade">生命は、時間をかけて何かを発明している</h2>
   <p class="sub fade">CREATIVE EVOLUTION · 『創造的進化』1907 と、その後</p>
   <p class="fade">冒頭の砂糖水の話は、この本の第1章に出てくる。ベルクソンは続けてこう書く。私が待たなければならない時間は、物質界の歴史全体にそのまま当てはまる数学的な時間ではない。それは<em>考えられたもの</em>ではなく、<em>生きられたもの</em>だ。そして、水も砂糖も溶ける過程も、私の感覚と知性が宇宙全体から切り出した抽象であって、その全体は、意識のように持続しているのではないか、と。</p>
@@ -637,7 +651,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-7">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">対決</span></p>
+  <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">Debate</span></p>
   <h2 class="fade">「哲学者の時間は存在しない」── 1922年4月6日</h2>
   <p class="sub fade">EINSTEIN vs BERGSON · パリ、フランス哲学会</p>
   <p class="fade">1922年4月6日、パリのフランス哲学会に、来仏中のアインシュタインが招かれた。相対性理論をめぐる討論の場で、当初は発言の予定がなかったベルクソンが促されて立ち、短いコメントをした。相対性理論の物理としての正しさには異を唱えない。ただし、そこから「時間について」引き出される哲学的な結論には同意できない、と。</p>
@@ -664,7 +678,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-8">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">08</span><span class="sl">以後</span></p>
+  <p class="sec-no kicker fade"><span class="sn">08</span><span class="sl">Afterward</span></p>
   <h2 class="fade">ベルクソンのあと、時間論はどこへ向かったか</h2>
   <p class="sub fade">AFTER BERGSON · 現象学、分析哲学、物理学</p>
   <p class="fade">20世紀の時間論は、大きく三つの流れに分かれた。体験の側から時間を記述し直す現象学、「流れ」や「いま」が論理的に成り立つかを問う分析哲学、そして時間をめぐる物理学そのものの展開だ。ベルクソンはどの流れにも、批判される相手として、あるいは先駆者として顔を出す。</p>
@@ -697,7 +711,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-9">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">09</span><span class="sl">評価</span></p>
+  <p class="sec-no kicker fade"><span class="sn">09</span><span class="sl">Reception</span></p>
   <h2 class="fade">忘れられ、そして読み直された</h2>
   <p class="sub fade">DECLINE AND REVIVAL · ラッセルからドゥルーズ、そして日本へ</p>
   <p class="fade">ベルクソンの名声は、生前の熱狂ぶりと同じくらい急に冷えた。早い時期の批判者はバートランド・ラッセルで、1912年の論文で、知性より直観を上に置くなら、直観がいちばん冴えているのは人間より蜂や蟻のほうだということになる、と皮肉った。論理と科学を重視する分析哲学が英語圏の主流になると、ベルクソンは「詩的だが厳密でない」哲学の代表として読まれなくなっていく。第二次大戦後のフランスでも、関心はハイデガーとサルトルの実存主義へ移った。</p>
@@ -709,7 +723,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-10">
 <div class="wrap">
-  <p class="sec-no kicker fade"><span class="sn">10</span><span class="sl">読む</span></p>
+  <p class="sec-no kicker fade"><span class="sn">10</span><span class="sl">Reading</span></p>
   <h2 class="fade">いま、ベルクソンを読むとすれば</h2>
   <p class="sub fade">WHY NOW · 締めくくりと読書ガイド</p>
   <p class="fade">ここまでを一度まとめておく。ベルクソンの仕事は、ある一つの身ぶりの繰り返しでできている。時間を空間のように扱うと何が抜け落ちるかを指さし、抜け落ちたものの側から、自由・記憶・生命・社会を考え直す。『時間と自由』では意識について、『物質と記憶』では過去について、『創造的進化』では生命と宇宙について、『二源泉』では社会について、同じことをした。</p>
@@ -743,7 +757,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="sec-11" class="sources">
 <div class="wrap">
-  <p class="kicker fade">主な出典</p>
+  <p class="sec-no kicker fade"><span class="sl">Sources</span></p>
   <h2 class="fade">この読み物の根拠</h2>
   <p class="sub fade">SOURCES · 引用は筆者が日本語に要約・訳出したもの</p>
   <ol class="fade">

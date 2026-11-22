@@ -371,6 +371,88 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 @media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
 <body>
 <div id="progress"></div>
@@ -416,7 +498,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- INTRO -->
 <section id="intro">
   <div class="wrap">
-    <span class="sec-no">00 ── 出発点</span>
+    <span class="sec-no"><span class="sn">00</span><span class="sl">Origins</span></span>
     <h2>「病気の心理学」への異議申し立て</h2>
     <p class="sec-sub">なぜこの分野は生まれたのか</p>
     <p>20世紀の心理学は、うつ・不安・トラウマといった「うまくいかないこと」の解明に大きく傾いていた。それは戦後の臨床的要請として正当だった一方で、<strong>人が良い状態で花開くとはどういうことか</strong>については、ほとんど語る言葉を持っていなかった。</p>
@@ -431,7 +513,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- OVERVIEW -->
 <section id="overview">
   <div class="wrap">
-    <span class="sec-no">01 ── 全体像</span>
+    <span class="sec-no"><span class="sn">01</span><span class="sl">Overview</span></span>
     <h2>三つの層と、主要な理論</h2>
     <p class="sec-sub">何を研究してきたのか</p>
     <p>セリグマンとチクセントミハイは、この科学を三つの層で構想した。すなわち、<strong>(1) ポジティブな主観的経験</strong>（幸福感・充足・フロー・楽観・希望）、<strong>(2) ポジティブな個人特性</strong>（強み・徳・才能）、<strong>(3) ポジティブな制度</strong>（それらを支える家族・職場・コミュニティ）である。個人の頭の中だけでなく、それを育てる環境までを射程に入れていた点は、後の批判（後述）を先取りする視点でもあった。</p>
@@ -452,7 +534,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- VALIDITY -->
 <section id="validity">
   <div class="wrap">
-    <span class="sec-no">02 ── 妥当性</span>
+    <span class="sec-no"><span class="sn">02</span><span class="sl">Validity</span></span>
     <h2>科学として、どこまで信頼できるか</h2>
     <p class="sec-sub">効果量・撤回事件・再現性</p>
 
@@ -490,7 +572,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- FIELDS -->
 <section id="fields">
   <div class="wrap">
-    <span class="sec-no">03 ── 外からの視線</span>
+    <span class="sec-no"><span class="sn">03</span><span class="sl">Critiques</span></span>
     <h2>他分野は、どう評価しているか</h2>
     <p class="sec-sub">社会学・哲学・健康科学からの批判</p>
 
@@ -514,7 +596,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- LEDGER -->
 <section id="ledger">
   <div class="wrap">
-    <span class="sec-no">04 ── 天秤</span>
+    <span class="sec-no"><span class="sn">04</span><span class="sl">Balance</span></span>
     <h2>可能性と懸念を、並べて量る</h2>
     <p class="sec-sub">差し引きで何が残るか</p>
 
@@ -558,7 +640,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- PAPERS -->
 <section id="papers">
   <div class="wrap">
-    <span class="sec-no">05 ── 一次資料</span>
+    <span class="sec-no"><span class="sn">05</span><span class="sl">Sources</span></span>
     <h2>信頼性の高い論文を読む</h2>
     <p class="sec-sub">創設・メタ分析・批判・自己修正・最新を精選。各カードに要約・含意・リンクを付した</p>
 
@@ -649,7 +731,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <!-- CLOSING -->
 <section id="closing">
   <div class="wrap">
-    <span class="sec-no">06 ── 結論</span>
+    <span class="sec-no"><span class="sn">06</span><span class="sl">Conclusion</span></span>
     <h2>二つの真実を、同時に持つ</h2>
     <p class="sec-sub">差し引きの判断</p>
     <p>ポジティブ心理学について、相反する二つのことが<strong>どちらも本当</strong>だ。一つ──病理に偏った心理学の視座を、強み・意味・関係・ウェルビーイングへ広げた功績は本物で、教育や臨床や実務に確かな橋を架けた。もう一つ──初期の誇大な主張（魔法の比、やり抜く力、前向きさが病を治す）と方法論的な甘さが、自ら掲げた「厳密な科学」という看板を傷つけた。</p>

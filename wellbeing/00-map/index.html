@@ -326,8 +326,90 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 @media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
-<body>
+<body data-em="mark">
 <div id="progress"></div>
 <nav class="gnav">
   <div class="gnav-inner">
@@ -419,8 +501,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-1">
   <div class="wrap">
-    <p class="kicker fade">まず言葉</p>
-    <h2 class="fade"><span class="num">01</span>ウェルビーイングとは何か</h2>
+    <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">Words</span></p>
+    <h2 class="fade">ウェルビーイングとは何か</h2>
     <p class="sub fade">WHAT WE'RE EVEN TALKING ABOUT</p>
     <p class="fade">well-being とは文字どおり「良く在る／うまくいっている状態」。WHOが健康を<em>「単に病気がないことではなく、身体的・精神的・社会的に良好な状態」</em>と定義したように、ウェルビーイングは<strong>「不調がない」を超えて「良く機能している」</strong>を指す。問い自体は古い——アリストテレスのeudaimonia（最高善）が源流だ。だが<strong>科学としては若く、本格化したのは1980年代以降</strong>（ディーナー、リフ）。</p>
     <p class="fade">そしてこの土地は、ひとつの学問のものではない。<strong>心理学</strong>（幸福学・主観的ウェルビーイング）を中心に、<strong>哲学</strong>（そもそも良い人生とは／本シリーズ⑤）、<strong>経済学</strong>（何が幸福を動かし、どう測り政策にするか／⑥）、さらに<strong>医学・公衆衛生・脳神経科学・経営学</strong>までが交差する。地図が要るのは、そのためだ。</p>
@@ -429,8 +511,9 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-2">
   <div class="wrap">
-    <p class="kicker fade">2本の背骨</p>
-    <h2 class="fade"><span class="num">02</span>すべてを整理する2つの軸</h2>
+    <p class="sec-no kicker fade"><span class="sl">Two spines</span></p>
+    <span class="sec-no"><span class="sn">02</span></span>
+    <h2 class="fade">すべてを整理する2つの軸</h2>
     <p class="sub fade">THE TWO ORGANIZING DISTINCTIONS</p>
     <p class="fade">理論の数は多いが、配置を決める軸は2本しかない。これを持つだけで、どの理論がどこにいるか見えるようになる。</p>
     <div class="axes fade">
@@ -453,8 +536,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-3">
   <div class="wrap">
-    <p class="kicker fade">地図の本体</p>
-    <h2 class="fade"><span class="num">03</span>主要な理論たち</h2>
+    <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">Map</span></p>
+    <h2 class="fade">主要な理論たち</h2>
     <p class="sub fade">THE MAJOR MODELS · <span style="color:#c84e6c;font-weight:700;">快</span>快楽論／<span style="color:var(--teal-deep);font-weight:700;">卓</span>卓越論／<span style="color:#5a6b86;font-weight:700;">客</span>客観・発展／横断 ・ <span style="background:var(--teal-deep);color:#fff;padding:1px 6px;border-radius:10px;font-size:10px;">深掘り</span>＝本シリーズで深掘り</p>
     <div class="theories fade">
       <div class="tcard">
@@ -507,8 +590,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-4">
   <div class="wrap">
-    <p class="kicker fade">この土地の生まれ</p>
-    <h2 class="fade"><span class="num">04</span>ポジティブ心理学——功と、試練</h2>
+    <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">Origins</span></p>
+    <h2 class="fade">ポジティブ心理学——功と、試練</h2>
     <p class="sub fade">POSITIVE PSYCHOLOGY: CONTRIBUTION &amp; RECKONING</p>
     <p class="fade">現代のウェルビーイング研究の多くは、ひとつの号砲から広がった。1998年、<strong>マーティン・セリグマンがアメリカ心理学会(APA)会長の年次テーマにポジティブ心理学を選んだ</strong>。心理学は長く「うつ・不安・障害」という<em>疾病モデル</em>に偏ってきた——その重心を、<strong>「うまくいっている状態」</strong>へ移そうとした。人間性心理学（マズロー・ロジャーズ）を引き継ぎつつ、決定的に違ったのは<strong>実証主義へのこだわり</strong>だ。セリグマンの理論も『オーセンティック・ハピネス』(2002)の3つの人生から、『フラリッシュ』(2011)のPERMAへと展開した。功績は大きい——「良い側」に科学と介入を持ち込んだ。</p>
     <div class="caution fade">
@@ -524,8 +607,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-5">
   <div class="wrap">
-    <p class="kicker fade">だから絞った</p>
-    <h2 class="fade"><span class="num">05</span>“看板”でなく“構成概念”にアンカーを打つ</h2>
+    <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">Selection</span></p>
+    <h2 class="fade">“看板”でなく“構成概念”にアンカーを打つ</h2>
     <p class="sub fade">WHY WE FILTERED FOR RIGOR → ①へ</p>
     <p class="fade">広野には強度の差がある——岩盤もあれば、撤回された砂地もある。意思決定パートナーとして経営者の足場にするなら、<strong>ブランド（「ポジティブ心理学」「幸福学」）でなく、個々の構成概念の堅牢さで選ぶ</strong>べきだ。敵対的検証を生き延びたか。概念枠組みは鍛えられているか。領域を超えて再現されるか。</p>
     <p class="fade">その基準で絞ると、<strong>5つ</strong>が残った——SDT、リフPWB、ディーナーSWB、そして測定の前提を問う<strong>哲学</strong>と、お金と政策を問う<strong>経済学</strong>。PERMAやポジティビティ比を外したのは「無価値だから」ではなく、<em>荷重をかける梁</em>には、最も強いものを選びたいからだ。この絞り込みが、次の<strong>①「再現性で選ぶウェルビーイング（概観）」</strong>であり、そこから②〜⑥の深掘りへ続く。</p>
@@ -538,8 +621,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-6">
   <div class="wrap">
-    <p class="kicker fade">このシリーズの歩き方</p>
-    <h2 class="fade"><span class="num">06</span>⓪ から ⑥ までの地図</h2>
+    <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">Route</span></p>
+    <h2 class="fade">⓪ から ⑥ までの地図</h2>
     <p class="sub fade">HOW TO WALK THE SERIES</p>
     <div class="nav fade">
       <div class="navrow here"><span class="ni">⓪</span><div class="nb"><p class="nt">ウェルビーイングの全体地図（いまここ）</p><p class="nd">絞る前の全景。概念・2つの軸・主要理論・ポジティブ心理学の功と試練。</p></div></div>
@@ -555,8 +638,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-7">
   <div class="wrap">
-    <p class="kicker fade">正直な注意</p>
-    <h2 class="fade"><span class="num">07</span>この地図の限界</h2>
+    <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">Caveats</span></p>
+    <h2 class="fade">この地図の限界</h2>
     <p class="sub fade">LIMITS OF THE MAP</p>
     <div class="caution muted fade">
       <p class="c-label">境界はにじむ</p>
@@ -575,7 +658,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-8">
   <div class="wrap">
-    <p class="kicker fade">日本語で読める学習ルート</p>
+    <p class="sec-no kicker fade"><span class="sl">Reading</span></p>
     <h2 class="fade">入口 → 中核 → 応用（全体地図編）</h2>
     <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
 
@@ -657,7 +740,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-9" class="sources">
   <div class="wrap">
-    <p class="kicker fade">主な出典</p>
+    <p class="sec-no kicker fade"><span class="sl">Sources</span></p>
     <h2 class="fade">この読み物の根拠</h2>
     <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
     <ol class="fade">

@@ -338,8 +338,90 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 @media(max-width:768px){.hero::after{width:100%;margin-left:0;} .closing{padding:28px 24px!important;margin:56px 0!important;} h2{margin-top:56px!important;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
-<body>
+<body data-em="mark">
 <div id="progress"></div>
 <nav class="gnav">
   <div class="gnav-inner">
@@ -417,8 +499,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-1">
   <div class="wrap">
-    <p class="kicker fade">出発点</p>
-    <h2 class="fade"><span class="num">01</span>Ryffの正反対——本人に委ねる</h2>
+    <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">Origins</span></p>
+    <h2 class="fade">Ryffの正反対——本人に委ねる</h2>
     <p class="sub fade">LET PEOPLE JUDGE THEIR OWN LIVES</p>
     <p class="fade">Ryffは「目的・成長・自律…が良い人生だ」と<strong>理論から</strong>決めた。Diener（1984、通称“幸福学の父”、1946–2021）はそれを避けた。良い人生の中身を専門家が規定するのではなく、<strong>当人が自分の価値基準で「自分の人生は良いか」を評価する</strong>——その主観的な評価こそが測るべきものだ、と。だからこそ国の調査に乗せやすく、文化や価値観の違いを横断して使える。</p>
     <div class="split fade">
@@ -436,8 +518,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-2">
   <div class="wrap">
-    <p class="kicker fade">構造</p>
-    <h2 class="fade"><span class="num">02</span>三部構造と、独立した感情</h2>
+    <p class="sec-no kicker fade"><span class="sn">02</span><span class="sl">Structure</span></p>
+    <h2 class="fade">三部構造と、独立した感情</h2>
     <p class="sub fade">THE TRIPARTITE MODEL</p>
     <p class="fade">SWBは3つの相対的に独立した要素からなる。認知が1つ、感情が2つ。</p>
     <div class="tri fade">
@@ -451,8 +533,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-3">
   <div class="wrap">
-    <p class="kicker fade">自己修正①</p>
-    <h2 class="fade"><span class="num">03</span>順応——でも「ゼロに戻る」は言い過ぎだった</h2>
+    <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">Revision 1</span></p>
+    <h2 class="fade">順応——でも「ゼロに戻る」は言い過ぎだった</h2>
     <p class="sub fade">HEDONIC ADAPTATION, REVISED</p>
     <div class="epi fade">
       <div class="et"><span class="ec">通説</span><p class="eh">幸福の「セットポイント」説</p></div>
@@ -465,8 +547,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-4">
   <div class="wrap">
-    <p class="kicker fade">自己修正②</p>
-    <h2 class="fade"><span class="num">04</span>判断はその場で構成される——けれど</h2>
+    <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">Revision 2</span></p>
+    <h2 class="fade">判断はその場で構成される——けれど</h2>
     <p class="sub fade">THE CONSTRUCTION PROBLEM, AND ITS OWN LIMITS</p>
     <div class="epi fade">
       <div class="et"><span class="ec">批判</span><p class="eh">「人生満足はいい加減だ」</p></div>
@@ -482,8 +564,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-5">
   <div class="wrap">
-    <p class="kicker fade">自己修正③ ／ 意思決定に直結</p>
-    <h2 class="fade"><span class="num">05</span>未来の感情を、人はだいたい外す</h2>
+    <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">Revision 3</span></p>
+    <h2 class="fade">未来の感情を、人はだいたい外す</h2>
     <p class="sub fade">AFFECTIVE FORECASTING</p>
     <p class="fade">SWB研究が生んだ最も実務的な知見が、<strong>感情予測（affective forecasting）の誤り</strong>だ。人は、ある出来事が自分の感情に「どの向きに効くか」はだいたい当てる。だが<strong>「どれだけ強く・どれだけ長く」効くかを大きく外す</strong>。</p>
     <div class="stats fade">
@@ -501,8 +583,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-6">
   <div class="wrap">
-    <p class="kicker fade">それでも頑健</p>
-    <h2 class="fade"><span class="num">06</span>批判を踏まえても、測定基盤は強い</h2>
+    <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">Robust</span></p>
+    <h2 class="fade">批判を踏まえても、測定基盤は強い</h2>
     <p class="sub fade">WHY SWB STILL HOLDS</p>
     <p class="fade">構成効果や予測の誤りがあっても、SWBの測定そのものは<strong>分野で最も厚い基盤</strong>を持つ。長期的な安定性、約50%の遺伝率、性格との強い相関（外向性・神経症傾向）——<strong>単一の人口統計学的要因がたいてい相関.20未満</strong>なのに対し、性格は格段に強い。情報提供者（家族・友人）の評定や、表情・神経指標とも収束する。SWLSの妥当性は繰り返し確認されている。</p>
     <p class="fade">政策面では、Dienerは<strong>「ウェルビーイングの国民会計（national accounts of well-being）」</strong>を提唱した。GDPの先を測る発想だ。その実装が毎年の<strong>World Happiness Report</strong>で、キャントリルの梯子（0–10の人生評価）を主指標に、ポジ・ネガ感情も併記する。</p>
@@ -515,8 +597,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-7">
   <div class="wrap">
-    <p class="kicker fade">意思決定パートナーとしての使い方</p>
-    <h2 class="fade"><span class="num">07</span>対話に、どこを差し込むか</h2>
+    <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">Use</span></p>
+    <h2 class="fade">対話に、どこを差し込むか</h2>
     <p class="sub fade">FOR THE DECISION PARTNER</p>
     <ul class="app fade">
       <li><strong>感情予測の誤りを“親指の法則”にする</strong><span>「これが叶えば長く幸せになれる」という確信は、ほぼ確実に強さと持続を過大評価している。順応がそれを吸収する。経営者の大きな決断の前に、この一点を必ず映し返す。最大のレバレッジ。</span></li>
@@ -533,8 +615,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-8">
   <div class="wrap">
-    <p class="kicker fade">総合評価</p>
-    <h2 class="fade"><span class="num">08</span>堅牢度</h2>
+    <p class="sec-no kicker fade"><span class="sn">08</span><span class="sl">Verdict</span></p>
+    <h2 class="fade">堅牢度</h2>
     <p class="sub fade">VERDICT · 堅牢度は筆者の編集判断であり測定値ではない</p>
     <div class="meter fade">
       <div class="meter-top"><span class="meter-label">測定の堅牢度（構造は議論あり）</span><span class="meter-val">高い</span></div>
@@ -546,7 +628,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-9">
   <div class="wrap">
-    <p class="kicker fade">日本語で読める学習ルート</p>
+    <p class="sec-no kicker fade"><span class="sl">Reading</span></p>
     <h2 class="fade">入口 → 中核 → 応用（Diener SWB編）</h2>
     <p class="sub fade">A READING PATH · <span style="color:var(--teal-deep);font-weight:700;">JP</span> 日本語 ／ <span style="color:#5a6b86;font-weight:700;">EN</span> 英語（無料一次資料）</p>
 
@@ -633,7 +715,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-10" class="sources">
   <div class="wrap">
-    <p class="kicker fade">主な出典</p>
+    <p class="sec-no kicker fade"><span class="sl">Sources</span></p>
     <h2 class="fade">この読み物の根拠</h2>
     <p class="sub fade">SOURCES · 要旨は筆者が日本語に要約（原文の複製ではない）</p>
     <ol class="fade">

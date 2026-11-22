@@ -395,13 +395,24 @@ body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-
 }
 
 /* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
-   太字の線は、本文の段落の中だけ（BIDP の LP と同じ）。箱・表・図の中の太字には引かない */
-body:has(.nav-inner, .gnav-inner) p :is(strong, b):not(:is(.note, .insight, .caution, .summary, .stat, .chart-card, .pull, .mini, .dom, .closing, figure, table, .src-tag, .refs, .sources) *) {
-  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important; }
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
 body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
   font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
 body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
-body:has(.nav-inner, .gnav-inner) p em { font-style: var(--em-font, italic); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
 body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
 
 /* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
@@ -415,6 +426,9 @@ body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { b
 body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
 body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
 body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
 
 /* --- 表 --- */
 body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
@@ -473,7 +487,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s1">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">01</span><span class="sl">定義</span></span>
+    <span class="sec-no"><span class="sn">01</span><span class="sl">Definition</span></span>
     <h2>まず、何を測っているのかを確かめる</h2>
     <p class="sec-sub">What exactly is being measured?</p>
 
@@ -492,7 +506,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s2">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">02</span><span class="sl">種類</span></span>
+    <span class="sec-no"><span class="sn">02</span><span class="sl">Types</span></span>
     <h2>やり方は、驚くほど標準化されている</h2>
     <p class="sec-sub">Programs, techniques, and delivery formats</p>
 
@@ -543,7 +557,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s3">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">03</span><span class="sl">対照群</span></span>
+    <span class="sec-no"><span class="sn">03</span><span class="sl">Controls</span></span>
     <h2>効果量の話をする前に、一つだけ</h2>
     <p class="sec-sub">The single most important variable is the control group</p>
 
@@ -575,7 +589,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s4">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">04</span><span class="sl">効果</span></span>
+    <span class="sec-no"><span class="sn">04</span><span class="sl">Effects</span></span>
     <h2>何に効いて、何に効かないのか</h2>
     <p class="sec-sub">Outcome-by-outcome, with the controls held honest</p>
 
@@ -629,7 +643,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s5">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">05</span><span class="sl">分数</span></span>
+    <span class="sec-no"><span class="sn">05</span><span class="sl">Dose</span></span>
     <h2>では、何分やればいいのか</h2>
     <p class="sec-sub">The dose-response curve that does not exist</p>
 
@@ -706,7 +720,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s6">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">06</span><span class="sl">条件</span></span>
+    <span class="sec-no"><span class="sn">06</span><span class="sl">Conditions</span></span>
     <h2>効果を上げる条件は、直感を裏切る</h2>
     <p class="sec-sub">Moderators that matter, and one that doesn't</p>
 
@@ -740,7 +754,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s7">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">07</span><span class="sl">誤解</span></span>
+    <span class="sec-no"><span class="sn">07</span><span class="sl">Myths</span></span>
     <h2>実践がうまくいかない、よくある理由</h2>
     <p class="sec-sub">Common misconceptions and where the evidence is thin</p>
 
@@ -773,7 +787,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s8">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">08</span><span class="sl">副作用</span></span>
+    <span class="sec-no"><span class="sn">08</span><span class="sl">Side effects</span></span>
     <h2>語られてこなかった、副作用の話</h2>
     <p class="sec-sub">Adverse effects, and why we barely know about them</p>
 
@@ -814,7 +828,7 @@ body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--
 
 <section id="s9">
   <div class="wrap">
-    <span class="sec-no"><span class="sn">09</span><span class="sl">結論</span></span>
+    <span class="sec-no"><span class="sn">09</span><span class="sl">Conclusion</span></span>
     <h2>それでも、何が残るのか</h2>
     <p class="sec-sub">After the discount, what survives</p>
 

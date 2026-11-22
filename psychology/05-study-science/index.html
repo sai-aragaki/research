@@ -370,8 +370,90 @@ footer{margin-top:0!important;padding:48px 24px!important;}
   @media(max-width:560px){.ev-row{grid-template-columns:1fr 40px;gap:4px 10px;}.ev-lb{grid-column:1 / -1;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、段落・箇条書き・箱・表の中の太字すべて（2026-11-22 Takumi 決定 ③ b）。
+   見出し・ナビ・ラベル・図の中の太字（数字や凡例）には引かない。
+   幅は中身に合わせる（block になっている太字で、線が行の端まで伸びないように） */
+body:has(.nav-inner, .gnav-inner) :is(strong, b):not(:is(h1, h2, h3, h4, nav, .nav-inner, .gnav-inner, .brand, .gnav-brand, .sec-no, .src-tag, .chip, .stage-badge, .sm-label, th, figure, svg, .chart-card, .leg, .bar-row, .refs, .sources, .stat .n, .n, footer, .left-head, figcaption, .princ, .latch, .marks, .ctfig, .legend, .bk) *):not(.n) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* 箇条書きの項目の見出し（ブロックで組まれた太字）は、行の中に収めて改行させる（線が文字の下だけに引かれるように） */
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b) { display: inline !important; }
+body:has(.nav-inner, .gnav-inner) :is(.app, .sm-list) li > :is(strong, b)::after { content: "\A"; white-space: pre; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner):not([data-em="mark"]) p em { font-style: var(--em-font, italic); }
+/* C 系統（哲学・ウェルビーイング・心理学 04〜06）は、em を「印」（緑の下線）として使っている。
+   apply-semantic.py がその記事の body に data-em="mark" を付け、印と同じ形（太字と同じ線と太さ）で描く */
+body[data-em="mark"]:has(.nav-inner, .gnav-inner) em:not(:is(h1, h2, h3, h4, nav, figure, svg, .refs, .sources) *) {
+  font-style: normal !important; background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 参考文献・出典の上の線：角丸で曲がらないように（2026-11-22 Takumi 指摘 ①） --- */
+body:has(.nav-inner, .gnav-inner) :is(.refs, .sources) { border-radius: 0 !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
-<body>
+<body data-em="mark">
 <div id="progress"></div>
 <nav class="gnav">
   <div class="gnav-inner">
@@ -416,7 +498,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 <main>
 <section id="sec-1">
   <div class="wrap">
-    <p class="kicker fade">01 ── 手応え</p>
+    <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">Feeling</span></p>
     <h2 class="fade">「効いた気がする」は、なぜ外れるのか</h2>
     <p class="sub fade">The illusion of fluency</p>
     <p>2008年、カリフォルニア大学ロサンゼルス校のネイト・コーネルとロバート・ビョークは、学生に12人の画家の風景画を見せて、画風を覚えてもらった。半分の画家は同じ画家の絵をまとめて見せ（ブロック学習）、残りの半分は別々の画家の絵を混ぜて見せる（交互学習、インターリービング）。テストでは見たことのない絵を出して、誰の作品かを当ててもらった。</p>
@@ -437,7 +519,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-2">
   <div class="wrap">
-    <p class="kicker fade">02 ── 成績表</p>
+    <p class="sec-no kicker fade"><span class="sn">02</span><span class="sl">Scorecard</span></p>
     <h2 class="fade">10の勉強法を採点すると</h2>
     <p class="sub fade">Dunlosky et al. 2013 / Donoghue &amp; Hattie 2021</p>
     <p>安川さんの本の第1章・第2章の骨組みは、ケント州立大学のジョン・ダンロスキーらが2013年に発表した総説とほぼ重なる。彼らは学生がよく使う10の技法について、年齢、教材、テストの形式などが変わっても効くかを調べ、有用性を3段階で判定した。</p>
@@ -475,7 +557,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-3">
   <div class="wrap">
-    <p class="kicker fade">03 ── 目的</p>
+    <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">Purpose</span></p>
     <h2 class="fade">「覚える」「わかる」「使える」「できる」は、別の目的だ</h2>
     <p class="sub fade">Four goals of learning</p>
     <p>勉強という一つの言葉に、少なくとも4つの目的が入っている。資格試験の暗記と、新しい業務領域の理解と、明日の会議で使える知識と、ピアノの弾き歌い。同じ「勉強」でも、求められる頭と体の使い方はかなり違う。</p>
@@ -500,7 +582,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-4">
   <div class="wrap">
-    <p class="kicker fade">04 ── 覚える</p>
+    <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">Remember</span></p>
     <h2 class="fade">読むより、思い出す。まとめるより、空ける</h2>
     <p class="sub fade">Retrieval practice and spacing</p>
     <h3 class="fade">思い出す練習（アクティブリコール、テスト効果）</h3>
@@ -532,7 +614,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-5">
   <div class="wrap">
-    <p class="kicker fade">05 ── わかる</p>
+    <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">Understand</span></p>
     <h2 class="fade">説明できるまで、自分に説明する</h2>
     <p class="sub fade">Self-explanation, worked examples, productive failure</p>
     <p>「わかる」とは、ばらばらの事実のあいだに「なぜ」の線が引けている状態だ。だから、理解のための技法は、どれも線を引かせる仕掛けになっている。</p>
@@ -552,7 +634,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-6">
   <div class="wrap">
-    <p class="kicker fade">06 ── 使える</p>
+    <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">Apply</span></p>
     <h2 class="fade">本番に似た問いで、思い出しておく</h2>
     <p class="sub fade">Transfer-appropriate practice</p>
     <p>覚えたのに試験で解けない、わかったはずなのに会議で使えない。これは03で見た転移の問題だ。</p>
@@ -570,7 +652,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-7">
   <div class="wrap">
-    <p class="kicker fade">07 ── できる</p>
+    <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">Perform</span></p>
     <h2 class="fade">「できる」は、練習量より練習の中身</h2>
     <p class="sub fade">Skill, practice and feedback</p>
     <p>楽器を弾く、人前で話す、絵を描く。こうした技能は、知識とは別の仕組みで身につく。安川さんの本はここをほとんど扱っていないので、別の研究を見ていく。</p>
@@ -602,7 +684,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-8">
   <div class="wrap">
-    <p class="kicker fade">08 ── 体と心</p>
+    <p class="sec-no kicker fade"><span class="sn">08</span><span class="sl">Body & mind</span></p>
     <h2 class="fade">技法の前に、睡眠を削らない</h2>
     <p class="sub fade">Sleep, exercise, metacognition, and myths</p>
     <h3 class="fade">徹夜は、学ぶ前の方が害が大きい</h3>
@@ -623,7 +705,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-9">
   <div class="wrap">
-    <p class="kicker fade">09 ── 組み方</p>
+    <p class="sec-no kicker fade"><span class="sn">09</span><span class="sl">Planning</span></p>
     <h2 class="fade">明日からの組み立て方</h2>
     <p class="sub fade">Putting it together</p>
     <p>ここまでの話を、実際の勉強の流れに落とすとこうなる。</p>
@@ -644,7 +726,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-10">
   <div class="wrap">
-    <p class="kicker fade">10 ── 保育士試験</p>
+    <p class="sec-no kicker fade"><span class="sn">10</span><span class="sl">Exam</span></p>
     <h2 class="fade">ケーススタディ：ゼロから3か月で保育士試験を受けるなら</h2>
     <p class="sub fade">A study plan for the 2027 nursery teacher exam</p>
     <p>ここからは筆者自身の計画になる。2027年4月の保育士試験（前期）を受ける予定で、勉強は2027年1月からゼロで始める。平日に取れる時間は1日1.5時間ほどを想定している。</p>
@@ -763,7 +845,7 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-11" class="sources">
   <div class="wrap">
-    <p class="kicker fade">Limits &amp; Sources</p>
+    <p class="sec-no kicker fade"><span class="sl">Limits &amp; Sources</span></p>
     <h2 class="fade">この記事の限界と出典</h2>
     <div class="caution muted fade">
       <p class="c-label">この記事の限界</p>
