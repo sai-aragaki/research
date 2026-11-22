@@ -357,6 +357,74 @@ footer{margin-top:0!important;padding:48px 24px!important;}
   @media(max-width:560px){.fig{padding:14px 10px 12px;}}
 </style>
 <script>if(window.self!==window.top){document.documentElement.classList.add("in-frame");}</script>
+<style id="semantic">
+/* =========================================================
+   研究記事（research-sai）を意味の名前で描く層（2026-11-22 から、依頼 022）
+   tools/apply-semantic.py が各記事の </head> の直前に <style id="semantic"> として流し込む。記事の中で手で書き換えないこと。
+   ・記事のいちばん後ろに置き、v2 の上書き（!important）より強いセレクタで勝つ
+   ・値は意味の名前（themes.css にある）。テーマのサイトが読めないときのために、var() の 2 つ目に今までのトークンを書く
+   ・対象は研究記事だけ（ナビに .nav-inner / .gnav-inner があるページ）
+   ========================================================= */
+
+/* --- 題名・小ラベル・リード --- */
+body:has(.nav-inner, .gnav-inner) .eyebrow { color: var(--eyebrow-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .hero h1 { font-weight: var(--title-w, 700) !important; color: var(--title-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .lede { color: var(--lede-fg, var(--text)) !important; }
+
+/* --- 章の見出し：番号とラベル → 章見出し → 副題（情報設計の形）。番号は apply-semantic.py が .sec-no .sn に分ける --- */
+body:has(.nav-inner, .gnav-inner) .sec-no { display: flex !important; align-items: center; gap: 12px; margin: 0 0 12px !important;
+  font-family: var(--en) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .14em !important;
+  text-transform: uppercase !important; color: var(--seclabel-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sn { background: var(--secno-bg, transparent); color: var(--secno-fg, var(--muted));
+  border-radius: var(--secno-r, 0); padding: 3px var(--secno-pad, 0); font-weight: 600; letter-spacing: .08em; }
+body:has(.nav-inner, .gnav-inner) .sec-no .sl { color: var(--seclabel-fg, var(--muted)); }
+body:has(.nav-inner, .gnav-inner) .sec-no + h2 { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) section > .sec-no:first-child { margin-top: 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-weight: var(--h2-w, 700) !important; color: var(--h2-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(.sec-sub, section > .sub) { color: var(--secsub-fg, var(--muted)) !important; }
+body:has(.nav-inner, .gnav-inner) :is(section, main) h3 { font-weight: var(--h3-w, 700) !important; color: var(--h3-fg, var(--ink)) !important; font-size: var(--h3-size, 18px) !important; }
+@media (max-width: 760px) {
+  body:has(.nav-inner, .gnav-inner) .hero h1 { font-size: var(--title-size, 28px) !important; }
+  body:has(.nav-inner, .gnav-inner) :is(section, main) h2 { font-size: var(--h2-size, 22px) !important; }
+}
+
+/* --- 本文の強調：太字に線、印は太字と同じ形、リンク・斜体・小さい注 ---
+   太字の線は、本文の段落の中だけ（BIDP の LP と同じ）。箱・表・図の中の太字には引かない */
+body:has(.nav-inner, .gnav-inner) p :is(strong, b):not(:is(.note, .insight, .caution, .summary, .stat, .chart-card, .pull, .mini, .dom, .closing, figure, table, .src-tag, .refs, .sources) *) {
+  background: var(--strong-line, none) !important; color: var(--strong-fg, var(--ink)) !important; font-weight: var(--strong-w, 700) !important; }
+body:has(.nav-inner, .gnav-inner) :is(mark, mark.c) { background: var(--mark-line, none) !important; color: var(--strong-fg, var(--ink)) !important;
+  font-weight: var(--strong-w, 700) !important; padding: 0 !important; }
+body:has(.nav-inner, .gnav-inner) p a:not([class]) { color: var(--link-fg, var(--ink)) !important; text-decoration: none !important; border-bottom: var(--link-line, 1px solid currentColor); }
+body:has(.nav-inner, .gnav-inner) p em { font-style: var(--em-font, italic); }
+body:has(.nav-inner, .gnav-inner) p small { color: var(--small-fg, var(--muted)); }
+
+/* --- 囲み：注記・要点の箱は左の線、引用、カード --- */
+body:has(.nav-inner, .gnav-inner) :is(.note, .insight, .caution, .summary) { background: var(--note-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-left: var(--note-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) .pull { background: var(--quote-bg, var(--white)) !important; border-left: var(--quote-line, 2px solid var(--ink)) !important;
+  border-radius: 0 var(--card-r, 0) var(--card-r, 0) 0 !important; }
+body:has(.nav-inner, .gnav-inner) :is(.chart-card, .stat, .mini, .dom, .fig) { background: var(--card-bg, var(--white)) !important;
+  border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; border-radius: var(--card-r, var(--r-card)) !important; }
+body:has(.nav-inner, .gnav-inner) .stat .n { color: var(--stat-fg, var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) .app li::before { background: var(--badge-bg, var(--teal-wash)) !important; color: var(--badge-fg, var(--teal-deep)) !important; border-radius: var(--badge-r, 50%) !important; }
+body:has(.nav-inner, .gnav-inner) .lang { background: var(--langtag-bg, var(--lang-en-bg)) !important; color: var(--langtag-fg, var(--lang-en-fg)) !important; }
+
+/* --- 表 --- */
+body:has(.nav-inner, .gnav-inner) table th { border-bottom: var(--table-head-line, 1px solid var(--ink)) !important; }
+body:has(.nav-inner, .gnav-inner) table td { border-bottom: var(--divider-line, 1px solid var(--line)) !important; }
+body:has(.nav-inner, .gnav-inner) table tbody tr:nth-child(even) td { background: var(--table-zebra-bg, transparent) !important; }
+
+/* --- 章ナビ：選んだ章の下線はまっすぐ（角丸 0。2026-11-22 ④ a） --- */
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a { border-radius: 0 !important; border-bottom-width: var(--chapnav-on-w, 1px) !important; border-bottom-style: solid !important; }
+body:has(.nav-inner, .gnav-inner) :is(.nav-links, .gnav-links) a:is(.on, [style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+
+/* --- 面：節の帯・縞・フッター --- */
+body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) > main > section { background: var(--band-bg, var(--sec-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-bg, var(--sec-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
+body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
+body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+</style>
 </head>
 <body>
 <div id="progress"></div>
@@ -406,8 +474,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-1">
 <div class="wrap">
-  <p class="kicker fade">01 ── 地図</p>
-  <h2 class="fade"><span class="num">01</span>時間について、哲学者は何を言い争ってきたのか</h2>
+  <p class="sec-no kicker fade"><span class="sn">01</span><span class="sl">地図</span></p>
+  <h2 class="fade">時間について、哲学者は何を言い争ってきたのか</h2>
   <p class="sub fade">THE MAP · 三つの問いと四つの古典的立場</p>
   <p class="fade">アウグスティヌスは5世紀初めの『告白』第11巻で、「誰も私に尋ねなければ、時間が何かを私は知っている。尋ねる人に説明しようとすると、知らない」と書いた。時間の哲学はだいたいこの戸惑いから始まる。毎日使っているのに、言葉にしようとすると手からこぼれる。</p>
   <p class="fade">論点を整理すると、問いはおおむね三つに分かれる。</p>
@@ -429,8 +497,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-2">
 <div class="wrap">
-  <p class="kicker fade">02 ── 人物</p>
-  <h2 class="fade"><span class="num">02</span>ブロードウェイを渋滞させた哲学者</h2>
+  <p class="sec-no kicker fade"><span class="sn">02</span><span class="sl">人物</span></p>
+  <h2 class="fade">ブロードウェイを渋滞させた哲学者</h2>
   <p class="sub fade">LIFE · 1859–1941</p>
   <p class="fade">1913年2月、ベルクソンがニューヨークのコロンビア大学で講義をしたとき、聴きに来た人の群れでブロードウェイが渋滞したと伝えられている。パリのコレージュ・ド・フランスでの講義も、教室に入りきれない聴衆が廊下や窓の外にあふれた。1910年代、ベルクソンは哲学者というより社会現象だった。英語圏の研究者はこの時期を「ベルクソン・ブーム」と呼ぶ。</p>
   <p class="fade">生まれは1859年のパリ。ダーウィン『種の起源』と同じ年で、父はポーランド系ユダヤ人の音楽家、母はイギリス出身。1878年に高等師範学校（エコール・ノルマル）に入り、同期には後の社会党指導者ジャン・ジョレスがいた。数学の才能もあり、高校時代に数学の賞をとって、数学者になる道を勧められたという話が残っている。</p>
@@ -454,8 +522,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-3">
 <div class="wrap">
-  <p class="kicker fade">03 ── 持続</p>
-  <h2 class="fade"><span class="num">03</span>時計は、時間を測っていない</h2>
+  <p class="sec-no kicker fade"><span class="sn">03</span><span class="sl">持続</span></p>
+  <h2 class="fade">時計は、時間を測っていない</h2>
   <p class="sub fade">DURÉE · 『時間と自由』1889</p>
   <p class="fade">ベルクソンの議論は、振り子時計を見るところから始まる。「1分たった」と私たちは言う。その意味は、秒を刻む振り子が60回振れた、ということだ。</p>
   <p class="fade">ここで彼は細かく問い詰める。60回の振れを一度に思い浮かべると、それは一本の線の上に並んだ60個の点になる。点は同時に並んでいるので、そこに「次々と」という感じはもう無い。逆に、振り子をいまこの瞬間の一回だけ見るなら、前の振れはどこにも残っていない。空間は過去の振れの痕跡をとどめないからだ。すると私たちは永遠に現在に閉じ込められて、時間の経過そのものを考えられなくなる。</p>
@@ -488,8 +556,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-4">
 <div class="wrap">
-  <p class="kicker fade">04 ── 自由</p>
-  <h2 class="fade"><span class="num">04</span>自由は、「選択肢の分かれ道」には無い</h2>
+  <p class="sec-no kicker fade"><span class="sn">04</span><span class="sl">自由</span></p>
+  <h2 class="fade">自由は、「選択肢の分かれ道」には無い</h2>
   <p class="sub fade">FREEDOM · 決定論との対決と、ゼノンのパラドックス</p>
   <p class="fade">『時間と自由』という邦題が示すとおり、この本の目的は自由意志の問題を解くことにあった。持続の議論はそのための準備だ。</p>
   <p class="fade">決定論者はこう言う。人の行為は、過去の原因からすべて決まっている。自由意志の擁護者はこう返す。分かれ道に立ったとき、人はどちらにも進めた。ベルクソンは、この両者が同じ絵を共有していると指摘した。どちらも、意思決定を<em>分かれ道の図</em>として描いている。道の分岐点があり、選ばれた道と選ばれなかった道が並んでいる。決定論者は「最初から片方に決まっていた」と言い、擁護者は「どちらでもよかった」と言う。</p>
@@ -507,8 +575,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-5">
 <div class="wrap">
-  <p class="kicker fade">05 ── 記憶</p>
-  <h2 class="fade"><span class="num">05</span>過去は、脳の中にしまわれていない</h2>
+  <p class="sec-no kicker fade"><span class="sn">05</span><span class="sl">記憶</span></p>
+  <h2 class="fade">過去は、脳の中にしまわれていない</h2>
   <p class="sub fade">MEMORY · 『物質と記憶』1896</p>
   <p class="fade">持続が「前の状態が今に染み込んでいる」ことだとすると、次に気になるのは、その過去がどこに残っているのか、だ。ふつうの答えは脳だろう。記憶は脳のどこかに痕跡として保存されている。ベルクソンは失語症の臨床研究を何年も読み込んだうえで、この答えを退けた。</p>
   <h3 class="fade">二種類の記憶</h3>
@@ -548,8 +616,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-6">
 <div class="wrap">
-  <p class="kicker fade">06 ── 生命</p>
-  <h2 class="fade"><span class="num">06</span>生命は、時間をかけて何かを発明している</h2>
+  <p class="sec-no kicker fade"><span class="sn">06</span><span class="sl">生命</span></p>
+  <h2 class="fade">生命は、時間をかけて何かを発明している</h2>
   <p class="sub fade">CREATIVE EVOLUTION · 『創造的進化』1907 と、その後</p>
   <p class="fade">冒頭の砂糖水の話は、この本の第1章に出てくる。ベルクソンは続けてこう書く。私が待たなければならない時間は、物質界の歴史全体にそのまま当てはまる数学的な時間ではない。それは<em>考えられたもの</em>ではなく、<em>生きられたもの</em>だ。そして、水も砂糖も溶ける過程も、私の感覚と知性が宇宙全体から切り出した抽象であって、その全体は、意識のように持続しているのではないか、と。</p>
   <p class="fade">ここで持続は、個人の意識の性質から、世界そのものの性質へと広げられる。宇宙もまた、あらかじめ全部が決まっていて順に再生されていくフィルムではなく、時間をかけて新しいものを作り出している。その最もはっきりした現れが生命だ、というのがこの本の主張になる。</p>
@@ -569,8 +637,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-7">
 <div class="wrap">
-  <p class="kicker fade">07 ── 対決</p>
-  <h2 class="fade"><span class="num">07</span>「哲学者の時間は存在しない」── 1922年4月6日</h2>
+  <p class="sec-no kicker fade"><span class="sn">07</span><span class="sl">対決</span></p>
+  <h2 class="fade">「哲学者の時間は存在しない」── 1922年4月6日</h2>
   <p class="sub fade">EINSTEIN vs BERGSON · パリ、フランス哲学会</p>
   <p class="fade">1922年4月6日、パリのフランス哲学会に、来仏中のアインシュタインが招かれた。相対性理論をめぐる討論の場で、当初は発言の予定がなかったベルクソンが促されて立ち、短いコメントをした。相対性理論の物理としての正しさには異を唱えない。ただし、そこから「時間について」引き出される哲学的な結論には同意できない、と。</p>
   <p class="fade">アインシュタインの返答は1分足らずだったという。歴史家ジメナ・カナレスの著書『物理学者と哲学者』（2015）が繰り返し引いているのは、その中の一文だ。「哲学者の時間というものは存在しない。あるのは、物理学者の時間とは異なる心理的な時間だけだ」。</p>
@@ -596,8 +664,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-8">
 <div class="wrap">
-  <p class="kicker fade">08 ── 以後</p>
-  <h2 class="fade"><span class="num">08</span>ベルクソンのあと、時間論はどこへ向かったか</h2>
+  <p class="sec-no kicker fade"><span class="sn">08</span><span class="sl">以後</span></p>
+  <h2 class="fade">ベルクソンのあと、時間論はどこへ向かったか</h2>
   <p class="sub fade">AFTER BERGSON · 現象学、分析哲学、物理学</p>
   <p class="fade">20世紀の時間論は、大きく三つの流れに分かれた。体験の側から時間を記述し直す現象学、「流れ」や「いま」が論理的に成り立つかを問う分析哲学、そして時間をめぐる物理学そのものの展開だ。ベルクソンはどの流れにも、批判される相手として、あるいは先駆者として顔を出す。</p>
   <h3 class="fade">現象学：フッサールとハイデガー</h3>
@@ -629,8 +697,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-9">
 <div class="wrap">
-  <p class="kicker fade">09 ── 評価</p>
-  <h2 class="fade"><span class="num">09</span>忘れられ、そして読み直された</h2>
+  <p class="sec-no kicker fade"><span class="sn">09</span><span class="sl">評価</span></p>
+  <h2 class="fade">忘れられ、そして読み直された</h2>
   <p class="sub fade">DECLINE AND REVIVAL · ラッセルからドゥルーズ、そして日本へ</p>
   <p class="fade">ベルクソンの名声は、生前の熱狂ぶりと同じくらい急に冷えた。早い時期の批判者はバートランド・ラッセルで、1912年の論文で、知性より直観を上に置くなら、直観がいちばん冴えているのは人間より蜂や蟻のほうだということになる、と皮肉った。論理と科学を重視する分析哲学が英語圏の主流になると、ベルクソンは「詩的だが厳密でない」哲学の代表として読まれなくなっていく。第二次大戦後のフランスでも、関心はハイデガーとサルトルの実存主義へ移った。</p>
   <p class="fade">流れを変えたのは、ジル・ドゥルーズの『ベルクソニズム』（1966）だった。ドゥルーズはベルクソンを、神秘的な生命哲学者ではなく、二種類の多様性を区別し、「潜在的なもの（virtuel）」という概念を作った厳密な思考の人として読み直した。さらに『シネマ』2巻（1983・85）では、『物質と記憶』の第1章を土台に映画の理論を組み立てている。映画を知性の悪い癖のたとえに使ったベルクソンが、映画論の出発点になったのは皮肉な巡り合わせだ。</p>
@@ -641,8 +709,8 @@ footer{margin-top:0!important;padding:48px 24px!important;}
 
 <section id="sec-10">
 <div class="wrap">
-  <p class="kicker fade">10 ── 読む</p>
-  <h2 class="fade"><span class="num">10</span>いま、ベルクソンを読むとすれば</h2>
+  <p class="sec-no kicker fade"><span class="sn">10</span><span class="sl">読む</span></p>
+  <h2 class="fade">いま、ベルクソンを読むとすれば</h2>
   <p class="sub fade">WHY NOW · 締めくくりと読書ガイド</p>
   <p class="fade">ここまでを一度まとめておく。ベルクソンの仕事は、ある一つの身ぶりの繰り返しでできている。時間を空間のように扱うと何が抜け落ちるかを指さし、抜け落ちたものの側から、自由・記憶・生命・社会を考え直す。『時間と自由』では意識について、『物質と記憶』では過去について、『創造的進化』では生命と宇宙について、『二源泉』では社会について、同じことをした。</p>
   <p class="fade">この身ぶりは、哲学の教科書の外でもそのまま使える。予定表やタスク管理の画面は、時間を等しいマス目に区切って並べる。マス目は仕事を回すのに欠かせない。ただ、マス目を埋めた日と、何かが自分の中で熟した日は、必ずしも一致しない。ベルクソンはその食い違いを錯覚として片付けず、むしろそちらに時間の本当の姿があると言った。コーチングの場で「どの選択肢を選ぶべきか」という問いがなかなか進まないとき、選択肢の地図を描くより、迷っている本人がいまどう変わりつつあるかに目を向けるほうが動き出すことがある。これも『時間と自由』の分かれ道の議論の、ほぼ直接の応用だ。</p>
