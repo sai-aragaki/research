@@ -438,6 +438,15 @@ body:has(.nav-inner, .gnav-inner) > section, body:has(.nav-inner, .gnav-inner) >
 body:has(.nav-inner, .gnav-inner) > section:nth-of-type(even), body:has(.nav-inner, .gnav-inner) > main > section:nth-of-type(even) { background: var(--band-alt-bg, var(--sec-alt-bg)); box-shadow: 0 0 0 var(--bleed) var(--band-alt-bg, var(--sec-alt-bg)); }
 body:has(.nav-inner, .gnav-inner) > section:first-of-type::before, body:has(.nav-inner, .gnav-inner) > main > section:first-of-type::before { display: var(--headstripe-show, block); }
 body:has(.nav-inner, .gnav-inner) footer { background: var(--pagefoot-bg, var(--line)) !important; color: var(--pagefoot-fg, var(--muted)) !important; }
+
+/* --- テーマの切り替えボタン：スマホで章ナビが全幅に折り返すのに、ボタンを右上に固定する指定を持たない記事は、
+   ボタンだけが 3 段目に落ちて本文に重なる（コーチング 04。2026-11-22 ③ a）。
+   apply-semantic.py がそういう記事の body に data-switch-fix を付け、情報設計の記事と同じく右上に固定する --- */
+@media (max-width: 680px) {
+  body[data-switch-fix] .nav-inner { position: relative; }
+  body[data-switch-fix] .nav-inner > [data-theme-switch] { position: absolute; top: 16px; right: 18px; margin: 0; }
+  body[data-switch-fix] .nav-inner > .brand { padding-right: 44px; }
+}
 </style>
 </head>
 <body data-em="mark">
