@@ -715,6 +715,25 @@ html[data-theme] body:has(.nav-inner, .gnav-inner) {
   --sand-ink: var(--note-alt-fg);
   --sand-ink-soft: var(--note-alt-fg);
 }
+
+/* --- v2 の上書きが色を固定していた部品を、意味の名前で描く（2026-11-22 Takumi 依頼） ---
+   v2 の上書き（<style id="v2-override">、B・C 系統の 21 本）は、本文・ヘッダーの題名・章ナビ・チップ・箱の題・出典の線などを
+   --ink などで固定していた。同じ色を初めの値にした意味の名前に置き換える（見た目は変わらない）。
+   範囲は、つなぎ替えと同じく Mint・Bold Yellow だけ（html[data-theme]）で、v2 の上書きを持つ記事だけ（html:has(style[id="v2-override"])。#v2-override と書くと ID の強さで記事の個別の色まで上書きしてしまうので、属性で書く） */
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) { color: var(--body-fg, var(--ink-soft)); }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.gnav-brand, .brand, .gnav-brand b, .brand b) { color: var(--header-fg, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.gnav-links, .nav-links) a { color: var(--chapnav-fg, var(--ink-soft)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.gnav-links, .nav-links) a:is(:hover, .on, [style*="teal-deep"]) { color: var(--chapnav-on-fg, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.gnav-links, .nav-links) a:hover:not(.on):not([style*="teal-deep"]) { border-bottom-color: var(--chapnav-on-c, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.stage-badge, .div-tag, .chip, .tagn, .mini .tagn, .need .nn):not(.active) { border-color: var(--chip-line-c, var(--ink)) !important; color: var(--chip-fg, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.chip.active, .chip.flag-chip.active) { background: var(--chip-on-bg, var(--ink)) !important; color: var(--chip-on-fg, var(--white)) !important; border-color: var(--chip-on-bg, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.note .h, .note .n-title, .caution .c-label, .insight h4, .src-tag b) { color: var(--part-head-fg, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.sources, .refs) { border-top-color: var(--part-line-c, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) .eyebrow::before { background: var(--part-line-c, var(--ink)) !important; }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) th { color: var(--small-fg, var(--muted)) !important; }
+/* v2 の上書きの a{color:var(--ink)} と同じ弱さ（:where で 0,0,1）にする。記事が個別に色を付けたリンク（参考文献など）はそちらが勝つ */
+:where(html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner)) a { color: var(--link-fg, var(--ink)); }
+html[data-theme]:has(style[id="v2-override"]) body:has(.nav-inner, .gnav-inner) :is(.need) { background: var(--card-bg, var(--white)) !important; border: var(--card-line-w, var(--bw)) solid var(--card-line-c, var(--card-line)) !important; }
 </style>
 </head>
 <body>
